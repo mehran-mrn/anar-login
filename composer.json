@@ -3,6 +3,17 @@
 	"description": "Passwordless WordPress login with Iranian SMS providers, email OTP and Google OAuth.",
 	"type": "wordpress-plugin",
 	"license": "GPL-2.0-or-later",
+	"authors": [
+		{
+			"name": "Mehran Marandi",
+			"homepage": "https://mehranmarandi.ir",
+			"role": "Designer and Developer"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/mehran-mrn/anar-login/issues",
+		"source": "https://github.com/mehran-mrn/anar-login"
+	},
 	"require": {
 		"php": ">=7.4"
 	},

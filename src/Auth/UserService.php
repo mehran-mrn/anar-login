@@ -90,7 +90,7 @@ final class UserService {
 
 		if ( ! $user ) {
 			if ( ! $this->settings->get( 'allow_registration', 1 ) ) {
-				return new WP_Error( 'anar_registration_disabled', __( 'برای این مشخصات حسابی پیدا نشد و ثبت‌نام غیرفعال است.', 'anar-login' ), array( 'status' => 403 ) );
+				return new WP_Error( 'anar_registration_disabled', __( 'No account was found for these details and registration is disabled.', 'anar-login' ), array( 'status' => 403 ) );
 			}
 
 			$user = $this->create_from_identity( $identity );
@@ -114,7 +114,7 @@ final class UserService {
 		$email = sanitize_email( $profile['email'] ?? '' );
 
 		if ( empty( $sub ) || ! is_email( $email ) ) {
-			return new WP_Error( 'anar_google_profile', __( 'اطلاعات حساب گوگل کامل نیست.', 'anar-login' ) );
+			return new WP_Error( 'anar_google_profile', __( 'The Google account information is incomplete.', 'anar-login' ) );
 		}
 
 		$users = get_users(
@@ -129,7 +129,7 @@ final class UserService {
 
 		if ( ! $user ) {
 			if ( ! $this->settings->get( 'allow_registration', 1 ) ) {
-				return new WP_Error( 'anar_registration_disabled', __( 'ثبت‌نام کاربران جدید غیرفعال است.', 'anar-login' ) );
+				return new WP_Error( 'anar_registration_disabled', __( 'Registration for new users is disabled.', 'anar-login' ) );
 			}
 
 			$email_base = strtok( $email, '@' );
@@ -178,7 +178,7 @@ final class UserService {
 		);
 
 		if ( empty( $userdata['display_name'] ) ) {
-			return new WP_Error( 'anar_profile_name', __( 'نام نمایشی نمی‌تواند خالی باشد.', 'anar-login' ), array( 'status' => 400 ) );
+			return new WP_Error( 'anar_profile_name', __( 'Display name cannot be empty.', 'anar-login' ), array( 'status' => 400 ) );
 		}
 
 		$result = wp_update_user( $userdata );

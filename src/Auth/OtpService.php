@@ -71,7 +71,7 @@ final class OtpService {
 			return $allowed;
 		}
 		if ( ! $allowed ) {
-			return new WP_Error( 'anar_request_blocked', __( 'امکان ارسال کد برای این شناسه وجود ندارد.', 'anar-login' ), array( 'status' => 403 ) );
+			return new WP_Error( 'anar_request_blocked', __( 'A login code cannot be sent to this identifier.', 'anar-login' ), array( 'status' => 403 ) );
 		}
 
 		// Avoid account enumeration when registration is disabled.
@@ -86,7 +86,7 @@ final class OtpService {
 		$code   = (string) random_int( $min, $max );
 
 		if ( ! $this->repository->create( $identity['identity'], $identity['channel'], $code, $ttl ) ) {
-			return new WP_Error( 'anar_otp_storage', __( 'امکان ساخت کد ورود وجود ندارد.', 'anar-login' ), array( 'status' => 500 ) );
+			return new WP_Error( 'anar_otp_storage', __( 'The login code could not be created.', 'anar-login' ), array( 'status' => 500 ) );
 		}
 
 		$message = $this->render(
@@ -102,7 +102,7 @@ final class OtpService {
 			$body    = $this->render( (string) $this->settings->get( 'email_message', '' ), $code, $ttl );
 			$sent    = wp_mail( $identity['identity'], $subject, $body )
 				? true
-				: new WP_Error( 'anar_email_failed', __( 'ارسال ایمیل ناموفق بود. تنظیمات ایمیل سایت را بررسی کنید.', 'anar-login' ) );
+				: new WP_Error( 'anar_email_failed', __( 'The email could not be sent. Please check the site email settings.', 'anar-login' ) );
 		}
 
 		if ( is_wp_error( $sent ) ) {
@@ -114,7 +114,7 @@ final class OtpService {
 
 			return new WP_Error(
 				'anar_dispatch_failed',
-				__( 'ارسال کد ورود ناموفق بود. لطفاً کمی بعد دوباره تلاش کنید.', 'anar-login' ),
+				__( 'The login code could not be sent. Please try again later.', 'anar-login' ),
 				array( 'status' => 502 )
 			);
 		}
@@ -168,7 +168,7 @@ final class OtpService {
 		$redirect = $this->redirect_url( $user->ID );
 
 		return array(
-			'message'  => __( 'با موفقیت وارد شدید.', 'anar-login' ),
+			'message'  => __( 'You have signed in successfully.', 'anar-login' ),
 			'redirect' => $redirect,
 			'user'     => $this->users->profile( $user ),
 		);
@@ -183,8 +183,8 @@ final class OtpService {
 	private function generic_request_response( $channel ) {
 		return array(
 			'message'      => 'email' === $channel
-				? __( 'اگر امکان ورود وجود داشته باشد، کد به ایمیل شما ارسال شد.', 'anar-login' )
-				: __( 'اگر امکان ورود وجود داشته باشد، کد به موبایل شما ارسال شد.', 'anar-login' ),
+				? __( 'If sign-in is available, a code has been sent to your email.', 'anar-login' )
+				: __( 'If sign-in is available, a code has been sent to your mobile.', 'anar-login' ),
 			'channel'      => $channel,
 			'resend_after' => absint( $this->settings->get( 'resend_delay', 60 ) ),
 			'expires_in'   => absint( $this->settings->get( 'otp_ttl', 120 ) ),
@@ -218,7 +218,7 @@ final class OtpService {
 	 * @return WP_Error
 	 */
 	private function invalid_code() {
-		return new WP_Error( 'anar_invalid_code', __( 'کد نامعتبر یا منقضی شده است.', 'anar-login' ), array( 'status' => 400 ) );
+		return new WP_Error( 'anar_invalid_code', __( 'The code is invalid or has expired.', 'anar-login' ), array( 'status' => 400 ) );
 	}
 
 	/**

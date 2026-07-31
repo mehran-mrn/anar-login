@@ -78,7 +78,7 @@ final class Plugin {
 				array_unshift(
 					$links,
 					'<a href="' . esc_url( admin_url( 'admin.php?page=anar-login' ) ) . '">' .
-					esc_html__( 'تنظیمات', 'anar-login' ) .
+					esc_html__( 'Settings', 'anar-login' ) .
 					'</a>'
 				);
 

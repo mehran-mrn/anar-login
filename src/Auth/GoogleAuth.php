@@ -46,7 +46,7 @@ final class GoogleAuth {
 	 */
 	public function start( $redirect = '' ) {
 		if ( ! $this->settings->get( 'google_enabled', 0 ) ) {
-			return new WP_Error( 'anar_google_disabled', __( 'ورود با گوگل فعال نیست.', 'anar-login' ), array( 'status' => 404 ) );
+			return new WP_Error( 'anar_google_disabled', __( 'Google sign-in is not enabled.', 'anar-login' ), array( 'status' => 404 ) );
 		}
 
 		$guard = $this->limiter->guard_google();
@@ -57,7 +57,7 @@ final class GoogleAuth {
 		$client_id = (string) $this->settings->get( 'google_client_id', '' );
 		$secret    = (string) $this->settings->get( 'google_secret', '' );
 		if ( ! $client_id || ! $secret ) {
-			return new WP_Error( 'anar_google_config', __( 'تنظیمات ورود گوگل کامل نیست.', 'anar-login' ), array( 'status' => 503 ) );
+			return new WP_Error( 'anar_google_config', __( 'The Google sign-in settings are incomplete.', 'anar-login' ), array( 'status' => 503 ) );
 		}
 
 		$state    = bin2hex( random_bytes( 32 ) );
@@ -104,11 +104,11 @@ final class GoogleAuth {
 		$this->set_state_cookie( '', time() - HOUR_IN_SECONDS );
 
 		if ( ! $state || ! $cookie || ! hash_equals( $cookie, $state ) || ! is_array( $saved ) ) {
-			return new WP_Error( 'anar_google_state', __( 'درخواست ورود گوگل معتبر نیست یا منقضی شده است.', 'anar-login' ) );
+			return new WP_Error( 'anar_google_state', __( 'The Google sign-in request is invalid or has expired.', 'anar-login' ) );
 		}
 
 		if ( ! hash_equals( (string) $saved['ip'], hash( 'sha256', $this->limiter->client_ip() ) ) ) {
-			return new WP_Error( 'anar_google_state', __( 'نشانی درخواست ورود تغییر کرده است.', 'anar-login' ) );
+			return new WP_Error( 'anar_google_state', __( 'The sign-in request address has changed.', 'anar-login' ) );
 		}
 
 		$token = wp_safe_remote_post(
@@ -125,12 +125,12 @@ final class GoogleAuth {
 			)
 		);
 		if ( is_wp_error( $token ) ) {
-			return new WP_Error( 'anar_google_token', __( 'ارتباط با گوگل برقرار نشد.', 'anar-login' ) );
+			return new WP_Error( 'anar_google_token', __( 'Could not connect to Google.', 'anar-login' ) );
 		}
 
 		$token_data = json_decode( wp_remote_retrieve_body( $token ), true );
 		if ( 200 !== wp_remote_retrieve_response_code( $token ) || empty( $token_data['access_token'] ) ) {
-			return new WP_Error( 'anar_google_token', __( 'دریافت مجوز ورود از گوگل ناموفق بود.', 'anar-login' ) );
+			return new WP_Error( 'anar_google_token', __( 'Could not obtain sign-in authorization from Google.', 'anar-login' ) );
 		}
 
 		$profile = wp_safe_remote_get(
@@ -141,12 +141,12 @@ final class GoogleAuth {
 			)
 		);
 		if ( is_wp_error( $profile ) || 200 !== wp_remote_retrieve_response_code( $profile ) ) {
-			return new WP_Error( 'anar_google_profile', __( 'دریافت پروفایل گوگل ناموفق بود.', 'anar-login' ) );
+			return new WP_Error( 'anar_google_profile', __( 'Could not retrieve the Google profile.', 'anar-login' ) );
 		}
 
 		$data = json_decode( wp_remote_retrieve_body( $profile ), true );
 		if ( empty( $data['email_verified'] ) ) {
-			return new WP_Error( 'anar_google_email', __( 'ایمیل حساب گوگل تأیید نشده است.', 'anar-login' ) );
+			return new WP_Error( 'anar_google_email', __( 'The Google account email is not verified.', 'anar-login' ) );
 		}
 
 		$user = $this->users->login_google( $data, true );

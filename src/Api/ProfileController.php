@@ -67,7 +67,7 @@ final class ProfileController {
 		}
 
 		return array(
-			'message' => __( 'اطلاعات حساب ذخیره شد.', 'anar-login' ),
+			'message' => __( 'Your account information has been saved.', 'anar-login' ),
 			'user'    => $this->users->profile( $user ),
 		);
 	}

@@ -19,15 +19,15 @@ final class Melipayamak extends AbstractProvider {
 
 	/** @inheritDoc */
 	public function title() {
-		return 'ملی پیامک';
+		return __( 'Meli Payamak', 'anar-login' );
 	}
 
 	/** @inheritDoc */
 	public function fields() {
 		return array(
-			'username'    => __( 'نام کاربری', 'anar-login' ),
-			'password'    => __( 'رمز عبور وب‌سرویس', 'anar-login' ),
-			'template_id' => __( 'Body ID الگو', 'anar-login' ),
+			'username'    => __( 'Username', 'anar-login' ),
+			'password'    => __( 'Web service password', 'anar-login' ),
+			'template_id' => __( 'Template body ID', 'anar-login' ),
 		);
 	}
 

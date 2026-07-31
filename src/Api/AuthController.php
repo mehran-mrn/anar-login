@@ -111,7 +111,7 @@ final class AuthController {
 	 */
 	public function request_code( WP_REST_Request $request ) {
 		if ( $request->get_param( 'website' ) ) {
-			return new WP_Error( 'anar_bot', __( 'درخواست نامعتبر است.', 'anar-login' ), array( 'status' => 400 ) );
+			return new WP_Error( 'anar_bot', __( 'The request is invalid.', 'anar-login' ), array( 'status' => 400 ) );
 		}
 
 		return $this->otp->request( (string) $request->get_param( 'identity' ) );
@@ -157,7 +157,7 @@ final class AuthController {
 	 */
 	public function google_callback( WP_REST_Request $request ) {
 		if ( $request->get_param( 'error' ) ) {
-			return new WP_Error( 'anar_google_denied', __( 'ورود با گوگل لغو شد.', 'anar-login' ), array( 'status' => 400 ) );
+			return new WP_Error( 'anar_google_denied', __( 'Google sign-in was cancelled.', 'anar-login' ), array( 'status' => 400 ) );
 		}
 
 		$url = $this->google->callback(

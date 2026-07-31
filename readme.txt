@@ -4,51 +4,63 @@ Tags: otp, login, sms, iran, google, passwordless
 Requires at least: 6.2
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 0.1.0
+Stable tag: 0.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-ورود سریع وردپرس با رمز یک‌بارمصرف پیامکی، ایمیل و حساب گوگل، همراه با پنل RTL و درگاه‌های پیامکی ایرانی.
+Fast passwordless WordPress authentication with Iranian SMS providers, email OTP, Google OAuth, and automatic LTR/RTL support.
 
 == Description ==
 
-Anar Login یک هستهٔ مستقل و توسعه‌پذیر برای ورود بدون رمز است.
+Anar Login is a standalone, extensible passwordless authentication plugin designed and developed by Mehran Marandi.
 
-* ورود/ثبت‌نام با موبایل ایرانی و OTP
-* ورود/ثبت‌نام با ایمیل و wp_mail
-* ورود Google OAuth 2.0
-* کاوه‌نگار، ملی پیامک، IPPanel، فراز SMS و SMS.ir
-* rate limit، hash امن OTP و مصرف یک‌باره
-* فرم ورود و پنل حساب کاربری واکنش‌گرا
-* API و hookهای توسعه‌پذیر
+* Iranian mobile OTP sign-in and registration
+* Email OTP through wp_mail
+* Google OAuth 2.0
+* Kavenegar, Meli Payamak, IPPanel, Faraz SMS, and SMS.ir
+* Rate limits, securely hashed OTPs, and atomic single use
+* Responsive login and account interfaces
+* English LTR interface and bundled Persian RTL translation
+* Extensible API, provider contract, and WordPress hooks
+
+Author website: https://mehranmarandi.ir
+GitHub: https://github.com/mehran-mrn/
 
 == Installation ==
 
-1. افزونه را نصب و فعال کنید.
-2. منوی Anar Login را باز کنید.
-3. درگاه پیامک و تنظیمات امنیتی را ذخیره کنید.
-4. `[anar_login]` و `[anar_account]` را در صفحات دلخواه قرار دهید.
+1. Install and activate the plugin.
+2. Open the Anar Login admin menu.
+3. Save your SMS provider and security settings.
+4. Add `[anar_login]` and `[anar_account]` to the desired pages.
 
 == Frequently Asked Questions ==
 
-= آیا کد OTP خام در دیتابیس ذخیره می‌شود؟ =
+= Is the raw OTP stored in the database? =
 
-خیر. کد با password hashing استاندارد وردپرس ذخیره و پس از اولین استفاده باطل می‌شود.
+No. Each code is stored using WordPress password hashing and is invalidated after its first successful use.
 
-= آیا با افزونه SMTP سازگار است؟ =
+= Is it compatible with SMTP plugins? =
 
-بله. ایمیل از wp_mail ارسال می‌شود.
+Yes. Email is sent through wp_mail.
 
-= چگونه درگاه تازه اضافه کنم؟ =
+= Does it support Persian and RTL? =
 
-قرارداد SmsProviderInterface را پیاده‌سازی و آن را با فیلتر anar_login_sms_providers ثبت کنید.
+Yes. Persian translations are bundled and the layout direction follows the active WordPress locale automatically.
+
+= How can I add another SMS provider? =
+
+Implement SmsProviderInterface and register it with the anar_login_sms_providers filter.
 
 == Changelog ==
 
+= 0.2.0 =
+
+* Added an English source interface and complete Persian translation.
+* Added automatic LTR and RTL layouts with CSS logical properties.
+* Added designer identity and author links.
+
 = 0.1.0 =
 
-* هسته OTP و REST API
-* پنج درگاه پیامکی ایرانی
-* ورود ایمیل و Google OAuth
-* پنل مدیریت، فرم ورود و پنل حساب RTL
-* محدودسازی درخواست و hookهای توسعه
+* Initial OTP and REST API foundation.
+* Added five Iranian SMS providers, email, and Google OAuth.
+* Added the admin, login, and account interfaces.

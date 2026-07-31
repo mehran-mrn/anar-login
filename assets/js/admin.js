@@ -1,6 +1,7 @@
 (function () {
 	'use strict';
 
+	const config = window.AnarLoginAdmin || {};
 	const root = document.querySelector('.anar-admin');
 	if (!root) return;
 
@@ -38,9 +39,9 @@
 			const original = button.textContent;
 			try {
 				await navigator.clipboard.writeText(button.dataset.copy);
-				button.textContent = 'کپی شد ✓';
+				button.textContent = config.copied || 'Copied ✓';
 			} catch (error) {
-				button.textContent = 'ناموفق';
+				button.textContent = config.failed || 'Copy failed';
 			}
 			window.setTimeout(() => { button.textContent = original; }, 1500);
 		});

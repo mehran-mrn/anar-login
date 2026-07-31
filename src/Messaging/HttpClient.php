@@ -28,7 +28,7 @@ final class HttpClient {
 
 		$response = wp_safe_remote_request( esc_url_raw( $url ), $args );
 		if ( is_wp_error( $response ) ) {
-			return new WP_Error( 'anar_sms_network', __( 'ارتباط با سرویس پیامک برقرار نشد.', 'anar-login' ), array( 'detail' => $response->get_error_message() ) );
+			return new WP_Error( 'anar_sms_network', __( 'Could not connect to the SMS provider.', 'anar-login' ), array( 'detail' => $response->get_error_message() ) );
 		}
 
 		$status = wp_remote_retrieve_response_code( $response );
@@ -40,7 +40,7 @@ final class HttpClient {
 				'anar_sms_http',
 				sprintf(
 					/* translators: %d: HTTP status */
-					__( 'سرویس پیامک پاسخ ناموفق داد (HTTP %d).', 'anar-login' ),
+					__( 'The SMS provider returned an unsuccessful response (HTTP %d).', 'anar-login' ),
 					$status
 				),
 				array(
