@@ -46,7 +46,7 @@ final class RateLimiter {
 				'anar_too_soon',
 				sprintf(
 					/* translators: %d: seconds */
-					__( 'لطفاً %d ثانیه تا ارسال دوباره صبر کنید.', 'anar-login' ),
+					__( 'Please wait %d seconds before requesting another code.', 'anar-login' ),
 					$resend
 				),
 				array( 'status' => 429 )
@@ -54,7 +54,7 @@ final class RateLimiter {
 		}
 
 		if ( $this->increment( $key, HOUR_IN_SECONDS ) > $hourly || $this->increment( $ip_key, HOUR_IN_SECONDS ) > ( $hourly * 4 ) ) {
-			return new WP_Error( 'anar_rate_limited', __( 'تعداد درخواست‌ها بیش از حد مجاز است. کمی بعد تلاش کنید.', 'anar-login' ), array( 'status' => 429 ) );
+			return new WP_Error( 'anar_rate_limited', __( 'Too many requests. Please try again later.', 'anar-login' ), array( 'status' => 429 ) );
 		}
 
 		set_transient( $key . '_cooldown', 1, $resend );
@@ -69,7 +69,7 @@ final class RateLimiter {
 	 */
 	public function guard_google() {
 		if ( $this->increment( $this->key( 'google', $this->client_ip() ), HOUR_IN_SECONDS ) > 20 ) {
-			return new WP_Error( 'anar_rate_limited', __( 'تعداد درخواست‌ها بیش از حد مجاز است.', 'anar-login' ), array( 'status' => 429 ) );
+			return new WP_Error( 'anar_rate_limited', __( 'Too many requests.', 'anar-login' ), array( 'status' => 429 ) );
 		}
 
 		return true;

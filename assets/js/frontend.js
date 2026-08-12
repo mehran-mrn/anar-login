@@ -102,7 +102,7 @@
 			event.preventDefault();
 			identity = identityInput.value.trim();
 			if (!identity) {
-				message('شماره موبایل یا ایمیل را وارد کنید.', 'error');
+				message(config.strings.identityRequired, 'error');
 				identityInput.focus();
 				return;
 			}
@@ -114,7 +114,7 @@
 			const button = codeForm.querySelector('[type="submit"]');
 			const code = codeInput.value.replace(/\D/g, '');
 			if (code.length < 4) {
-				message('کد تأیید را کامل وارد کنید.', 'error');
+				message(config.strings.codeRequired, 'error');
 				codeInput.focus();
 				return;
 			}

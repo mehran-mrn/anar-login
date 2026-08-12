@@ -25,9 +25,9 @@ final class SmsIr extends AbstractProvider {
 	/** @inheritDoc */
 	public function fields() {
 		return array(
-			'api_key'        => __( 'کلید API', 'anar-login' ),
-			'template_id'    => __( 'شناسه قالب', 'anar-login' ),
-			'code_parameter' => __( 'نام پارامتر کد', 'anar-login' ),
+			'api_key'        => __( 'API key', 'anar-login' ),
+			'template_id'    => __( 'Template ID', 'anar-login' ),
+			'code_parameter' => __( 'Code parameter name', 'anar-login' ),
 		);
 	}
 

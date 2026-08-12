@@ -19,14 +19,14 @@ final class Kavenegar extends AbstractProvider {
 
 	/** @inheritDoc */
 	public function title() {
-		return 'کاوه‌نگار';
+		return __( 'Kavenegar', 'anar-login' );
 	}
 
 	/** @inheritDoc */
 	public function fields() {
 		return array(
-			'api_key'     => __( 'کلید API', 'anar-login' ),
-			'template_id' => __( 'نام الگوی Verify Lookup', 'anar-login' ),
+			'api_key'     => __( 'API key', 'anar-login' ),
+			'template_id' => __( 'Verify Lookup template name', 'anar-login' ),
 		);
 	}
 

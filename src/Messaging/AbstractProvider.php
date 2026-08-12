@@ -61,7 +61,7 @@ abstract class AbstractProvider implements SmsProviderInterface {
 					'anar_sms_not_configured',
 					sprintf(
 						/* translators: %s: provider title */
-						__( 'تنظیمات درگاه %s کامل نیست.', 'anar-login' ),
+						__( 'The %s provider settings are incomplete.', 'anar-login' ),
 						$this->title()
 					)
 				);
@@ -92,7 +92,7 @@ abstract class AbstractProvider implements SmsProviderInterface {
 			'anar_sms_rejected',
 			sprintf(
 				/* translators: %s: provider title */
-				__( 'ارسال پیامک توسط %s پذیرفته نشد.', 'anar-login' ),
+				__( 'The SMS message was not accepted by %s.', 'anar-login' ),
 				$this->title()
 			),
 			array( 'detail' => substr( wp_strip_all_tags( (string) $detail ), 0, 300 ) )

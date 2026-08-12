@@ -82,7 +82,7 @@ final class ProviderRegistry {
 	public function send( $recipient, $code, $message ) {
 		$key = sanitize_key( $this->settings->get( 'sms_provider', '' ) );
 		if ( empty( $this->providers[ $key ] ) ) {
-			return new WP_Error( 'anar_provider_missing', __( 'درگاه پیامک انتخاب‌شده در دسترس نیست.', 'anar-login' ) );
+			return new WP_Error( 'anar_provider_missing', __( 'The selected SMS provider is unavailable.', 'anar-login' ) );
 		}
 
 		return $this->providers[ $key ]->send( $recipient, $code, $message );

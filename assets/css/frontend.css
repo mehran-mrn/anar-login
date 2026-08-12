@@ -15,6 +15,11 @@
 	color: var(--anar-ink);
 }
 
+.anar-auth[dir="ltr"],
+.anar-panel[dir="ltr"] {
+	--anar-font: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+}
+
 .anar-auth *,
 .anar-panel * {
 	box-sizing: border-box;
@@ -36,7 +41,7 @@
 	position: absolute;
 	z-index: -1;
 	top: -170px;
-	right: -140px;
+	inset-inline-start: -140px;
 	width: 360px;
 	height: 360px;
 	border-radius: 50%;
@@ -141,7 +146,7 @@
 .anar-input-wrap svg {
 	position: absolute;
 	top: 50%;
-	right: 15px;
+	inset-inline-start: 15px;
 	width: 20px;
 	transform: translateY(-50%);
 	fill: #a99da1;
@@ -153,7 +158,8 @@
 	width: 100%;
 	height: 52px;
 	margin: 0;
-	padding: 0 44px 0 15px;
+	padding-block: 0;
+	padding-inline: 44px 15px;
 	border: 1px solid #ded6d9;
 	border-radius: 13px;
 	outline: 0;
@@ -352,7 +358,7 @@
 
 .anar-hp {
 	position: absolute !important;
-	left: -9999px !important;
+	inset-inline-end: -9999px !important;
 	width: 1px !important;
 	height: 1px !important;
 	opacity: 0 !important;
@@ -399,7 +405,7 @@
 	display: flex;
 	flex-direction: column;
 	padding: 24px 18px 20px;
-	border-left: 1px solid var(--anar-line);
+	border-inline-end: 1px solid var(--anar-line);
 	background: #fffbfc;
 }
 
@@ -473,7 +479,7 @@
 	border-radius: 11px;
 	background: transparent;
 	color: #70646a;
-	text-align: right;
+	text-align: start;
 	font: 600 11px var(--anar-font);
 	cursor: pointer;
 }
@@ -547,7 +553,7 @@
 	display: inline-block;
 	width: 6px;
 	height: 6px;
-	margin-left: 5px;
+	margin-inline-end: 5px;
 	border-radius: 50%;
 	background: #22a76d;
 	content: "";
@@ -591,7 +597,8 @@
 .anar-welcome img {
 	width: 190px;
 	height: 190px;
-	margin: -25px -5px -25px -20px;
+	margin-block: -25px;
+	margin-inline: -5px -20px;
 	border-radius: 55px;
 	mix-blend-mode: screen;
 	object-fit: cover;
@@ -866,7 +873,7 @@
 	.anar-panel__logout {
 		position: absolute;
 		top: 24px;
-		left: 17px;
+		inset-inline-end: 17px;
 		padding: 7px;
 		font-size: 0;
 	}
@@ -895,7 +902,7 @@
 	.anar-welcome img {
 		width: 115px;
 		height: 115px;
-		margin-left: -35px;
+		margin-inline-end: -35px;
 	}
 
 	.anar-welcome h3 {

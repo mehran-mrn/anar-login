@@ -2,12 +2,12 @@
 /**
  * Plugin Name:       Anar Login
  * Plugin URI:        https://github.com/mehran-mrn/anar-login
- * Description:       ورود سریع و امن با رمز یک‌بارمصرف پیامکی، ایمیل و حساب گوگل.
- * Version:           0.1.0
+ * Description:       Fast and secure passwordless login with Iranian SMS providers, email OTP, and Google.
+ * Version:           0.2.0
  * Requires at least: 6.2
  * Requires PHP:      7.4
- * Author:            Mehran MRN
- * Author URI:        https://github.com/mehran-mrn
+ * Author:            Mehran Marandi
+ * Author URI:        https://mehranmarandi.ir
  * Text Domain:       anar-login
  * Domain Path:       /languages
  * License:           GPL-2.0-or-later
@@ -17,7 +17,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'ANAR_LOGIN_VERSION', '0.1.0' );
+define( 'ANAR_LOGIN_VERSION', '0.2.0' );
 define( 'ANAR_LOGIN_FILE', __FILE__ );
 define( 'ANAR_LOGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'ANAR_LOGIN_URL', plugin_dir_url( __FILE__ ) );

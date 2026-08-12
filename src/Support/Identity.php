@@ -24,7 +24,7 @@ final class Identity {
 		if ( false !== strpos( $value, '@' ) ) {
 			$email = sanitize_email( $value );
 			if ( ! is_email( $email ) ) {
-				return new WP_Error( 'anar_invalid_identity', __( 'نشانی ایمیل معتبر نیست.', 'anar-login' ), array( 'status' => 400 ) );
+				return new WP_Error( 'anar_invalid_identity', __( 'Please enter a valid email address.', 'anar-login' ), array( 'status' => 400 ) );
 			}
 
 			return array(
@@ -37,7 +37,7 @@ final class Identity {
 		$phone = preg_replace( '/^(?:\+98|0098|98|0)?/', '', (string) $phone );
 
 		if ( ! preg_match( '/^9\d{9}$/', $phone ) ) {
-			return new WP_Error( 'anar_invalid_identity', __( 'شماره موبایل ایرانی معتبر نیست.', 'anar-login' ), array( 'status' => 400 ) );
+			return new WP_Error( 'anar_invalid_identity', __( 'Please enter a valid Iranian mobile number.', 'anar-login' ), array( 'status' => 400 ) );
 		}
 
 		$normalized = '+98' . $phone;

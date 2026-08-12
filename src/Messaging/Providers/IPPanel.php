@@ -25,10 +25,10 @@ class IPPanel extends AbstractProvider {
 	/** @inheritDoc */
 	public function fields() {
 		return array(
-			'api_key'        => __( 'توکن یا کلید دسترسی Edge API', 'anar-login' ),
-			'from'           => __( 'شماره فرستنده', 'anar-login' ),
-			'template_id'    => __( 'کد پترن', 'anar-login' ),
-			'code_parameter' => __( 'نام متغیر کد در پترن', 'anar-login' ),
+			'api_key'        => __( 'Edge API token or access key', 'anar-login' ),
+			'from'           => __( 'Sender number', 'anar-login' ),
+			'template_id'    => __( 'Pattern code', 'anar-login' ),
+			'code_parameter' => __( 'Code variable name in the pattern', 'anar-login' ),
 		);
 	}
 
