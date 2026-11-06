@@ -8,6 +8,7 @@
 namespace Anar\Login\Messaging;
 
 use Anar\Login\Infrastructure\Settings;
+use Anar\Login\Support\Identity;
 use WP_Error;
 
 defined( 'ABSPATH' ) || exit;
@@ -39,6 +40,15 @@ abstract class AbstractProvider implements SmsProviderInterface {
 	}
 
 	/**
+	 * Short description for the provider picker.
+	 *
+	 * @return string
+	 */
+	public function description() {
+		return __( 'Service template delivery', 'anar-toolkit' );
+	}
+
+	/**
 	 * Provider settings.
 	 *
 	 * @return array<string,string>
@@ -61,7 +71,7 @@ abstract class AbstractProvider implements SmsProviderInterface {
 					'anar_sms_not_configured',
 					sprintf(
 						/* translators: %s: provider title */
-						__( 'The %s provider settings are incomplete.', 'anar-login' ),
+						__( 'The %s provider settings are incomplete.', 'anar-toolkit' ),
 						$this->title()
 					)
 				);
@@ -78,7 +88,7 @@ abstract class AbstractProvider implements SmsProviderInterface {
 	 * @return string
 	 */
 	protected function local_phone( $phone ) {
-		return '0' . preg_replace( '/^\+98/', '', $phone );
+		return Identity::local_phone( $phone );
 	}
 
 	/**
@@ -92,7 +102,7 @@ abstract class AbstractProvider implements SmsProviderInterface {
 			'anar_sms_rejected',
 			sprintf(
 				/* translators: %s: provider title */
-				__( 'The SMS message was not accepted by %s.', 'anar-login' ),
+				__( 'The SMS message was not accepted by %s.', 'anar-toolkit' ),
 				$this->title()
 			),
 			array( 'detail' => substr( wp_strip_all_tags( (string) $detail ), 0, 300 ) )

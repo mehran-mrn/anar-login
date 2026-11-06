@@ -1,23 +1,23 @@
 <?php
 /**
- * Plugin Name:       Anar Login
+ * Plugin Name:       Anar Toolkit – SMS Login & Recovery for WooCommerce
  * Plugin URI:        https://github.com/mehran-mrn/anar-login
- * Description:       Fast and secure passwordless login with Iranian SMS providers, email OTP, and Google.
- * Version:           0.2.0
+ * Description:       SMS login, confirmed-payment notifications and consent-based cart and unpaid-order recovery for WooCommerce.
+ * Version:           0.7.0
  * Requires at least: 6.2
  * Requires PHP:      7.4
  * Author:            Mehran Marandi
  * Author URI:        https://mehranmarandi.ir
- * Text Domain:       anar-login
- * Domain Path:       /languages
+ * Text Domain:       anar-toolkit
  * License:           GPL-2.0-or-later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  *
  * @package AnarLogin
  */
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'ANAR_LOGIN_VERSION', '0.2.0' );
+define( 'ANAR_LOGIN_VERSION', '0.7.0' );
 define( 'ANAR_LOGIN_FILE', __FILE__ );
 define( 'ANAR_LOGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'ANAR_LOGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -25,6 +25,15 @@ define( 'ANAR_LOGIN_URL', plugin_dir_url( __FILE__ ) );
 require_once ANAR_LOGIN_PATH . 'src/Autoloader.php';
 
 \Anar\Login\Autoloader::register();
+
+add_action(
+	'before_woocommerce_init',
+	static function () {
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', ANAR_LOGIN_FILE, true );
+		}
+	}
+);
 
 register_activation_hook( __FILE__, array( \Anar\Login\Infrastructure\Activator::class, 'activate' ) );
 register_deactivation_hook( __FILE__, array( \Anar\Login\Infrastructure\Activator::class, 'deactivate' ) );

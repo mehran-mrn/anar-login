@@ -15,10 +15,10 @@
 
 1. هویت نرمال و اعتبارسنجی می‌شود.
 2. محدودیت cooldown و سقف ساعتی برای هویت و IP بررسی می‌شود.
-3. با `random_int` کد تولید و با `wp_hash_password` ذخیره می‌شود.
-4. provider کد را ارسال می‌کند. در شکست ارسال، challenge فوراً consume می‌شود.
-5. هنگام تأیید، زمان انقضا و سقف تلاش بررسی می‌شود.
-6. `wp_check_password` hash را بررسی می‌کند.
+3. با `random_int` کد تولید و به‌صورت HMAC وابسته به هویت (`wp_salt( 'secure_auth' )`) ذخیره می‌شود.
+4. provider کد را ارسال می‌کند. در شکست ارسال، challenge فوراً consume و cooldown آزاد می‌شود.
+5. هنگام تأیید، زمان انقضا بررسی و یک تلاش با `UPDATE ... WHERE attempts < max` به‌صورت اتمیک رزرو می‌شود؛ درخواست‌های موازی نمی‌توانند از سقف تلاش عبور کنند.
+6. hash با `hash_equals` مقایسه می‌شود (کدهای نسخهٔ 0.2 با `wp_check_password`).
 7. update شرطی دیتابیس challenge را اتمیک consume می‌کند.
 8. کاربر موجود وارد یا در صورت مجازبودن ساخته می‌شود.
 
@@ -37,11 +37,10 @@ Transient برای نصب تک‌سرور مناسب است. سایت‌های �
 
 ## Google OAuth
 
-- Authorization Code flow
+- Authorization Code flow همراه با PKCE (S256)
 - state تصادفی ۲۵۶ بیتی
-- تطبیق state با HttpOnly/SameSite=Lax cookie
-- transient کوتاه‌عمر و اتصال state به hash آدرس IP
-- redirect نهایی فقط پس از `wp_validate_redirect`
+- تطبیق state با HttpOnly/SameSite=Lax cookie و transient کوتاه‌عمر (بدون اتصال به IP، که در شبکهٔ موبایل مدام تغییر می‌کند)
+- redirect نهایی فقط پس از `wp_validate_redirect`؛ خطاها با `anar_login_error` به صفحهٔ ورود برمی‌گردند و فقط کدهای شناخته‌شده نمایش داده می‌شوند
 - استفاده از endpoint استاندارد OpenID Connect userinfo
 - پذیرش فقط `email_verified`
 

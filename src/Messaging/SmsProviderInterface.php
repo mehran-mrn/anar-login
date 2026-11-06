@@ -25,9 +25,13 @@ interface SmsProviderInterface {
 	public function title();
 
 	/**
-	 * Required settings and labels.
+	 * Settings fields.
 	 *
-	 * @return array<string,string>
+	 * Each value is either a label string (a text input) or a definition array:
+	 * label, type (text|url|textarea|select), options (value => label for selects),
+	 * placeholder and help.
+	 *
+	 * @return array<string,string|array<string,mixed>>
 	 */
 	public function fields();
 

@@ -1,0 +1,67 @@
+Anar Toolkit 0.7.0 — External services and request inventory
+
+All integrations use accounts configured by the site administrator. The plugin makes no telemetry, licensing or analytics requests to MRNWP or its author. Provider service fees and contracts are independent of the free plugin.
+
+SMS services are contacted when a visitor requests/resends a code, a password sign-in requires a second step, an administrator explicitly sends a test SMS, or an enabled commerce module processes a queued payment notification or consented purchase reminder. Commerce requests can run in the background. No delivery-status polling occurs. The selected provider receives the destination mobile number, the code or message, sender/template identifiers and the provider credentials needed for the request. For commerce, the provider receives configured template values which can include first name, order number, amount, currency, site name, recovery code, code validity, recovery entry-page URL and unsubscribe URL. An administrator notification contains the order variables and the administrator recipient number. The provider also sees the server IP address and standard HTTP metadata. The plugin User-Agent contains its name/version, not the site URL. A configured message may contain the site name or domain.
+
+= Kavenegar =
+
+Endpoint: https://api.kavenegar.com/v1/{your-api-key}/verify/lookup.json
+Data: API key in the URL path; recipient, OTP and template name in the query string. Purpose and timing are described above.
+Official service: https://kavenegar.com/وب-سرویس-پیامک.html
+Official API documentation: https://kavenegar.com/rest.html
+Official terms and limited account-data-use notice: https://console.kavenegar.com/membership/signup (open the public terms popover beside the consent checkbox; no account or acceptance is required to read it). The notice addresses account-verification documents. A separate privacy policy covering all SMS recipient/message processing has not been verified. This remains an external-documentation review dependency; the service homepage is not represented as a privacy policy.
+
+= Meli Payamak =
+
+Endpoints: https://rest.payamak-panel.com/api/SendSMS/BaseServiceNumber and https://rest.payamak-panel.com/api/SendSMS/SendSMS
+Data: account username/password, recipient and template body ID plus OTP, or sender and configured message for dedicated-number delivery.
+Official terms: https://www.melipayamak.com/rules/
+A separate public privacy-policy link could not be verified during release preparation. Request the applicable privacy notice from Meli Payamak before using it.
+
+= IPPanel =
+
+Endpoint: https://edge.ippanel.com/v1/api/send
+Data: API token in the Authorization header; sender number, recipient, pattern code and OTP parameter in a JSON body.
+Official service and integration lab: https://ippanel.co/lab/
+API infrastructure: https://ippanel.com/
+Official API documentation: https://ippanelcom.github.io/Edge-Document/docs/send/pattern
+Official terms: https://ippanel.com/login (open the public rules modal using the button beside the login statement; logging in is not needed). The terms describe message monitoring and use of business identifiers. A separate public privacy-policy URL has not been verified. Obtain and review the applicable privacy notice from IPPanel before enabling this integration; the login/rules page is not represented as a standalone privacy policy.
+
+= Panelchi =
+
+Endpoint: https://api.panelchi.com/sms/pattern (HTTPS POST).
+Data: API token in the Authorization: Bearer header; recipient mobile number, approved pattern slug, sourceNumber (10001 by default) and pattern variables in a JSON body. OTP requests send the code variable. Enabled commerce modules send their separately configured template variables, including recovery code, recovery entry page and unsubscribe link when applicable. Requests occur only at the SMS delivery times described above. The provider also receives the server IP and standard HTTP metadata. A request UID and an accepted/queued status indicate API acceptance, not handset delivery.
+Official service/account portal: https://panelchi.com/
+Official API documentation: https://docs.panelchi.com/redoc/
+Account activation, identity verification and an active approved pattern may be required by the provider. Access from servers outside Iran may be restricted. The plugin does not create accounts or patterns, complete identity verification, or poll delivery status automatically.
+Separate publicly accessible terms and privacy-policy URLs could not be verified. Obtain and review the applicable terms and data-processing/privacy notice from Panelchi before enabling this integration; the account portal and API documentation are not represented as privacy policies.
+
+= Faraz SMS =
+
+Endpoint: https://ippanel.com/patterns/pattern
+Data: Faraz account username/password, sender, recipient, pattern code and OTP parameter as form fields. Delivery uses IPPanel infrastructure; consult your Faraz service contract for processing by that infrastructure.
+Official terms and privacy commitment (panel rules, clause 12): https://farazsms.com/terms-conditions/
+Official API documentation: https://docs.farazsms.com/
+
+= SMS.ir =
+
+Endpoint: https://api.sms.ir/v1/send/verify
+Data: API key in the X-API-KEY header; recipient, numeric template ID and OTP parameter in JSON.
+Official terms, including its security/privacy commitment: https://sms.ir/terms-and-conditions/
+
+= Custom gateway =
+
+The administrator supplies the HTTPS endpoint, authentication headers, parameters and response-success text. Only this configured service receives the recipient/code/message/sender and any credentials placed in the templates. The plugin cannot know the operator of an arbitrary URL. Review that operator's terms and privacy notice before saving the endpoint. GET requests may expose codes or credentials in provider/proxy URL logs; prefer POST when the service supports it. Redirects are not followed and WordPress safe HTTP validation remains enabled.
+
+= Google sign-in =
+
+Google is contacted only when a visitor chooses Google sign-in and completes the OAuth callback. The browser visits https://accounts.google.com/o/oauth2/v2/auth with the client ID, redirect URI, openid/email/profile scopes, state and PKCE challenge. The server exchanges the authorization code and PKCE verifier at https://oauth2.googleapis.com/token using the configured client secret, then requests https://openidconnect.googleapis.com/v1/userinfo with the temporary access token. Google returns its verified account identifier, email, name and optional profile image. These identify or create the local WordPress account; the plugin does not retain Google access or refresh tokens. A Google-hosted profile image can be loaded in the account panel.
+Terms: https://policies.google.com/terms
+Privacy: https://policies.google.com/privacy
+
+= Email and profile images =
+
+Email codes use WordPress wp_mail; delivery depends on the site's hosting, SMTP plugin or configured mail service, which receives the address and code message. This plugin does not bundle an external email transport. WordPress avatar functions can use Gravatar for profile images, depending on site configuration; its image requests include the visitor IP address and an email-derived avatar identifier.
+Gravatar terms: https://wordpress.com/tos/
+Gravatar privacy: https://automattic.com/privacy/

@@ -1,0 +1,16 @@
+Anar Login
+Copyright (c) 2026 Mehran Marandi / MRNWP
+
+Plugin code and bundled Anar artwork are licensed under GPL-2.0-or-later.
+See LICENSE for the complete GPL version 2 text.
+
+The plugin contains its own PHP autoloader and readable JavaScript and CSS.
+Composer packages are used only for development and are not bundled.
+
+WordPress, WooCommerce, WoodMart, Google, Digits and the listed SMS service
+names identify their respective platforms and integrations. Their names do
+not imply endorsement, affiliation or bundled third-party service rights.
+No third-party SMS SDK, Google SDK, theme code is included.
+
+Administrators supply their own SMS and OAuth accounts. External service
+contracts, credits and credentials are independent of this plugin's license.

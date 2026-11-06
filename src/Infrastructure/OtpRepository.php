@@ -26,10 +26,10 @@ final class OtpRepository {
 		$identity_hash = $this->identity_hash( $identity );
 		$now           = current_time( 'mysql', true );
 
-		$wpdb->query( // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name is built from the trusted WP prefix.
+		$wpdb->query(
 			$wpdb->prepare(
-				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name is built from the trusted WP prefix.
-				"UPDATE {$table} SET consumed_at = %s WHERE identity_hash = %s AND channel = %s AND consumed_at IS NULL",
+				'UPDATE %i SET consumed_at = %s WHERE identity_hash = %s AND channel = %s AND consumed_at IS NULL',
+				$table,
 				$now,
 				$identity_hash,
 				$channel
@@ -41,7 +41,7 @@ final class OtpRepository {
 			array(
 				'identity_hash' => $identity_hash,
 				'channel'       => $channel,
-				'code_hash'     => wp_hash_password( $code ),
+				'code_hash'     => $this->code_hash( $identity_hash, $code ),
 				'expires_at'    => gmdate( 'Y-m-d H:i:s', time() + absint( $ttl ) ),
 				'attempts'      => 0,
 				'created_at'    => $now,
@@ -62,10 +62,10 @@ final class OtpRepository {
 
 		$table = $wpdb->prefix . 'anar_login_otp';
 
-		return $wpdb->get_row( // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name is built from the trusted WP prefix.
+		return $wpdb->get_row(
 			$wpdb->prepare(
-				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name is built from the trusted WP prefix.
-				"SELECT * FROM {$table} WHERE identity_hash = %s AND channel = %s AND consumed_at IS NULL ORDER BY id DESC LIMIT 1",
+				'SELECT * FROM %i WHERE identity_hash = %s AND channel = %s AND consumed_at IS NULL ORDER BY id DESC LIMIT 1',
+				$table,
 				$this->identity_hash( $identity ),
 				$channel
 			)
@@ -73,16 +73,48 @@ final class OtpRepository {
 	}
 
 	/**
-	 * Increment attempts atomically.
+	 * Reserve one verification attempt atomically.
 	 *
-	 * @param int $id Row ID.
-	 * @return void
+	 * The conditional update is the only gate, so parallel requests cannot
+	 * exceed the attempt limit by reading the same counter value.
+	 *
+	 * @param int $id  Row ID.
+	 * @param int $max Maximum attempts for one challenge.
+	 * @return bool False when the challenge is exhausted or already consumed.
 	 */
-	public function increment_attempts( $id ) {
+	public function claim_attempt( $id, $max ) {
 		global $wpdb;
 
 		$table = $wpdb->prefix . 'anar_login_otp';
-		$wpdb->query( $wpdb->prepare( "UPDATE {$table} SET attempts = attempts + 1 WHERE id = %d", absint( $id ) ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name is built from the trusted WP prefix.
+
+		return 1 === $wpdb->query(
+			$wpdb->prepare(
+				'UPDATE %i SET attempts = attempts + 1 WHERE id = %d AND consumed_at IS NULL AND attempts < %d AND expires_at > %s',
+				$table,
+				absint( $id ),
+				absint( $max ),
+				current_time( 'mysql', true )
+			)
+		);
+	}
+
+	/**
+	 * Compare a submitted code with a stored challenge in constant time.
+	 *
+	 * @param object $challenge Challenge row.
+	 * @param string $identity  Normalized phone or email.
+	 * @param string $code      Submitted code.
+	 * @return bool
+	 */
+	public function matches( $challenge, $identity, $code ) {
+		$stored = (string) $challenge->code_hash;
+
+		// Rows created before 0.3.0 used WordPress password hashing.
+		if ( 0 === strpos( $stored, '$' ) ) {
+			return wp_check_password( $code, $stored );
+		}
+
+		return hash_equals( $stored, $this->code_hash( $this->identity_hash( $identity ), $code ) );
 	}
 
 	/**
@@ -96,12 +128,13 @@ final class OtpRepository {
 
 		$table = $wpdb->prefix . 'anar_login_otp';
 
-		return 1 === $wpdb->query( // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name is built from the trusted WP prefix.
+		return 1 === $wpdb->query(
 			$wpdb->prepare(
-				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name is built from the trusted WP prefix.
-				"UPDATE {$table} SET consumed_at = %s WHERE id = %d AND consumed_at IS NULL",
+				'UPDATE %i SET consumed_at = %s WHERE id = %d AND consumed_at IS NULL AND expires_at > %s',
+				$table,
 				current_time( 'mysql', true ),
-				absint( $id )
+				absint( $id ),
+				current_time( 'mysql', true )
 			)
 		);
 	}
@@ -116,10 +149,10 @@ final class OtpRepository {
 
 		$table = $wpdb->prefix . 'anar_login_otp';
 
-		return $wpdb->query( // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name is built from the trusted WP prefix.
+		return $wpdb->query(
 			$wpdb->prepare(
-				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name is built from the trusted WP prefix.
-				"DELETE FROM {$table} WHERE expires_at < %s OR (consumed_at IS NOT NULL AND consumed_at < %s)",
+				'DELETE FROM %i WHERE expires_at < %s OR (consumed_at IS NOT NULL AND consumed_at < %s)',
+				$table,
 				gmdate( 'Y-m-d H:i:s', time() - DAY_IN_SECONDS ),
 				gmdate( 'Y-m-d H:i:s', time() - DAY_IN_SECONDS )
 			)
@@ -134,5 +167,16 @@ final class OtpRepository {
 	 */
 	private function identity_hash( $identity ) {
 		return hash_hmac( 'sha256', strtolower( $identity ), wp_salt( 'auth' ) );
+	}
+
+	/**
+	 * Keyed code hash bound to one identity.
+	 *
+	 * @param string $identity_hash Identity HMAC.
+	 * @param string $code          Plain code.
+	 * @return string
+	 */
+	private function code_hash( $identity_hash, $code ) {
+		return hash_hmac( 'sha256', $identity_hash . '|' . $code, wp_salt( 'secure_auth' ) );
 	}
 }

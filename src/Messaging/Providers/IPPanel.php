@@ -25,10 +25,10 @@ class IPPanel extends AbstractProvider {
 	/** @inheritDoc */
 	public function fields() {
 		return array(
-			'api_key'        => __( 'Edge API token or access key', 'anar-login' ),
-			'from'           => __( 'Sender number', 'anar-login' ),
-			'template_id'    => __( 'Pattern code', 'anar-login' ),
-			'code_parameter' => __( 'Code variable name in the pattern', 'anar-login' ),
+			'api_key'        => __( 'Edge API token or access key', 'anar-toolkit' ),
+			'from'           => __( 'Sender number', 'anar-toolkit' ),
+			'template_id'    => __( 'Pattern code', 'anar-toolkit' ),
+			'code_parameter' => __( 'Code variable name in the pattern', 'anar-toolkit' ),
 		);
 	}
 
@@ -67,7 +67,7 @@ class IPPanel extends AbstractProvider {
 			return $result;
 		}
 
-		if ( is_array( $result['json'] ) && ! empty( $result['json']['meta']['status'] ) && ! empty( $result['json']['data']['message_outbox_ids'] ) ) {
+		if ( is_array( $result['json'] ) && true === ( $result['json']['meta']['status'] ?? false ) && ! empty( $result['json']['data']['message_outbox_ids'] ) ) {
 			return true;
 		}
 

@@ -28,7 +28,15 @@ final class IdentityTest extends TestCase {
 			array( '98 912 123 4567' ),
 			array( '۰۹۱۲۱۲۳۴۵۶۷' ),
 			array( '٠٩١٢١٢٣٤٥٦٧' ),
+			array( '9121234567' ),
 		);
+	}
+
+	public function test_it_keeps_ten_digit_numbers_that_start_with_98() {
+		$result = Identity::normalize( '9891234567' );
+
+		$this->assertIsArray( $result );
+		$this->assertSame( '+989891234567', $result['identity'] );
 	}
 
 	public function test_it_normalizes_email() {

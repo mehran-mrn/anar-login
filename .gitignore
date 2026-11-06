@@ -4,3 +4,13 @@
 /.vscode/
 *.zip
 *.log
+
+/docs/ai/
+/dist/
+.env
+.env.*
+*.credential.xml
+*.pem
+*.key
+__pycache__/
+*.pyc

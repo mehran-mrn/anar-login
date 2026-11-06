@@ -24,7 +24,7 @@ final class Identity {
 		if ( false !== strpos( $value, '@' ) ) {
 			$email = sanitize_email( $value );
 			if ( ! is_email( $email ) ) {
-				return new WP_Error( 'anar_invalid_identity', __( 'Please enter a valid email address.', 'anar-login' ), array( 'status' => 400 ) );
+				return new WP_Error( 'anar_invalid_identity', __( 'Please enter a valid email address.', 'anar-toolkit' ), array( 'status' => 400 ) );
 			}
 
 			return array(
@@ -33,14 +33,14 @@ final class Identity {
 			);
 		}
 
-		$phone = preg_replace( '/[^\d+]/', '', $value );
-		$phone = preg_replace( '/^(?:\+98|0098|98|0)?/', '', (string) $phone );
+		$phone = (string) preg_replace( '/[^\d+]/', '', $value );
 
-		if ( ! preg_match( '/^9\d{9}$/', $phone ) ) {
-			return new WP_Error( 'anar_invalid_identity', __( 'Please enter a valid Iranian mobile number.', 'anar-login' ), array( 'status' => 400 ) );
+		// The prefix is optional, so a bare 10-digit number such as 989xxxxxxxx is never truncated.
+		if ( ! preg_match( '/^(?:\+98|0098|98|0)?(9\d{9})$/', $phone, $matches ) ) {
+			return new WP_Error( 'anar_invalid_identity', __( 'Please enter a valid Iranian mobile number.', 'anar-toolkit' ), array( 'status' => 400 ) );
 		}
 
-		$normalized = '+98' . $phone;
+		$normalized = '+98' . $matches[1];
 		$normalized = (string) apply_filters( 'anar_login_normalized_phone', $normalized, $value );
 
 		return array(
@@ -91,5 +91,23 @@ final class Identity {
 	 */
 	public static function local_phone( $phone ) {
 		return '0' . preg_replace( '/^\+98/', '', $phone );
+	}
+
+	/**
+	 * Mask an identity for display, e.g. 0912•••4567 or j•••@example.com.
+	 *
+	 * @param string $identity Canonical phone or email.
+	 * @return string
+	 */
+	public static function mask( $identity ) {
+		if ( false !== strpos( $identity, '@' ) ) {
+			list( $local, $domain ) = explode( '@', $identity, 2 );
+
+			return substr( $local, 0, 1 ) . '•••@' . $domain;
+		}
+
+		$local = self::local_phone( $identity );
+
+		return substr( $local, 0, 4 ) . '•••' . substr( $local, -4 );
 	}
 }

@@ -91,4 +91,4 @@ add_filter(
 - متن `$message` برای gateway متنی آماده است؛ gateway الگویی از `$code` استفاده می‌کند.
 - provider نباید کاربر بسازد، کوکی ورود تنظیم کند یا challenge را ذخیره کند.
 
-Provider سفارشی باید تنظیمات محرمانهٔ خود را در option افزونهٔ میزبان مدیریت کند. برای نمایش خودکار schema تنظیمات provider سفارشی در پنل Anar Login، API عمومی کامل‌تر در نسخهٔ بعدی اضافه خواهد شد.
+از نسخهٔ 0.3.0، فیلدهای `fields()` هر provider ثبت‌شده در تب پیامک نمایش داده و در `anar_login_settings['provider_{key}']` ذخیره می‌شوند. اگر provider از `AbstractProvider` ارث ببرد، `$this->config()` همین مقادیر را برمی‌گرداند و دیگر نیازی به option جداگانه نیست. فیلدهای `api_key`، `password`، `token` و `secret` محرمانه‌اند و پس از ذخیره نمایش داده نمی‌شوند؛ فهرست را با فیلتر `anar_login_secret_provider_fields` گسترش دهید. ابزار «ارسال پیامک آزمایشی» در همان تب، provider سفارشی را هم آزمایش می‌کند.

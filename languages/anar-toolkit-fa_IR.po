@@ -1,0 +1,1169 @@
+msgid ""
+msgstr "Project-Id-Version: Anar Toolkit 0.7.0\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
+
+msgid "09121234567 or name@example.com"
+msgstr "09121234567 یا name@example.com"
+
+msgid "100% free, forever — all features included."
+msgstr "۱۰۰٪ رایگان، برای همیشه — با تمام امکانات."
+
+msgid "A Kavenegar token exceeds 100 characters or its whitespace limit. Shorten its value or use another approved transport."
+msgstr "یکی از متغیرهای کاوه‌نگار از محدودیت ۱۰۰ کاراکتر یا تعداد فاصله مجاز عبور کرده است. مقدار را کوتاه کنید یا از روش ارسال تأییدشده دیگری استفاده کنید."
+
+msgid "A code is invalidated atomically after its first successful verification."
+msgstr "کد پس از اولین تأیید به‌صورت اتمیک باطل می‌شود."
+
+msgid "A full uninstall removes the code table and plugin metadata. Deactivation keeps the data."
+msgstr "با حذف کامل افزونه، جدول کدها و متادیتای اختصاصی حذف می‌شوند. غیرفعال‌سازی ساده داده‌ها را نگه می‌دارد."
+
+msgid "A login code cannot be sent to this identifier."
+msgstr "امکان ارسال کد برای این شناسه وجود ندارد."
+
+msgid "A new code has been sent."
+msgstr "کد جدید ارسال شد."
+
+msgid "A saved product is no longer available. Your current cart has been kept."
+msgstr "یکی از محصولات ذخیره‌شده دیگر قابل خرید نیست. سبد فعلی شما حفظ شد."
+
+msgid "A test code was sent to %s."
+msgstr "کد آزمایشی به %s ارسال شد."
+
+msgid "A valid mobile number is required."
+msgstr "شماره موبایل معتبر لازم است."
+
+msgid "API key"
+msgstr "کلید API"
+
+msgid "API token"
+msgstr "توکن API"
+
+msgid "Accepted means the provider accepted the request; it is not a handset delivery receipt. A recovered purchase means a paid order linked to a confirmed recovery visit. These counts describe attribution, not proven extra revenue. Reports cover locally retained data."
+msgstr "وضعیت accepted یعنی درخواست توسط پنل پذیرفته شده و تأیید رسیدن به گوشی نیست. خرید بازیابی‌شده، سفارش پرداخت‌شده‌ای است که به بازدید تأییدشده از لینک بازیابی متصل باشد. این آمار انتساب خرید را نشان می‌دهد و اثبات درآمد اضافه نیست. گزارش‌ها مربوط به داده‌های نگهداری‌شده محلی هستند."
+
+msgid "Accepted means the provider accepted the request; it is not a handset delivery receipt. A recovered purchase means a paid order linked to a verified recovery code. These counts describe attribution, not proven extra revenue. Reports cover locally retained data."
+msgstr "وضعیت accepted یعنی درخواست توسط پنل پذیرفته شده و تأیید رسیدن به گوشی نیست. خرید بازیابی‌شده، سفارش پرداخت‌شده‌ای است که به کد بازیابی تأییدشده متصل باشد. این آمار انتساب خرید را نشان می‌دهد و اثبات درآمد اضافه نیست. گزارش‌ها مربوط به داده‌های نگهداری‌شده محلی هستند."
+
+msgid "Account dashboard"
+msgstr "پنل کاربری"
+
+msgid "Account details"
+msgstr "اطلاعات حساب"
+
+msgid "Account information"
+msgstr "اطلاعات حساب کاربری"
+
+msgid "Account page"
+msgstr "صفحه پنل کاربری"
+
+msgid "Account sections"
+msgstr "بخش‌های حساب"
+
+msgid "Account sign-in methods"
+msgstr "روش‌های ورود به حساب"
+
+msgid "Account status"
+msgstr "وضعیت حساب"
+
+msgid "Action"
+msgstr "عملیات"
+
+msgid "Active"
+msgstr "فعال"
+
+msgid "Active account"
+msgstr "حساب فعال"
+
+msgid "Add [anar_recover_cart] to a custom page. SMS includes its URL and a separate recovery code. The URL itself contains no code or account-access token."
+msgstr "در صفحه دلخواه، [anar_recover_cart] را قرار دهید. پیامک شامل آدرس صفحه و کد بازیابی جداگانه خواهد بود. آدرس صفحه، کد یا توکن ورود به حساب ندارد."
+
+msgid "Add this exact URL to your Google OAuth settings."
+msgstr "این آدرس را دقیقاً در تنظیمات OAuth گوگل ثبت کنید."
+
+msgid "Add to pages"
+msgstr "نصب در صفحات"
+
+msgid "Administrator mobile numbers (maximum 5, one per line)"
+msgstr "شماره موبایل مدیران (حداکثر ۵ شماره، هر شماره در یک خط)"
+
+msgid "Administrators, editors and shop managers"
+msgstr "مدیران، ویرایشگران و مدیران فروشگاه"
+
+msgid "After a correct password, a code is sent to the account’s mobile, or its email when no mobile is linked. Code and Google sign-ins skip this step, as they already prove ownership."
+msgstr "پس از واردکردن رمز درست، کدی به موبایل حساب (یا اگر موبایلی ثبت نشده، به ایمیل آن) ارسال می‌شود. ورود با کد یکبارمصرف و گوگل این مرحله را ندارد، چون خودشان مالکیت را ثابت می‌کنند."
+
+msgid "All users"
+msgstr "همهٔ کاربران"
+
+msgid "Also replace wp-login.php"
+msgstr "جایگزینی صفحهٔ wp-login.php هم انجام شود"
+
+msgid "Anar Toolkit"
+msgstr "جعبه‌ابزار انار"
+
+msgid "Anar Toolkit — WooCommerce SMS"
+msgstr "جعبه‌ابزار انار — پیامک ووکامرس"
+
+msgid "Anar payment notifications"
+msgstr "اعلان پرداخت انار"
+
+msgid "Anar purchase reminders"
+msgstr "یادآوری خرید انار"
+
+msgid "Any panel with a web API"
+msgstr "هر پنلی که وب‌سرویس دارد"
+
+msgid "Approved provider template ID or name"
+msgstr "شناسه یا نام قالب تأییدشده سرویس"
+
+msgid "Attempts per code"
+msgstr "سقف تلاش برای هر کد"
+
+msgid "Attributed paid purchases:"
+msgstr "خرید پرداخت‌شده منتسب:"
+
+msgid "Automatic code filling on Android"
+msgstr "پرشدن خودکار کد در اندروید"
+
+msgid "Body format"
+msgstr "قالب بدنهٔ درخواست"
+
+msgid "Both links must be included in the recovery parameter mapping (or the custom gateway message). Use templates approved for purchase reminders."
+msgstr "هر دو لینک بازیابی و لغو دریافت باید در نگاشت متغیرها (یا متن درگاه سفارشی) وجود داشته باشند. از قالب تأییدشده برای یادآوری خرید استفاده کنید."
+
+msgid "Brand color"
+msgstr "رنگ برند"
+
+msgid "Built-in providers send the approved provider template, not this text. Keep its wording in sync with the approved template."
+msgstr "پنل‌های آماده، قالب تأییدشده سرویس را ارسال می‌کنند. این متن را با متن قالب تأییدشده هماهنگ نگه دارید."
+
+msgid "Cart and unpaid-order reminders"
+msgstr "یادآوری سبد و سفارش پرداخت‌نشده"
+
+msgid "Change details"
+msgstr "ویرایش مشخصات"
+
+msgid "Choose image"
+msgstr "انتخاب تصویر"
+
+msgid "Choose the least-privileged suitable role."
+msgstr "کم‌دسترسی‌ترین نقش مناسب را انتخاب کنید."
+
+msgid "Chrome on Android can fill the code with one tap when the last line of your provider template is exactly:"
+msgstr "اگر خط آخر الگوی پیامک دقیقاً به شکل زیر باشد، کروم اندروید کد را با یک لمس وارد می‌کند:"
+
+msgid "Clean up when uninstalling"
+msgstr "پاک‌سازی هنگام حذف افزونه"
+
+msgid "Close"
+msgstr "بستن"
+
+msgid "Code length"
+msgstr "طول کد"
+
+msgid "Code lifetime"
+msgstr "اعتبار کد"
+
+msgid "Code parameter name"
+msgstr "نام پارامتر کد"
+
+msgid "Code variable name in the pattern"
+msgstr "نام متغیر کد در پترن"
+
+msgid "Commerce SMS provider"
+msgstr "سرویس پیامک فروشگاه"
+
+msgid "Commerce toolkit"
+msgstr "ابزارهای فروشگاه"
+
+msgid "Complete account details"
+msgstr "تکمیل اطلاعات حساب"
+
+msgid "Complete the SMS provider credentials in the login settings."
+msgstr "اطلاعات اتصال سرویس پیامک را در تنظیمات ورود کامل کنید."
+
+msgid "Confidential values are not displayed again in the admin interface."
+msgstr "مقادیر محرمانه دوباره در رابط مدیریت نمایش داده نمی‌شوند."
+
+msgid "Configure an approved commerce template and its parameter mapping."
+msgstr "قالب تأییدشده فروشگاه و نگاشت متغیرهای آن را تنظیم کنید."
+
+msgid "Configure code lifetime and request limits for your site."
+msgstr "عمر کد و سقف درخواست‌ها را متناسب با سایت خود تنظیم کنید."
+
+msgid "Configure provider credentials in SMS settings"
+msgstr "تنظیم اطلاعات اتصال در بخش پیامک"
+
+msgid "Configure sign-in, registration, and the appearance of the form."
+msgstr "رفتار ورود، ثبت‌نام و ظاهر فرم را مشخص کنید."
+
+msgid "Configure the delivery service and OTP template details."
+msgstr "سرویس ارسال و اطلاعات الگوی OTP را تنظیم کنید."
+
+msgid "Confirmed recovery code verifications:"
+msgstr "تأیید موفق کد بازیابی:"
+
+msgid "Confirmed recovery visits:"
+msgstr "بازدید تأییدشده بازیابی:"
+
+msgid "Connect to %s"
+msgstr "اتصال به %s"
+
+msgid "Connected and verified"
+msgstr "متصل و تأییدشده"
+
+msgid "Consent text"
+msgstr "متن رضایت"
+
+msgid "Consent timestamp (UTC Unix time)"
+msgstr "زمان رضایت (زمان یونیکس UTC)"
+
+msgid "Conservative Unicode SMS segment estimate before replacing placeholders; actual billing depends on the provider:"
+msgstr "برآورد محافظه‌کارانه تعداد بخش‌های پیامک یونیکد پیش از جایگزینی متغیرها؛ هزینه واقعی به سرویس بستگی دارد:"
+
+msgid "Continue a purchase with your recovery code"
+msgstr "ادامه خرید با کد بازیابی"
+
+msgid "Continue to payment, or replace your current cart with the saved products. Prices and availability are checked again. This link does not sign you in."
+msgstr "پرداخت را ادامه دهید یا سبد فعلی را با محصولات ذخیره‌شده جایگزین کنید. قیمت و موجودی دوباره بررسی می‌شوند. این لینک شما را وارد حساب نمی‌کند."
+
+msgid "Continue with Google"
+msgstr "ادامه با حساب گوگل"
+
+msgid "Copied ✓"
+msgstr "کپی شد ✓"
+
+msgid "Copy"
+msgstr "کپی"
+
+msgid "Copy failed"
+msgstr "ناموفق"
+
+msgid "Copy the verified mobile number into an empty billing phone, so checkout is pre-filled."
+msgstr "شمارهٔ موبایل تأییدشده در تلفن صورتحساب خالی ذخیره می‌شود تا فرم تسویه‌حساب از قبل پر باشد."
+
+msgid "Core is active"
+msgstr "هسته فعال است"
+
+msgid "Could not complete Google sign-in. Please try again."
+msgstr "ورود با گوگل کامل نشد. لطفاً دوباره تلاش کنید."
+
+msgid "Could not connect to Google."
+msgstr "ارتباط با گوگل برقرار نشد."
+
+msgid "Could not connect to the SMS provider."
+msgstr "ارتباط با سرویس پیامک برقرار نشد."
+
+msgid "Could not connect. Please try again."
+msgstr "ارتباط برقرار نشد؛ دوباره تلاش کنید."
+
+msgid "Could not obtain sign-in authorization from Google."
+msgstr "دریافت مجوز ورود از گوگل ناموفق بود."
+
+msgid "Could not retrieve the Google profile."
+msgstr "دریافت پروفایل گوگل ناموفق بود."
+
+msgid "Could not save. Check your number and reload the page before trying again."
+msgstr "ذخیره نشد. شماره را بررسی و پیش از تلاش دوباره صفحه را تازه کنید."
+
+msgid "Create a new account when a verified user does not already have one."
+msgstr "اگر کاربر پس از تأیید کد حسابی نداشت، حساب تازه‌ای برای او ساخته شود."
+
+msgid "Create accounts automatically"
+msgstr "ساخت خودکار حساب"
+
+msgid "Custom gateway"
+msgstr "درگاه سفارشی"
+
+msgid "Custom image"
+msgstr "تصویر دلخواه"
+
+msgid "Customize the one-time password email."
+msgstr "متن ایمیل رمز یک‌بارمصرف را شخصی‌سازی کنید."
+
+msgid "Default WooCommerce cart page"
+msgstr "صفحه پیش‌فرض سبد خرید ووکامرس"
+
+msgid "Designed by Mehran Marandi"
+msgstr "طراحی و توسعه توسط مهران مرندی"
+
+msgid "Display name"
+msgstr "نام نمایشی"
+
+msgid "Display name cannot be empty."
+msgstr "نام نمایشی نمی‌تواند خالی باشد."
+
+msgid "Edge API token or access key"
+msgstr "توکن یا کلید دسترسی Edge API"
+
+msgid "Email"
+msgstr "ایمیل"
+
+msgid "Email (optional, for privacy requests)"
+msgstr "ایمیل (اختیاری، برای درخواست‌های حریم خصوصی)"
+
+msgid "Email is sent with the standard wp_mail function and is compatible with SMTP plugins."
+msgstr "ارسال با تابع استاندارد wp_mail انجام می‌شود و با افزونه‌های SMTP سازگار است."
+
+msgid "Email message"
+msgstr "متن ایمیل"
+
+msgid "Email only"
+msgstr "فقط ایمیل"
+
+msgid "Email sign-in"
+msgstr "ورود با ایمیل"
+
+msgid "Email subject"
+msgstr "موضوع ایمیل"
+
+msgid "Enable Google sign-in"
+msgstr "فعال‌سازی ورود گوگل"
+
+msgid "Enable standard Google OAuth without a heavy client library."
+msgstr "OAuth استاندارد گوگل را بدون کتابخانه سنگین فعال کنید."
+
+msgid "Endpoint URL"
+msgstr "آدرس وب‌سرویس"
+
+msgid "Enter a template body ID, or a sender number for plain-text messages."
+msgstr "کد الگو (bodyId) را وارد کنید، یا برای ارسال متن ساده شمارهٔ فرستنده را."
+
+msgid "Enter the code we sent to %s."
+msgstr "کدی را که به %s ارسال شد وارد کنید."
+
+msgid "Enter the complete verification code."
+msgstr "کد تأیید را کامل وارد کنید."
+
+msgid "Enter the mobile number that received the SMS and your latest six-digit recovery code. This replaces your current cart with saved products or opens payment for the unpaid order. It does not sign you in."
+msgstr "شماره دریافت‌کننده پیامک و آخرین کد بازیابی شش‌رقمی را وارد کنید. سبد فعلی با محصولات ذخیره‌شده جایگزین می‌شود یا پرداخت سفارش ناتمام باز می‌شود. این کار شما را وارد حساب نمی‌کند."
+
+msgid "Enter the verification code"
+msgstr "کد تأیید را وارد کنید"
+
+msgid "Enter your email address and we will send you a one-time password."
+msgstr "ایمیل خود را وارد کنید؛ رمز یک‌بارمصرف برایتان ارسال می‌شود."
+
+msgid "Enter your email address."
+msgstr "ایمیل را وارد کنید."
+
+msgid "Enter your mobile number and we will text you a one-time password."
+msgstr "شماره موبایل خود را وارد کنید؛ رمز یک‌بارمصرف برایتان پیامک می‌شود."
+
+msgid "Enter your mobile number or email address and we will send you a one-time password."
+msgstr "شماره موبایل یا ایمیل خود را وارد کنید؛ رمز یک‌بارمصرف برایتان ارسال می‌شود."
+
+msgid "Enter your mobile number or email address."
+msgstr "شماره موبایل یا ایمیل را وارد کنید."
+
+msgid "Enter your mobile number."
+msgstr "شماره موبایل را وارد کنید."
+
+msgid "Enumeration protection"
+msgstr "مقابله با شناسایی حساب‌ها"
+
+msgid "Erase local reminder data for this number"
+msgstr "حذف داده‌های محلی یادآوری این شماره"
+
+msgid "Error code"
+msgstr "کد خطا"
+
+msgid "Event"
+msgstr "رویداد"
+
+msgid "Every minute (Anar Toolkit)"
+msgstr "هر دقیقه (جعبه‌ابزار انار)"
+
+msgid "Everything at a glance"
+msgstr "همه‌چیز در یک نگاه"
+
+msgid "Faraz SMS"
+msgstr "فراز پیامک"
+
+msgid "Fast, secure sign-in"
+msgstr "ورود امن و سریع"
+
+msgid "Fill the billing phone"
+msgstr "پرکردن تلفن صورتحساب"
+
+msgid "First name"
+msgstr "نام"
+
+msgid "For a login page or theme modal."
+msgstr "برای صفحه ورود یا مودال قالب."
+
+msgid "For signed-out visitors, every WooCommerce login form and the theme’s login links (header account, side panels, WoodMart dropdowns) use the passwordless form."
+msgstr "برای بازدیدکنندگانی که وارد نشده‌اند، همهٔ فرم‌های ورود ووکامرس و لینک‌های ورود قالب (حساب کاربری در هدر، پنل‌های کناری و منوهای کشویی وودمارت) از فرم ورود بدون رمز استفاده می‌کنند."
+
+msgid "Form fields"
+msgstr "فیلدهای فرم"
+
+msgid "Form logo"
+msgstr "لوگوی فرم"
+
+msgid "General"
+msgstr "عمومی"
+
+msgid "General settings"
+msgstr "تنظیمات عمومی"
+
+msgid "Get these credentials from your SMS provider dashboard."
+msgstr "این اطلاعات را از پنل سرویس پیامکی خود دریافت کنید."
+
+msgid "Give new users the WooCommerce customer role instead of the general new-user role."
+msgstr "به کاربران جدید به‌جای نقش عمومی، نقش «مشتری» ووکامرس داده می‌شود."
+
+msgid "Go to my account"
+msgstr "رفتن به حساب کاربری"
+
+msgid "Google account"
+msgstr "حساب گوگل"
+
+msgid "Google sign-in"
+msgstr "ورود با حساب گوگل"
+
+msgid "Google sign-in is not enabled."
+msgstr "ورود با گوگل فعال نیست."
+
+msgid "Google sign-in was cancelled."
+msgstr "ورود با گوگل لغو شد."
+
+msgid "HTTP headers"
+msgstr "هدرهای HTTP"
+
+msgid "HTTP method"
+msgstr "متد HTTP"
+
+msgid "Hashed code storage"
+msgstr "ذخیره هش کد"
+
+msgid "Hello %s 👋"
+msgstr "سلام %s 👋"
+
+msgid "Help"
+msgstr "راهنما"
+
+msgid "Hourly send limit"
+msgstr "سقف ارسال ساعتی"
+
+msgid "Hours use the WordPress site timezone. Action Scheduler is used when available; WP-Cron is the fallback. Execution depends on the site scheduler and may be delayed. Retention cleanup runs daily."
+msgstr "ساعت‌ها مطابق منطقه زمانی وردپرس هستند. در صورت وجود، Action Scheduler استفاده می‌شود و در غیر این صورت WP-Cron کارها را اجرا می‌کند. اجرا به زمان‌بند سایت وابسته است و ممکن است تأخیر داشته باشد. پاک‌سازی اطلاعات روزانه انجام می‌شود."
+
+msgid "If a consented unfinished purchase exists, a new code will be sent shortly. Please wait before trying again."
+msgstr "اگر خرید ناتمام همراه با رضایت ثبت‌شده وجود داشته باشد، کد جدید به‌زودی پیامک می‌شود. پیش از تلاش دوباره کمی صبر کنید."
+
+msgid "If sign-in is available, a code has been sent to your email."
+msgstr "اگر امکان ورود وجود داشته باشد، کد به ایمیل شما ارسال شد."
+
+msgid "If sign-in is available, a code has been sent to your mobile."
+msgstr "اگر امکان ورود وجود داشته باشد، کد به موبایل شما ارسال شد."
+
+msgid "If you opt into purchase reminders, we store your mobile number, optional email, consent text and timestamp, cart products, amount, currency and related order ID locally. We send your number and the configured reminder variables (which may include purchase links and order details) to our selected SMS provider. Each reminder includes a link to stop future cart and unpaid-order reminders. Payment notifications are separate service messages. Phone-bound, single-use recovery codes restore products or open WooCommerce payment; they do not log you in. Recovery code hashes, attempts, expiry and consumption timestamps are stored separately from login challenges. Unsubscribe links only stop purchase reminders. The store configures a 7–90 day retention period and SMS provider. Add the selected provider, its terms and privacy links, your actual retention period and the purposes of your messages to this policy before enabling the modules."
+msgstr "با انتخاب دریافت یادآوری خرید، شماره موبایل، ایمیل اختیاری، متن و زمان رضایت، محصولات سبد، مبلغ، ارز و شناسه سفارش مرتبط در سایت ذخیره می‌شوند. شماره و متغیرهای پیکربندی‌شده یادآوری، شامل لینک خرید یا جزئیات سفارش، به سرویس پیامکی منتخب ارسال می‌شوند. هر پیام لینک توقف یادآوری سبد و سفارش پرداخت‌نشده دارد. اعلان پرداخت پیام خدماتی جداگانه‌ای است. کد یک‌بارمصرف متصل به شماره، سبد را بازیابی یا پرداخت ووکامرس را باز می‌کند و باعث ورود به حساب نمی‌شود. هش کد، تعداد تلاش، انقضا و زمان مصرف مستقل از کدهای ورود ذخیره می‌شوند. لینک لغو فقط یادآوری خرید را متوقف می‌کند. مدیر فروشگاه مدت نگهداری ۷ تا ۹۰ روز و سرویس پیامکی را تنظیم می‌کند. پیش از فعال‌سازی، نام سرویس، لینک شرایط و حریم خصوصی، مدت واقعی نگهداری و هدف پیام‌ها را به این سیاست اضافه کنید."
+
+msgid "If you opt into purchase reminders, we store your mobile number, optional email, consent text and timestamp, cart products, amount, currency and related order ID locally. We send your number and the configured reminder variables (which may include purchase links and order details) to our selected SMS provider. Each reminder includes a link to stop future cart and unpaid-order reminders. Payment notifications are separate service messages. Reminder links restore products or open WooCommerce payment; they do not log you in. The store configures a 7–90 day retention period and SMS provider. Add the selected provider, its terms and privacy links, your actual retention period and the purposes of your messages to this policy before enabling the modules."
+msgstr "با انتخاب دریافت یادآوری خرید، شماره موبایل، ایمیل اختیاری، متن و زمان رضایت، محصولات سبد، مبلغ، ارز و شناسه سفارش مرتبط در سایت ذخیره می‌شوند. شماره و متغیرهای پیکربندی‌شده یادآوری، شامل لینک خرید یا جزئیات سفارش، به سرویس پیامکی منتخب ارسال می‌شوند. هر پیام لینک توقف یادآوری سبد و سفارش پرداخت‌نشده دارد. اعلان پرداخت پیام خدماتی جداگانه‌ای است. لینک یادآوری، سبد را بازیابی یا پرداخت ووکامرس را باز می‌کند و باعث ورود به حساب نمی‌شود. مدیر فروشگاه مدت نگهداری ۷ تا ۹۰ روز و سرویس پیامکی را تنظیم می‌کند. پیش از فعال‌سازی، نام سرویس، لینک شرایط و حریم خصوصی، مدت واقعی نگهداری و هدف پیام‌ها را به این سیاست اضافه کنید."
+
+msgid "Inactive"
+msgstr "غیرفعال"
+
+msgid "Install and activate WooCommerce to run these modules. Login features work independently."
+msgstr "برای اجرای این ماژول‌ها، ووکامرس را نصب و فعال کنید. قابلیت‌های ورود مستقل کار می‌کنند."
+
+msgid "Kavenegar"
+msgstr "کاوه‌نگار"
+
+msgid "Kavenegar accepts token, token2, token3, token10 and token20."
+msgstr "کاوه‌نگار متغیرهای token، token2، token3، token10 و token20 را می‌پذیرد."
+
+msgid "Kavenegar: token, token2, token3, token10, token20. Faraz/SMS.ir: exact approved variable names. Meli Payamak: variables in template order. Custom gateway: uses the message text and its {message} transport placeholder."
+msgstr "کاوه‌نگار: token، token2، token3، token10 و token20. فراز و SMS.ir: نام دقیق متغیرهای قالب. ملی‌پیامک: ترتیب متغیرهای قالب. درگاه سفارشی: متن پیام با جای‌نگهدار {message} در تنظیمات اتصال ارسال می‌شود."
+
+msgid "Kavenegar: token, token2, token3, token10, token20. IPPanel/Faraz/SMS.ir: exact approved variable names. Meli Payamak: variables in template order. Custom gateway: uses the message text and its {message} transport placeholder."
+msgstr "کاوه‌نگار: token، token2، token3، token10 و token20. آی‌پی‌پنل، فراز و SMS.ir: نام دقیق متغیرهای قالب. ملی‌پیامک: ترتیب متغیرهای قالب. درگاه سفارشی: متن پیام با جای‌نگهدار {message} در تنظیمات اتصال ارسال می‌شود."
+
+msgid "Kavenegar: token, token2, token3, token10, token20. IPPanel/Panelchi/Faraz/SMS.ir: exact approved variable names. Meli Payamak: variables in template order. Custom gateway: uses the message text and its {message} transport placeholder."
+msgstr "کاوه‌نگار: token، token2، token3، token10 و token20. آی‌پی‌پنل، فراز و SMS.ir: نام دقیق متغیرهای قالب. ملی‌پیامک: ترتیب متغیرهای قالب. درگاه سفارشی: متن پیام با جای‌نگهدار {message} در تنظیمات اتصال ارسال می‌شود."
+
+msgid "Keep me signed in on this device"
+msgstr "در این دستگاه وارد بمان"
+
+msgid "Key extension points"
+msgstr "نقاط توسعه مهم"
+
+msgid "Last name"
+msgstr "نام خانوادگی"
+
+msgid "Leave empty to use the account page or home page."
+msgstr "خالی بگذارید تا صفحه پنل یا خانه استفاده شود."
+
+msgid "Leave this field empty to keep the saved value."
+msgstr "خالی‌گذاشتن این فیلد مقدار ذخیره‌شده را حفظ می‌کند."
+
+msgid "Lightweight shortcodes compatible with the Classic and Block editors."
+msgstr "شورت‌کدهای سبک، سازگار با ویرایشگر کلاسیک و بلوکی."
+
+msgid "Local data retention, days (7–90)"
+msgstr "مدت نگهداری داده‌های محلی، به روز (۷ تا ۹۰)"
+
+msgid "Log only error codes and channel names; OTPs and confidential data are never logged."
+msgstr "فقط کد خطا و نام کانال در گزارش خطا ثبت می‌شود؛ کد OTP و اطلاعات محرمانه ثبت نمی‌شوند."
+
+msgid "Login form"
+msgstr "فرم ورود"
+
+msgid "Login popup"
+msgstr "پاپ‌آپ ورود"
+
+msgid "Manage your profile and secure sign-in methods from this dashboard."
+msgstr "مشخصات و روش‌های ورود امن خود را از این پنل مدیریت کنید."
+
+msgid "Maximum reminders per phone in 24 hours (1–10)"
+msgstr "سقف یادآوری هر شماره در ۲۴ ساعت (۱ تا ۱۰)"
+
+msgid "Meli Payamak"
+msgstr "ملی پیامک"
+
+msgid "Member since"
+msgstr "عضویت از"
+
+msgid "Message text for a custom gateway / template reference"
+msgstr "متن پیام برای درگاه سفارشی / مرجع قالب"
+
+msgid "Minutes after the last cart change (0 = disabled)"
+msgstr "دقیقه پس از آخرین تغییر سبد (صفر = غیرفعال)"
+
+msgid "Mobile"
+msgstr "موبایل"
+
+msgid "Mobile number"
+msgstr "شماره موبایل"
+
+msgid "Mobile number only"
+msgstr "فقط شماره موبایل"
+
+msgid "Mobile number or email"
+msgstr "شماره موبایل یا ایمیل"
+
+msgid "Mobile or email"
+msgstr "موبایل یا ایمیل"
+
+msgid "Modules"
+msgstr "ماژول‌ها"
+
+msgid "My Account sign-in"
+msgstr "ورود در صفحهٔ حساب کاربری"
+
+msgid "My account"
+msgstr "حساب من"
+
+msgid "New user role"
+msgstr "نقش کاربران جدید"
+
+msgid "No account was found for these details and registration is disabled."
+msgstr "برای این مشخصات حسابی پیدا نشد و ثبت‌نام غیرفعال است."
+
+msgid "No logo"
+msgstr "بدون لوگو"
+
+msgid "No messages yet."
+msgstr "هنوز پیامی ثبت نشده است."
+
+msgid "No phone number or email is linked to this account."
+msgstr "هیچ شماره موبایل یا ایمیلی به این حساب متصل نیست."
+
+msgid "Not connected to this account"
+msgstr "به این حساب متصل نیست"
+
+msgid "Not selected"
+msgstr "انتخاب نشده"
+
+msgid "Off"
+msgstr "خاموش"
+
+msgid "Off by default. When on, the WordPress login page shows the passwordless form with a “Sign in with a password” link, so staff can always use their password."
+msgstr "به‌طور پیش‌فرض خاموش است. در صورت فعال‌سازی، صفحهٔ ورود وردپرس فرم ورود بدون رمز را همراه با لینک «ورود با رمز عبور» نمایش می‌دهد تا مدیران همیشه بتوانند با رمز وارد شوند."
+
+msgid "One form signs customers in and registers new ones. A “sign in with a password” link stays available."
+msgstr "یک فرم واحد، مشتریان فعلی را وارد و مشتریان جدید را ثبت‌نام می‌کند. گزینهٔ «ورود با رمز عبور» همچنان در دسترس است."
+
+msgid "One per line as name=value, or a complete JSON object for APIs with nested bodies or numeric values. Sent as the query string for GET requests."
+msgstr "هر پارامتر در یک خط به شکل name=value، یا یک شیء JSON کامل برای وب‌سرویس‌هایی که بدنهٔ تودرتو یا مقدار عددی می‌خواهند. در متد GET به‌صورت query string ارسال می‌شود."
+
+msgid "One-time code"
+msgstr "کد یک‌بارمصرف"
+
+msgid "One-time password"
+msgstr "رمز یک‌بارمصرف"
+
+msgid "One-time passwords are never stored in a recoverable form and are invalidated immediately after their first use."
+msgstr "رمزهای یک‌بارمصرف به‌صورت قابل‌بازیابی ذخیره نمی‌شوند و پس از اولین استفاده فوراً باطل خواهند شد."
+
+msgid "Only Subscriber and Customer roles with basic read access are allowed. Elevated or custom roles cannot be used for public registration."
+msgstr "فقط نقش مشترک و مشتری با دسترسی پایه خواندن مجاز هستند. نقش‌های دارای دسترسی بیشتر یا سفارشی برای ثبت‌نام عمومی قابل استفاده نیستند."
+
+msgid "Only confirmed failures can be retried here, up to three attempts. Uncertain results may already have been accepted; investigate them in the provider panel. Failed messages are not retried automatically."
+msgstr "فقط خطاهای قطعی را می‌توان تا سه تلاش دوباره ارسال کرد. نتیجه نامشخص ممکن است قبلاً پذیرفته شده باشد؛ آن را در پنل بررسی کنید. پیامک‌های ناموفق خودکار تکرار نمی‌شوند."
+
+msgid "Only shoppers who save an explicit reminder preference are tracked. Add [anar_cart_reminders] and [anar_recover_cart] beside Cart or Checkout blocks. Classic pages show the forms automatically. Recovery uses a phone-bound six-digit code; OTP login never subscribes a shopper."
+msgstr "فقط سبد مشتریانی ذخیره می‌شود که رضایت یادآوری را ثبت کنند. کنار بلوک‌های سبد یا تسویه‌حساب، [anar_cart_reminders] و [anar_recover_cart] را قرار دهید. صفحات کلاسیک فرم‌ها را خودکار نشان می‌دهند. بازیابی با کد شش‌رقمی متصل به شماره انجام می‌شود؛ ورود پیامکی به معنای عضویت در یادآوری نیست."
+
+msgid "Only shoppers who save an explicit reminder preference are tracked. Add [anar_cart_reminders] beside a Cart or Checkout block. Classic cart and checkout show the form automatically. Phone numbers used for OTP are not subscribed automatically."
+msgstr "فقط سبد مشتریانی ذخیره می‌شود که ترجیح دریافت یادآوری را ثبت کنند. برای بلوک سبد یا تسویه‌حساب، شورت‌کد [anar_cart_reminders] را کنار بلوک قرار دهید. فرم در سبد و تسویه‌حساب کلاسیک خودکار نمایش داده می‌شود. ورود با کد تأیید به معنای عضویت در یادآوری‌ها نیست."
+
+msgid "Only used when the template ID is empty: the SMS fallback message is then sent as plain text from this dedicated number."
+msgstr "فقط وقتی کد الگو خالی باشد استفاده می‌شود؛ در این حالت «متن جایگزین پیامک» به‌صورت متن ساده از این شمارهٔ اختصاصی ارسال می‌شود."
+
+msgid "Open the sign-in form in a popup from any link to #anar-login, such as a menu item. The form loads only when it is first opened, so page speed is unaffected."
+msgstr "فرم ورود با کلیک روی هر لینکی به ‎#anar-login‎ (مثلاً یک آیتم منو) در پاپ‌آپ باز می‌شود. فرم فقط هنگام اولین بازشدن بارگذاری می‌شود و روی سرعت صفحه اثری ندارد."
+
+msgid "Opens the login popup; signed-in users go to their account. For menus, add a custom link to #anar-login."
+msgstr "پاپ‌آپ ورود را باز می‌کند؛ کاربران واردشده به حساب خود می‌روند. برای منو، یک پیوند دلخواه با آدرس ‎#anar-login‎ اضافه کنید."
+
+msgid "Optional but recommended. Delivery counts as successful only for HTTP 2xx responses that contain this text, such as \"status\":200."
+msgstr "اختیاری ولی توصیه‌شده. ارسال فقط وقتی موفق حساب می‌شود که پاسخ HTTP 2xx باشد و این متن را داشته باشد؛ مثلاً \"status\":200."
+
+msgid "Optional. One per line as Name: value."
+msgstr "اختیاری. هر هدر در یک خط به شکل Name: value."
+
+msgid "Overview"
+msgstr "نمای کلی"
+
+msgid "Page for entering recovery codes"
+msgstr "صفحه ورود کد بازیابی"
+
+msgid "Panelchi uses source number 10001. Leave blank to use this default."
+msgstr "سرشماره پنل‌چی 10001 است. برای استفاده از این مقدار پیش‌فرض، خالی بگذارید."
+
+msgid "Parameters"
+msgstr "پارامترها"
+
+msgid "Passwordless sign-in on My Account and checkout."
+msgstr "ورود بدون رمز در حساب کاربری و صفحهٔ تسویه‌حساب."
+
+msgid "Passwordless sign-in that is simple for users and secure for you"
+msgstr "ورود یک‌بارمصرف، ساده برای کاربر و مطمئن برای شما"
+
+msgid "Pattern code"
+msgstr "کد پترن"
+
+msgid "Pattern slug"
+msgstr "اسلاگ پترن"
+
+msgid "Payment confirmation to administrators"
+msgstr "اعلان تأیید پرداخت به مدیران"
+
+msgid "Payment confirmation to customer"
+msgstr "اعلان تأیید پرداخت به مشتری"
+
+msgid "Payment messages are triggered by WooCommerce payment completion, not by viewing the thank-you page. Merely creating an order or choosing cash on delivery does not trigger them."
+msgstr "اعلان پرداخت با تأیید پرداخت ووکامرس اجرا می‌شود. مشاهده صفحه تشکر، ساخت سفارش یا انتخاب پرداخت در محل به‌تنهایی پیامکی ارسال نمی‌کند."
+
+msgid "Personal data"
+msgstr "داده‌های شخصی"
+
+msgid "Phone-only mode shows a numeric keypad on mobile for the fastest sign-in."
+msgstr "در حالت «فقط موبایل» صفحه‌کلید عددی نمایش داده می‌شود و ورود سریع‌تر است."
+
+msgid "Placeholders: {to} recipient, {code} one-time code, {message} full text, {sender} sender number."
+msgstr "متغیرها: {to} گیرنده، {code} کد یک‌بارمصرف، {message} متن کامل، {sender} شمارهٔ فرستنده."
+
+msgid "Please enter a valid Iranian mobile number."
+msgstr "شماره موبایل ایرانی معتبر نیست."
+
+msgid "Please enter a valid email address."
+msgstr "نشانی ایمیل معتبر نیست."
+
+msgid "Please wait %d seconds before requesting another code."
+msgstr "لطفاً %d ثانیه تا ارسال دوباره صبر کنید."
+
+msgid "Please wait…"
+msgstr "چند لحظه…"
+
+msgid "Popup button"
+msgstr "دکمهٔ پاپ‌آپ"
+
+msgid "Profile"
+msgstr "پروفایل"
+
+msgid "Provider variables — one name={placeholder} per line"
+msgstr "متغیرهای سرویس — هر name={placeholder} در یک خط"
+
+msgid "Purchase reminder — stage 1"
+msgstr "یادآوری خرید — مرحله اول"
+
+msgid "Purchase reminder — stage 2"
+msgstr "یادآوری خرید — مرحله دوم"
+
+msgid "Purchase reminder — stage 3"
+msgstr "یادآوری خرید — مرحله سوم"
+
+msgid "Purchase reminders have been stopped for this mobile number."
+msgstr "یادآوری‌های خرید برای این شماره متوقف شد."
+
+msgid "Put your template’s code variable after the # sign. iPhones suggest the code above the keyboard without any change."
+msgstr "متغیر کد الگوی خود را بعد از علامت # قرار دهید. آیفون بدون هیچ تغییری کد را بالای صفحه‌کلید پیشنهاد می‌دهد."
+
+msgid "Raw OTPs are never stored in the database."
+msgstr "OTP خام هرگز در دیتابیس ذخیره نمی‌شود."
+
+msgid "Recipient"
+msgstr "گیرنده"
+
+msgid "Recipient format"
+msgstr "قالب شمارهٔ گیرنده"
+
+msgid "Recommended: sends through the shared service line, so the code is delivered even to numbers that block advertising."
+msgstr "توصیه‌شده: ارسال از خط خدماتی اشتراکی، تا کد حتی به شماره‌هایی که پیامک تبلیغاتی را مسدود کرده‌اند هم برسد."
+
+msgid "Recover unfinished purchases with consent, and notify customers and administrators after confirmed payment."
+msgstr "خریدهای ناتمام را با رضایت مشتری پیگیری کنید و پس از تأیید پرداخت به مشتری و مدیران پیامک بفرستید."
+
+msgid "Recovery code"
+msgstr "کد بازیابی"
+
+msgid "Recovery code validity, minutes (5–1440)"
+msgstr "اعتبار کد بازیابی، به دقیقه (۵ تا ۱۴۴۰)"
+
+msgid "Recovery eligibility after cart activity, days (1–30)"
+msgstr "مهلت بازیابی پس از فعالیت سبد، به روز (۱ تا ۳۰)"
+
+msgid "Recovery link lifetime after cart activity, days (1–30)"
+msgstr "اعتبار لینک بازیابی پس از فعالیت سبد، به روز (۱ تا ۳۰)"
+
+msgid "Recovery messages must include both recovery and unsubscribe links."
+msgstr "پیام یادآوری باید هر دو لینک بازیابی و لغو دریافت را داشته باشد."
+
+msgid "Recovery messages must include the code, recovery page and unsubscribe link."
+msgstr "پیام یادآوری باید کد، آدرس صفحه بازیابی و لینک لغو دریافت را داشته باشد."
+
+msgid "Recovery messages must include the recovery code and unsubscribe link."
+msgstr "پیام یادآوری باید کد بازیابی و لینک لغو دریافت را داشته باشد."
+
+msgid "Recovery sending starts at hour (0–23)"
+msgstr "ساعت شروع ارسال یادآوری (۰ تا ۲۳)"
+
+msgid "Recovery sending stops at hour (1–24)"
+msgstr "ساعت پایان ارسال یادآوری (۱ تا ۲۴)"
+
+msgid "Redirect URL after sign-in"
+msgstr "آدرس انتقال پس از ورود"
+
+msgid "Register as customers"
+msgstr "ثبت‌نام به‌عنوان مشتری"
+
+msgid "Registration for new users is disabled."
+msgstr "ثبت‌نام کاربران جدید غیرفعال است."
+
+msgid "Registration is unavailable because no safe new-user role is configured. Please contact the site administrator."
+msgstr "ثبت‌نام به دلیل نبود نقش امن برای کاربر جدید در دسترس نیست. لطفاً با مدیر سایت تماس بگیرید."
+
+msgid "Reminder timing and privacy"
+msgstr "زمان‌بندی یادآوری و حریم خصوصی"
+
+msgid "Reminders stopped"
+msgstr "یادآوری متوقف شد"
+
+msgid "Replace the WooCommerce forms"
+msgstr "جایگزینی فرم‌های ووکامرس"
+
+msgid "Replace the theme’s login"
+msgstr "جایگزینی ورود قالب"
+
+msgid "Replace “Returning customer? Click here to login” with the code form; customers return straight to checkout. Follows the WooCommerce login reminder setting."
+msgstr "به‌جای «قبلاً خرید کرده‌اید؟ برای ورود کلیک کنید» فرم ورود با کد نمایش داده می‌شود و مشتری مستقیم به تسویه‌حساب برمی‌گردد. تابع تنظیم یادآوری ورود ووکامرس است."
+
+msgid "Request responses do not reveal whether an account exists."
+msgstr "پاسخ درخواست، وجود حساب را افشا نمی‌کند."
+
+msgid "Requested recovery code"
+msgstr "کد بازیابی درخواستی"
+
+msgid "Resend code"
+msgstr "ارسال دوباره"
+
+msgid "Resend interval"
+msgstr "فاصله ارسال مجدد"
+
+msgid "Results and outgoing queue"
+msgstr "نتایج و صف ارسال"
+
+msgid "Resume your purchase"
+msgstr "ادامه خرید"
+
+msgid "Retry"
+msgstr "تلاش مجدد"
+
+msgid "Returning customer?"
+msgstr "قبلاً از ما خرید کرده‌اید؟"
+
+msgid "Roles that can manage the site or other users are not offered."
+msgstr "نقش‌هایی که امکان مدیریت سایت یا کاربران دیگر را دارند نمایش داده نمی‌شوند."
+
+msgid "SMS"
+msgstr "پیامک"
+
+msgid "SMS fallback message"
+msgstr "متن جایگزین پیامک"
+
+msgid "SMS gateways must use HTTPS."
+msgstr "نشانی درگاه پیامکی باید از HTTPS استفاده کند."
+
+msgid "SMS provider"
+msgstr "درگاه پیامک"
+
+msgid "SMS purchase reminders"
+msgstr "یادآوری پیامکی خرید"
+
+msgid "SMS sign-in"
+msgstr "ورود پیامکی"
+
+msgid "SMS sign-in and customer communication tools"
+msgstr "ابزارهای ورود پیامکی و ارتباط با مشتری"
+
+msgid "Save changes"
+msgstr "ذخیره تغییرات"
+
+msgid "Save reminder preference"
+msgstr "ذخیره ترجیح یادآوری"
+
+msgid "Save settings"
+msgstr "ذخیره تنظیمات"
+
+msgid "Saved"
+msgstr "ذخیره شده"
+
+msgid "Saved — enter a new value to change it"
+msgstr "ذخیره شده — برای تغییر، مقدار جدید را بنویسید"
+
+msgid "Scheduled"
+msgstr "زمان برنامه‌ریزی‌شده"
+
+msgid "Secure HTTPS"
+msgstr "HTTPS امن"
+
+msgid "Secure connection"
+msgstr "اتصال امن"
+
+msgid "Security"
+msgstr "امنیت"
+
+msgid "Security and rate limits"
+msgstr "امنیت و محدودسازی"
+
+msgid "Send a new recovery code"
+msgstr "ارسال کد بازیابی جدید"
+
+msgid "Send a test SMS"
+msgstr "ارسال پیامک آزمایشی"
+
+msgid "Send login code"
+msgstr "دریافت کد ورود"
+
+msgid "Send me SMS reminders about this cart and its unpaid order. I can stop reminders using the link in each message. My phone number and reminder details will be sent to the store's SMS provider."
+msgstr "مایلم برای این سبد و سفارش پرداخت‌نشده آن، یادآوری پیامکی دریافت کنم. با لینک داخل هر پیام می‌توانم دریافت را لغو کنم. شماره و اطلاعات یادآوری به سرویس پیامکی فروشگاه ارسال می‌شود."
+
+msgid "Send test"
+msgstr "ارسال آزمایشی"
+
+msgid "Sender number"
+msgstr "شماره فرستنده"
+
+msgid "Sender number (optional)"
+msgstr "شمارهٔ فرستنده (اختیاری)"
+
+msgid "Sending…"
+msgstr "در حال ارسال…"
+
+msgid "Service template delivery"
+msgstr "ارسال الگوی خدماتی"
+
+msgid "Settings"
+msgstr "تنظیمات"
+
+msgid "Show above the WooCommerce forms"
+msgstr "نمایش بالای فرم‌های ووکامرس"
+
+msgid "Show the Google sign-in button on the login form."
+msgstr "دکمه ورود گوگل در فرم ورود نمایش داده شود."
+
+msgid "Shown at the top of the sign-in form. The site logo falls back to the site icon, then to a lock icon."
+msgstr "بالای فرم ورود نمایش داده می‌شود. اگر لوگوی سایت تنظیم نشده باشد، آیکون سایت و در نبود آن، آیکون قفل نمایش داده می‌شود."
+
+msgid "Shows the login form to signed-out visitors."
+msgstr "در حالت مهمان، فرم ورود را نشان می‌دهد."
+
+msgid "Sign in"
+msgstr "ورود"
+
+msgid "Sign in / Register"
+msgstr "ورود / ثبت‌نام"
+
+msgid "Sign in with a one-time code"
+msgstr "ورود با کد یکبارمصرف"
+
+msgid "Sign in with a password instead"
+msgstr "ورود با رمز عبور"
+
+msgid "Sign out"
+msgstr "خروج از حساب"
+
+msgid "Sign-in & security"
+msgstr "ورود و امنیت"
+
+msgid "Sign-in at checkout"
+msgstr "ورود در صفحهٔ تسویه‌حساب"
+
+msgid "Sign-in icon only"
+msgstr "فقط آیکون ورود"
+
+msgid "Sign-in methods"
+msgstr "روش‌های ورود"
+
+msgid "Signing you in…"
+msgstr "در حال ورود…"
+
+msgid "Single use"
+msgstr "مصرف یک‌باره"
+
+msgid "Site logo"
+msgstr "لوگوی سایت"
+
+msgid "Stage times are minutes after the last saved cart change. A value of 0 disables that stage. Payment, cancellation, expiry or opting out stops future reminders. Guest carts without a saved number cannot receive SMS."
+msgstr "زمان هر مرحله بر حسب دقیقه پس از آخرین تغییر ذخیره‌شده سبد است. مقدار صفر آن مرحله را غیرفعال می‌کند. پرداخت، لغو، انقضا یا انصراف مشتری، یادآوری‌ها را متوقف می‌کند. سبد مهمان بدون شماره ثبت‌شده پیامکی دریافت نمی‌کند."
+
+msgid "Status"
+msgstr "وضعیت"
+
+msgid "Stop all cart and unpaid-order reminders for this mobile number?"
+msgstr "تمام یادآوری‌های سبد و سفارش پرداخت‌نشده برای این شماره متوقف شوند؟"
+
+msgid "Stop purchase reminders"
+msgstr "لغو یادآوری خرید"
+
+msgid "Success text in the response"
+msgstr "متن موفقیت در پاسخ"
+
+msgid "Technical error log"
+msgstr "گزارش خطای فنی"
+
+msgid "Template ID"
+msgstr "شناسه قالب"
+
+msgid "Template body ID"
+msgstr "Body ID الگو"
+
+msgid "Template providers only use {code}; this message is available to developers and text-message providers."
+msgstr "درگاه‌های الگویی فقط از مقدار {code} استفاده می‌کنند؛ این متن برای توسعه‌دهندگان و درگاه‌های متنی آماده است."
+
+msgid "Tests the provider and details currently entered above, even before saving. The provider’s exact response is shown if delivery fails."
+msgstr "درگاه و اطلاعاتی که همین الان در بالا وارد کرده‌اید آزمایش می‌شود، حتی پیش از ذخیره. در صورت خطا، پاسخ دقیق سرویس پیامک نمایش داده می‌شود."
+
+msgid "The %s provider settings are incomplete."
+msgstr "تنظیمات درگاه %s کامل نیست."
+
+msgid "The Google account email is not verified."
+msgstr "ایمیل حساب گوگل تأیید نشده است."
+
+msgid "The Google account information is incomplete."
+msgstr "اطلاعات حساب گوگل کامل نیست."
+
+msgid "The Google sign-in request is invalid or has expired."
+msgstr "درخواست ورود گوگل معتبر نیست یا منقضی شده است."
+
+msgid "The Google sign-in settings are incomplete."
+msgstr "تنظیمات ورود گوگل کامل نیست."
+
+msgid "The OAuth 2.0 client ID from Google Cloud Console."
+msgstr "شناسه OAuth 2.0 از Google Cloud Console."
+
+msgid "The SMS message was not accepted by %s."
+msgstr "ارسال پیامک توسط %s پذیرفته نشد."
+
+msgid "The SMS provider did not accept this message."
+msgstr "سرویس پیامک این پیام را نپذیرفت."
+
+msgid "The SMS provider returned an unsuccessful response (HTTP %d)."
+msgstr "سرویس پیامک پاسخ ناموفق داد (HTTP %d)."
+
+msgid "The code is invalid or has expired."
+msgstr "کد نامعتبر یا منقضی شده است."
+
+msgid "The code is invalid, expired or unavailable. Check the number and latest code, or request a new code."
+msgstr "کد نامعتبر، منقضی یا غیرقابل استفاده است. شماره و آخرین کد را بررسی کنید یا کد جدید بخواهید."
+
+msgid "The code, recovery page and unsubscribe link must be included in the recovery parameter mapping (or custom message). Use templates approved for purchase reminders."
+msgstr "کد، آدرس صفحه بازیابی و لینک لغو دریافت باید در نگاشت متغیرها یا متن درگاه سفارشی قرار بگیرند. از قالب تأییدشده یادآوری خرید استفاده کنید."
+
+msgid "The custom gateway JSON parameters are not valid JSON."
+msgstr "پارامترهای JSON درگاه سفارشی معتبر نیستند."
+
+msgid "The custom gateway must use the {message} placeholder for commerce messages."
+msgstr "درگاه سفارشی باید برای پیام فروشگاه از جای‌نگهدار {message} استفاده کند."
+
+msgid "The email could not be sent. Please check the site email settings."
+msgstr "ارسال ایمیل ناموفق بود. تنظیمات ایمیل سایت را بررسی کنید."
+
+msgid "The login code could not be created."
+msgstr "امکان ساخت کد ورود وجود ندارد."
+
+msgid "The login code could not be sent. Please try again later."
+msgstr "ارسال کد ورود ناموفق بود. لطفاً کمی بعد دوباره تلاش کنید."
+
+msgid "The page that contains the [anar_account] shortcode."
+msgstr "صفحه‌ای که شورت‌کد [anar_account] در آن قرار دارد."
+
+msgid "The primary color of the sign-in form and account dashboard."
+msgstr "رنگ اصلی فرم ورود و پنل کاربری."
+
+msgid "The recovery code and unsubscribe link must be included in the recovery parameter mapping (or custom message). Use templates approved for purchase reminders."
+msgstr "کد بازیابی و لینک لغو دریافت باید در نگاشت متغیرها یا متن درگاه سفارشی قرار بگیرند. از قالب تأییدشده یادآوری خرید استفاده کنید."
+
+msgid "The request is invalid."
+msgstr "درخواست نامعتبر است."
+
+msgid "The saved cart could not be restored. Your previous cart has been kept."
+msgstr "بازیابی سبد انجام نشد. سبد قبلی شما حفظ شد."
+
+msgid "The saved cart is empty."
+msgstr "سبد ذخیره‌شده خالی است."
+
+msgid "The selected SMS provider is unavailable."
+msgstr "درگاه پیامک انتخاب‌شده در دسترس نیست."
+
+msgid "The selected commerce SMS provider is unavailable."
+msgstr "سرویس پیامکی منتخب فروشگاه در دسترس نیست."
+
+msgid "The sign-in request address has changed."
+msgstr "نشانی درخواست ورود تغییر کرده است."
+
+msgid "The verification step expired. Please sign in again."
+msgstr "مهلت مرحلهٔ تأیید تمام شد. لطفاً دوباره وارد شوید."
+
+msgid "This account cannot sign in."
+msgstr "امکان ورود با این حساب وجود ندارد."
+
+msgid "This account uses two-step verification, so XML-RPC sign-in is disabled."
+msgstr "این حساب از ورود دومرحله‌ای استفاده می‌کند، بنابراین ورود از طریق XML-RPC غیرفعال است."
+
+msgid "This purchase no longer needs a reminder, or its link has expired."
+msgstr "این خرید دیگر به یادآوری نیاز ندارد یا لینک آن منقضی شده است."
+
+msgid "This reminder link is invalid or has expired."
+msgstr "لینک یادآوری نامعتبر یا منقضی شده است."
+
+msgid "Too many incorrect attempts. Please request a new code."
+msgstr "تعداد تلاش‌های نادرست زیاد بود. لطفاً کد جدید دریافت کنید."
+
+msgid "Too many recovery attempts. Please try again later."
+msgstr "تعداد تلاش‌های بازیابی بیش از حد مجاز است. کمی بعد دوباره تلاش کنید."
+
+msgid "Too many requests."
+msgstr "تعداد درخواست‌ها بیش از حد مجاز است."
+
+msgid "Too many requests. Please try again later."
+msgstr "تعداد درخواست‌ها بیش از حد مجاز است. کمی بعد تلاش کنید."
+
+msgid "Two lightweight shortcodes compatible with the Classic and Block editors."
+msgstr "دو شورت‌کد سبک، سازگار با ویرایشگر کلاسیک و بلوکی."
+
+msgid "Two-step verification"
+msgstr "ورود دومرحله‌ای"
+
+msgid "Use on your site"
+msgstr "استفاده در سایت"
+
+msgid "Username"
+msgstr "نام کاربری"
+
+msgid "Verification code"
+msgstr "کد تأیید"
+
+msgid "Verified"
+msgstr "تأییدشده"
+
+msgid "Verify Lookup template name"
+msgstr "نام الگوی Verify Lookup"
+
+msgid "Verify and sign in"
+msgstr "تأیید و ورود"
+
+msgid "Verify code and continue purchase"
+msgstr "تأیید کد و ادامه خرید"
+
+msgid "Web service password"
+msgstr "رمز عبور وب‌سرویس"
+
+msgid "Welcome"
+msgstr "خوش آمدید"
+
+msgid "WooCommerce"
+msgstr "ووکامرس"
+
+msgid "WordPress export and erasure tools can locate reminders by the optional saved email. For a phone-only request, verify the requester first and remove that number here. This removes local reminder data and queue entries, not WooCommerce orders or records already held by the SMS provider."
+msgstr "ابزارهای برون‌بری و حذف اطلاعات وردپرس با ایمیل اختیاری ثبت‌شده، یادآوری‌ها را پیدا می‌کنند. برای درخواست مبتنی بر شماره، ابتدا هویت درخواست‌کننده را بررسی و سپس شماره را اینجا حذف کنید. داده‌های محلی یادآوری و صف حذف می‌شوند؛ سفارش‌های ووکامرس و سوابق ذخیره‌شده در پنل پیامکی باقی می‌مانند."
+
+msgid "You are signed in"
+msgstr "شما وارد شده‌اید"
+
+msgid "You cannot manage these settings."
+msgstr "اجازه مدیریت این تنظیمات را ندارید."
+
+msgid "You have signed in successfully."
+msgstr "با موفقیت وارد شدید."
+
+msgid "Your account information has been saved."
+msgstr "اطلاعات حساب ذخیره شد."
+
+msgid "Your account is ready"
+msgstr "حساب شما آماده است"
+
+msgid "Your login code for {site}"
+msgstr "کد ورود به {site}"
+
+msgid "Your login code is: {code}\nThis code is valid for {minutes} minutes."
+msgstr "کد ورود شما: {code}\nاین کد تا {minutes} دقیقه معتبر است."
+
+msgid "Your one-time code expires and can only be used once."
+msgstr "کد ورود اعتبار محدود دارد و فقط یک بار قابل استفاده است."
+
+msgid "Your profile picture"
+msgstr "تصویر حساب شما"
+
+msgid "Your reminder preference has been saved."
+msgstr "ترجیح دریافت یادآوری ذخیره شد."
+
+msgid "Your settings are stored securely"
+msgstr "تنظیمات شما امن ذخیره می‌شود"
+
+msgid "Your {site} login code is: {code}"
+msgstr "کد ورود شما به {site}: {code}"
+
+msgid "attempts"
+msgstr "بار"
+
+msgid "digits"
+msgstr "رقم"
+
+msgid "or"
+msgstr "یا"
+
+msgid "requests"
+msgstr "درخواست"
+
+msgid "seconds"
+msgstr "ثانیه"
+
+msgid "{site}: Complete your purchase: {recovery_url}\nStop reminders: {unsubscribe_url}"
+msgstr "{site}: ادامه خرید: {recovery_url}\nلغو یادآوری: {unsubscribe_url}"
+
+msgid "{site}: Order #{order_id} paid by {name}. Total: {total} {currency}."
+msgstr "{site}: سفارش {order_id} توسط {name} پرداخت شد. مبلغ: {total} {currency}."
+
+msgid "{site}: Payment received for order #{order_id}. Total: {total} {currency}."
+msgstr "{site}: پرداخت سفارش {order_id} تأیید شد. مبلغ: {total} {currency}."
+
+msgid "{site}: Your purchase recovery code is {code} (valid for {minutes} minutes).\nEnter it here: {recovery_page}\nStop reminders: {unsubscribe_url}"
+msgstr "{site}: کد بازیابی خرید: {code} (اعتبار: {minutes} دقیقه).\nکد را اینجا وارد کنید: {recovery_page}\nلغو یادآوری: {unsubscribe_url}"
+
+msgid "{site}: Your purchase recovery code is {code} (valid for {minutes} minutes).\nEnter it in the store's recovery form.\nStop reminders: {unsubscribe_url}"
+msgstr "{site}: کد بازیابی خرید شما: {code} (اعتبار: {minutes} دقیقه).\nکد را در فرم بازیابی فروشگاه وارد کنید.\nلغو یادآوری: {unsubscribe_url}"

@@ -41,25 +41,37 @@ final class RateLimiter {
 		$key    = $this->key( 'send_identity', $identity );
 		$ip_key = $this->key( 'send_ip', $ip );
 
-		if ( get_transient( $key . '_cooldown' ) ) {
+		if ( ! $this->claim( $key . '_cooldown', $resend, 1 ) ) {
 			return new WP_Error(
 				'anar_too_soon',
 				sprintf(
 					/* translators: %d: seconds */
-					__( 'Please wait %d seconds before requesting another code.', 'anar-login' ),
+					__( 'Please wait %d seconds before requesting another code.', 'anar-toolkit' ),
 					$resend
 				),
 				array( 'status' => 429 )
 			);
 		}
 
-		if ( $this->increment( $key, HOUR_IN_SECONDS ) > $hourly || $this->increment( $ip_key, HOUR_IN_SECONDS ) > ( $hourly * 4 ) ) {
-			return new WP_Error( 'anar_rate_limited', __( 'Too many requests. Please try again later.', 'anar-login' ), array( 'status' => 429 ) );
+		if ( ! $this->claim( $key, HOUR_IN_SECONDS, $hourly ) || ! $this->claim( $ip_key, HOUR_IN_SECONDS, $hourly * 4 ) ) {
+			return new WP_Error( 'anar_rate_limited', __( 'Too many requests. Please try again later.', 'anar-toolkit' ), array( 'status' => 429 ) );
 		}
 
-		set_transient( $key . '_cooldown', 1, $resend );
-
 		return true;
+	}
+
+	/**
+	 * Lift the resend cooldown after a failed delivery so the user can retry at once.
+	 *
+	 * Hourly counters are kept, so a failing gateway still cannot be hammered.
+	 *
+	 * @param string $identity Normalized identity.
+	 * @return void
+	 */
+	public function release( $identity ) {
+		global $wpdb;
+
+		$wpdb->delete( $wpdb->prefix . 'anar_login_limits', array( 'limit_key' => $this->key( 'send_identity', $identity ) . '_cooldown' ), array( '%s' ) );
 	}
 
 	/**
@@ -68,10 +80,18 @@ final class RateLimiter {
 	 * @return true|WP_Error
 	 */
 	public function guard_google() {
-		if ( $this->increment( $this->key( 'google', $this->client_ip() ), HOUR_IN_SECONDS ) > 20 ) {
-			return new WP_Error( 'anar_rate_limited', __( 'Too many requests.', 'anar-login' ), array( 'status' => 429 ) );
+		if ( ! $this->claim( $this->key( 'google', $this->client_ip() ), HOUR_IN_SECONDS, 20 ) ) {
+			return new WP_Error( 'anar_rate_limited', __( 'Too many requests.', 'anar-toolkit' ), array( 'status' => 429 ) );
 		}
 
+		return true;
+	}
+
+	/** Limit recovery guesses across fresh browser sessions and code replacements. */
+	public function guard_recovery( $identity ) {
+		if ( ! $this->claim( $this->key( 'recovery_ip', $this->client_ip() ), 15 * MINUTE_IN_SECONDS, 30 ) || ! $this->claim( $this->key( 'recovery_identity', $identity ), HOUR_IN_SECONDS, 10 ) ) {
+			return new WP_Error( 'anar_recovery_rate_limited', __( 'Too many recovery attempts. Please try again later.', 'anar-toolkit' ) );
+		}
 		return true;
 	}
 
@@ -87,18 +107,56 @@ final class RateLimiter {
 	}
 
 	/**
-	 * Increment one fixed-window counter.
+	 * Reserve one request atomically inside an expiring database window.
 	 *
 	 * @param string $key Key.
 	 * @param int    $ttl Lifetime.
-	 * @return int
+	 * @param int    $max Maximum requests.
+	 * @return bool
 	 */
-	private function increment( $key, $ttl ) {
-		$value = absint( get_transient( $key ) );
-		++$value;
-		set_transient( $key, $value, $ttl );
+	private function claim( $key, $ttl, $max ) {
+		global $wpdb;
 
-		return $value;
+		$table = $wpdb->prefix . 'anar_login_limits';
+		$now   = time();
+		$wpdb->query(
+			$wpdb->prepare(
+				'DELETE FROM %i WHERE limit_key = %s AND expires_at <= %d',
+				$table,
+				$key,
+				$now
+			)
+		);
+		$wpdb->query(
+			$wpdb->prepare(
+				'INSERT IGNORE INTO %i (limit_key, attempts, expires_at) VALUES (%s, 0, %d)',
+				$table,
+				$key,
+				$now + $ttl
+			)
+		);
+
+		return 1 === $wpdb->query(
+			$wpdb->prepare(
+				'UPDATE %i SET attempts = attempts + 1 WHERE limit_key = %s AND attempts < %d AND expires_at > %d',
+				$table,
+				$key,
+				$max,
+				$now
+			)
+		);
+	}
+
+	/**
+	 * Remove expired limits during scheduled maintenance.
+	 *
+	 * @return void
+	 */
+	public static function cleanup() {
+		global $wpdb;
+
+		$table = $wpdb->prefix . 'anar_login_limits';
+		$wpdb->query( $wpdb->prepare( 'DELETE FROM %i WHERE expires_at <= %d', $table, time() ) );
 	}
 
 	/**
