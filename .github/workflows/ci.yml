@@ -3,6 +3,7 @@ name: CI
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -51,3 +52,18 @@ jobs:
           node-version: '22'
       - run: node --check assets/js/frontend.js
       - run: node --check assets/js/admin.js
+      - run: node --check assets/js/popup.js
+      - run: node --check assets/js/recovery.js
+
+  package:
+    name: Installable ZIP
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+      - uses: ./.github/actions/prepare-release
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: anar-toolkit-installable
+          path: ${{ runner.temp }}/anar-toolkit.zip
+          if-no-files-found: error
+
