@@ -1,13 +1,20 @@
 # Changelog
 
+## 0.8.0 — 2026-11-06
+
+* Add SMS password reset, automatic cart capture without a separate checkbox, single-use recovery gifts and HPOS order/shipment events.
+* Add lifecycle, purchase prediction, smart offers, segmented scheduled bulk SMS, stock subscriptions, honest surveys, next-purchase and birthday gifts, printable invoices, promotional games and customer referrals.
+* Add real-data recovery and campaign dashboards, masked message reports, optional first-party traffic insights and expanded privacy/retention controls.
+* Keep new campaign modules disabled until configured; add regression checks and Persian translations.
+* Load runtime services only for enabled capabilities, query only the selected admin report, and keep inactive capabilities in a lower-priority catalog with concise contextual guides.
+
+
 ## 0.7.0 — 2026-11-06
 
 * Enable the direct IPPanel adapter in the public package for login and commerce messages.
 * Add Panelchi approved-pattern delivery for OTP and multi-variable WooCommerce messages.
 * Validate queued request status and identifiers; preserve separate login and recovery templates.
 * Add automatic WordPress.org publishing for stable GitHub releases.
-
-## 0.7.0 — 2026-11-06
 
 * Restrict public OTP and Google registration to Subscriber or Customer roles with basic read capabilities, including after role filters. Unsafe saved settings fall back to a checked Subscriber role; registration stops if that fallback is unsafe or missing.
 * Run the WordPress account and authentication filters before issuing a passwordless session, honor denials, and reject a substituted user identity.

@@ -27,7 +27,10 @@ final class Module {
 	}
 
 	public function register() {
-		add_action( 'woocommerce_payment_complete', array( $this, 'payment_complete' ) );
+		if ( $this->settings->get( 'paid_customer' ) || $this->settings->get( 'paid_admin' ) ) {
+			add_action( 'woocommerce_payment_complete', array( $this, 'payment_complete' ) ); }
+		if ( ! $this->settings->get( 'recovery' ) ) {
+			return; }
 		add_action( 'woocommerce_order_status_changed', array( $this, 'status_changed' ), 10, 3 );
 		add_action( 'woocommerce_checkout_order_created', array( $this, 'order_created' ) );
 		add_action( 'woocommerce_store_api_checkout_order_processed', array( $this, 'order_created' ) );
@@ -198,6 +201,8 @@ final class Module {
 			$visit['recovered_order'] = $cart->order_id;
 		}
 		$wpdb->update( $this->repository->table( 'carts' ), $visit, array( 'id' => $cart->id ) );
+		if ( $cart->order_id ) {
+			( new Coupons( $this->settings, $this->repository ) )->apply( $cart, wc_get_order( $cart->order_id ) ); }
 		$url = $cart->order_id ? wc_get_order( $cart->order_id )->get_checkout_payment_url() : $this->restore( $cart );
 		if ( is_wp_error( $url ) ) {
 			wp_send_json_error( array(), 409 );
@@ -207,6 +212,8 @@ final class Module {
 
 	/** Use the shortcode beside Cart/Checkout blocks; never inject into their React tree. */
 	public function form() {
+		if ( 'automatic' === $this->settings->get( 'capture_mode' ) ) {
+			return ''; }
 		if ( ! $this->settings->get( 'recovery' ) || ! WC()->cart || WC()->cart->is_empty() || ! WC()->session ) {
 			return '';
 		}
@@ -266,6 +273,23 @@ final class Module {
 		wp_send_json_success();
 	}
 
+	public function remember( $raw_phone, $raw_email = '', $source = 'checkout' ) {
+		if ( $this->restoring || ! $this->settings->get( 'recovery' ) || 'automatic' !== $this->settings->get( 'capture_mode' ) || ! WC()->session || ! WC()->cart || WC()->cart->is_empty() ) {
+			return 0; }
+		$phone = Identity::normalize( $raw_phone );
+		if ( is_wp_error( $phone ) || 'sms' !== $phone['channel'] ) {
+			return 0; }
+		$current = $this->repository->current_cart( $this->session_key() );
+		$contact = $current ? $this->repository->contact( $current->contact_id ) : null;
+		if ( ! $contact || $contact->phone !== $phone['identity'] ) {
+			$limit = ( new RateLimiter( new LoginSettings() ) )->guard_request( 'capture|' . $this->session_key() );
+			if ( is_wp_error( $limit ) ) {
+				return 0; }
+		}
+		$id = $this->repository->capture_contact( $phone['identity'], sanitize_email( $raw_email ), 'account' === $source ? 'account' : 'checkout' );
+		return $id ? $this->repository->save_cart( $this->session_key(), $id, $this->items(), WC()->cart->get_total( 'edit' ), get_woocommerce_currency() ) : 0;
+	}
+
 	public function cart_updated() {
 		if ( $this->restoring || ! $this->settings->get( 'recovery' ) || ! WC()->session || ! WC()->cart || WC()->cart->is_empty() ) {
 			return;
@@ -295,6 +319,8 @@ final class Module {
 		if ( ! $this->settings->get( 'recovery' ) || ! WC()->session ) {
 			return;
 		}
+		if ( 'automatic' === $this->settings->get( 'capture_mode' ) ) {
+			$this->remember( $order->get_billing_phone(), $order->get_billing_email(), 'checkout' ); }
 		$cart = $this->repository->current_cart( $this->session_key() );
 		if ( ! $cart ) {
 			return;
@@ -444,6 +470,7 @@ final class Module {
 			$this->restoring = false;
 			return new WP_Error( 'anar_cart_unavailable', __( 'The saved cart could not be restored. Your previous cart has been kept.', 'anar-toolkit' ) );
 		}
+		( new Coupons( $this->settings, $this->repository ) )->apply( $cart );
 		WC()->cart->calculate_totals();
 		WC()->session->set( 'anar_recovered_cart', (int) $cart->id );
 		global $wpdb;
@@ -460,6 +487,8 @@ final class Module {
 			'order_id' => $order ? $order->get_order_number() : '',
 			'total' => $order ? wc_format_decimal( $order->get_total(), wc_get_price_decimals() ) : '',
 			'currency' => $order ? $order->get_currency() : get_woocommerce_currency(),
+			'status' => $order ? wc_get_order_status_name( $order->get_status() ) : '',
+			'payment_method' => $order ? $order->get_payment_method_title() : '',
 		);
 	}
 }

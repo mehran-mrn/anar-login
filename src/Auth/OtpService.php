@@ -220,7 +220,7 @@ final class OtpService {
 
 			return new WP_Error(
 				$sent->get_error_code(),
-				$detail ? $sent->get_error_message() . ' â€” ' . $detail : $sent->get_error_message(),
+				$detail ? $sent->get_error_message() . ' — ' . $detail : $sent->get_error_message(),
 				array( 'status' => 400 )
 			);
 		}

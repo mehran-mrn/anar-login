@@ -12,6 +12,8 @@ use Anar\Login\Support\Identity;
 defined( 'ABSPATH' ) || exit;
 
 final class Settings {
+	private $resolved;
+	private $source;
 
 	const OPTION = 'anar_toolkit_commerce';
 
@@ -20,6 +22,14 @@ final class Settings {
 		$events   = array(
 			'paid_customer' => array( 'message' => __( '{site}: Payment received for order #{order_id}. Total: {total} {currency}.', 'anar-toolkit' ) ),
 			'paid_admin'    => array( 'message' => __( '{site}: Order #{order_id} paid by {name}. Total: {total} {currency}.', 'anar-toolkit' ) ),
+			'new_admin' => array( 'message' => __( '{site}: New order #{order_id} from {name}. Total: {total} {currency}. Status: {status}.', 'anar-toolkit' ) ),
+			'failed_admin' => array( 'message' => __( '{site}: Payment failed for order #{order_id}. Total: {total} {currency}.', 'anar-toolkit' ) ),
+			'shipment_customer' => array( 'message' => __( '{site}: Order #{order_id} shipped. Carrier: {carrier}. Tracking: {tracking_number}. {tracking_url}', 'anar-toolkit' ) ),
+			'status_processing' => array( 'message' => __( '{site}: Your order #{order_id} is being processed.', 'anar-toolkit' ) ),
+			'status_completed' => array( 'message' => __( '{site}: Your order #{order_id} is complete.', 'anar-toolkit' ) ),
+			'status_on-hold' => array( 'message' => __( '{site}: Your order #{order_id} is on hold.', 'anar-toolkit' ) ),
+			'status_cancelled' => array( 'message' => __( '{site}: Your order #{order_id} has been cancelled.', 'anar-toolkit' ) ),
+			'status_refunded' => array( 'message' => __( '{site}: Your order #{order_id} has been refunded.', 'anar-toolkit' ) ),
 		);
 		foreach ( array( 1 => 30, 2 => 360, 3 => 1440 ) as $stage => $minutes ) {
 			$events[ 'recovery_' . $stage ] = array( 'message' => $recovery, 'minutes' => $minutes );
@@ -32,6 +42,24 @@ final class Settings {
 			'paid_customer' => 0,
 			'paid_admin'    => 0,
 			'recovery'      => 0,
+			'capture_mode' => 'automatic',
+			'coupon_enabled' => 0,
+			'coupon_type' => 'percent',
+			'coupon_amount' => '10',
+			'coupon_minimum' => '0',
+			'coupon_stage' => 2,
+			'coupon_hours' => 48,
+			'coupon_individual' => 1,
+			'coupon_exclude_sale' => 1,
+			'tracking_meta_key' => '',
+			'new_admin' => 0,
+			'failed_admin' => 0,
+			'shipment_customer' => 0,
+			'status_processing' => 0,
+			'status_completed' => 0,
+			'status_on-hold' => 0,
+			'status_cancelled' => 0,
+			'status_refunded' => 0,
 			'provider'      => 'kavenegar',
 			'admin_phones'  => '',
 			'start_hour'    => 9,
@@ -46,15 +74,19 @@ final class Settings {
 	}
 
 	public function all() {
+		$saved = get_option( self::OPTION, array() );
+		if ( null !== $this->resolved && $saved === $this->source ) {
+			return $this->resolved; }
+		$this->source = $saved;
 		$defaults = $this->defaults();
-		$saved    = get_option( self::OPTION, array() );
 		$saved    = is_array( $saved ) ? $saved : array();
 		$events   = isset( $saved['events'] ) && is_array( $saved['events'] ) ? $saved['events'] : array();
 		foreach ( $defaults['events'] as $key => $event ) {
 			$defaults['events'][ $key ] = wp_parse_args( isset( $events[ $key ] ) && is_array( $events[ $key ] ) ? $events[ $key ] : array(), $event );
 		}
 		unset( $saved['events'] );
-		return wp_parse_args( $saved, $defaults );
+		$this->resolved = wp_parse_args( $saved, $defaults );
+		return $this->resolved;
 	}
 
 	public function get( $key ) {
@@ -63,16 +95,36 @@ final class Settings {
 	}
 
 	public function enabled() {
-		return $this->get( 'recovery' ) || $this->get( 'paid_customer' ) || $this->get( 'paid_admin' );
+		foreach ( array_merge( array( 'recovery' ), array_keys( $this->defaults()['events'] ) ) as $key ) {
+			if ( 'recovery' !== $key && ! \Anar\Login\Infrastructure\Features::enabled( 'orders' ) ) {
+				continue; }
+			if ( $this->get( $key ) && ! is_array( $this->get( $key ) ) ) {
+				return true; }
+		}
+		return (bool) apply_filters( 'anar_toolkit_extra_modules_enabled', false );
 	}
 
 	public function sanitize( $input ) {
+		if ( is_array( $input ) && ! empty( $input['_partial'] ) ) {
+			unset( $input['_partial'] );
+			$input = array_replace_recursive( $this->all(), $input ); }
 		$input  = is_array( $input ) ? $input : array();
 		$output = $this->defaults();
-		foreach ( array( 'paid_customer', 'paid_admin', 'recovery' ) as $key ) {
+		foreach ( array( 'paid_customer', 'paid_admin', 'recovery', 'new_admin', 'failed_admin', 'shipment_customer', 'status_processing', 'status_completed', 'status_on-hold', 'status_cancelled', 'status_refunded', 'coupon_enabled', 'coupon_individual', 'coupon_exclude_sale' ) as $key ) {
 			$output[ $key ] = empty( $input[ $key ] ) ? 0 : 1;
 		}
 		$output['provider'] = sanitize_key( $input['provider'] ?? 'kavenegar' );
+		$output['capture_mode'] = 'explicit' === ( $input['capture_mode'] ?? '' ) ? 'explicit' : 'automatic';
+		$output['coupon_type'] = 'fixed_cart' === ( $input['coupon_type'] ?? '' ) ? 'fixed_cart' : 'percent';
+		foreach ( array( 'coupon_amount', 'coupon_minimum' ) as $key ) {
+			$raw = Identity::latin_digits( (string) ( $input[ $key ] ?? $output[ $key ] ) );
+			$output[ $key ] = (string) round( max( 0, min( 1000000000, (float) $raw ) ), 2 );
+		}
+		if ( 'percent' === $output['coupon_type'] ) {
+			$output['coupon_amount'] = (string) min( 100, (float) $output['coupon_amount'] ); }
+		$output['coupon_stage'] = max( 1, min( 3, (int) ( $input['coupon_stage'] ?? 2 ) ) );
+		$output['coupon_hours'] = max( 1, min( 720, (int) ( $input['coupon_hours'] ?? 48 ) ) );
+		$output['tracking_meta_key'] = sanitize_key( $input['tracking_meta_key'] ?? '' );
 		$phones = array();
 		foreach ( preg_split( '/[\s,;]+/', (string) ( $input['admin_phones'] ?? '' ) ) as $phone ) {
 			$identity = Identity::normalize( $phone );

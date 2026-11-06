@@ -192,6 +192,7 @@ final class Shortcodes {
 					</a>
 				<?php endif; ?>
 
+				<?php echo \Anar\Login\Auth\PasswordRecovery::form(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Form escapes all dynamic values. ?>
 				<div class="anar-notice<?php echo $error ? ' is-error' : ''; ?>" role="status" aria-live="polite"<?php echo $error ? '' : ' hidden'; ?>><?php echo esc_html( $error ); ?></div>
 
 				<?php if ( $atts['password_link'] ) : ?>

@@ -3,7 +3,7 @@
  * Plugin Name:       Anar Toolkit – SMS Login & Recovery for WooCommerce
  * Plugin URI:        https://github.com/mehran-mrn/anar-login
  * Description:       SMS login, confirmed-payment notifications and consent-based cart and unpaid-order recovery for WooCommerce.
- * Version:           0.7.0
+ * Version:           0.8.0
  * Requires at least: 6.2
  * Requires PHP:      7.4
  * Author:            Mehran Marandi
@@ -17,7 +17,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'ANAR_LOGIN_VERSION', '0.7.0' );
+define( 'ANAR_LOGIN_VERSION', '0.8.0' );
 define( 'ANAR_LOGIN_FILE', __FILE__ );
 define( 'ANAR_LOGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'ANAR_LOGIN_URL', plugin_dir_url( __FILE__ ) );

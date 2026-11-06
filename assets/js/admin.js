@@ -31,7 +31,10 @@
 	} catch (error) {
 		savedTab = '';
 	}
-	if (savedTab && root.querySelector(`[data-panel="${savedTab}"]`)) showTab(savedTab);
+	const requestedTab = new URL(window.location.href).searchParams.get('section');
+	if (requestedTab && root.querySelector(`[data-panel="${requestedTab}"]`)) showTab(requestedTab);
+	else if (savedTab && root.querySelector(`[data-panel="${savedTab}"]`)) showTab(savedTab);
+	else { const first = root.querySelector('[data-tab]'); if (first) showTab(first.dataset.tab); }
 
 	const logoMode = root.querySelector('#anar-form-logo');
 	const logoCustom = root.querySelector('.anar-logo-picker__custom');

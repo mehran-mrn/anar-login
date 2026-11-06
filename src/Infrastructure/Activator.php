@@ -48,6 +48,7 @@ final class Activator {
 			) {$charset};"
 		);
 		\Anar\Login\Commerce\Repository::install();
+			\Anar\Login\Marketing\Repository::install();
 		// Autoloaded: the version is compared on every request, so it must not cost its own query.
 		update_option( 'anar_login_db_version', ANAR_LOGIN_VERSION, true );
 
@@ -55,11 +56,16 @@ final class Activator {
 			wp_schedule_event( time() + HOUR_IN_SECONDS, 'daily', 'anar_login_daily_cleanup' );
 		}
 
-		// Autoloaded: two-step verification and the popup check their settings on every request.
-		add_option( Settings::OPTION_KEY, ( new Settings() )->defaults(), '', true );
-		if ( function_exists( 'wp_set_option_autoload' ) ) {
-			wp_set_option_autoload( Settings::OPTION_KEY, true );
+		add_option( Settings::OPTION_KEY, ( new Settings() )->defaults(), '', false );
+		add_option( 'anar_toolkit_commerce', array(), '', false );
+		add_option( 'anar_toolkit_marketing', array(), '', false );
+		foreach ( array( Settings::OPTION_KEY, 'anar_toolkit_commerce', 'anar_toolkit_marketing' ) as $option ) {
+			if ( function_exists( 'wp_set_option_autoload' ) ) {
+				wp_set_option_autoload( $option, false ); } else {
+				$wpdb->update( $wpdb->options, array( 'autoload' => 'no' ), array( 'option_name' => $option ) );
+				wp_cache_delete( 'alloptions', 'options' ); }
 		}
+		Features::refresh();
 	}
 
 	/**
@@ -69,6 +75,7 @@ final class Activator {
 	 */
 	public static function deactivate() {
 		wp_clear_scheduled_hook( 'anar_login_daily_cleanup' );
+		wp_clear_scheduled_hook( 'anar_marketing_import_batch' );
 		\Anar\Login\Commerce\Worker::unschedule();
 	}
 }

@@ -41,6 +41,7 @@
 		<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
 	</rule>
 	<rule ref="PHPCompatibility"/>
+	<rule ref="WordPress.WP.Capabilities"><properties><property name="custom_capabilities" type="array"><element value="manage_woocommerce"/><element value="edit_shop_order"/></property></properties></rule>
 	<rule ref="WordPress.Files.FileName">
 		<exclude-pattern>src/*</exclude-pattern>
 	</rule>

@@ -127,6 +127,8 @@ final class Popup {
 			'config' => $this->shortcodes->script_config(),
 			'css'    => add_query_arg( 'ver', ANAR_LOGIN_VERSION, ANAR_LOGIN_URL . 'assets/css/frontend.css' ),
 			'js'     => add_query_arg( 'ver', ANAR_LOGIN_VERSION, ANAR_LOGIN_URL . 'assets/js/frontend.js' ),
+			'resetCss' => add_query_arg( 'ver', ANAR_LOGIN_VERSION, ANAR_LOGIN_URL . 'assets/css/password-reset.css' ),
+			'resetJs' => add_query_arg( 'ver', ANAR_LOGIN_VERSION, ANAR_LOGIN_URL . 'assets/js/password-reset.js' ),
 		);
 	}
 

@@ -54,7 +54,7 @@ final class SettingsPage {
 			__( 'Anar Toolkit', 'anar-toolkit' ),
 			'manage_options',
 			'anar-login',
-			array( $this, 'render' ),
+			array( FeaturesPage::class, 'render' ),
 			'dashicons-shield-alt',
 			58
 		);
@@ -94,11 +94,12 @@ final class SettingsPage {
 	 * @return void
 	 */
 	public function assets( $hook ) {
-		if ( 'toplevel_page_anar-login' !== $hook ) {
+		if ( false === strpos( $hook, 'anar-login-settings' ) ) {
 			return;
 		}
 
-		wp_enqueue_media();
+		if ( \Anar\Login\Infrastructure\Features::enabled( 'login' ) ) {
+			wp_enqueue_media(); }
 		wp_enqueue_style( 'anar-login-admin', ANAR_LOGIN_URL . 'assets/css/admin.css', array(), ANAR_LOGIN_VERSION );
 		wp_enqueue_script( 'anar-login-admin', ANAR_LOGIN_URL . 'assets/js/admin.js', array(), ANAR_LOGIN_VERSION, true );
 		wp_localize_script(
@@ -148,21 +149,8 @@ final class SettingsPage {
 			<?php settings_errors(); ?>
 
 			<div class="anar-admin__layout">
-				<aside class="anar-admin__nav">
-					<div class="anar-admin__nav-label"><?php esc_html_e( 'Settings', 'anar-toolkit' ); ?></div>
-					<button type="button" class="is-active" data-tab="general"><span class="dashicons dashicons-admin-generic"></span><?php esc_html_e( 'General', 'anar-toolkit' ); ?></button>
-					<button type="button" data-tab="sms"><span class="dashicons dashicons-smartphone"></span><?php esc_html_e( 'SMS', 'anar-toolkit' ); ?></button>
-					<button type="button" data-tab="google"><span class="dashicons dashicons-google"></span><?php esc_html_e( 'Google sign-in', 'anar-toolkit' ); ?></button>
-					<button type="button" data-tab="email"><span class="dashicons dashicons-email-alt"></span><?php esc_html_e( 'Email', 'anar-toolkit' ); ?></button>
-					<button type="button" data-tab="security"><span class="dashicons dashicons-lock"></span><?php esc_html_e( 'Security', 'anar-toolkit' ); ?></button>
-					<?php if ( WooCommerce::active() ) : ?>
-						<button type="button" data-tab="woocommerce"><span class="dashicons dashicons-cart"></span><?php esc_html_e( 'WooCommerce', 'anar-toolkit' ); ?></button>
-					<?php endif; ?>
-					<div class="anar-admin__nav-label"><?php esc_html_e( 'Help', 'anar-toolkit' ); ?></div>
-					<button type="button" data-tab="install"><span class="dashicons dashicons-editor-code"></span><?php esc_html_e( 'Add to pages', 'anar-toolkit' ); ?></button>
-				</aside>
-
-				<form class="anar-admin__content" method="post" action="options.php">
+				<aside class="anar-admin__nav"><?php $this->navigation( $value ); ?></aside>
+<form class="anar-admin__content" method="post" action="options.php">
 					<?php settings_fields( 'anar_login' ); ?>
 
 					<section class="anar-tab is-active" data-panel="general">
@@ -362,6 +350,7 @@ final class SettingsPage {
 					</section>
 
 					<section class="anar-tab" data-panel="security" hidden>
+							<?php $this->toggle( 'password_reset_enabled', __( 'SMS password recovery', 'anar-toolkit' ), __( 'Allow linked mobile numbers to reset an existing account password using a separate single-use SMS code.', 'anar-toolkit' ), $value ); ?>
 						<?php $this->section_header( __( 'Security and rate limits', 'anar-toolkit' ), __( 'Configure code lifetime and request limits for your site.', 'anar-toolkit' ), '⌾' ); ?>
 						<div class="anar-card">
 							<div class="anar-field-row">
@@ -452,16 +441,34 @@ final class SettingsPage {
 	}
 
 	/**
-	 * Section heading.
+	 * Order connection tabs by the enabled capabilities.
 	 *
-	 * @param string $title       Title.
-	 * @param string $description Description.
-	 * @param string $icon        Icon.
+	 * @param array $value Saved connection settings.
 	 * @return void
 	 */
+	private function navigation( $value ) {
+		$flags = \Anar\Login\Infrastructure\Features::all();
+		$labels = array( 'general' => __( 'General', 'anar-toolkit' ), 'sms' => __( 'SMS', 'anar-toolkit' ), 'email' => __( 'Email', 'anar-toolkit' ), 'google' => __( 'Google sign-in', 'anar-toolkit' ), 'security' => __( 'Security', 'anar-toolkit' ), 'woocommerce' => __( 'WooCommerce', 'anar-toolkit' ), 'install' => __( 'Add to pages', 'anar-toolkit' ) );
+		$primary = array( 'general' => $flags['login'], 'sms' => ( $flags['login'] && 'email' !== $value['identity_mode'] ) || $flags['two_factor'] || $flags['reset'] || \Anar\Login\Infrastructure\Features::queue_needed(), 'email' => $flags['login'] && 'phone' !== $value['identity_mode'], 'google' => $flags['login'] && ! empty( $value['google_enabled'] ), 'security' => $flags['login'] || $flags['reset'] || $flags['two_factor'], 'woocommerce' => $flags['login'] && WooCommerce::active(), 'install' => $flags['login'] );
+		$first = true;
+		foreach ( array( true => __( 'Connection settings', 'anar-toolkit' ), false => __( 'Other features', 'anar-toolkit' ) ) as $enabled => $heading ) {
+			?>
+			<div class="anar-admin__nav-label"><?php echo esc_html( $heading ); ?></div>
+			<?php
+			foreach ( $labels as $key => $label ) {
+				if ( (bool) $primary[ $key ] !== (bool) $enabled || ( 'woocommerce' === $key && ! WooCommerce::active() ) ) {
+					continue; }
+				?>
+				<button type="button" <?php echo $first ? 'class="is-active"' : ''; ?> data-tab="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $label ); ?></button>
+				<?php
+				$first = false;
+			}
+		}
+	}
+
 	private function section_header( $title, $description, $icon ) {
 		?>
-		<header class="anar-section-head"><span><?php echo esc_html( $icon ); ?></span><div><h2><?php echo esc_html( $title ); ?></h2><p><?php echo esc_html( $description ); ?></p></div></header>
+		<header class="anar-section-head"><span><?php echo esc_html( $icon ); ?></span><div><h2><?php echo esc_html( $title ); ?></h2><p><?php echo esc_html( $description ); ?></p></div><?php Help::button( $description ); ?></header>
 		<?php
 	}
 
