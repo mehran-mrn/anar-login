@@ -546,5 +546,7 @@
   "Please share your purchase feedback.": "لطفاً بازخورد خود را دربارهٔ خرید ثبت کنید.",
   "Select which accounts require a code after password sign-in. Confirm SMS or email delivery before enabling this option. This protection can remain active independently of the Anar login form.": "حساب‌های نیازمند کد پس از ورود با رمز عبور را انتخاب کنید. پیش از فعال‌سازی، ارسال پیامک یا ایمیل را بررسی کنید. این حفاظت مستقل از فرم ورود انار نیز فعال می‌ماند.",
   "Use the exact variable names from the approved provider template, one name={placeholder} per line. Include {unsubscribe_url}; surveys also require {action_url}.": "نام دقیق متغیرهای الگوی تأییدشدهٔ پنل را وارد کنید؛ هر name={placeholder} در یک خط. {unsubscribe_url} الزامی است و نظرسنجی به {action_url} نیز نیاز دارد.",
-  "Enter the ID or slug of the template approved in your SMS panel. A template must match the purpose of this message.": "شناسه یا نامک الگوی تأییدشده در پنل پیامکی را وارد کنید. کاربرد الگو باید با موضوع این پیام مطابقت داشته باشد."
+  "Enter the ID or slug of the template approved in your SMS panel. A template must match the purpose of this message.": "شناسه یا نامک الگوی تأییدشده در پنل پیامکی را وارد کنید. کاربرد الگو باید با موضوع این پیام مطابقت داشته باشد.",
+  "Anar Toolkit – SMS Login, Recovery & Marketing for WooCommerce": "جعبه‌ابزار انار — ورود پیامکی، بازیابی خرید و بازاریابی ووکامرس",
+  "SMS, email and Google login, SMS password reset, cart recovery and customer communication tools for WooCommerce.": "ورود با پیامک، ایمیل و گوگل، بازیابی رمز پیامکی، بازیابی سبد و ابزارهای ارتباط با مشتری ووکامرس."
 }

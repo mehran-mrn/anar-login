@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.8.1 — 2026-11-06
+
+* Bundle and register complete Persian runtime catalogs so WordPress.org installs follow the site/user language without a separate download.
+* Preserve official/custom language pack priority and English LTR operation.
+* Rewrite the public listing, setup and FAQ for Persian-speaking store owners and the expanded feature set.
+* Verify fresh-install localization, locale switching and both PHP/MO catalog formats.
+
 ## 0.8.0 — 2026-11-06
 
 * Add SMS password reset, automatic cart capture without a separate checkbox, single-use recovery gifts and HPOS order/shipment events.

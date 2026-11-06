@@ -1,8 +1,8 @@
-# Anar Toolkit 0.8.0
+# Anar Toolkit 0.8.1
 
 Optional WooCommerce order notifications, automatic cart recovery, customer campaigns and promotional tools, alongside SMS/email/Google login and SMS password recovery. See [commerce documentation](docs/commerce.md), [provider support messages](docs/support-messages-fa.md), and [review reply draft](docs/reviewer-response.md).
 
-Build the public release with `python tools/package.py --output dist/anar-toolkit.zip`. All six built-in providers, including IPPanel and Panelchi, are included. Development dependencies and translation catalogs are excluded from the plugin ZIP.
+Build the public release with `python tools/package.py --output dist/anar-toolkit.zip`. All six built-in providers, including IPPanel and Panelchi, are included. Development dependencies and editable translation sources are excluded. Compiled Persian MO/PHP catalogs are included so installation does not require a separate language pack.
 
 Stable GitHub releases publish automatically to [WordPress.org](https://wordpress.org/plugins/anar-toolkit/) after the release checks pass. Configure repository Actions secrets `SVN_USERNAME=mrnwp` and `SVN_PASSWORD` with the WordPress.org SVN password, then publish a release tagged with the plugin version (for example `0.8.0`). Ordinary commits run checks. See [publishing instructions](docs/publishing.md).
 
@@ -12,7 +12,7 @@ Fast, secure passwordless authentication for WordPress with Iranian SMS provider
 
 ![Anar Login](assets/images/anar-logo.png)
 
-Anar Toolkit has an English LTR source interface and Persian (`fa_IR`) RTL development catalogs. WordPress.org packages receive translations through language packs; a separate Persian pack is provided with GitHub releases.
+Anar Toolkit includes an English LTR source interface and complete Persian (`fa_IR`) RTL runtime catalogs. The installed plugin follows the site or user language without requiring a separate pack. Official or custom WordPress language packs retain priority over bundled translations.
 
 **100% free, forever — all features included.** No Pro edition, subscriptions, license keys or feature paywalls. SMS providers charge separately for their own accounts and message credits.
 
@@ -139,7 +139,7 @@ The flow uses Authorization Code, validates `state` with a secure cookie and tra
 
 ## Localization
 
-English is the source language. The separate `fa_IR` translation is available in both WordPress PHP and MO formats, supporting WordPress 6.2 and later. All interface containers use `is_rtl()` and CSS logical properties so layout direction follows the active WordPress locale.
+English is the source language. The bundled `fa_IR` translation is available in both WordPress PHP and MO formats, supporting WordPress 6.2 and later. All interface containers use `is_rtl()` and CSS logical properties so layout direction follows the active WordPress locale.
 
 ## Extending SMS providers
 

@@ -10,6 +10,6 @@ The approved WordPress.org slug is `anar-toolkit`; the GitHub source repository 
 
 Ordinary commits run checks only. Drafts and prereleases do not publish to WordPress.org. Each new stable version needs a new version number and release tag. Do not overwrite an existing WordPress.org version tag.
 
-The runtime ZIP uses an allowlist and contains all built-in providers, including IPPanel and Panelchi. Tests, tools, Composer dependencies, development documents and local credentials are excluded. WordPress.org supplies translations separately; development Persian catalogs remain in GitHub.
+The runtime ZIP uses an allowlist and contains all built-in providers, including IPPanel and Panelchi. Tests, tools, Composer dependencies, development documents and local credentials are excluded. Compiled Persian MO/PHP catalogs are bundled so a fresh Persian install works without a separate pack. Editable PO sources remain in GitHub. Official or custom WordPress language packs retain priority. The directory language badge is managed separately by translate.wordpress.org and requires approved translations.
 
 Reference: https://developer.wordpress.org/plugins/wordpress-org/how-to-use-subversion/

@@ -224,6 +224,8 @@ final class Plugin {
 	 * @return void
 	 */
 	public function init() {
+		// Register the bundled fallback; WordPress keeps global language packs first.
+		load_plugin_textdomain( 'anar-toolkit', false, dirname( plugin_basename( ANAR_LOGIN_FILE ) ) . '/languages' );
 		if ( ANAR_LOGIN_VERSION !== get_option( 'anar_login_db_version' ) ) {
 			Activator::activate();
 		}

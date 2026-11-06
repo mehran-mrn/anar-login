@@ -7,8 +7,8 @@ import zipfile
 
 
 ROOT = Path(__file__).resolve().parents[1]
-FILES = ('anar-login.php', 'readme.txt', 'LICENSE', 'NOTICE.txt', 'guide-fa.txt', 'services.txt', 'uninstall.php')
-DIRECTORIES = ('src', 'templates', 'assets', 'languages')
+FILES = ('anar-login.php', 'readme.txt', 'LICENSE', 'NOTICE.txt', 'guide-fa.txt', 'services.txt', 'uninstall.php', 'languages/anar-toolkit-fa_IR.mo', 'languages/anar-toolkit-fa_IR.l10n.php')
+DIRECTORIES = ('src', 'templates', 'assets')
 
 
 def build(destination: Path, profile: str = 'wordpress') -> None:
@@ -22,7 +22,7 @@ def build(destination: Path, profile: str = 'wordpress') -> None:
     if not re.search(r'(?m)^Contributors:\s*mrnwp\s*$', readme):
         raise ValueError('The WordPress.org owner must be listed as a contributor.')
     paths = [ROOT / name for name in FILES]
-    paths += [path for name in DIRECTORIES for path in (ROOT / name).rglob('*') if path.is_file() and path.suffix.lower() not in {'.po', '.mo', '.pot'} and not path.name.endswith('.l10n.php')]
+    paths += [path for name in DIRECTORIES for path in (ROOT / name).rglob('*') if path.is_file() and path.suffix.lower() not in {'.po', '.pot'}]
     for path in paths:
         if not path.is_file() or path.is_symlink() or not path.resolve().is_relative_to(ROOT):
             raise ValueError('Invalid release file: ' + str(path))

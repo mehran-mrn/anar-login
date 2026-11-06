@@ -1,150 +1,101 @@
-=== Anar Toolkit – SMS Login & Recovery for WooCommerce ===
+=== Anar Toolkit – SMS Login, Recovery & Marketing for WooCommerce ===
 Contributors: mrnwp
 Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.8.0
+Stable tag: 0.8.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-SMS login and password reset, cart recovery, customer campaigns, order updates and free promotional tools for WooCommerce.
+SMS login, password reset, cart recovery, order updates and customer campaigns for WooCommerce. Includes Persian RTL and English LTR.
 
 == Description ==
 
-Anar Toolkit adds SMS, email-code and Google sign-in to WordPress, with optional recovery, communication and promotion tools for WooCommerce.
+Anar Toolkit brings sign-in, purchase recovery and customer communication into one modular toolkit for WordPress and WooCommerce. Choose the capabilities your store needs and configure each one separately.
 
-* Login and registration by Iranian mobile number, email code or Google; SMS password reset and optional two-step verification.
-* Automatic abandoned-cart capture, three reminder stages and personal, single-use discount coupons.
-* Customer order updates, shipment tracking, payment notifications and administrator purchase/failure alerts.
-* Lifecycle messages, next-purchase estimates, product offers, birthday greetings and next-purchase gifts.
-* Segmented bulk SMS with audience preview, scheduling, pause and cancellation.
-* Phone-verified stock alerts, post-purchase surveys and moderated reviews with rating-independent gifts.
-* Printable invoices, customer referrals and ten free promotional games with server-controlled coupon rewards.
-* Recovery, campaign, customer and message reports from actual records; optional local traffic statistics.
+= Sign-in and account access =
+* Iranian mobile-number registration and SMS login, email verification codes and Google sign-in.
+* SMS password reset for a previously linked phone and optional two-step verification.
+* On-demand login popup, My Account and classic checkout integration.
 
-Enable only the capabilities you need. Active features appear first; inactive features stay available below with their guides and switches. Disabled runtime components do not load storefront files or run their feature queries. New commerce and campaign modules start disabled. Login also works without WooCommerce.
+= Recover purchases and follow up with customers =
+* Automatic abandoned-cart capture, three reminder stages and personal single-use discounts.
+* Order status, shipment tracking, payment notices and administrator purchase/failure alerts.
+* First-purchase, inactivity, VIP, birthday and next-purchase gift campaigns.
+* Purchase-interval estimates, product offers and segmented scheduled bulk SMS.
+* Verified stock alerts, post-purchase surveys, moderated reviews and customer referrals.
+* Printable invoices, ten promotional games and actual-data cart, message and campaign reports.
 
-Built-in providers: Kavenegar, Meli Payamak, IPPanel, Panelchi, Faraz SMS and SMS.ir, plus a custom HTTPS gateway. Configure your own provider account and approved templates. Email uses WordPress mail. Provider acceptance is not proof of handset delivery.
+= Persian included; enable only what you need =
+The complete Persian (fa_IR) translation is bundled with the plugin. Set your WordPress site or user language to Persian for RTL forms, settings and contextual guides. No separate language ZIP is required. English LTR remains available.
 
-**100% free, forever, with all features included.** No Pro edition, license key or feature paywall. SMS providers charge separately for their services.
+Active features appear first. Inactive capabilities stay below with their guides and activation switches; their storefront services and files are not loaded. Administrator reports query only the selected section. New store and campaign modules start disabled.
 
-انار: ورود با پیامک، بازیابی رمز، سبد رهاشده، اعلان سفارش و ابزارهای بازاریابی ووکامرس. تمام امکانات همیشه رایگان‌اند؛ هزینهٔ پنل و پیامک جداست. راهنمای فارسی هر بخش و نمایش راست‌به‌چپ در دسترس است.
+Built-in SMS providers: Kavenegar, Meli Payamak, IPPanel, Panelchi, Faraz SMS and SMS.ir, plus a custom HTTPS gateway. Use your own account and approved templates. Provider acceptance does not confirm handset delivery.
 
-English/LTR source and Persian/RTL translations. Full feature details, external-service disclosures and setup limits follow below.
+**100% free, forever, with all features included.** No Pro edition, plugin subscription, license key or feature paywall. SMS providers charge separately for their accounts and message credits.
 
-[MRNWP](https://mrnwp.ir/) | [Source, guides and issues](https://github.com/mehran-mrn/anar-login)
+[Persian feature and setup guide](https://github.com/mehran-mrn/anar-login/blob/main/docs/plugin-page-fa.md) | [Source and support](https://github.com/mehran-mrn/anar-login) | [MRNWP](https://mrnwp.ir/)
 
 == Installation ==
 
-1. Upload the anar-toolkit folder or install its ZIP through Plugins > Add New. If replacing a pre-release Anar Login installation in another folder, deactivate the old copy first; do not activate both copies.
-2. Activate Anar Toolkit and open its administration menu.
-3. Select your SMS provider and enter your own credentials and approved template. Alternatively, use email codes with your existing WordPress mail setup.
-4. Create a page containing [anar_account] and select it as the account page; use [anar_login] for a separate login form if needed.
-5. Add [anar_login_button] or a link to #anar-login when the popup is enabled.
-6. Configure WooCommerce and optional two-step verification only after testing delivery.
-7. Open Anar Toolkit > Commerce toolkit. Choose the commerce provider, recipient numbers and approved payment/recovery templates. Built-in providers send their approved template; the local text is the reference or custom-gateway message.
-8. Map exact provider variables to {site}, {name}, {order_id}, {total}, {currency}, {code}, {minutes}, {recovery_page} and {unsubscribe_url}. Recovery mappings must include the code, entry-page URL and opt-out URL. Custom HTTP transport must use {message}. For Kavenegar, token={code}, token2={recovery_page} and token3={unsubscribe_url} is a starting point; each value must fit the provider's 100-character/whitespace limits.
-9. Choose the page for entering recovery codes (the WooCommerce cart by default). Add [anar_recover_cart] to a custom page and exclude it from full-page caching. Set stage delays, site-local sending hours, code validity and retention. Review the site's privacy notice and the SMS provider's permitted use before enabling each module.
-10. Automatic capture uses a linked account or a checkout phone field with a visible notice and no separate checkbox. Explicit-preference mode is optional. Place [anar_recover_cart] beside Cart/Checkout blocks; [anar_cart_reminders] provides the optional preference form. An existing unsubscribe remains in force. Recovery codes work on another device without logging in.
+1. Install and activate Anar Toolkit. If replacing a pre-release copy in an anar-login folder, deactivate that copy first.
+2. For Persian, choose Persian in Settings > General or the user's Profile language. The translation is included in the plugin.
+3. Open Anar Toolkit > Features. Select the capabilities you need, then use each active feature's Configure link. New store and campaign modules start disabled.
+4. In Connection settings, enter your SMS provider credentials and approved template. Email uses your site's mail transport; Google sign-in needs your own OAuth web application.
+5. Use [anar_account] for the account page, [anar_login] for a standalone form and [anar_login_button] for a popup button.
+6. Configure each event's schedule, audience, approved template and exact provider variable names. Keep login and campaign templates separate. Recovery mappings require {code}, {recovery_page} and {unsubscribe_url}; marketing messages require {unsubscribe_url}, surveys require {action_url}, and discount messages require {coupon_code}.
+7. Place [anar_recover_cart] beside Cart/Checkout blocks. Automatic capture uses a linked account or checkout phone with a visible notice and no separate checkbox. Explicit preference mode is optional; existing unsubscribes always remain effective.
+8. Test delivery before replacing login or enabling two-step verification. Background reminders depend on Action Scheduler or WP-Cron. HTTPS is required for gateway endpoints.
 
-HTTPS is required for SMS gateway endpoints and recommended for the entire site. Google sign-in requires your own Google Cloud OAuth web application. No SMS or Google credentials are bundled.
+[Read the Persian setup guide](https://github.com/mehran-mrn/anar-login/blob/main/guide-fa.txt).
 
 == Frequently Asked Questions ==
 
-= Is every feature really free forever? =
+= Is Persian supported without a separate download? =
 
-Yes. Anar Toolkit is 100% free, forever, with all features included. There are no paid plugin upgrades, license keys or feature gates. SMS account and message charges are set by your chosen provider. Ordinary security throttling is included to protect login requests.
+Yes. Compiled Persian translations are included. Forms, settings, interface messages and contextual guides follow the WordPress site or user language and support RTL. Provider names, shortcodes and technical identifiers stay unchanged. English is also available. Official/custom language packs in WordPress's global languages folder keep their normal priority.
 
-= آیا افزونهٔ ورود پیامکی انار با تمام امکانات همیشه رایگان است؟ =
+The directory's language badge reports approved translations on translate.wordpress.org. It is separate from the bundled translation. The directory requires an English source readme; the linked Persian guide covers setup and features in Persian.
 
-بله؛ انار ۱۰۰٪ رایگان، برای همیشه و با تمام امکانات است. بابت امکانات افزونه، به‌روزرسانی یا بازکردن قابلیت‌ها هزینه‌ای دریافت نمی‌شود. هزینهٔ احتمالی پنل و ارسال کد تأیید پیامکی مربوط به شرکت پیامکی منتخب شماست.
+= Is every feature free? =
 
-= Does it support Iranian SMS panels and WooCommerce? =
+Yes. No Pro edition, plugin subscription, license key or feature paywall exists. Your provider sets any account, template and SMS-credit charges. Email uses your existing mail service.
 
-Yes. It includes Kavenegar, Meli Payamak, IPPanel, Panelchi, Faraz SMS and SMS.ir, plus a custom HTTPS gateway. WooCommerce integration provides My Account login, classic checkout login and verified billing-phone synchronization. It does not add a native Checkout Block component.
+= Can I use only SMS login? =
 
-= Can I use email login without an SMS subscription? =
+Yes, including without WooCommerce. Enable only the required capabilities. Inactive features remain in the lower-priority catalog and do not run their storefront services or enqueue files. Turning a feature off keeps its configuration and records. Already-issued personal coupons retain their restrictions, historic opt-out links remain usable and scheduled retention cleanup continues.
 
-Yes. Set the identity mode to email. Codes use wp_mail and your existing mail transport. Google sign-in is another optional method.
+= How do abandoned carts and discounts work? =
 
-= Are raw codes stored? =
+A linked account or checkout number identifies the saved standard cart. Up to three reminders follow configured inactivity delays. The customer enters a phone-bound recovery code to restore products or open an eligible unpaid order. Generated discounts are single-use, expiring and restricted to the billing phone. Codes never authenticate an account or bypass order access checks.
 
-No. Active codes are stored as keyed HMAC values bound to a recipient hash. Verification attempts, request limits and code consumption use atomic database operations. Expired records are removed by scheduled cleanup.
+Standard simple/variable products use current prices and stock. Add-on metadata, bundles, subscriptions and custom-priced items are not recreated. Test your catalog. Recovery URLs carry no recovery code or account token. Provider variable length limits also apply to mapped URLs.
 
-= Does two-step verification replace authenticator apps? =
+= Which order events can notify customers and administrators? =
 
-It supplies a code by SMS or email after password sign-in. It does not implement TOTP authenticator apps or recovery codes. Verified OTP and Google sessions do not receive an additional code step. XML-RPC password authentication is refused for affected accounts.
+Payment, processing/completion and other selected statuses, shipment tracking, administrator new-order and payment-failure notices have separate switches and templates. Enter the tracking number, carrier and HTTPS tracking URL in the order's Anar box. WooCommerce CRUD supports HPOS. Payment confirmation requires WooCommerce's payment-complete event; visiting the thank-you page or manually changing a status is not payment proof.
 
-= Will my site's public login form advertise Anar or MRNWP? =
+= How are bulk messages and surveys controlled? =
 
-No. The login form uses your site logo, a configured image or a neutral lock symbol. Developer links are confined to the plugin administration screen and this directory description.
+Bulk sending requires an audience preview and an explicit launch. Importing numbers alone sends nothing. Configure daily caps, message gaps and sending hours; pause or cancel remaining work. Marketing messages contain an unsubscribe link. Survey gifts do not require a positive rating; product reviews require moderation. Accepted means API acceptance, not handset delivery. Ambiguous requests are not automatically resent.
 
-= Commerce toolkit =
+= Are purchase predictions and attributed sales guaranteed results? =
 
-* Separate customer and administrator SMS notifications after WooCommerce confirms payment.
-* Up to five administrator recipients and independent approved message templates.
-* Three configurable recovery stages, measured in minutes after the last saved cart change. Set a stage to zero to disable it.
-* Separate SMS-provider selection for commerce, reusing credentials from SMS settings without reusing OTP templates.
-* Automatic capture from linked accounts and checkout phone fields with a visible notice and no separate checkbox. An optional explicit-preference form is available. Place [anar_recover_cart] beside Cart and Checkout blocks for recovery entry.
-* Previously stopped numbers remain stopped. Cart reminders and marketing campaigns share an unsubscribe preference.
-* Guest and registered-customer carts with a saved Iranian mobile number; standard simple and variable products.
-* Six-digit, phone-bound recovery codes restore saved products or open WooCommerce order payment. Codes are HMAC-protected, single-use and expire after a configurable 5–1440 minutes (30 by default). They never authenticate the shopper or bypass WooCommerce order access checks.
-* SMS contains a code and the URL of the page that accepts it. That URL carries no code or account token. Customers enter their phone and latest code in [anar_recover_cart]. Classic cart/checkout includes this form automatically, including empty carts.
-* Each code permits five guesses. Atomic per-phone and per-IP recovery limits also apply across browser sessions. Customers can request a fresh code for an eligible saved purchase; unknown and opted-out numbers receive the same public response.
-* The unsubscribe link opens a confirmation page; GET/link-preview requests never stop messages.
-* Stop cart and unpaid-order reminders for a phone using the unsubscribe link. Payment notifications are separate transactional messages.
-* Recheck capture preference, order eligibility and expiry before processing. Automatic reminders respect sending hours and daily caps. Explicit new-code requests instead use resend/hourly security limits and can be fulfilled outside reminder quiet hours.
-* Local queue with atomic claims and duplicate protection, masked recipient reports and manual retry for confirmed failures (three attempts maximum).
-* Ambiguous network/server results are marked uncertain and are not retried automatically. Accepted is API acceptance, not confirmed handset delivery.
-* WordPress privacy export/erasure by saved email, phone-based administrator erasure, and 7–90 day configurable local retention.
-* Action Scheduler when available, with WP-Cron fallback; scheduler traffic or server cron is needed. Scheduled times are targets and may be delayed.
-* WooCommerce order CRUD for HPOS. Login integration remains classic-checkout based; commerce works with Checkout Blocks when both shortcodes are placed beside the block.
+No. Predictions estimate purchase intervals from recorded history and are omitted when data is insufficient. Reports use actual local records. Coupon-attributed purchases do not prove incremental sales. Optional traffic statistics stay on your server and start disabled.
 
-Payment notifications use the WooCommerce payment-complete event. Opening the thank-you page, creating an order, or selecting cash on delivery does not send a payment confirmation. Manual status changes alone do not trigger this event. Gateways must report payment completion correctly.
+= Can a billing phone reset an account password? =
 
-The saved cart contains product IDs, variation attributes and quantities. Product add-on metadata, bundles, custom-priced items, subscriptions and third-party checkout extensions are not recreated. Test your catalog before enabling recovery. New customer campaign modules are listed below and start disabled.
+No. SMS reset requires a previously linked Anar or compatible verified identity number. Its five-minute code is separate from login/cart recovery codes. A successful reset revokes previous sessions. Public registrations can assign only Subscriber or WooCommerce Customer roles with basic read capabilities.
 
-= Customer campaigns and engagement =
+= Does it work with every checkout and theme? =
 
-* Customer lifecycle: first-purchase thank-you, three configurable inactivity stages and VIP rewards.
-* Product-specific next-purchase estimates using personal, product or hybrid purchase intervals, confidence thresholds and before/on/after stages. Insufficient history produces no estimate.
-* Smart product offers with product/category filters and optional discount gifts.
-* Scheduled segmented bulk SMS: bounded contact import, audience preview, explicit launch, pause/resume/cancel, per-phone caps and shared message gaps.
-* Phone-verified back-in-stock requests for products and variations.
-* Post-purchase surveys, moderated product reviews and thank-you gifts independent of positive ratings.
-* Next-purchase gifts, birthday greetings (month/day only; Persian calendar requires PHP Intl), and phone-bound generated coupons.
-* Expiring scoped invoice links and My Account print/PDF invoices.
-* Ten free promotional game modes: wheel, scratch, boxes, cards, fruit match, treasure, daily surprise, quiz, memory and purchase milestones. Server-controlled rewards and daily limits; no cash prizes or paid entry.
-* Customer referrals: first-purchase eligibility, self-referral checks, completion/refund waiting period and reward revocation.
-* Separate order-status, shipment and administrator failure/new-order notifications, with WooCommerce HPOS-compatible CRUD.
-* Recovery dashboard, masked message logs, CRM and campaign reports using actual records. Accepted means API acceptance, not confirmed delivery.
-* Optional local traffic and sales reports. Traffic measurement starts disabled; no external analytics service is used.
-* Independent module switches, background paid-order history import, privacy export/erasure and configurable retention.
+WooCommerce login integration uses My Account and classic checkout; it does not add a native Checkout Block login component. Place the recovery/preference shortcodes beside blocks. The optional WoodMart adapter still needs testing with your actual theme version and customizations. Keep a password login route available during setup.
 
-Configure approved provider templates and variables before enabling any sending module. Marketing messages require an unsubscribe link. Survey links and invoice links grant only their stated purpose; they never log in a customer. Personal generated coupons are single-use and restricted to a billing phone; existing coupon codes retain the merchant's existing WooCommerce restrictions. Execution depends on the site's scheduler.
+= How do invoices, birthdays, referrals and games work? =
 
-New shortcodes: [anar_reset_password], [anar_customer_preferences], [anar_referrals], and [anar_game type="wheel"] (also scratch, boxes, cards, slots, treasure, daily, quiz, memory, milestone). The customer-management application and Google Maps extraction are not included.
-
-= Login features =
-
-* SMS OTP login and registration with Iranian mobile numbers, including Persian and Arabic digits.
-* SMS password reset for an already linked Anar/Digits phone using a separate five-minute code. Billing phone alone cannot reset an account; successful resets revoke prior sessions.
-* Email one-time passwords through wp_mail; compatible with SMTP plugins.
-* Optional Google OAuth authorization-code sign-in with PKCE and a browser-bound state cookie.
-* Six built-in Iranian SMS adapters and a configurable HTTPS gateway.
-* WooCommerce My Account and classic checkout login integration; WooCommerce is optional.
-* A login popup loaded on demand, shortcode buttons and optional wp-login.php replacement.
-* Optional two-step verification after password sign-in for privileged roles or all accounts.
-* Expiring, HMAC-protected one-time codes; atomic attempt limits and single use.
-* Atomic per-identity and per-IP request limits and resend cooldowns.
-* Existing phone identity lookup through Anar metadata or Digits phone metadata.
-* Configurable registration, safe default roles, redirects and site-logo appearance.
-* Editable account names; email addresses and phone identities cannot be changed through the profile endpoint.
-* Local CSS and readable JavaScript, without a runtime Composer dependency or external CDN.
-* Optional data removal on uninstall, disabled by default.
-
-The optional theme adapter supports WoodMart login components. Compatibility can vary by theme version and customizations. The plugin does not require WoodMart and does not bundle its code. Keep a password sign-in route available while setting up OTP, and test mail or SMS delivery before enabling two-step verification.
+Customers print/save invoices as PDF from My Account or an expiring scoped link. Use [anar_customer_preferences] for birthday month/day, [anar_referrals] for referrals and [anar_game type="wheel"] for a game. Other types: scratch, boxes, cards, slots, treasure, daily, quiz, memory and milestone. Server-side rules enforce coupon rewards and daily limits; there is no paid entry or cash prize. Persian birthday dates require PHP Intl.
 
 == External services ==
 
@@ -216,97 +167,38 @@ Gravatar privacy: https://automattic.com/privacy/
 
 == Privacy ==
 
-User names and email addresses are stored in the usual WordPress user records. Verified mobile numbers, Google account identifiers and optional Google avatar URLs are stored in user metadata. SMS and OAuth credentials are stored in the site's WordPress options database; protect administrator and backup access. The plugin does not claim to encrypt those stored credentials. Commerce consent records store mobile number, optional email, consent text and UTC consent timestamp. Cart snapshots store standard product/variation IDs, selected variation attributes, quantities, amount, currency, a keyed session identifier, link seed, state and related order IDs. Queue records store recipient number, event, related object ID, state, safe error code, attempts and timestamps; full message text and API credentials are not written to queue logs. Recovery challenges use a separate recovery channel in the OTP table, with a keyed code hash, expiry, attempt count and consumption timestamp. Contact records reference the current recovery challenge and cart. Plaintext recovery codes are not stored in the local queue or database. The opt-out URL uses an action-specific HMAC and contains no phone/email. Only a verified recovery code can restore a cart or navigate to order payment; it does not grant account access. WooCommerce session cookies are used to associate a captured cart; no separate reminder tracking cookie or reminder IP history is created.
+User account details use normal WordPress records. Verified phones, Google identifiers and optional avatar URLs use user metadata. Provider credentials are stored in the site's options database; the plugin does not claim to encrypt them. Protect administrator and backup access.
 
-OTP records contain recipient HMACs, code HMACs, delivery channel, attempt counts and timestamps. Request-limit records contain HMAC-derived identity/IP keys, counts and expiry times. Cleanup runs daily through WP-Cron: code records older than one day and expired request limits are removed when that job executes. Traffic or a server cron is needed for scheduled cleanup. Optional diagnostic logging records only channel and error identifiers, without provider response bodies, credentials, phone numbers or codes. The administrator-only test tool can show a provider's response in its own browser session.
+Cart snapshots contain standard product/variation IDs, quantities, totals, currency and keyed session/order references. Local tables store contact preferences and the customer facts needed by enabled campaigns. Authentication codes use keyed hashes, expiration and atomic guess limits. Queue logs exclude plaintext codes, full messages and credentials; the optional login log records outcome metadata.
 
-Google state and pending two-step sign-ins use ten-minute transients. Google state is bound to an HttpOnly SameSite=Lax browser cookie. Successful logins set normal WordPress authentication cookies. The browser may retain a non-sensitive post-login redirect marker for cache handling. See services.txt for the endpoint inventory and the Persian guide for setup.
+Cart/message retention is 7–90 days and campaign activity retention is 7–365 days. Scheduled cleanup needs a working cron. WordPress privacy export/erasure and administrator phone erasure are available after verifying the requester. A minimal keyed suppression record preserves an unsubscribe after identity erasure. WooCommerce orders and provider-side data are separate.
 
-Commerce data is removed by the daily cleanup after the configured 7–90 day retention window, subject to scheduler execution. Recovery eligibility expires after 1–30 days since saved activity, no longer than the retention period. Codes independently expire after 5–1440 minutes and newer codes replace older ones. Recovery request/guess limits use keyed identity/IP hashes in the existing security-limit table. The optional saved email allows WordPress personal-data export and erasure; administrators can erase phone-only local reminder data after verifying a request. Deletion does not recall SMS or delete data already held by a provider. Uninstall keeps settings and identity metadata unless the administrator first enables data deletion. With that option enabled, uninstall removes the plugin's tables, options and identity metadata; it does not delete WordPress users or WooCommerce orders. Minimal order-linked cart/idempotency metadata remains with the WooCommerce order. Network-wide activation and uninstall across multiple sites are not implemented; configure each site individually.
+Optional first-party traffic uses a random browser identifier for up to 30 days, daily hashes and the referring hostname. No raw IP or full referrer URL is stored and no external analytics service is used. Birthdays store month/day without year. WordPress and WooCommerce handle account/session cookies.
+
+Uninstall preserves data unless deletion was explicitly enabled beforehand. It does not remove WordPress users or WooCommerce orders. Network-wide activation/uninstall is not implemented; configure each site independently. See services.txt and the Persian guide for details.
 
 == Screenshots ==
 
-1. Persian login form with SMS and email OTP support.
-2. Persian administration settings and the permanent free-feature commitment.
-3. Persian SMS provider settings with administrator-only delivery testing.
-4. English login form with automatic LTR layout.
+1. Persian administration and service connection settings.
+2. Persian RTL login form using the site's identity.
+3. SMS provider configuration and administrator-only sending test.
+4. English login form with LTR layout.
 
 == Changelog ==
 
+= 0.8.1 =
+* Include complete Persian runtime catalogs so Persian installations work without a separate language ZIP.
+* Refresh the listing, setup and FAQ for the expanded feature set and link the full Persian guide.
+* Preserve normal official/custom language-pack priority and test locale switching and PHP/MO formats.
+
 = 0.8.0 =
-* Add SMS password recovery, automatic cart capture, personal recovery discounts and order/shipment events.
-* Add independently switchable lifecycle, prediction, offers, bulk, stock, surveys, birthday, invoice, games, referral and local insights modules.
-* Redesign recovery and message dashboards with actual data, campaign reports, shared opt-out controls and expanded privacy tools.
-* Expand Persian development translations and regression coverage. All new marketing modules start disabled.
-* Load only enabled runtime components and the selected admin report; keep inactive capabilities in a lower-priority catalog with contextual guides.
+* Add SMS password reset, automatic cart capture, personal discounts and order/shipment events.
+* Add lifecycle, prediction, offers, bulk, stock, surveys, gifts, invoices, games, referrals and local insights.
+* Add active-first feature management, real-data reports and Persian contextual guides.
 
+Full history: https://github.com/mehran-mrn/anar-login/blob/main/CHANGELOG.md
 
-= 0.7.0 =
+== Upgrade Notice ==
 
-* Enable the direct IPPanel adapter in the public package for login and commerce messages.
-* Add Panelchi approved-pattern delivery for OTP and multi-variable WooCommerce messages.
-* Validate queued request status and identifiers; preserve separate login and recovery templates.
-* Add automatic WordPress.org publishing for stable GitHub releases.
-
-* Restrict public OTP and Google registration to Subscriber or Customer roles with basic read capabilities, including after role filters. Unsafe saved settings fall back to a checked Subscriber role; registration stops if that fallback is unsafe or missing.
-* Run the WordPress account and authentication filters before issuing a passwordless session, honor denials, and reject a substituted user identity.
-* Require a verified Google email at the account service boundary as well as the OAuth callback.
-
-= 0.6.0 =
-
-* Rename the product to Anar Toolkit and use the anar-toolkit text domain/release folder.
-* Add optional payment confirmations and three-stage consent-based cart/unpaid-order recovery.
-* Add multi-variable commerce templates for the existing SMS adapters, independent from OTP templates.
-* Add a local atomic queue, per-phone caps, sending hours, single-use recovery codes, opt-out confirmation and masked reports.
-* Add privacy exports, erasure, retention and explicit commerce service disclosures.
-* Exclude bundled translation catalogs from the WordPress.org ZIP; development catalogs and a separate Persian language pack remain available.
-
-
-= 0.5.1 =
-
-* Prepare the public WordPress.org release with full service disclosures, GPL license, Persian setup guide and release packaging.
-* Reserve SMS, email and Google request limits atomically to handle concurrent requests.
-* Require HTTPS for SMS gateways and prevent credential forwarding through redirects.
-* Keep provider response bodies out of optional diagnostic logs and honor authentication-blocking filters.
-* Add the permanent 100%-free, all-features-included notice in the administration screen.
-
-= 0.5.0 =
-
-* Replaces every WooCommerce login form and the theme's login links (including WoodMart) with the passwordless form; wp-login.php optionally.
-* Fixed the first page after sign-in occasionally showing the signed-out version.
-* The form now shows the site's logo instead of the plugin's.
-
-= 0.4.1 =
-
-* The test SMS now uses the provider selected in the form, even before saving.
-* Meli Payamak can also send from a dedicated sender number.
-
-= 0.4.0 =
-
-* Added WooCommerce integration for My Account and checkout.
-* Added a login popup that loads on first click.
-* Added optional two-step verification for password sign-ins.
-
-= 0.3.1 =
-
-* Added a custom gateway for any SMS panel with a web API.
-* Assets now load in the head and only on pages with the form; the script is deferred and one query per page was removed.
-* Fixed admin notices being squeezed into the settings header.
-
-= 0.3.0 =
-
-* Fixed a race that let parallel requests exceed the verification attempt limit.
-* Fixed Persian digits in the code field, Meli Payamak failure detection, and custom provider settings not saving.
-* Added auto-submit, Android SMS code filling, a test SMS tool, a phone-only mode, and friendlier Google sign-in errors.
-
-= 0.2.0 =
-
-* Added an English source interface and complete Persian translation.
-* Added automatic LTR and RTL layouts with CSS logical properties.
-* Added designer identity and author links.
-
-= 0.1.0 =
-
-* Initial OTP and REST API foundation.
-* Added five Iranian SMS providers, email, and Google OAuth.
-* Added the admin, login, and account interfaces.
+= 0.8.1 =
+Persian translations are now included. Choose Persian for the site or user; a separate language ZIP is no longer required.

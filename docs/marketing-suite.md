@@ -45,7 +45,7 @@ Campaign retention is 7–365 days, cart/message retention 7–90 days. Daily cl
 
 Traffic uses a random first-party localStorage identifier lasting up to 30 days, daily keyed hashes and only the referring hostname. No external analytics endpoint, raw IP, full referrer URL, Maps extraction, management application, or competitor assets are included. Add your actual modules, retention, provider and purposes to the suggested privacy-policy content.
 
-Run `tests/Integration/commerce.php` and `tests/Integration/suite.php` only in a disposable `local` WordPress/WooCommerce installation. Both intercept provider HTTP and mail. Never run these fixtures on a store. The WordPress.org ZIP excludes tests, tooling, dependencies and development translation catalogs; the separate Persian language pack installs into `wp-content/languages/plugins` until WordPress.org language packs are available.
+Run `tests/Integration/commerce.php` and `tests/Integration/suite.php` only in a disposable `local` WordPress/WooCommerce installation. Both intercept provider HTTP and mail. Never run these fixtures on a store. The WordPress.org ZIP excludes tests, tooling, dependencies and editable translation sources. Compiled Persian MO/PHP catalogs are bundled and follow the site/user locale; no external pack is required.
 
 
 ## Runtime isolation and navigation
