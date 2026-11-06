@@ -21,14 +21,18 @@ final class HttpClient {
 	 * @return array{status:int,body:string,json:mixed}|WP_Error
 	 */
 	public function request( $method, $url, $args = array() ) {
+		if ( 'https' !== strtolower( (string) wp_parse_url( $url, PHP_URL_SCHEME ) ) ) {
+			return new WP_Error( 'anar_sms_https_required', __( 'SMS gateways must use HTTPS.', 'anar-toolkit' ) );
+		}
+
 		$args['method']      = strtoupper( $method );
 		$args['timeout']     = isset( $args['timeout'] ) ? absint( $args['timeout'] ) : 15;
-		$args['redirection'] = 2;
-		$args['user-agent']  = 'Anar-Login/' . ANAR_LOGIN_VERSION . '; ' . home_url( '/' );
+		$args['redirection'] = 0;
+		$args['user-agent']  = 'Anar-Login/' . ANAR_LOGIN_VERSION;
 
 		$response = wp_safe_remote_request( esc_url_raw( $url ), $args );
 		if ( is_wp_error( $response ) ) {
-			return new WP_Error( 'anar_sms_network', __( 'Could not connect to the SMS provider.', 'anar-login' ), array( 'detail' => $response->get_error_message() ) );
+			return new WP_Error( 'anar_sms_network', __( 'Could not connect to the SMS provider.', 'anar-toolkit' ), array( 'detail' => $response->get_error_message() ) );
 		}
 
 		$status = wp_remote_retrieve_response_code( $response );
@@ -40,7 +44,7 @@ final class HttpClient {
 				'anar_sms_http',
 				sprintf(
 					/* translators: %d: HTTP status */
-					__( 'The SMS provider returned an unsuccessful response (HTTP %d).', 'anar-login' ),
+					__( 'The SMS provider returned an unsuccessful response (HTTP %d).', 'anar-toolkit' ),
 					$status
 				),
 				array(

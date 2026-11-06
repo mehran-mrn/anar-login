@@ -19,17 +19,17 @@ final class FarazSms extends AbstractProvider {
 
 	/** @inheritDoc */
 	public function title() {
-		return __( 'Faraz SMS', 'anar-login' );
+		return __( 'Faraz SMS', 'anar-toolkit' );
 	}
 
 	/** @inheritDoc */
 	public function fields() {
 		return array(
-			'username'       => __( 'Username', 'anar-login' ),
-			'password'       => __( 'Web service password', 'anar-login' ),
-			'from'           => __( 'Sender number', 'anar-login' ),
-			'template_id'    => __( 'Pattern code', 'anar-login' ),
-			'code_parameter' => __( 'Code variable name in the pattern', 'anar-login' ),
+			'username'       => __( 'Username', 'anar-toolkit' ),
+			'password'       => __( 'Web service password', 'anar-toolkit' ),
+			'from'           => __( 'Sender number', 'anar-toolkit' ),
+			'template_id'    => __( 'Pattern code', 'anar-toolkit' ),
+			'code_parameter' => __( 'Code variable name in the pattern', 'anar-toolkit' ),
 		);
 	}
 

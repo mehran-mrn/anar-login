@@ -13,6 +13,16 @@
 	box-sizing: border-box;
 	font-family: var(--anar-font);
 	color: var(--anar-ink);
+	-webkit-tap-highlight-color: transparent;
+}
+
+/* Derive the dark and soft tones from the configured brand color, so any color stays harmonious. */
+@supports (color: color-mix(in srgb, red, blue)) {
+	.anar-auth,
+	.anar-panel {
+		--anar-accent-dark: color-mix(in srgb, var(--anar-accent) 78%, #000);
+		--anar-soft: color-mix(in srgb, var(--anar-accent) 7%, #fff);
+	}
 }
 
 .anar-auth[dir="ltr"],
@@ -63,11 +73,57 @@
 }
 
 .anar-auth__logo {
-	width: 52px;
-	height: 52px;
-	border-radius: 16px;
-	object-fit: cover;
-	box-shadow: 0 8px 20px rgba(190, 27, 61, .16);
+	flex: 0 0 auto;
+}
+
+/* Site logos are often wide, so keep their proportions instead of cropping to a square. */
+.anar-auth__logo--image {
+	display: block;
+	width: auto;
+	max-width: 150px;
+	height: 46px;
+	object-fit: contain;
+}
+
+.anar-auth__logo--icon {
+	display: grid;
+	width: 46px;
+	height: 46px;
+	border-radius: 14px;
+	background: var(--anar-soft);
+	color: var(--anar-accent);
+	place-items: center;
+}
+
+.anar-auth__logo--icon svg {
+	width: 22px;
+	fill: currentColor;
+}
+
+.anar-password-link {
+	margin: 16px 0 0;
+	text-align: center;
+	font-size: 13px;
+}
+
+.anar-password-link a {
+	color: var(--anar-muted);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+/* wp-login.php, when the administrator chose to replace it. */
+body.anar-wp-login #login {
+	width: min(100% - 32px, 490px);
+	padding-top: 4vh;
+}
+
+body.anar-wp-login #login > h1 {
+	display: none;
+}
+
+body.anar-wp-login .anar-auth {
+	margin: 0 auto 20px;
 }
 
 .anar-auth__brand div {
@@ -77,7 +133,7 @@
 
 .anar-auth__eyebrow {
 	color: var(--anar-muted);
-	font-size: 11px;
+	font-size: 12.5px;
 	font-weight: 600;
 }
 
@@ -91,9 +147,11 @@
 	gap: 5px;
 	padding: 6px 9px;
 	border-radius: 999px;
+	flex: 0 0 auto;
 	background: #eefaf4;
 	color: #19764d;
-	font-size: 10px;
+	white-space: nowrap;
+	font-size: 12px;
 	font-weight: 700;
 }
 
@@ -166,7 +224,8 @@
 	background: #fff;
 	box-shadow: none;
 	color: var(--anar-ink);
-	font: 500 14px var(--anar-font);
+	/* 16px keeps iOS Safari from zooming the page when the field is focused. */
+	font: 500 16px var(--anar-font);
 	transition: border-color .2s, box-shadow .2s;
 }
 
@@ -191,13 +250,41 @@
 	transition: transform .16s, box-shadow .16s, opacity .16s;
 }
 
-.anar-btn:hover {
+.anar-btn:hover:not(:disabled) {
 	transform: translateY(-1px);
+}
+
+.anar-btn:active:not(:disabled) {
+	transform: translateY(0) scale(.99);
 }
 
 .anar-btn:disabled {
 	cursor: wait;
-	opacity: .7;
+	opacity: .78;
+}
+
+.anar-auth :is(button, a):focus-visible,
+.anar-panel :is(button, a):focus-visible {
+	outline: 2px solid var(--anar-accent);
+	outline-offset: 3px;
+}
+
+.anar-btn.is-loading svg {
+	display: none;
+}
+
+.anar-btn.is-loading::after {
+	width: 16px;
+	height: 16px;
+	border: 2px solid currentColor;
+	border-inline-end-color: transparent;
+	border-radius: 50%;
+	content: "";
+	animation: anar-spin .7s linear infinite;
+}
+
+@keyframes anar-spin {
+	to { transform: rotate(360deg); }
 }
 
 .anar-btn svg {
@@ -241,7 +328,7 @@
 	gap: 12px;
 	margin: 20px 0;
 	color: #a89da1;
-	font-size: 11px;
+	font-size: 12.5px;
 }
 
 .anar-divider::before,
@@ -260,7 +347,7 @@
 	padding: 14px;
 	background: #fbf8f9;
 	color: #8d8186;
-	font-size: 10px;
+	font-size: 12px;
 }
 
 .anar-auth__footer svg {
@@ -277,7 +364,7 @@
 	border: 0;
 	background: none;
 	color: var(--anar-muted);
-	font: 600 11px var(--anar-font);
+	font: 600 12.5px var(--anar-font);
 	cursor: pointer;
 }
 
@@ -308,7 +395,38 @@
 	text-align: center;
 	font-size: 25px !important;
 	font-weight: 800 !important;
+	font-variant-numeric: tabular-nums;
 	letter-spacing: 10px;
+}
+
+.anar-form .anar-code-input::placeholder {
+	color: #d4cacd;
+	letter-spacing: 8px;
+}
+
+.anar-form .anar-code-input.is-invalid {
+	border-color: #c8233f;
+	animation: anar-shake .36s ease;
+}
+
+@keyframes anar-shake {
+	20%, 60% { transform: translateX(-6px); }
+	40%, 80% { transform: translateX(6px); }
+}
+
+.anar-form:not([hidden]) {
+	animation: anar-step-in .28s ease both;
+}
+
+@keyframes anar-step-in {
+	from { opacity: 0; transform: translateY(6px); }
+	to { opacity: 1; transform: none; }
+}
+
+/* Arrows are drawn for RTL; mirror them when the layout runs left to right. */
+.anar-auth[dir="ltr"] .anar-btn--primary svg,
+.anar-auth[dir="ltr"] .anar-auth__back svg {
+	transform: scaleX(-1);
 }
 
 .anar-check {
@@ -316,7 +434,7 @@
 	align-items: center;
 	gap: 7px;
 	color: var(--anar-muted);
-	font-size: 11px;
+	font-size: 12.5px;
 }
 
 .anar-check input {
@@ -329,7 +447,7 @@
 	border: 0;
 	background: none;
 	color: var(--anar-accent);
-	font: 700 11px var(--anar-font);
+	font: 700 12.5px var(--anar-font);
 	cursor: pointer;
 }
 
@@ -338,11 +456,32 @@
 	cursor: default;
 }
 
+.anar-resend__timer {
+	display: inline-block;
+	min-width: 2.6em;
+	padding: 1px 7px;
+	border-radius: 999px;
+	background: var(--anar-soft);
+	font-variant-numeric: tabular-nums;
+}
+
+.anar-resend__timer:empty {
+	display: none;
+}
+
+.anar-resend.is-loading {
+	opacity: .7;
+}
+
+.anar-notice:not([hidden]) {
+	animation: anar-step-in .22s ease both;
+}
+
 .anar-notice {
 	margin-top: 15px;
 	padding: 10px 13px;
 	border-radius: 10px;
-	font-size: 11px;
+	font-size: 12.5px;
 	line-height: 1.8;
 }
 
@@ -387,6 +526,105 @@
 	font-size: 12px;
 }
 
+/* Login popup */
+.anar-modal {
+	width: min(100% - 24px, 490px);
+	max-width: none;
+	max-height: calc(100dvh - 24px);
+	padding: 0;
+	overflow: visible;
+	border: 0;
+	background: transparent;
+	color: inherit;
+}
+
+.anar-modal[open] {
+	animation: anar-modal-in .26s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+.anar-modal::backdrop {
+	background: rgba(24, 12, 17, .45);
+	-webkit-backdrop-filter: blur(4px);
+	backdrop-filter: blur(4px);
+}
+
+.anar-modal .anar-auth {
+	max-height: calc(100dvh - 24px);
+	margin: 0;
+	overflow-y: auto;
+}
+
+.anar-modal__close {
+	position: absolute;
+	z-index: 2;
+	top: 14px;
+	inset-inline-end: 14px;
+	display: grid;
+	width: 34px;
+	height: 34px;
+	padding: 0;
+	border: 0;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, .9);
+	box-shadow: 0 2px 10px rgba(40, 15, 25, .12);
+	color: #5c4f55;
+	font: 400 22px/1 Arial, sans-serif;
+	cursor: pointer;
+	place-items: center;
+}
+
+.anar-modal__close:hover {
+	color: #20151a;
+}
+
+.anar-modal .anar-auth__header {
+	padding-inline-end: 60px;
+}
+
+@keyframes anar-modal-in {
+	from { opacity: 0; transform: translateY(14px) scale(.98); }
+	to { opacity: 1; transform: none; }
+}
+
+/* WooCommerce */
+.anar-wc-account .anar-auth {
+	margin-top: 0;
+}
+
+.anar-wc-password {
+	width: min(100%, 490px);
+	margin: 0 auto 28px;
+	text-align: center;
+}
+
+.anar-wc-password > summary {
+	display: inline-block;
+	color: var(--anar-muted, #776b70);
+	font-size: 13px;
+	cursor: pointer;
+}
+
+.anar-wc-password[open] > summary {
+	margin-bottom: 14px;
+}
+
+.anar-wc-password form {
+	text-align: start;
+}
+
+.anar-wc-checkout > summary {
+	list-style: none;
+	cursor: pointer;
+}
+
+.anar-wc-checkout > summary::-webkit-details-marker {
+	display: none;
+}
+
+.anar-wc-checkout .anar-auth {
+	margin: 0 auto 28px;
+}
+
 /* Account panel */
 .anar-panel {
 	display: grid;
@@ -417,13 +655,12 @@
 	text-decoration: none !important;
 }
 
-.anar-panel__brand img {
-	width: 44px;
-	height: 44px;
-	border-radius: 13px;
+.anar-panel__brand .anar-auth__logo--image {
+	max-width: 110px;
+	height: 40px;
 }
 
-.anar-panel__brand span {
+.anar-panel__brand span:not(.anar-auth__logo) {
 	display: grid;
 }
 
@@ -433,7 +670,7 @@
 
 .anar-panel__brand small {
 	color: var(--anar-muted);
-	font-size: 10px;
+	font-size: 12px;
 }
 
 .anar-panel__user {
@@ -460,7 +697,7 @@
 .anar-panel__user span {
 	margin-top: 4px;
 	color: var(--anar-muted);
-	font-size: 10px;
+	font-size: 12px;
 	direction: ltr;
 }
 
@@ -480,7 +717,7 @@
 	background: transparent;
 	color: #70646a;
 	text-align: start;
-	font: 600 11px var(--anar-font);
+	font: 600 12.5px var(--anar-font);
 	cursor: pointer;
 }
 
@@ -505,7 +742,7 @@
 	border-radius: 11px;
 	color: #a72a42 !important;
 	text-decoration: none !important;
-	font-size: 11px;
+	font-size: 12.5px;
 	font-weight: 700;
 }
 
@@ -528,7 +765,7 @@
 .anar-panel__top div > span,
 .anar-section-title div > span {
 	color: var(--anar-accent);
-	font-size: 10px;
+	font-size: 12px;
 	font-weight: 800;
 }
 
@@ -545,7 +782,7 @@
 	border-radius: 999px;
 	background: #edf9f3;
 	color: #18734b;
-	font-size: 9px;
+	font-size: 11.5px;
 	font-weight: 800;
 }
 
@@ -577,7 +814,7 @@
 }
 
 .anar-welcome > div > span {
-	font-size: 10px;
+	font-size: 12px;
 	opacity: .8;
 }
 
@@ -589,7 +826,7 @@
 .anar-welcome p {
 	max-width: 450px;
 	margin: 0 0 18px;
-	font-size: 11px;
+	font-size: 12.5px;
 	line-height: 2;
 	opacity: .8;
 }
@@ -642,7 +879,7 @@
 
 .anar-stats small {
 	color: var(--anar-muted);
-	font-size: 9px;
+	font-size: 11.5px;
 }
 
 .anar-stats strong {
@@ -686,7 +923,7 @@
 
 .anar-profile-head span {
 	color: var(--anar-muted);
-	font-size: 10px;
+	font-size: 12px;
 }
 
 .anar-fields {
@@ -700,7 +937,7 @@
 	display: grid;
 	gap: 7px;
 	color: #62565c;
-	font-size: 10px;
+	font-size: 12px;
 	font-weight: 700;
 }
 
@@ -731,7 +968,7 @@
 }
 
 .anar-form-status {
-	font-size: 10px;
+	font-size: 12px;
 }
 
 .anar-form-status.is-success {
@@ -780,7 +1017,7 @@
 
 .anar-security-list small {
 	color: var(--anar-muted);
-	font-size: 10px;
+	font-size: 12px;
 }
 
 .anar-method-state {
@@ -816,7 +1053,7 @@
 
 .anar-security-note p {
 	margin: 0;
-	font-size: 10px;
+	font-size: 12px;
 	line-height: 1.9;
 }
 
@@ -863,7 +1100,7 @@
 	.anar-panel__nav button {
 		justify-content: center;
 		padding: 9px 4px;
-		font-size: 9px;
+		font-size: 11.5px;
 	}
 
 	.anar-panel__nav button span {
@@ -927,9 +1164,17 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+	.anar-modal[open],
 	.anar-auth *,
 	.anar-panel * {
 		scroll-behavior: auto !important;
 		transition: none !important;
+		animation-duration: .01ms !important;
+		animation-iteration-count: 1 !important;
+	}
+
+	.anar-btn.is-loading::after {
+		animation-duration: 1.4s !important;
+		animation-iteration-count: infinite !important;
 	}
 }

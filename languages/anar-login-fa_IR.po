@@ -1,0 +1,818 @@
+msgid ""
+msgstr "Project-Id-Version: Anar Login 0.5.1\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "09121234567 or name@example.com"
+msgstr "09121234567 یا name@example.com"
+
+msgid "100% free, forever — all features included."
+msgstr "۱۰۰٪ رایگان، برای همیشه — با تمام امکانات."
+
+msgid "A code is invalidated atomically after its first successful verification."
+msgstr "کد پس از اولین تأیید به‌صورت اتمیک باطل می‌شود."
+
+msgid "A full uninstall removes the code table and plugin metadata. Deactivation keeps the data."
+msgstr "با حذف کامل افزونه، جدول کدها و متادیتای اختصاصی حذف می‌شوند. غیرفعال‌سازی ساده داده‌ها را نگه می‌دارد."
+
+msgid "A login code cannot be sent to this identifier."
+msgstr "امکان ارسال کد برای این شناسه وجود ندارد."
+
+msgid "A new code has been sent."
+msgstr "کد جدید ارسال شد."
+
+msgid "A test code was sent to %s."
+msgstr "کد آزمایشی به %s ارسال شد."
+
+msgid "API key"
+msgstr "کلید API"
+
+msgid "Account dashboard"
+msgstr "پنل کاربری"
+
+msgid "Account details"
+msgstr "اطلاعات حساب"
+
+msgid "Account information"
+msgstr "اطلاعات حساب کاربری"
+
+msgid "Account page"
+msgstr "صفحه پنل کاربری"
+
+msgid "Account sections"
+msgstr "بخش‌های حساب"
+
+msgid "Account sign-in methods"
+msgstr "روش‌های ورود به حساب"
+
+msgid "Account status"
+msgstr "وضعیت حساب"
+
+msgid "Active"
+msgstr "فعال"
+
+msgid "Active account"
+msgstr "حساب فعال"
+
+msgid "Add this exact URL to your Google OAuth settings."
+msgstr "این آدرس را دقیقاً در تنظیمات OAuth گوگل ثبت کنید."
+
+msgid "Add to pages"
+msgstr "نصب در صفحات"
+
+msgid "Administrators, editors and shop managers"
+msgstr "مدیران، ویرایشگران و مدیران فروشگاه"
+
+msgid "After a correct password, a code is sent to the account’s mobile, or its email when no mobile is linked. Code and Google sign-ins skip this step, as they already prove ownership."
+msgstr "پس از واردکردن رمز درست، کدی به موبایل حساب (یا اگر موبایلی ثبت نشده، به ایمیل آن) ارسال می‌شود. ورود با کد یکبارمصرف و گوگل این مرحله را ندارد، چون خودشان مالکیت را ثابت می‌کنند."
+
+msgid "All users"
+msgstr "همهٔ کاربران"
+
+msgid "Also replace wp-login.php"
+msgstr "جایگزینی صفحهٔ wp-login.php هم انجام شود"
+
+msgid "Any panel with a web API"
+msgstr "هر پنلی که وب‌سرویس دارد"
+
+msgid "Attempts per code"
+msgstr "سقف تلاش برای هر کد"
+
+msgid "Automatic code filling on Android"
+msgstr "پرشدن خودکار کد در اندروید"
+
+msgid "Body format"
+msgstr "قالب بدنهٔ درخواست"
+
+msgid "Brand color"
+msgstr "رنگ برند"
+
+msgid "Change details"
+msgstr "ویرایش مشخصات"
+
+msgid "Choose image"
+msgstr "انتخاب تصویر"
+
+msgid "Choose the least-privileged suitable role."
+msgstr "کم‌دسترسی‌ترین نقش مناسب را انتخاب کنید."
+
+msgid "Chrome on Android can fill the code with one tap when the last line of your provider template is exactly:"
+msgstr "اگر خط آخر الگوی پیامک دقیقاً به شکل زیر باشد، کروم اندروید کد را با یک لمس وارد می‌کند:"
+
+msgid "Clean up when uninstalling"
+msgstr "پاک‌سازی هنگام حذف افزونه"
+
+msgid "Close"
+msgstr "بستن"
+
+msgid "Code length"
+msgstr "طول کد"
+
+msgid "Code lifetime"
+msgstr "اعتبار کد"
+
+msgid "Code parameter name"
+msgstr "نام پارامتر کد"
+
+msgid "Code variable name in the pattern"
+msgstr "نام متغیر کد در پترن"
+
+msgid "Complete account details"
+msgstr "تکمیل اطلاعات حساب"
+
+msgid "Confidential values are not displayed again in the admin interface."
+msgstr "مقادیر محرمانه دوباره در رابط مدیریت نمایش داده نمی‌شوند."
+
+msgid "Configure code lifetime and request limits for your site."
+msgstr "عمر کد و سقف درخواست‌ها را متناسب با سایت خود تنظیم کنید."
+
+msgid "Configure sign-in, registration, and the appearance of the form."
+msgstr "رفتار ورود، ثبت‌نام و ظاهر فرم را مشخص کنید."
+
+msgid "Configure the delivery service and OTP template details."
+msgstr "سرویس ارسال و اطلاعات الگوی OTP را تنظیم کنید."
+
+msgid "Connect to %s"
+msgstr "اتصال به %s"
+
+msgid "Connected and verified"
+msgstr "متصل و تأییدشده"
+
+msgid "Continue with Google"
+msgstr "ادامه با حساب گوگل"
+
+msgid "Copied ✓"
+msgstr "کپی شد ✓"
+
+msgid "Copy"
+msgstr "کپی"
+
+msgid "Copy failed"
+msgstr "ناموفق"
+
+msgid "Copy the verified mobile number into an empty billing phone, so checkout is pre-filled."
+msgstr "شمارهٔ موبایل تأییدشده در تلفن صورتحساب خالی ذخیره می‌شود تا فرم تسویه‌حساب از قبل پر باشد."
+
+msgid "Core is active"
+msgstr "هسته فعال است"
+
+msgid "Could not complete Google sign-in. Please try again."
+msgstr "ورود با گوگل کامل نشد. لطفاً دوباره تلاش کنید."
+
+msgid "Could not connect to Google."
+msgstr "ارتباط با گوگل برقرار نشد."
+
+msgid "Could not connect to the SMS provider."
+msgstr "ارتباط با سرویس پیامک برقرار نشد."
+
+msgid "Could not connect. Please try again."
+msgstr "ارتباط برقرار نشد؛ دوباره تلاش کنید."
+
+msgid "Could not obtain sign-in authorization from Google."
+msgstr "دریافت مجوز ورود از گوگل ناموفق بود."
+
+msgid "Could not retrieve the Google profile."
+msgstr "دریافت پروفایل گوگل ناموفق بود."
+
+msgid "Create a new account when a verified user does not already have one."
+msgstr "اگر کاربر پس از تأیید کد حسابی نداشت، حساب تازه‌ای برای او ساخته شود."
+
+msgid "Create accounts automatically"
+msgstr "ساخت خودکار حساب"
+
+msgid "Custom gateway"
+msgstr "درگاه سفارشی"
+
+msgid "Custom image"
+msgstr "تصویر دلخواه"
+
+msgid "Customize the one-time password email."
+msgstr "متن ایمیل رمز یک‌بارمصرف را شخصی‌سازی کنید."
+
+msgid "Designed by Mehran Marandi"
+msgstr "طراحی و توسعه توسط مهران مرندی"
+
+msgid "Display name"
+msgstr "نام نمایشی"
+
+msgid "Display name cannot be empty."
+msgstr "نام نمایشی نمی‌تواند خالی باشد."
+
+msgid "Edge API token or access key"
+msgstr "توکن یا کلید دسترسی Edge API"
+
+msgid "Email"
+msgstr "ایمیل"
+
+msgid "Email is sent with the standard wp_mail function and is compatible with SMTP plugins."
+msgstr "ارسال با تابع استاندارد wp_mail انجام می‌شود و با افزونه‌های SMTP سازگار است."
+
+msgid "Email message"
+msgstr "متن ایمیل"
+
+msgid "Email only"
+msgstr "فقط ایمیل"
+
+msgid "Email sign-in"
+msgstr "ورود با ایمیل"
+
+msgid "Email subject"
+msgstr "موضوع ایمیل"
+
+msgid "Enable Google sign-in"
+msgstr "فعال‌سازی ورود گوگل"
+
+msgid "Enable standard Google OAuth without a heavy client library."
+msgstr "OAuth استاندارد گوگل را بدون کتابخانه سنگین فعال کنید."
+
+msgid "Endpoint URL"
+msgstr "آدرس وب‌سرویس"
+
+msgid "Enter a template body ID, or a sender number for plain-text messages."
+msgstr "کد الگو (bodyId) را وارد کنید، یا برای ارسال متن ساده شمارهٔ فرستنده را."
+
+msgid "Enter the code we sent to %s."
+msgstr "کدی را که به %s ارسال شد وارد کنید."
+
+msgid "Enter the complete verification code."
+msgstr "کد تأیید را کامل وارد کنید."
+
+msgid "Enter the verification code"
+msgstr "کد تأیید را وارد کنید"
+
+msgid "Enter your email address and we will send you a one-time password."
+msgstr "ایمیل خود را وارد کنید؛ رمز یک‌بارمصرف برایتان ارسال می‌شود."
+
+msgid "Enter your email address."
+msgstr "ایمیل را وارد کنید."
+
+msgid "Enter your mobile number and we will text you a one-time password."
+msgstr "شماره موبایل خود را وارد کنید؛ رمز یک‌بارمصرف برایتان پیامک می‌شود."
+
+msgid "Enter your mobile number or email address and we will send you a one-time password."
+msgstr "شماره موبایل یا ایمیل خود را وارد کنید؛ رمز یک‌بارمصرف برایتان ارسال می‌شود."
+
+msgid "Enter your mobile number or email address."
+msgstr "شماره موبایل یا ایمیل را وارد کنید."
+
+msgid "Enter your mobile number."
+msgstr "شماره موبایل را وارد کنید."
+
+msgid "Enumeration protection"
+msgstr "مقابله با شناسایی حساب‌ها"
+
+msgid "Everything at a glance"
+msgstr "همه‌چیز در یک نگاه"
+
+msgid "Faraz SMS"
+msgstr "فراز پیامک"
+
+msgid "Fast, secure sign-in"
+msgstr "ورود امن و سریع"
+
+msgid "Fill the billing phone"
+msgstr "پرکردن تلفن صورتحساب"
+
+msgid "First name"
+msgstr "نام"
+
+msgid "For a login page or theme modal."
+msgstr "برای صفحه ورود یا مودال قالب."
+
+msgid "For signed-out visitors, every WooCommerce login form and the theme’s login links (header account, side panels, WoodMart dropdowns) use the passwordless form."
+msgstr "برای بازدیدکنندگانی که وارد نشده‌اند، همهٔ فرم‌های ورود ووکامرس و لینک‌های ورود قالب (حساب کاربری در هدر، پنل‌های کناری و منوهای کشویی وودمارت) از فرم ورود بدون رمز استفاده می‌کنند."
+
+msgid "Form fields"
+msgstr "فیلدهای فرم"
+
+msgid "Form logo"
+msgstr "لوگوی فرم"
+
+msgid "General"
+msgstr "عمومی"
+
+msgid "General settings"
+msgstr "تنظیمات عمومی"
+
+msgid "Get these credentials from your SMS provider dashboard."
+msgstr "این اطلاعات را از پنل سرویس پیامکی خود دریافت کنید."
+
+msgid "Give new users the WooCommerce customer role instead of the general new-user role."
+msgstr "به کاربران جدید به‌جای نقش عمومی، نقش «مشتری» ووکامرس داده می‌شود."
+
+msgid "Go to my account"
+msgstr "رفتن به حساب کاربری"
+
+msgid "Google account"
+msgstr "حساب گوگل"
+
+msgid "Google sign-in"
+msgstr "ورود با حساب گوگل"
+
+msgid "Google sign-in is not enabled."
+msgstr "ورود با گوگل فعال نیست."
+
+msgid "Google sign-in was cancelled."
+msgstr "ورود با گوگل لغو شد."
+
+msgid "HTTP headers"
+msgstr "هدرهای HTTP"
+
+msgid "HTTP method"
+msgstr "متد HTTP"
+
+msgid "Hashed code storage"
+msgstr "ذخیره هش کد"
+
+msgid "Hello %s 👋"
+msgstr "سلام %s 👋"
+
+msgid "Help"
+msgstr "راهنما"
+
+msgid "Hourly send limit"
+msgstr "سقف ارسال ساعتی"
+
+msgid "If sign-in is available, a code has been sent to your email."
+msgstr "اگر امکان ورود وجود داشته باشد، کد به ایمیل شما ارسال شد."
+
+msgid "If sign-in is available, a code has been sent to your mobile."
+msgstr "اگر امکان ورود وجود داشته باشد، کد به موبایل شما ارسال شد."
+
+msgid "Inactive"
+msgstr "غیرفعال"
+
+msgid "Kavenegar"
+msgstr "کاوه‌نگار"
+
+msgid "Keep me signed in on this device"
+msgstr "در این دستگاه وارد بمان"
+
+msgid "Key extension points"
+msgstr "نقاط توسعه مهم"
+
+msgid "Last name"
+msgstr "نام خانوادگی"
+
+msgid "Leave empty to use the account page or home page."
+msgstr "خالی بگذارید تا صفحه پنل یا خانه استفاده شود."
+
+msgid "Leave this field empty to keep the saved value."
+msgstr "خالی‌گذاشتن این فیلد مقدار ذخیره‌شده را حفظ می‌کند."
+
+msgid "Lightweight shortcodes compatible with the Classic and Block editors."
+msgstr "شورت‌کدهای سبک، سازگار با ویرایشگر کلاسیک و بلوکی."
+
+msgid "Log only error codes and channel names; OTPs and confidential data are never logged."
+msgstr "فقط کد خطا و نام کانال در گزارش خطا ثبت می‌شود؛ کد OTP و اطلاعات محرمانه ثبت نمی‌شوند."
+
+msgid "Login form"
+msgstr "فرم ورود"
+
+msgid "Login popup"
+msgstr "پاپ‌آپ ورود"
+
+msgid "Manage your profile and secure sign-in methods from this dashboard."
+msgstr "مشخصات و روش‌های ورود امن خود را از این پنل مدیریت کنید."
+
+msgid "Meli Payamak"
+msgstr "ملی پیامک"
+
+msgid "Member since"
+msgstr "عضویت از"
+
+msgid "Mobile"
+msgstr "موبایل"
+
+msgid "Mobile number"
+msgstr "شماره موبایل"
+
+msgid "Mobile number only"
+msgstr "فقط شماره موبایل"
+
+msgid "Mobile number or email"
+msgstr "شماره موبایل یا ایمیل"
+
+msgid "Mobile or email"
+msgstr "موبایل یا ایمیل"
+
+msgid "My Account sign-in"
+msgstr "ورود در صفحهٔ حساب کاربری"
+
+msgid "My account"
+msgstr "حساب من"
+
+msgid "New user role"
+msgstr "نقش کاربران جدید"
+
+msgid "No account was found for these details and registration is disabled."
+msgstr "برای این مشخصات حسابی پیدا نشد و ثبت‌نام غیرفعال است."
+
+msgid "No logo"
+msgstr "بدون لوگو"
+
+msgid "No phone number or email is linked to this account."
+msgstr "هیچ شماره موبایل یا ایمیلی به این حساب متصل نیست."
+
+msgid "Not connected to this account"
+msgstr "به این حساب متصل نیست"
+
+msgid "Not selected"
+msgstr "انتخاب نشده"
+
+msgid "Off"
+msgstr "خاموش"
+
+msgid "Off by default. When on, the WordPress login page shows the passwordless form with a “Sign in with a password” link, so staff can always use their password."
+msgstr "به‌طور پیش‌فرض خاموش است. در صورت فعال‌سازی، صفحهٔ ورود وردپرس فرم ورود بدون رمز را همراه با لینک «ورود با رمز عبور» نمایش می‌دهد تا مدیران همیشه بتوانند با رمز وارد شوند."
+
+msgid "One form signs customers in and registers new ones. A “sign in with a password” link stays available."
+msgstr "یک فرم واحد، مشتریان فعلی را وارد و مشتریان جدید را ثبت‌نام می‌کند. گزینهٔ «ورود با رمز عبور» همچنان در دسترس است."
+
+msgid "One per line as name=value, or a complete JSON object for APIs with nested bodies or numeric values. Sent as the query string for GET requests."
+msgstr "هر پارامتر در یک خط به شکل name=value، یا یک شیء JSON کامل برای وب‌سرویس‌هایی که بدنهٔ تودرتو یا مقدار عددی می‌خواهند. در متد GET به‌صورت query string ارسال می‌شود."
+
+msgid "One-time code"
+msgstr "کد یک‌بارمصرف"
+
+msgid "One-time password"
+msgstr "رمز یک‌بارمصرف"
+
+msgid "One-time passwords are never stored in a recoverable form and are invalidated immediately after their first use."
+msgstr "رمزهای یک‌بارمصرف به‌صورت قابل‌بازیابی ذخیره نمی‌شوند و پس از اولین استفاده فوراً باطل خواهند شد."
+
+msgid "Only used when the template ID is empty: the SMS fallback message is then sent as plain text from this dedicated number."
+msgstr "فقط وقتی کد الگو خالی باشد استفاده می‌شود؛ در این حالت «متن جایگزین پیامک» به‌صورت متن ساده از این شمارهٔ اختصاصی ارسال می‌شود."
+
+msgid "Open the sign-in form in a popup from any link to #anar-login, such as a menu item. The form loads only when it is first opened, so page speed is unaffected."
+msgstr "فرم ورود با کلیک روی هر لینکی به ‎#anar-login‎ (مثلاً یک آیتم منو) در پاپ‌آپ باز می‌شود. فرم فقط هنگام اولین بازشدن بارگذاری می‌شود و روی سرعت صفحه اثری ندارد."
+
+msgid "Opens the login popup; signed-in users go to their account. For menus, add a custom link to #anar-login."
+msgstr "پاپ‌آپ ورود را باز می‌کند؛ کاربران واردشده به حساب خود می‌روند. برای منو، یک پیوند دلخواه با آدرس ‎#anar-login‎ اضافه کنید."
+
+msgid "Optional but recommended. Delivery counts as successful only for HTTP 2xx responses that contain this text, such as \"status\":200."
+msgstr "اختیاری ولی توصیه‌شده. ارسال فقط وقتی موفق حساب می‌شود که پاسخ HTTP 2xx باشد و این متن را داشته باشد؛ مثلاً \"status\":200."
+
+msgid "Optional. One per line as Name: value."
+msgstr "اختیاری. هر هدر در یک خط به شکل Name: value."
+
+msgid "Overview"
+msgstr "نمای کلی"
+
+msgid "Parameters"
+msgstr "پارامترها"
+
+msgid "Passwordless sign-in on My Account and checkout."
+msgstr "ورود بدون رمز در حساب کاربری و صفحهٔ تسویه‌حساب."
+
+msgid "Passwordless sign-in that is simple for users and secure for you"
+msgstr "ورود یک‌بارمصرف، ساده برای کاربر و مطمئن برای شما"
+
+msgid "Pattern code"
+msgstr "کد پترن"
+
+msgid "Phone-only mode shows a numeric keypad on mobile for the fastest sign-in."
+msgstr "در حالت «فقط موبایل» صفحه‌کلید عددی نمایش داده می‌شود و ورود سریع‌تر است."
+
+msgid "Placeholders: {to} recipient, {code} one-time code, {message} full text, {sender} sender number."
+msgstr "متغیرها: {to} گیرنده، {code} کد یک‌بارمصرف، {message} متن کامل، {sender} شمارهٔ فرستنده."
+
+msgid "Please enter a valid Iranian mobile number."
+msgstr "شماره موبایل ایرانی معتبر نیست."
+
+msgid "Please enter a valid email address."
+msgstr "نشانی ایمیل معتبر نیست."
+
+msgid "Please wait %d seconds before requesting another code."
+msgstr "لطفاً %d ثانیه تا ارسال دوباره صبر کنید."
+
+msgid "Please wait…"
+msgstr "چند لحظه…"
+
+msgid "Popup button"
+msgstr "دکمهٔ پاپ‌آپ"
+
+msgid "Profile"
+msgstr "پروفایل"
+
+msgid "Put your template’s code variable after the # sign. iPhones suggest the code above the keyboard without any change."
+msgstr "متغیر کد الگوی خود را بعد از علامت # قرار دهید. آیفون بدون هیچ تغییری کد را بالای صفحه‌کلید پیشنهاد می‌دهد."
+
+msgid "Raw OTPs are never stored in the database."
+msgstr "OTP خام هرگز در دیتابیس ذخیره نمی‌شود."
+
+msgid "Recipient format"
+msgstr "قالب شمارهٔ گیرنده"
+
+msgid "Recommended: sends through the shared service line, so the code is delivered even to numbers that block advertising."
+msgstr "توصیه‌شده: ارسال از خط خدماتی اشتراکی، تا کد حتی به شماره‌هایی که پیامک تبلیغاتی را مسدود کرده‌اند هم برسد."
+
+msgid "Redirect URL after sign-in"
+msgstr "آدرس انتقال پس از ورود"
+
+msgid "Register as customers"
+msgstr "ثبت‌نام به‌عنوان مشتری"
+
+msgid "Registration for new users is disabled."
+msgstr "ثبت‌نام کاربران جدید غیرفعال است."
+
+msgid "Replace the WooCommerce forms"
+msgstr "جایگزینی فرم‌های ووکامرس"
+
+msgid "Replace the theme’s login"
+msgstr "جایگزینی ورود قالب"
+
+msgid "Replace “Returning customer? Click here to login” with the code form; customers return straight to checkout. Follows the WooCommerce login reminder setting."
+msgstr "به‌جای «قبلاً خرید کرده‌اید؟ برای ورود کلیک کنید» فرم ورود با کد نمایش داده می‌شود و مشتری مستقیم به تسویه‌حساب برمی‌گردد. تابع تنظیم یادآوری ورود ووکامرس است."
+
+msgid "Request responses do not reveal whether an account exists."
+msgstr "پاسخ درخواست، وجود حساب را افشا نمی‌کند."
+
+msgid "Resend code"
+msgstr "ارسال دوباره"
+
+msgid "Resend interval"
+msgstr "فاصله ارسال مجدد"
+
+msgid "Returning customer?"
+msgstr "قبلاً از ما خرید کرده‌اید؟"
+
+msgid "Roles that can manage the site or other users are not offered."
+msgstr "نقش‌هایی که امکان مدیریت سایت یا کاربران دیگر را دارند نمایش داده نمی‌شوند."
+
+msgid "SMS"
+msgstr "پیامک"
+
+msgid "SMS fallback message"
+msgstr "متن جایگزین پیامک"
+
+msgid "SMS gateways must use HTTPS."
+msgstr "نشانی درگاه پیامکی باید از HTTPS استفاده کند."
+
+msgid "SMS provider"
+msgstr "درگاه پیامک"
+
+msgid "SMS sign-in"
+msgstr "ورود پیامکی"
+
+msgid "Save changes"
+msgstr "ذخیره تغییرات"
+
+msgid "Save settings"
+msgstr "ذخیره تنظیمات"
+
+msgid "Saved"
+msgstr "ذخیره شده"
+
+msgid "Saved — enter a new value to change it"
+msgstr "ذخیره شده — برای تغییر، مقدار جدید را بنویسید"
+
+msgid "Secure HTTPS"
+msgstr "HTTPS امن"
+
+msgid "Secure connection"
+msgstr "اتصال امن"
+
+msgid "Security"
+msgstr "امنیت"
+
+msgid "Security and rate limits"
+msgstr "امنیت و محدودسازی"
+
+msgid "Send a test SMS"
+msgstr "ارسال پیامک آزمایشی"
+
+msgid "Send login code"
+msgstr "دریافت کد ورود"
+
+msgid "Send test"
+msgstr "ارسال آزمایشی"
+
+msgid "Sender number"
+msgstr "شماره فرستنده"
+
+msgid "Sender number (optional)"
+msgstr "شمارهٔ فرستنده (اختیاری)"
+
+msgid "Sending…"
+msgstr "در حال ارسال…"
+
+msgid "Service template delivery"
+msgstr "ارسال الگوی خدماتی"
+
+msgid "Settings"
+msgstr "تنظیمات"
+
+msgid "Show above the WooCommerce forms"
+msgstr "نمایش بالای فرم‌های ووکامرس"
+
+msgid "Show the Google sign-in button on the login form."
+msgstr "دکمه ورود گوگل در فرم ورود نمایش داده شود."
+
+msgid "Shown at the top of the sign-in form. The site logo falls back to the site icon, then to a lock icon."
+msgstr "بالای فرم ورود نمایش داده می‌شود. اگر لوگوی سایت تنظیم نشده باشد، آیکون سایت و در نبود آن، آیکون قفل نمایش داده می‌شود."
+
+msgid "Shows the login form to signed-out visitors."
+msgstr "در حالت مهمان، فرم ورود را نشان می‌دهد."
+
+msgid "Sign in"
+msgstr "ورود"
+
+msgid "Sign in / Register"
+msgstr "ورود / ثبت‌نام"
+
+msgid "Sign in with a one-time code"
+msgstr "ورود با کد یکبارمصرف"
+
+msgid "Sign in with a password instead"
+msgstr "ورود با رمز عبور"
+
+msgid "Sign out"
+msgstr "خروج از حساب"
+
+msgid "Sign-in & security"
+msgstr "ورود و امنیت"
+
+msgid "Sign-in at checkout"
+msgstr "ورود در صفحهٔ تسویه‌حساب"
+
+msgid "Sign-in icon only"
+msgstr "فقط آیکون ورود"
+
+msgid "Sign-in methods"
+msgstr "روش‌های ورود"
+
+msgid "Signing you in…"
+msgstr "در حال ورود…"
+
+msgid "Single use"
+msgstr "مصرف یک‌باره"
+
+msgid "Site logo"
+msgstr "لوگوی سایت"
+
+msgid "Success text in the response"
+msgstr "متن موفقیت در پاسخ"
+
+msgid "Technical error log"
+msgstr "گزارش خطای فنی"
+
+msgid "Template ID"
+msgstr "شناسه قالب"
+
+msgid "Template body ID"
+msgstr "Body ID الگو"
+
+msgid "Template providers only use {code}; this message is available to developers and text-message providers."
+msgstr "درگاه‌های الگویی فقط از مقدار {code} استفاده می‌کنند؛ این متن برای توسعه‌دهندگان و درگاه‌های متنی آماده است."
+
+msgid "Tests the provider and details currently entered above, even before saving. The provider’s exact response is shown if delivery fails."
+msgstr "درگاه و اطلاعاتی که همین الان در بالا وارد کرده‌اید آزمایش می‌شود، حتی پیش از ذخیره. در صورت خطا، پاسخ دقیق سرویس پیامک نمایش داده می‌شود."
+
+msgid "The %s provider settings are incomplete."
+msgstr "تنظیمات درگاه %s کامل نیست."
+
+msgid "The Google account email is not verified."
+msgstr "ایمیل حساب گوگل تأیید نشده است."
+
+msgid "The Google account information is incomplete."
+msgstr "اطلاعات حساب گوگل کامل نیست."
+
+msgid "The Google sign-in request is invalid or has expired."
+msgstr "درخواست ورود گوگل معتبر نیست یا منقضی شده است."
+
+msgid "The Google sign-in settings are incomplete."
+msgstr "تنظیمات ورود گوگل کامل نیست."
+
+msgid "The OAuth 2.0 client ID from Google Cloud Console."
+msgstr "شناسه OAuth 2.0 از Google Cloud Console."
+
+msgid "The SMS message was not accepted by %s."
+msgstr "ارسال پیامک توسط %s پذیرفته نشد."
+
+msgid "The SMS provider returned an unsuccessful response (HTTP %d)."
+msgstr "سرویس پیامک پاسخ ناموفق داد (HTTP %d)."
+
+msgid "The code is invalid or has expired."
+msgstr "کد نامعتبر یا منقضی شده است."
+
+msgid "The custom gateway JSON parameters are not valid JSON."
+msgstr "پارامترهای JSON درگاه سفارشی معتبر نیستند."
+
+msgid "The email could not be sent. Please check the site email settings."
+msgstr "ارسال ایمیل ناموفق بود. تنظیمات ایمیل سایت را بررسی کنید."
+
+msgid "The login code could not be created."
+msgstr "امکان ساخت کد ورود وجود ندارد."
+
+msgid "The login code could not be sent. Please try again later."
+msgstr "ارسال کد ورود ناموفق بود. لطفاً کمی بعد دوباره تلاش کنید."
+
+msgid "The page that contains the [anar_account] shortcode."
+msgstr "صفحه‌ای که شورت‌کد [anar_account] در آن قرار دارد."
+
+msgid "The primary color of the sign-in form and account dashboard."
+msgstr "رنگ اصلی فرم ورود و پنل کاربری."
+
+msgid "The request is invalid."
+msgstr "درخواست نامعتبر است."
+
+msgid "The selected SMS provider is unavailable."
+msgstr "درگاه پیامک انتخاب‌شده در دسترس نیست."
+
+msgid "The sign-in request address has changed."
+msgstr "نشانی درخواست ورود تغییر کرده است."
+
+msgid "The verification step expired. Please sign in again."
+msgstr "مهلت مرحلهٔ تأیید تمام شد. لطفاً دوباره وارد شوید."
+
+msgid "This account cannot sign in."
+msgstr "امکان ورود با این حساب وجود ندارد."
+
+msgid "This account uses two-step verification, so XML-RPC sign-in is disabled."
+msgstr "این حساب از ورود دومرحله‌ای استفاده می‌کند، بنابراین ورود از طریق XML-RPC غیرفعال است."
+
+msgid "Too many incorrect attempts. Please request a new code."
+msgstr "تعداد تلاش‌های نادرست زیاد بود. لطفاً کد جدید دریافت کنید."
+
+msgid "Too many requests."
+msgstr "تعداد درخواست‌ها بیش از حد مجاز است."
+
+msgid "Too many requests. Please try again later."
+msgstr "تعداد درخواست‌ها بیش از حد مجاز است. کمی بعد تلاش کنید."
+
+msgid "Two lightweight shortcodes compatible with the Classic and Block editors."
+msgstr "دو شورت‌کد سبک، سازگار با ویرایشگر کلاسیک و بلوکی."
+
+msgid "Two-step verification"
+msgstr "ورود دومرحله‌ای"
+
+msgid "Use on your site"
+msgstr "استفاده در سایت"
+
+msgid "Username"
+msgstr "نام کاربری"
+
+msgid "Verification code"
+msgstr "کد تأیید"
+
+msgid "Verified"
+msgstr "تأییدشده"
+
+msgid "Verify Lookup template name"
+msgstr "نام الگوی Verify Lookup"
+
+msgid "Verify and sign in"
+msgstr "تأیید و ورود"
+
+msgid "Web service password"
+msgstr "رمز عبور وب‌سرویس"
+
+msgid "Welcome"
+msgstr "خوش آمدید"
+
+msgid "WooCommerce"
+msgstr "ووکامرس"
+
+msgid "You are signed in"
+msgstr "شما وارد شده‌اید"
+
+msgid "You have signed in successfully."
+msgstr "با موفقیت وارد شدید."
+
+msgid "Your account information has been saved."
+msgstr "اطلاعات حساب ذخیره شد."
+
+msgid "Your account is ready"
+msgstr "حساب شما آماده است"
+
+msgid "Your login code for {site}"
+msgstr "کد ورود به {site}"
+
+msgid "Your login code is: {code}\nThis code is valid for {minutes} minutes."
+msgstr "کد ورود شما: {code}\nاین کد تا {minutes} دقیقه معتبر است."
+
+msgid "Your one-time code expires and can only be used once."
+msgstr "کد ورود اعتبار محدود دارد و فقط یک بار قابل استفاده است."
+
+msgid "Your profile picture"
+msgstr "تصویر حساب شما"
+
+msgid "Your settings are stored securely"
+msgstr "تنظیمات شما امن ذخیره می‌شود"
+
+msgid "Your {site} login code is: {code}"
+msgstr "کد ورود شما به {site}: {code}"
+
+msgid "attempts"
+msgstr "بار"
+
+msgid "digits"
+msgstr "رقم"
+
+msgid "or"
+msgstr "یا"
+
+msgid "requests"
+msgstr "درخواست"
+
+msgid "seconds"
+msgstr "ثانیه"

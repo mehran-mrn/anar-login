@@ -15,11 +15,13 @@ final class LocalizationTest extends TestCase {
 	 */
 	public function test_persian_catalog_covers_source_messages() {
 		$root       = dirname( __DIR__, 2 );
-		$catalog    = include $root . '/languages/anar-login-fa_IR.l10n.php';
+		$catalog    = include $root . '/languages/anar-toolkit-fa_IR.l10n.php';
 		$messages   = $catalog['messages'];
 		$functions  = array( '__', '_e', 'esc_html__', 'esc_html_e', 'esc_attr__', 'esc_attr_e' );
 		$unresolved = array();
-		$files      = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $root . '/src' ) );
+		$files      = new AppendIterator();
+		$files->append( new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $root . '/src' ) ) );
+		$files->append( new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $root . '/templates' ) ) );
 
 		foreach ( $files as $file ) {
 			if ( 'php' !== $file->getExtension() ) {
@@ -62,7 +64,7 @@ final class LocalizationTest extends TestCase {
 	 * @return void
 	 */
 	public function test_persian_mo_catalog_is_valid() {
-		$path = dirname( __DIR__, 2 ) . '/languages/anar-login-fa_IR.mo';
+		$path = dirname( __DIR__, 2 ) . '/languages/anar-toolkit-fa_IR.mo';
 		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen -- Unit test reads a local binary fixture.
 		$handle = fopen( $path, 'rb' );
 

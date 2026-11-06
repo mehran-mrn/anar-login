@@ -77,9 +77,10 @@ final class AuthController {
 				'callback'            => array( $this, 'verify_code' ),
 				'permission_callback' => '__return_true',
 				'args'                => array(
-					'identity' => array( 'required' => true, 'type' => 'string' ),
-					'code'     => array( 'required' => true, 'type' => 'string' ),
-					'remember' => array( 'required' => false, 'type' => 'boolean', 'default' => true ),
+					'identity'    => array( 'required' => true, 'type' => 'string' ),
+					'code'        => array( 'required' => true, 'type' => 'string' ),
+					'remember'    => array( 'required' => false, 'type' => 'boolean', 'default' => true ),
+					'redirect_to' => array( 'required' => false, 'type' => 'string', 'default' => '' ),
 				),
 			)
 		);
@@ -111,7 +112,7 @@ final class AuthController {
 	 */
 	public function request_code( WP_REST_Request $request ) {
 		if ( $request->get_param( 'website' ) ) {
-			return new WP_Error( 'anar_bot', __( 'The request is invalid.', 'anar-login' ), array( 'status' => 400 ) );
+			return new WP_Error( 'anar_bot', __( 'The request is invalid.', 'anar-toolkit' ), array( 'status' => 400 ) );
 		}
 
 		return $this->otp->request( (string) $request->get_param( 'identity' ) );
@@ -124,11 +125,21 @@ final class AuthController {
 	 * @return mixed
 	 */
 	public function verify_code( WP_REST_Request $request ) {
-		return $this->otp->verify(
+		$result = $this->otp->verify(
 			(string) $request->get_param( 'identity' ),
 			(string) $request->get_param( 'code' ),
-			(bool) $request->get_param( 'remember' )
+			(bool) $request->get_param( 'remember' ),
+			(string) $request->get_param( 'redirect_to' )
 		);
+		if ( is_wp_error( $result ) ) {
+			return $result;
+		}
+
+		// Pages prefetched while signed out must not be shown after signing in.
+		$response = new WP_REST_Response( $result );
+		$response->header( 'Clear-Site-Data', '"prefetchCache", "prerenderCache"' );
+
+		return $response;
 	}
 
 	/**
@@ -138,7 +149,7 @@ final class AuthController {
 	 * @return WP_REST_Response|WP_Error
 	 */
 	public function google_start( WP_REST_Request $request ) {
-		$url = $this->google->start( (string) $request->get_param( 'redirect' ) );
+		$url = $this->google->start( (string) $request->get_param( 'redirect' ), (string) $request->get_param( 'return' ) );
 		if ( is_wp_error( $url ) ) {
 			return $url;
 		}
@@ -153,20 +164,14 @@ final class AuthController {
 	 * Handle Google callback and redirect safely.
 	 *
 	 * @param WP_REST_Request $request Request.
-	 * @return WP_REST_Response|WP_Error
+	 * @return WP_REST_Response
 	 */
 	public function google_callback( WP_REST_Request $request ) {
-		if ( $request->get_param( 'error' ) ) {
-			return new WP_Error( 'anar_google_denied', __( 'Google sign-in was cancelled.', 'anar-login' ), array( 'status' => 400 ) );
-		}
-
 		$url = $this->google->callback(
 			(string) $request->get_param( 'state' ),
-			(string) $request->get_param( 'code' )
+			(string) $request->get_param( 'code' ),
+			(string) $request->get_param( 'error' )
 		);
-		if ( is_wp_error( $url ) ) {
-			return $url;
-		}
 
 		$response = new WP_REST_Response( null, 302 );
 		$response->header( 'Location', $url );

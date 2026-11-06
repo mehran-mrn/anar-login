@@ -50,6 +50,11 @@ final class ProfileController {
 				'permission_callback' => static function () {
 					return is_user_logged_in();
 				},
+				'args'                => array(
+					'display_name' => array( 'required' => true, 'type' => 'string' ),
+					'first_name'   => array( 'required' => false, 'type' => 'string' ),
+					'last_name'    => array( 'required' => false, 'type' => 'string' ),
+				),
 			)
 		);
 	}
@@ -61,13 +66,20 @@ final class ProfileController {
 	 * @return array<string,mixed>|WP_Error
 	 */
 	public function update( WP_REST_Request $request ) {
-		$user = $this->users->update_profile( get_current_user_id(), $request->get_json_params() );
+		$user = $this->users->update_profile(
+			get_current_user_id(),
+			array(
+				'display_name' => $request->get_param( 'display_name' ),
+				'first_name'   => $request->get_param( 'first_name' ),
+				'last_name'    => $request->get_param( 'last_name' ),
+			)
+		);
 		if ( is_wp_error( $user ) ) {
 			return $user;
 		}
 
 		return array(
-			'message' => __( 'Your account information has been saved.', 'anar-login' ),
+			'message' => __( 'Your account information has been saved.', 'anar-toolkit' ),
 			'user'    => $this->users->profile( $user ),
 		);
 	}
