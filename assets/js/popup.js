@@ -68,6 +68,13 @@
 				document.body.appendChild(dialog);
 
 				var ready = [];
+				if (dialog.querySelector('[data-anar-password]')) {
+					if (!document.querySelector('link[href^="' + data.resetCss.split('?')[0] + '"]')) {
+						var resetStyle = document.createElement('link'); resetStyle.rel = 'stylesheet'; resetStyle.href = data.resetCss; document.head.appendChild(resetStyle);
+					}
+					if (window.AnarPasswordInit) window.AnarPasswordInit();
+					else ready.push(new Promise(function (resolve, reject) { var resetScript = document.createElement('script'); resetScript.src = data.resetJs; resetScript.onload = resolve; resetScript.onerror = reject; document.body.appendChild(resetScript); }));
+				}
 				if (!document.querySelector('link[href^="' + data.css.split('?')[0] + '"]')) {
 					ready.push(new Promise(function (resolve) {
 						var link = document.createElement('link');

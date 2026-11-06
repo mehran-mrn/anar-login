@@ -82,13 +82,15 @@ final class ProviderRegistry {
 	 * @param string $message   Message.
 	 * @return true|WP_Error
 	 */
-	public function send( $recipient, $code, $message ) {
+	public function send( $recipient, $code, $message, $context = 'login_otp' ) {
 		$key       = sanitize_key( $this->settings->get( 'sms_provider', '' ) );
 		$providers = $this->all();
 		if ( empty( $providers[ $key ] ) ) {
 			return new WP_Error( 'anar_provider_missing', __( 'The selected SMS provider is unavailable.', 'anar-toolkit' ) );
 		}
 
-		return $providers[ $key ]->send( $recipient, $code, $message );
+		$result = $providers[ $key ]->send( $recipient, $code, $message );
+		do_action( 'anar_toolkit_sms_result', $recipient, sanitize_key( $context ), $key, $result );
+		return $result;
 	}
 }

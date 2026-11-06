@@ -22,6 +22,8 @@ final class Repository {
 				email varchar(191) NOT NULL DEFAULT '',
 				consented_at bigint(20) unsigned NOT NULL,
 				consent_text text NOT NULL,
+				captured_at bigint(20) unsigned NOT NULL DEFAULT 0,
+				capture_source varchar(20) NOT NULL DEFAULT 'explicit',
 				suppressed tinyint(1) NOT NULL DEFAULT 0,
 				recovery_cart_id bigint(20) unsigned NOT NULL DEFAULT 0,
 				challenge_id bigint(20) unsigned NOT NULL DEFAULT 0,
@@ -39,6 +41,9 @@ final class Repository {
 				order_id bigint(20) unsigned NOT NULL DEFAULT 0,
 				recovered_order bigint(20) unsigned NOT NULL DEFAULT 0,
 				clicked_at bigint(20) unsigned NOT NULL DEFAULT 0,
+				coupon_id bigint(20) unsigned NOT NULL DEFAULT 0,
+				recovered_total decimal(26,8) NOT NULL DEFAULT 0,
+				converted_at bigint(20) unsigned NOT NULL DEFAULT 0,
 				created_at bigint(20) unsigned NOT NULL,
 				updated_at bigint(20) unsigned NOT NULL,
 				PRIMARY KEY  (id),
@@ -53,6 +58,8 @@ final class Repository {
 				recipient varchar(32) NOT NULL,
 				status varchar(20) NOT NULL DEFAULT 'pending',
 				error_code varchar(80) NOT NULL DEFAULT '',
+				provider varchar(32) NOT NULL DEFAULT '',
+				context varchar(64) NOT NULL DEFAULT '',
 				attempts smallint unsigned NOT NULL DEFAULT 0,
 				scheduled_at bigint(20) unsigned NOT NULL,
 				created_at bigint(20) unsigned NOT NULL,
@@ -104,6 +111,22 @@ final class Repository {
 		return (int) $wpdb->get_var( $wpdb->prepare( 'SELECT id FROM %i WHERE phone_hash = %s', $this->table( 'contacts' ), $hash ) );
 	}
 
+	/** Automatic capture never pretends to be explicit consent or reverses an opt-out. */
+	public function capture_contact( $phone, $email, $source ) {
+		global $wpdb;
+		$hash = self::phone_hash( $phone );
+		$wpdb->query( $wpdb->prepare( "INSERT IGNORE INTO %i (phone, phone_hash, email, consented_at, consent_text, captured_at, capture_source, suppressed) VALUES (%s, %s, %s, 0, '', %d, %s, 0)", $this->table( 'contacts' ), $phone, $hash, $email, time(), $source ) );
+		$contact = $this->contact_by_phone( $phone );
+		return $contact && ! $contact->suppressed ? (int) $contact->id : 0;
+	}
+
+	public function sms_result( $phone, $event, $provider, $result ) {
+		global $wpdb;
+		$error = is_wp_error( $result ) ? $result->get_error_code() : '';
+		$status = $error ? ( in_array( $error, array( 'anar_sms_network', 'anar_sms_http' ), true ) ? 'uncertain' : 'failed' ) : 'accepted';
+		$wpdb->insert( $this->table( 'messages' ), array( 'dedupe' => hash( 'sha256', wp_generate_password( 40, true, true ) ), 'event' => $event, 'object_id' => 0, 'recipient' => $phone, 'provider' => $provider, 'status' => $status, 'error_code' => sanitize_key( $error ), 'attempts' => 1, 'created_at' => time(), 'updated_at' => time(), 'scheduled_at' => time() ) );
+	}
+
 	public function cart( $id ) {
 		global $wpdb;
 		return $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM %i WHERE id = %d', $this->table( 'carts' ), $id ) );
@@ -123,6 +146,8 @@ final class Repository {
 			if ( (int) $cart->contact_id !== (int) $contact_id ) {
 				$this->set_cart_status( $cart->id, 'suppressed' );
 			} else {
+				if ( $cart->items === $data['items'] && (float) $cart->total === (float) $total && $cart->currency === $currency ) {
+					return (int) $cart->id; }
 				$wpdb->update( $this->table( 'carts' ), $data, array( 'id' => $cart->id ) );
 				return (int) $cart->id;
 			}
@@ -163,6 +188,11 @@ final class Repository {
 		$ids = $wpdb->get_col( $wpdb->prepare( "SELECT id FROM %i WHERE order_id = %d AND status IN ('active', 'converted')", $this->table( 'carts' ), $order_id ) );
 		foreach ( $ids as $id ) {
 			$this->set_cart_status( $id, $status );
+			$cart = $this->cart( $id );
+			$order = wc_get_order( $order_id );
+			if ( 'converted' === $status && $cart->recovered_order && $order && $order->is_paid() ) {
+				$wpdb->update( $this->table( 'carts' ), array( 'recovered_total' => $order->get_total(), 'currency' => $order->get_currency(), 'converted_at' => time() ), array( 'id' => $id ) );
+			}
 		}
 	}
 
@@ -177,7 +207,7 @@ final class Repository {
 	public function enqueue( $event, $object_id, $recipient, $scheduled_at, $bucket = '' ) {
 		global $wpdb;
 		$key = hash( 'sha256', $event . '|' . $object_id . '|' . $recipient . '|' . $bucket );
-		return false !== $wpdb->query( $wpdb->prepare( 'INSERT IGNORE INTO %i (dedupe, event, object_id, recipient, scheduled_at, created_at, updated_at) VALUES (%s, %s, %d, %s, %d, %d, %d)', $this->table( 'messages' ), $key, $event, $object_id, $recipient, $scheduled_at, time(), time() ) );
+		return false !== $wpdb->query( $wpdb->prepare( 'INSERT IGNORE INTO %i (dedupe, event, object_id, recipient, context, scheduled_at, created_at, updated_at) VALUES (%s, %s, %d, %s, %s, %d, %d, %d)', $this->table( 'messages' ), $key, $event, $object_id, $recipient, $bucket, $scheduled_at, time(), time() ) );
 	}
 
 	public function due() {
@@ -236,7 +266,7 @@ final class Repository {
 	public function retry( $id ) {
 		global $wpdb;
 		// Uncertain outcomes require investigation at the provider and are never retried here.
-		return 1 === $wpdb->query( $wpdb->prepare( "UPDATE %i SET status = 'pending', error_code = '', scheduled_at = %d, updated_at = %d WHERE id = %d AND status = 'failed' AND attempts < 3", $this->table( 'messages' ), time(), time(), $id ) );
+		return 1 === $wpdb->query( $wpdb->prepare( "UPDATE %i SET status = 'pending', error_code = '', scheduled_at = %d, updated_at = %d WHERE id = %d AND object_id > 0 AND status = 'failed' AND attempts < 3", $this->table( 'messages' ), time(), time(), $id ) );
 	}
 
 	public function report() {
@@ -255,6 +285,7 @@ final class Repository {
 		$cutoff = time() - $days * DAY_IN_SECONDS;
 		$wpdb->query( $wpdb->prepare( 'DELETE FROM %i WHERE updated_at < %d', $this->table( 'messages' ), $cutoff ) );
 		$wpdb->query( $wpdb->prepare( 'DELETE FROM %i WHERE updated_at < %d', $this->table( 'carts' ), $cutoff ) );
-		$wpdb->query( $wpdb->prepare( 'DELETE FROM %i WHERE consented_at < %d AND id NOT IN (SELECT contact_id FROM %i)', $this->table( 'contacts' ), $cutoff, $this->table( 'carts' ) ) );
+		$wpdb->query( $wpdb->prepare( 'DELETE FROM %i WHERE consented_at < %d AND captured_at < %d AND suppressed = 0 AND id NOT IN (SELECT contact_id FROM %i)', $this->table( 'contacts' ), $cutoff, $cutoff, $this->table( 'carts' ) ) );
+		$wpdb->query( $wpdb->prepare( "UPDATE %i SET phone = '', email = '', consent_text = '', capture_source = '' WHERE suppressed = 1 AND consented_at < %d AND captured_at < %d AND id NOT IN (SELECT contact_id FROM %i)", $this->table( 'contacts' ), $cutoff, $cutoff, $this->table( 'carts' ) ) );
 	}
 }

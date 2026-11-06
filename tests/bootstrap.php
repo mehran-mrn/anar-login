@@ -7,6 +7,11 @@
 
 define( 'ABSPATH', dirname( __DIR__ ) . '/' );
 define( 'ANAR_LOGIN_VERSION', 'test' );
+define( 'DAY_IN_SECONDS', 86400 );
+
+function wp_parse_id_list( $value ) {
+	return array_unique( array_filter( array_map( 'absint', is_array( $value ) ? $value : preg_split( '/[\s,]+/', $value ) ) ) );
+}
 
 if ( ! class_exists( 'WP_Error' ) ) {
 	class WP_Error {
@@ -41,6 +46,8 @@ function sanitize_email( $email ) {
 function is_email( $email ) {
 	return false !== filter_var( $email, FILTER_VALIDATE_EMAIL );
 }
+
+function do_action( $hook, ...$args ) {}
 
 function apply_filters( $hook, $value ) {
 	return $value;
@@ -111,3 +118,8 @@ require_once dirname( __DIR__ ) . '/src/Commerce/Settings.php';
 require_once dirname( __DIR__ ) . '/src/Commerce/Templates.php';
 
 require_once dirname( __DIR__ ) . '/src/Support/Identity.php';
+require_once dirname( __DIR__ ) . '/src/Marketing/Prediction.php';
+require_once dirname( __DIR__ ) . '/src/Marketing/Contacts.php';
+require_once dirname( __DIR__ ) . '/src/Marketing/Settings.php';
+
+require_once dirname( __DIR__ ) . '/src/Infrastructure/Features.php';

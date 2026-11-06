@@ -56,6 +56,7 @@ final class Settings {
 			'form_logo'           => 'site',
 			'form_logo_url'       => '',
 			'two_factor'          => 'off',
+			'password_reset_enabled' => 1,
 			'wc_account_mode'     => 'replace',
 			'wc_checkout_login'   => 1,
 			'wc_sync_phone'       => 1,
@@ -177,7 +178,7 @@ final class Settings {
 		$defaults = $this->defaults();
 		$output   = array();
 
-		$checkboxes = array( 'allow_registration', 'google_enabled', 'delete_data', 'debug_log', 'popup_enabled', 'replace_theme_login', 'replace_wp_login' );
+		$checkboxes = array( 'allow_registration', 'google_enabled', 'delete_data', 'debug_log', 'popup_enabled', 'replace_theme_login', 'replace_wp_login', 'password_reset_enabled' );
 		foreach ( $checkboxes as $key ) {
 			$output[ $key ] = empty( $input[ $key ] ) ? 0 : 1;
 		}

@@ -419,7 +419,7 @@ final class UserService {
 	}
 
 	/**
-	 * Mask a phone for display, e.g. 0912â€¢â€¢â€¢4567.
+	 * Mask a phone for display, e.g. 0912•••4567.
 	 *
 	 * @param string $phone Canonical phone.
 	 * @return string

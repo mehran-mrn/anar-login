@@ -24,6 +24,10 @@ $created = array();
 $original = get_option( Settings::OPTION_KEY );
 $original_default = get_option( 'default_role' );
 $settings = new Settings();
+// Exercise the enabled login integration even when the disposable site's login module is off.
+if ( class_exists( 'WooCommerce' ) && ! has_filter( 'anar_login_new_user_role' ) ) {
+	( new \Anar\Login\Integrations\WooCommerce( $settings ) )->register();
+}
 $users = new UserService( $settings );
 $repository = new OtpRepository();
 $limiter = new RateLimiter( $settings );

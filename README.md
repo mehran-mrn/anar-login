@@ -1,18 +1,18 @@
-# Anar Toolkit 0.7.0
+# Anar Toolkit 0.8.0
 
-Optional WooCommerce payment notifications and consent-based purchase recovery, alongside the existing SMS/email/Google login modules. See [commerce documentation](docs/commerce.md), [provider support messages](docs/support-messages-fa.md), and [review reply draft](docs/reviewer-response.md).
+Optional WooCommerce order notifications, automatic cart recovery, customer campaigns and promotional tools, alongside SMS/email/Google login and SMS password recovery. See [commerce documentation](docs/commerce.md), [provider support messages](docs/support-messages-fa.md), and [review reply draft](docs/reviewer-response.md).
 
 Build the public release with `python tools/package.py --output dist/anar-toolkit.zip`. All six built-in providers, including IPPanel and Panelchi, are included. Development dependencies and translation catalogs are excluded from the plugin ZIP.
 
-Stable GitHub releases publish automatically to [WordPress.org](https://wordpress.org/plugins/anar-toolkit/) after the release checks pass. Configure repository Actions secrets `SVN_USERNAME=mrnwp` and `SVN_PASSWORD` with the WordPress.org SVN password, then publish a release tagged with the plugin version (for example `0.7.0`). Ordinary commits run checks. See [publishing instructions](docs/publishing.md).
+Stable GitHub releases publish automatically to [WordPress.org](https://wordpress.org/plugins/anar-toolkit/) after the release checks pass. Configure repository Actions secrets `SVN_USERNAME=mrnwp` and `SVN_PASSWORD` with the WordPress.org SVN password, then publish a release tagged with the plugin version (for example `0.8.0`). Ordinary commits run checks. See [publishing instructions](docs/publishing.md).
 
-# Anar Login
+# Anar Toolkit
 
 Fast, secure passwordless authentication for WordPress with Iranian SMS providers, email OTP, and Google OAuth.
 
 ![Anar Login](assets/images/anar-logo.png)
 
-Anar Login ships with an English LTR interface and a complete Persian (`fa_IR`) RTL translation. WordPress selects the language and layout direction automatically.
+Anar Toolkit has an English LTR source interface and Persian (`fa_IR`) RTL development catalogs. WordPress.org packages receive translations through language packs; a separate Persian pack is provided with GitHub releases.
 
 **100% free, forever — all features included.** No Pro edition, subscriptions, license keys or feature paywalls. SMS providers charge separately for their own accounts and message credits.
 
@@ -139,7 +139,7 @@ The flow uses Authorization Code, validates `state` with a secure cookie and tra
 
 ## Localization
 
-English is the source language. The bundled `fa_IR` translation is available in both WordPress PHP and MO formats, supporting WordPress 6.2 and later. All interface containers use `is_rtl()` and CSS logical properties so layout direction follows the active WordPress locale.
+English is the source language. The separate `fa_IR` translation is available in both WordPress PHP and MO formats, supporting WordPress 6.2 and later. All interface containers use `is_rtl()` and CSS logical properties so layout direction follows the active WordPress locale.
 
 ## Extending SMS providers
 
@@ -174,3 +174,7 @@ Designed and developed by [Mehran Marandi](https://mehranmarandi.ir) — [@mehra
 ## License
 
 GPL-2.0-or-later
+
+## Customer marketing suite (0.8.0)
+
+See [the setup and behavior guide](docs/marketing-suite.md) for automatic cart capture, SMS password recovery, discounts, order tracking and the independently switchable campaign modules. New marketing modules start disabled. The guide documents shortcode types, real-data reports, privacy controls, provider templates and practical limits.

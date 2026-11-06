@@ -65,3 +65,10 @@ Privacy: https://policies.google.com/privacy
 Email codes use WordPress wp_mail; delivery depends on the site's hosting, SMTP plugin or configured mail service, which receives the address and code message. This plugin does not bundle an external email transport. WordPress avatar functions can use Gravatar for profile images, depending on site configuration; its image requests include the visitor IP address and an email-derived avatar identifier.
 Gravatar terms: https://wordpress.com/tos/
 Gravatar privacy: https://automattic.com/privacy/
+
+
+= Optional customer campaigns (0.8.0) =
+
+When an administrator enables the corresponding module, the selected SMS provider also receives recipient numbers and the explicitly configured variables for order status/shipment, cart recovery/discounts, lifecycle, predicted reorder dates, product offers, bulk messages, stock verification/notification, surveys, next-purchase gifts, birthday messages and invoices. Variables can include customer first name, order number, product title/URL, tracking details, coupon code, scoped survey/invoice URL and unsubscribe URL. Template IDs and transport credentials use the endpoints documented above. The plugin does not send these customer records to its author or to a separate marketing/AI service.
+
+Prediction, games, referrals, invoices and reports run locally. Optional traffic counting sends a first-party random browser identifier and referring hostname only to this site's WordPress AJAX endpoint, storing daily keyed hashes locally. It starts disabled, excludes account/checkout/admin pages and does not contact an external analytics provider. The random browser identifier expires after up to 30 days. Local exports do not remove provider-side copies; use the selected provider's data tools for those.

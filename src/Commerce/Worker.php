@@ -30,7 +30,9 @@ final class Worker {
 		add_action( self::HOOK, array( $this, 'run' ) );
 		// phpcs:ignore WordPress.WP.CronInterval.CronSchedulesInterval -- Bounded opt-in queue; minute-level reminders need this precision.
 		add_filter( 'cron_schedules', array( $this, 'interval' ) );
-		add_action( 'init', array( $this, 'schedule' ), 20 );
+		// Reconcile schedules on administrative/cron requests and option changes, not storefront views.
+		if ( is_admin() || wp_doing_cron() ) {
+			add_action( 'init', array( $this, 'schedule' ), 20 ); }
 	}
 
 	public function interval( $schedules ) {
@@ -72,6 +74,7 @@ final class Worker {
 		try {
 			$this->repository->expire_running();
 			$this->scan();
+			do_action( 'anar_toolkit_scan_campaigns' );
 			$start = time();
 			foreach ( $this->repository->due() as $job ) {
 				if ( time() - $start > 40 ) {
@@ -107,6 +110,12 @@ final class Worker {
 	}
 
 	private function process( $job ) {
+		if ( 0 === strpos( $job->event, 'mkt_' ) ) {
+			if ( ! has_action( 'anar_toolkit_marketing_job' ) ) {
+				$this->repository->finish( $job->id, 'cancelled', 'module_disabled' );
+				return; }
+			do_action( 'anar_toolkit_marketing_job', $job );
+			return; }
 		$config   = $this->settings->all();
 		$recovery = 0 === strpos( $job->event, 'recovery_' );
 		$requested = 'recovery_request' === $job->event;
@@ -137,18 +146,38 @@ final class Worker {
 				$this->repository->finish( $job->id, 'failed', $code->get_error_code() );
 				return;
 			}
+			$stage = $requested ? 1 : (int) substr( $job->event, -1 );
+			$discount = ( new Coupons( $this->settings, $this->repository ) )->issue( $cart, $stage );
+			if ( is_wp_error( $discount ) ) {
+				$this->repository->finish( $job->id, 'failed', $discount->get_error_code() );
+				return; }
+			if ( $discount['coupon_code'] && false === strpos( 'custom' === $config['provider'] ? $event['message'] : $event['params'], '{coupon_code}' ) ) {
+				$this->repository->finish( $job->id, 'failed', 'coupon_mapping_missing' );
+				return; }
+			$variables = array_merge( $variables, $discount );
 			$variables['code']            = $code;
 			$variables['minutes']         = (string) $config['code_minutes'];
 			$variables['recovery_page']   = $this->module->recovery_page();
 			$variables['unsubscribe_url'] = Module::link( $cart, 'unsubscribe' );
 		} else {
 			$order = wc_get_order( $job->object_id );
-			if ( ! $order || ! $order->is_paid() || ! $order->get_date_paid() || (float) $order->get_total() <= 0 ) {
+			if ( ! $order || ( in_array( $job->event, array( 'paid_customer', 'paid_admin' ), true ) && ( ! $order->is_paid() || ! $order->get_date_paid() || (float) $order->get_total() <= 0 ) ) ) {
 				$this->repository->finish( $job->id, 'cancelled', 'order_not_paid' );
 				return;
 			}
-			$variables = $this->module->variables( $order );
+			if ( 0 === strpos( $job->event, 'status_' ) && substr( $job->event, 7 ) !== $order->get_status() ) {
+				$this->repository->finish( $job->id, 'cancelled', 'status_superseded' );
+				return; }
+			if ( 'failed_admin' === $job->event && 'failed' !== $order->get_status() ) {
+				$this->repository->finish( $job->id, 'cancelled', 'status_superseded' );
+				return; }
+			$variables = array_merge( $this->module->variables( $order ), OrderEvents::tracking( $order ) );
+			if ( 'shipment_customer' === $job->event && ( ! $variables['tracking_number'] || ! hash_equals( (string) $job->context, hash( 'sha256', $variables['tracking_number'] . '|' . $variables['carrier'] ) ) || in_array( $order->get_status(), array( 'cancelled', 'refunded', 'failed' ), true ) ) ) {
+				$this->repository->finish( $job->id, 'cancelled', 'shipment_superseded' );
+				return; }
 		}
+		global $wpdb;
+		$wpdb->update( $this->repository->table( 'messages' ), array( 'provider' => $config['provider'] ), array( 'id' => $job->id ) );
 		$result = $this->sender->send( $config['provider'], $job->recipient, $event, $variables, $recovery );
 		if ( is_wp_error( $result ) ) {
 			$code = $result->get_error_code();

@@ -36,6 +36,10 @@ $worker   = new Worker( $settings, $repo, $module, $sender );
 $privacy  = new Privacy( $repo, $settings );
 $original = get_option( Settings::OPTION );
 $old_login = $login->all();
+$old_features = get_option( \Anar\Login\Infrastructure\Features::OPTION );
+update_option( \Anar\Login\Infrastructure\Features::OPTION, array( 'login' => 1, 'reset' => 1, 'orders' => 1 ) );
+$old_marketing = get_option( 'anar_toolkit_marketing' );
+update_option( 'anar_toolkit_marketing', ( new \Anar\Login\Marketing\Settings() )->defaults() );
 $requests = array();
 $test_mode     = 'accepted';
 add_filter( 'pre_wp_mail', '__return_true' );
@@ -94,6 +98,7 @@ try {
 	}
 	unset( $event );
 	update_option( Settings::OPTION, $config );
+	$module->register();
 	$login_data = $old_login;
 	foreach ( array( 'kavenegar', 'ippanel', 'panelchi', 'farazsms', 'melipayamak', 'smsir' ) as $provider ) {
 		$login_data[ 'provider_' . $provider ] = array( 'api_key' => 'TEST-ONLY', 'username' => 'TEST-ONLY', 'password' => 'TEST-ONLY', 'from' => '1000' );
@@ -230,7 +235,8 @@ try {
 	$serialized = wp_json_encode( $export );
 	anar_toolkit_assert( false === strpos( $serialized, $cart->seed ) && false === strpos( $serialized, 'TEST-ONLY' ), 'Privacy export does not expose link seeds or gateway credentials' );
 	$erased = $privacy->erase( 'shopper@example.test' );
-	anar_toolkit_assert( $erased['items_removed'] && ! $repo->contact( $contact ), 'WordPress privacy erasure deletes local reminder identity' );
+	$tombstone = $repo->contact( $contact );
+	anar_toolkit_assert( $erased['items_removed'] && $tombstone && '' === $tombstone->phone && '' === $tombstone->email && $tombstone->suppressed, 'WordPress privacy erasure removes identity and retains only a suppression tombstone' );
 	anar_toolkit_assert( wc_get_order( $test_order->get_id() ) instanceof WC_Order, 'Privacy erasure preserves WooCommerce order records' );
 	anar_toolkit_assert( 0 === (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM %i WHERE contact_id = %d', $repo->table( 'carts' ), $contact ) ), 'Erasure removes contact cart snapshots' );
 
@@ -244,6 +250,8 @@ try {
 	WP_CLI::success( count( $anar_checks ) . ' commerce integration checks passed; all SMS HTTP and mail mocked.' );
 	WP_CLI::line( wp_json_encode( $anar_checks, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE ) );
 } finally {
+	false === $old_features ? delete_option( \Anar\Login\Infrastructure\Features::OPTION ) : update_option( \Anar\Login\Infrastructure\Features::OPTION, $old_features );
+	update_option( 'anar_toolkit_marketing', $old_marketing );
 	update_option( \Anar\Login\Infrastructure\Settings::OPTION_KEY, $old_login );
 	if ( false === $original ) {
 		delete_option( Settings::OPTION );

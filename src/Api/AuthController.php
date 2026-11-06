@@ -35,7 +35,7 @@ final class AuthController {
 	 * @param GoogleAuth $google   Google auth.
 	 * @param Settings   $settings Settings.
 	 */
-	public function __construct( OtpService $otp, GoogleAuth $google, Settings $settings ) {
+	public function __construct( OtpService $otp, ?GoogleAuth $google, Settings $settings ) {
 		$this->otp      = $otp;
 		$this->google   = $google;
 		$this->settings = $settings;
@@ -84,6 +84,8 @@ final class AuthController {
 				),
 			)
 		);
+		if ( ! $this->google ) {
+			return; }
 		register_rest_route(
 			self::NAMESPACE,
 			'/google/start',
@@ -149,6 +151,8 @@ final class AuthController {
 	 * @return WP_REST_Response|WP_Error
 	 */
 	public function google_start( WP_REST_Request $request ) {
+		if ( ! $this->google ) {
+			return new WP_Error( 'anar_google_disabled', __( 'The request is invalid.', 'anar-toolkit' ) ); }
 		$url = $this->google->start( (string) $request->get_param( 'redirect' ), (string) $request->get_param( 'return' ) );
 		if ( is_wp_error( $url ) ) {
 			return $url;
@@ -167,6 +171,8 @@ final class AuthController {
 	 * @return WP_REST_Response
 	 */
 	public function google_callback( WP_REST_Request $request ) {
+		if ( ! $this->google ) {
+			return new WP_Error( 'anar_google_disabled', __( 'The request is invalid.', 'anar-toolkit' ) ); }
 		$url = $this->google->callback(
 			(string) $request->get_param( 'state' ),
 			(string) $request->get_param( 'code' ),

@@ -1,6 +1,6 @@
-# Anar Toolkit 0.7.0
+# Anar Toolkit 0.8.0
 
-The WordPress.org package is built with `python tools/package.py --output /absolute/path/anar-toolkit-0.7.0.zip`. Its top-level folder and gettext domain are `anar-toolkit`; the review team confirmed this slug on 30 October 2026. The main PHP filename, namespace, login REST namespace, user identities and login option keys are intentionally preserved for existing integrations.
+The WordPress.org package is built with `python tools/package.py --output /absolute/path/anar-toolkit-0.8.0.zip`. Its top-level folder and gettext domain are `anar-toolkit`; the review team confirmed this slug on 30 October 2026. The main PHP filename, namespace, login REST namespace, user identities and login option keys are intentionally preserved for existing integrations.
 
 Both package profiles include Kavenegar, Meli Payamak, IPPanel, Panelchi, Faraz SMS and SMS.ir, plus custom HTTP. Panelchi uses its approved-pattern POST API with Bearer authentication; the default source number is 10001. Commerce patterns and variable mappings are configured separately from login patterns. Faraz uses IPPanel infrastructure under the disclosed Faraz service agreement. See `readme.txt` and `services.txt` for the endpoint inventory and verified service-policy links and limitations.
 
@@ -12,7 +12,7 @@ All new modules default off. The Commerce toolkit submenu is available without W
 
 Payment notices subscribe to `woocommerce_payment_complete`. `is_paid()`, a paid timestamp and a positive total are checked both when enqueuing and when processing. Order creation, a thank-you page view, pending payment and simply selecting COD do not send notices. A unique queue key plus a WooCommerce CRUD metadata flag prevents repeated gateway callbacks from duplicating the notifications. Manual status changes alone do not represent this event.
 
-The customer saves an explicit reminder preference using the classic cart/checkout form or `[anar_cart_reminders]` placed beside a Cart/Checkout block. A session-bound nonce protects the save endpoint. No reminder row is created merely by typing a phone at checkout or receiving an OTP. Only standard product IDs, variation attributes and quantities are stored. Add-on/bundle/subscription/cart-extension metadata is not recreated. Cart and checkout blocks do not have a native login or reminder React component; use the separate reminder shortcode.
+Automatic capture saves known account and checkout phones with a notice, without a separate checkbox. Optional explicit-preference mode uses the classic form or `[anar_cart_reminders]`. A stopped number stays stopped. Cart/Checkout blocks can use `[anar_recover_cart]` beside the block for code entry. Only standard product IDs, variation attributes and quantities are reconstructed. See [marketing-suite.md](marketing-suite.md) for all 0.8.0 modules.
 
 Stages are absolute minutes since the last saved cart modification. Disabled stages are zero. Stages are ordered and clamped below the link expiry. Each stage has its own template and parameters. The worker paginates active carts so more than 100 carts do not starve newer carts. It rechecks consent, current order state, inactivity, link expiry, quiet hours and a per-phone rolling 24-hour cap. A payment/cancellation/opt-out stops pending recovery. Disabling a module prevents its queue from sending.
 
@@ -38,4 +38,4 @@ WordPress exporters/erasers use the optional saved email; transaction-only custo
 
 Run `php vendor/phpunit/phpunit/phpunit -c phpunit.xml.dist` and `php vendor/squizlabs/php_codesniffer/bin/phpcs -q`. Run the integration suite only on a disposable WordPress/WooCommerce site with environment type `local`: `wp eval-file /absolute/path/tests/Integration/commerce.php`. It exercises actual WordPress storage, WooCommerce payment events and the queue with HTTP/mail intercepted. It must never be run against a real store.
 
-The WordPress.org ZIP excludes development dependencies, tests, tooling and `.po`, `.mo`, `.l10n.php` catalogs. `python tools/build_translations.py` builds the development Persian catalog; a separate language pack can be installed under `wp-content/languages/plugins` while the plugin is still awaiting directory approval. Future WordPress.org translations should use translate.wordpress.org.
+The WordPress.org ZIP excludes development dependencies, tests, tooling and `.po`, `.mo`, `.l10n.php` catalogs. `python tools/build_translations.py` builds the development Persian catalog; a separate language pack can be installed under `wp-content/languages/plugins` until an official language pack is available. Future WordPress.org translations should use translate.wordpress.org.
