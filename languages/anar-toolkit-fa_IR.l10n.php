@@ -1,6 +1,6 @@
 <?php
 return array(
-'project-id-version' => 'Anar Toolkit 0.8.0',
+'project-id-version' => 'Anar Toolkit 0.8.1',
 'language' => 'fa_IR',
 'plural-forms' => 'nplurals=2; plural=(n > 1);',
 'messages' => array(
@@ -58,6 +58,7 @@ return array(
 'Amount' => 'مبلغ',
 'An offer worth coming back for.' => 'پیشنهادی برای بازگشت به خرید.',
 'Anar Toolkit' => 'جعبه‌ابزار انار',
+'Anar Toolkit – SMS Login, Recovery & Marketing for WooCommerce' => 'جعبه‌ابزار انار — ورود پیامکی، بازیابی خرید و بازاریابی ووکامرس',
 'Anar Toolkit — WooCommerce SMS' => 'جعبه‌ابزار انار — پیامک ووکامرس',
 'Anar customer campaigns' => 'کمپین‌های مشتریان انار',
 'Anar customer gift' => 'هدیهٔ مشتری انار',
@@ -570,6 +571,7 @@ return array(
 'SMS requests accepted' => 'درخواست‌های پیامک پذیرفته‌شده',
 'SMS sign-in' => 'ورود پیامکی',
 'SMS sign-in and customer communication tools' => 'ابزارهای ورود پیامکی و ارتباط با مشتری',
+'SMS, email and Google login, SMS password reset, cart recovery and customer communication tools for WooCommerce.' => 'ورود با پیامک، ایمیل و گوگل، بازیابی رمز پیامکی، بازیابی سبد و ابزارهای ارتباط با مشتری ووکامرس.',
 'Save birthday' => 'ذخیرهٔ تولد',
 'Save campaign settings' => 'ذخیرهٔ تنظیمات کمپین',
 'Save changes' => 'ذخیره تغییرات',

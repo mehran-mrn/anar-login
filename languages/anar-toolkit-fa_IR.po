@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: Anar Toolkit 0.8.0\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
+msgstr "Project-Id-Version: Anar Toolkit 0.8.1\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
 
 msgid "%1$s: Your password reset code is %2$s. It expires in 5 minutes. Do not share this code."
 msgstr "%1$s: کد بازنشانی رمز عبور شما %2$s است و تا ۵ دقیقه اعتبار دارد. این کد را در اختیار دیگران نگذارید."
@@ -162,6 +162,9 @@ msgstr "پیشنهادی برای بازگشت به خرید."
 
 msgid "Anar Toolkit"
 msgstr "جعبه‌ابزار انار"
+
+msgid "Anar Toolkit – SMS Login, Recovery & Marketing for WooCommerce"
+msgstr "جعبه‌ابزار انار — ورود پیامکی، بازیابی خرید و بازاریابی ووکامرس"
 
 msgid "Anar Toolkit — WooCommerce SMS"
 msgstr "جعبه‌ابزار انار — پیامک ووکامرس"
@@ -1698,6 +1701,9 @@ msgstr "ورود پیامکی"
 
 msgid "SMS sign-in and customer communication tools"
 msgstr "ابزارهای ورود پیامکی و ارتباط با مشتری"
+
+msgid "SMS, email and Google login, SMS password reset, cart recovery and customer communication tools for WooCommerce."
+msgstr "ورود با پیامک، ایمیل و گوگل، بازیابی رمز پیامکی، بازیابی سبد و ابزارهای ارتباط با مشتری ووکامرس."
 
 msgid "Save birthday"
 msgstr "ذخیرهٔ تولد"
