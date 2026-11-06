@@ -1,0 +1,49 @@
+name: Publish to WordPress.org
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wordpress-org-release
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: ${{ !github.event.release.prerelease }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out released version
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+        with:
+          ref: ${{ github.event.release.tag_name }}
+          persist-credentials: false
+      - name: Test and build released version
+        id: release
+        uses: ./.github/actions/prepare-release
+        with:
+          tag: ${{ github.event.release.tag_name }}
+      - name: Check publishing credentials
+        shell: bash
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+        run: |
+          if [[ "$SVN_USERNAME" != mrnwp || -z "$SVN_PASSWORD" ]]; then
+            echo '::error::Set SVN_USERNAME to mrnwp and add the WordPress.org SVN password as SVN_PASSWORD in repository secrets.'
+            exit 1
+          fi
+      - name: Publish code, release tag and directory images
+        uses: 10up/action-wordpress-plugin-deploy@54bd289b8525fd23a5c365ec369185f2966529c2 # 2.3.0
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SLUG: anar-toolkit
+          VERSION: ${{ steps.release.outputs.version }}
+          BUILD_DIR: ${{ steps.release.outputs.build_dir }}
+          ASSETS_DIR: .wordpress-org
+
