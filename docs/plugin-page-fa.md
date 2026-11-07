@@ -1,6 +1,6 @@
 # انار — ورود پیامکی، بازیابی خرید و بازاریابی ووکامرس
 
-راهنمای فارسی نسخهٔ ۰.۸.۲. ترجمهٔ رابط همراه افزونه نصب می‌شود؛ برای استفاده، زبان سایت یا کاربر را فارسی انتخاب کنید.
+راهنمای فارسی نسخهٔ ۰.۸.۳. ترجمهٔ رابط همراه افزونه نصب می‌شود؛ برای استفاده، زبان سایت یا کاربر را فارسی انتخاب کنید.
 
 ## معرفی
 
@@ -28,7 +28,7 @@
 
 Anar Toolkit provides SMS/email/Google login, SMS password reset, cart recovery, order updates and optional customer campaigns for WooCommerce. Includes Persian RTL and English LTR interfaces. All plugin features are free; SMS provider fees are separate.
 
-[راهنمای فارسی](https://github.com/mehran-mrn/anar-login/blob/main/guide-fa.txt) | [کد و گزارش اشکال](https://github.com/mehran-mrn/anar-login) | [MRNWP](https://mrnwp.ir/)
+[راهنمای فارسی](https://github.com/mehran-mrn/anar-login/blob/main/guide-fa.txt) | [کد و گزارش اشکال](https://github.com/mehran-mrn/anar-login) | [صفحهٔ اختصاصی انار](https://mrnwp.ir/anar/)
 
 ## نصب و راه‌اندازی
 

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.8.3 — 2026-11-07
+
+* Publish the dedicated Persian and English Anar product pages at mrnwp.ir/anar/.
+* Link the product website from the plugin header, administration credits and public listing.
+
 ## 0.8.2 — 2026-11-07
 
 * Add MaxSMS to login, password recovery, store and campaign provider selections.

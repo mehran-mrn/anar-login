@@ -138,7 +138,7 @@ final class SettingsPage {
 						<div><h1>Anar Toolkit</h1><span>v<?php echo esc_html( ANAR_LOGIN_VERSION ); ?></span></div>
 						<p><?php esc_html_e( 'SMS sign-in and customer communication tools', 'anar-toolkit' ); ?></p>
 						<p class="anar-admin__free"><?php esc_html_e( '100% free, forever — all features included.', 'anar-toolkit' ); ?></p>
-						<span class="anar-admin__credits"><a class="anar-admin__author" href="https://mehranmarandi.ir" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Designed by Mehran Marandi', 'anar-toolkit' ); ?></a><span aria-hidden="true"> · </span><a class="anar-admin__author" href="https://mrnwp.ir/" target="_blank" rel="noopener noreferrer">MRNWP</a></span>
+						<span class="anar-admin__credits"><a class="anar-admin__author" href="https://mehranmarandi.ir" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Designed by Mehran Marandi', 'anar-toolkit' ); ?></a><span aria-hidden="true"> · </span><a class="anar-admin__author" href="https://mrnwp.ir/anar/" target="_blank" rel="noopener noreferrer">MRNWP</a></span>
 					</div>
 				</div>
 				<div class="anar-admin__health"><span></span><?php esc_html_e( 'Core is active', 'anar-toolkit' ); ?></div>
