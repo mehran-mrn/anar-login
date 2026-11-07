@@ -134,7 +134,7 @@ final class Settings {
 		 *
 		 * @param string[] $fields Field names.
 		 */
-		return (array) apply_filters( 'anar_login_secret_provider_fields', array( 'api_key', 'password', 'token', 'secret' ) );
+		return (array) apply_filters( 'anar_login_secret_provider_fields', array( 'api_key', 'password', 'token', 'secret', 'balance_api_key' ) );
 	}
 
 	/**
@@ -226,7 +226,7 @@ final class Settings {
 			$provider_fields[ sanitize_key( $provider_key ) ] = (array) $provider->fields();
 		}
 		if ( empty( $provider_fields ) ) {
-			$builtin_fields  = array_fill_keys( array( 'api_key', 'username', 'password', 'from', 'template_id', 'code_parameter' ), '' );
+			$builtin_fields  = array_fill_keys( array( 'api_key', 'username', 'password', 'from', 'template_id', 'code_parameter', 'balance_api_key' ), '' );
 			$provider_fields = array_fill_keys( array( 'kavenegar', 'melipayamak', 'ippanel', 'panelchi', 'maxsms', 'farazsms', 'smsir' ), $builtin_fields );
 		}
 

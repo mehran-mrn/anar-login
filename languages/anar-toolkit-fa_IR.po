@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: Anar Toolkit 1.0.0\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
+msgstr "Project-Id-Version: Anar Toolkit 1.1.0\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
 
 msgid "%1$s: Your password reset code is %2$s. It expires in 5 minutes. Do not share this code."
 msgstr "%1$s: کد بازنشانی رمز عبور شما %2$s است و تا ۵ دقیقه اعتبار دارد. این کد را در اختیار دیگران نگذارید."
@@ -15,6 +15,9 @@ msgstr "یکی از متغیرهای کاوه‌نگار از محدودیت ۱�
 
 msgid "A SMALL MOMENT OF DELIGHT"
 msgstr "لحظه‌ای کوچک و دل‌نشین"
+
+msgid "A balance check is already in progress."
+msgstr "بررسی موجودی این حساب در حال انجام است."
 
 msgid "A clear view of your store."
 msgstr "تصویری روشن از فروشگاه شما."
@@ -51,6 +54,9 @@ msgstr "کد آزمایشی به %s ارسال شد."
 
 msgid "A valid mobile number is required."
 msgstr "شماره موبایل معتبر لازم است."
+
+msgid "A warning appears at this balance or below. Use the displayed account unit; the value is not converted between currencies or SMS units."
+msgstr "هشدار با رسیدن موجودی به این مقدار یا کمتر نمایش داده می‌شود. حد را با همان واحد نمایش‌داده‌شده وارد کنید."
 
 msgid "API key"
 msgstr "کلید API"
@@ -148,6 +154,9 @@ msgstr "پس از واردکردن رمز درست، کدی به موبایل ح
 msgid "After predicted purchase"
 msgstr "پس از خرید پیش‌بینی‌شده"
 
+msgid "Alert threshold"
+msgstr "حد نمایش هشدار"
+
 msgid "All eligible contacts"
 msgstr "همهٔ مخاطبان واجد شرایط"
 
@@ -168,6 +177,9 @@ msgstr "مبلغ"
 
 msgid "An offer worth coming back for."
 msgstr "پیشنهادی برای بازگشت به خرید."
+
+msgid "An updated balance is needed."
+msgstr "نیاز به بررسی تازه"
 
 msgid "Anar Toolkit"
 msgstr "جعبه‌ابزار انار"
@@ -201,6 +213,9 @@ msgstr "رهگیری مرسولهٔ انار"
 
 msgid "Anar user discount"
 msgstr "تخفیف کاربران انار"
+
+msgid "Anar: SMS credit is running low."
+msgstr "انار: اعتبار پیامکی رو به پایان است."
 
 msgid "Anonymous daily browser counts"
 msgstr "شمارش روزانهٔ ناشناس مرورگرها"
@@ -255,6 +270,18 @@ msgstr "ارتباطی ماندگار با مشتری"
 
 msgid "Back in stock"
 msgstr "اطلاع موجودی مجدد"
+
+msgid "Balance API key (optional)"
+msgstr "کلید API دریافت موجودی (اختیاری)"
+
+msgid "Balance monitoring"
+msgstr "بررسی اعتبار پیامکی"
+
+msgid "Balance received"
+msgstr "موجودی دریافت شد"
+
+msgid "Balance settings saved."
+msgstr "تنظیمات اعتبار پیامک ذخیره شد."
 
 msgid "Before predicted purchase"
 msgstr "پیش از خرید پیش‌بینی‌شده"
@@ -337,11 +364,23 @@ msgstr "بازیابی سبد"
 msgid "Change details"
 msgstr "ویرایش مشخصات"
 
+msgid "Check balance"
+msgstr "دریافت موجودی"
+
 msgid "Check the registration fields and try again."
 msgstr "اطلاعات فرم ثبت‌نام را بررسی و اصلاح کنید."
 
+msgid "Check this account periodically"
+msgstr "موجودی این حساب به‌صورت دوره‌ای بررسی شود"
+
+msgid "Check this account to see its balance and unit."
+msgstr "برای مشاهدهٔ موجودی و واحد آن، حساب را بررسی کنید."
+
 msgid "Checking available registration plans…"
 msgstr "در حال بررسی طرح‌های ثبت‌نام…"
+
+msgid "Checking balance…"
+msgstr "در حال دریافت موجودی…"
 
 msgid "Choose a plan and enter the account holder details. Submitting this form sends these details through Anar to Meli Payamak to create your account."
 msgstr "طرح موردنظر و مشخصات صاحب حساب را وارد کنید. با ارسال فرم، این اطلاعات از طریق انار برای ساخت حساب به ملی‌پیامک فرستاده می‌شود."
@@ -394,6 +433,9 @@ msgstr "ابزارهای فروشگاه"
 msgid "Complete account details"
 msgstr "تکمیل اطلاعات حساب"
 
+msgid "Complete the SMS account connection settings first."
+msgstr "ابتدا اطلاعات اتصال حساب پیامکی را کامل کنید."
+
 msgid "Complete the SMS provider credentials in the login settings."
 msgstr "اطلاعات اتصال سرویس پیامک را در تنظیمات ورود کامل کنید."
 
@@ -408,6 +450,9 @@ msgstr "مقادیر محرمانه دوباره در رابط مدیریت نم
 
 msgid "Configure"
 msgstr "تنظیمات"
+
+msgid "Configure an SMS account in connection settings, then check its balance here."
+msgstr "ابتدا حساب پیامکی را در تنظیمات اتصال وارد کنید؛ سپس موجودی آن را در این صفحه بررسی کنید."
 
 msgid "Configure an approved commerce template and its parameter mapping."
 msgstr "قالب تأییدشده فروشگاه و نگاشت متغیرهای آن را تنظیم کنید."
@@ -447,6 +492,9 @@ msgstr "متصل و تأییدشده"
 
 msgid "Connection settings"
 msgstr "تنظیمات اتصال"
+
+msgid "Connection settings are incomplete."
+msgstr "اطلاعات اتصال کامل نیست"
 
 msgid "Consent text"
 msgstr "متن رضایت"
@@ -510,6 +558,9 @@ msgstr "دریافت مجوز ورود از گوگل ناموفق بود."
 
 msgid "Could not retrieve the Google profile."
 msgstr "دریافت پروفایل گوگل ناموفق بود."
+
+msgid "Could not retrieve the balance. Check the account connection or try again later."
+msgstr "دریافت موجودی انجام نشد. اطلاعات اتصال حساب را بررسی کنید یا کمی بعد دوباره تلاش کنید."
 
 msgid "Could not save. Check your number and reload the page before trying again."
 msgstr "ذخیره نشد. شماره را بررسی و پیش از تلاش دوباره صفحه را تازه کنید."
@@ -652,11 +703,23 @@ msgstr "موضوع ایمیل"
 msgid "Enable Google sign-in"
 msgstr "فعال‌سازی ورود گوگل"
 
+msgid "Enable SMS credit monitoring"
+msgstr "بررسی اعتبار پیامکی فعال باشد"
+
+msgid "Enable SMS credit monitoring before checking an account."
+msgstr "ابتدا بررسی اعتبار پیامکی را فعال و تنظیمات را ذخیره کنید."
+
+msgid "Enable monitoring, check an account, then select periodic checks and enter its alert threshold. Warnings are optional for each account. Balances refresh about every 30 minutes through WordPress scheduled tasks; administrator page views use the saved result. Credentials stay on your server. Other SMS accounts remain available below."
+msgstr "این قابلیت را فعال و ذخیره کنید. موجودی حساب را دریافت کنید؛ سپس بررسی دوره‌ای، نمایش هشدار و حد آن را تعیین کنید. بررسی‌ها تقریباً هر ۳۰ دقیقه با زمان‌بندی وردپرس انجام می‌شوند. صفحهٔ مدیریت آخرین نتیجهٔ ذخیره‌شده را نشان می‌دهد. اطلاعات دسترسی روی سرور شما می‌ماند. سایر حساب‌ها در بخش پایین در دسترس‌اند."
+
 msgid "Enable standard Google OAuth without a heavy client library."
 msgstr "OAuth استاندارد گوگل را بدون کتابخانه سنگین فعال کنید."
 
 msgid "Enable the features your store needs."
 msgstr "قابلیت‌های مورد نیاز فروشگاه را فعال کنید."
+
+msgid "Enable this feature, check an account, then set its alert threshold. Periodic checks contact only the accounts you select, about every 30 minutes."
+msgstr "این قابلیت را فعال کنید، موجودی حساب را دریافت کنید و حد هشدار را تعیین کنید. فقط حساب‌های انتخاب‌شده، تقریباً هر ۳۰ دقیقه به‌صورت خودکار بررسی می‌شوند."
 
 msgid "Enable this stage"
 msgstr "فعال‌سازی این مرحله"
@@ -775,6 +838,9 @@ msgstr "ناموفق / نامشخص"
 msgid "Faraz SMS"
 msgstr "فراز پیامک"
 
+msgid "Faraz balance checks use the new API key for this same account. Enter it in connection settings; the sending password is kept separately."
+msgstr "برای دریافت موجودی فراز، کلید API جدید همان حساب را در تنظیمات اتصال وارد کنید. رمز فعلی ارسال پیامک جدا نگهداری می‌شود."
+
 msgid "Fast, secure sign-in"
 msgstr "ورود امن و سریع"
 
@@ -810,6 +876,9 @@ msgstr "مسیر هر سبد را تا خرید دنبال کنید."
 
 msgid "For a login page or theme modal."
 msgstr "برای صفحه ورود یا مودال قالب."
+
+msgid "For balance checks only: enter the new Faraz API key belonging to this same account. Keep the existing sending username and password below."
+msgstr "کلید API جدید فراز را برای همین حساب وارد کنید. این کلید فقط برای دریافت موجودی است؛ نام کاربری و رمز ارسال پیامک را در بخش زیر نگه دارید."
 
 msgid "For signed-out visitors, every WooCommerce login form and the theme’s login links (header account, side panels, WoodMart dropdowns) use the passwordless form."
 msgstr "برای بازدیدکنندگانی که وارد نشده‌اند، همهٔ فرم‌های ورود ووکامرس و لینک‌های ورود قالب (حساب کاربری در هدر، پنل‌های کناری و منوهای کشویی وودمارت) از فرم ورود بدون رمز استفاده می‌کنند."
@@ -1024,6 +1093,9 @@ msgstr "مشتری را در جریان خریدش بگذارید."
 msgid "Keep me signed in on this device"
 msgstr "در این دستگاه وارد بمان"
 
+msgid "Keep track of your messaging credit before it runs out."
+msgstr "اعتبار حساب‌های پیامکی را بررسی و هشدار کمبود موجودی را تنظیم کنید."
+
 msgid "Key extension points"
 msgstr "نقاط توسعه مهم"
 
@@ -1033,11 +1105,17 @@ msgstr "%d روز گذشته"
 msgid "Last activity"
 msgstr "آخرین فعالیت"
 
+msgid "Last available credit"
+msgstr "آخرین اعتبار قابل استفاده"
+
 msgid "Last name"
 msgstr "نام خانوادگی"
 
 msgid "Last purchase"
 msgstr "آخرین خرید"
+
+msgid "Last successful check: %s"
+msgstr "آخرین بررسی موفق: %s"
 
 msgid "Leave empty to use the account page or home page."
 msgstr "خالی بگذارید تا صفحه پنل یا خانه استفاده شود."
@@ -1069,6 +1147,9 @@ msgstr "فرم ورود"
 msgid "Login popup"
 msgstr "پاپ‌آپ ورود"
 
+msgid "Low credit"
+msgstr "اعتبار کم است"
+
 msgid "Lucky wheel"
 msgstr "گردونهٔ شانس"
 
@@ -1086,6 +1167,9 @@ msgstr "مشخصات و روش‌های ورود امن خود را از این 
 
 msgid "Marketing and purchase reminders have been stopped. Order service messages are separate."
 msgstr "پیام‌های بازاریابی و یادآوری خرید متوقف شدند. پیام‌های خدماتی سفارش مستقل هستند."
+
+msgid "Marketing messages"
+msgstr "پیامک‌های بازاریابی"
 
 msgid "Marketing retention in days"
 msgstr "مدت نگهداری دادهٔ بازاریابی به روز"
@@ -1231,6 +1315,9 @@ msgstr "پیش‌بینی خرید بعدی"
 msgid "No account was found for these details and registration is disabled."
 msgstr "برای این مشخصات حسابی پیدا نشد و ثبت‌نام غیرفعال است."
 
+msgid "No active sending module uses this account."
+msgstr "در حال حاضر بخش فعالی از این حساب برای ارسال استفاده نمی‌کند."
+
 msgid "No coupon was issued for this attempt."
 msgstr "برای این نوبت کوپنی صادر نشد."
 
@@ -1257,6 +1344,9 @@ msgstr "رکوردی وجود ندارد"
 
 msgid "No records match this period and filter. Real activity will appear here as your automations run."
 msgstr "رکوردی با این بازه و فیلتر وجود ندارد. با اجرای فرایندهای خودکار، فعالیت واقعی اینجا نمایش داده می‌شود."
+
+msgid "Not checked yet"
+msgstr "هنوز بررسی نشده"
 
 msgid "Not connected to this account"
 msgstr "به این حساب متصل نیست"
@@ -1321,6 +1411,9 @@ msgstr "فقط وقتی کد الگو خالی باشد استفاده می‌ش
 msgid "Open"
 msgstr "باز"
 
+msgid "Open SMS panel"
+msgstr "ورود به سامانهٔ پیامکی"
+
 msgid "Open abandoned carts"
 msgstr "سبدهای رهاشدهٔ باز"
 
@@ -1362,6 +1455,12 @@ msgstr "سفارش مستردشده"
 
 msgid "Orders"
 msgstr "سفارش‌ها"
+
+msgid "Orders and abandoned carts"
+msgstr "سفارش‌ها و سبدهای رهاشده"
+
+msgid "Other SMS accounts"
+msgstr "سایر حساب‌های پیامکی"
 
 msgid "Other features"
 msgstr "سایر قابلیت‌ها"
@@ -1473,6 +1572,9 @@ msgstr "لطفاً %d ثانیه تا ارسال دوباره صبر کنید."
 
 msgid "Please wait before requesting another code."
 msgstr "پیش از درخواست کد دیگر کمی صبر کنید."
+
+msgid "Please wait one minute before checking this account again."
+msgstr "برای بررسی دوبارهٔ این حساب، یک دقیقه صبر کنید."
 
 msgid "Please wait…"
 msgstr "چند لحظه…"
@@ -1723,6 +1825,9 @@ msgstr "ادامه"
 msgid "Resume your purchase"
 msgstr "ادامه خرید"
 
+msgid "Retrieve the account balance first, then enter a valid alert threshold in the displayed unit."
+msgstr "ابتدا موجودی حساب را دریافت کنید؛ سپس حد هشدار را با عدد معتبر و مطابق واحد نمایش‌داده‌شده وارد کنید."
+
 msgid "Retry"
 msgstr "تلاش مجدد"
 
@@ -1749,6 +1854,9 @@ msgstr "فرصتی دوباره برای خرید"
 
 msgid "SMS"
 msgstr "پیامک"
+
+msgid "SMS credit"
+msgstr "اعتبار پیامک"
 
 msgid "SMS fallback message"
 msgstr "متن جایگزین پیامک"
@@ -1777,8 +1885,14 @@ msgstr "ورود پیامکی"
 msgid "SMS sign-in and customer communication tools"
 msgstr "ابزارهای ورود پیامکی و ارتباط با مشتری"
 
+msgid "SMS units"
+msgstr "واحد پیامکی"
+
 msgid "SMS, email and Google login, SMS password reset, cart recovery and customer communication tools for WooCommerce."
 msgstr "ورود با پیامک، ایمیل و گوگل، بازیابی رمز پیامکی، بازیابی سبد و ابزارهای ارتباط با مشتری ووکامرس."
+
+msgid "Save balance settings"
+msgstr "ذخیره تنظیمات اعتبار"
 
 msgid "Save birthday"
 msgstr "ذخیرهٔ تولد"
@@ -1939,6 +2053,9 @@ msgstr "رهگیری مرسوله"
 msgid "Show above the WooCommerce forms"
 msgstr "نمایش بالای فرم‌های ووکامرس"
 
+msgid "Show low-credit warnings to site administrators"
+msgstr "هشدار کمبود اعتبار به مدیران سایت نمایش داده شود"
+
 msgid "Show the Google sign-in button on the login form."
 msgstr "دکمه ورود گوگل در فرم ورود نمایش داده شود."
 
@@ -1974,6 +2091,9 @@ msgstr "خروج از حساب"
 
 msgid "Sign-in & security"
 msgstr "ورود و امنیت"
+
+msgid "Sign-in and recovery"
+msgstr "ورود و بازیابی رمز"
 
 msgid "Sign-in at checkout"
 msgstr "ورود در صفحهٔ تسویه‌حساب"
@@ -2128,6 +2248,12 @@ msgstr "سرویس پیامک این پیام را نپذیرفت."
 msgid "The SMS provider returned an unsuccessful response (HTTP %d)."
 msgstr "سرویس پیامک پاسخ ناموفق داد (HTTP %d)."
 
+msgid "The account balance was updated."
+msgstr "موجودی حساب به‌روز شد."
+
+msgid "The account settings changed. Check the balance again."
+msgstr "اطلاعات حساب تغییر کرده است. موجودی را دوباره دریافت کنید."
+
 msgid "The code is invalid or has expired."
 msgstr "کد نامعتبر یا منقضی شده است."
 
@@ -2145,6 +2271,9 @@ msgstr "درگاه سفارشی باید برای پیام فروشگاه از �
 
 msgid "The email could not be sent. Please check the site email settings."
 msgstr "ارسال ایمیل ناموفق بود. تنظیمات ایمیل سایت را بررسی کنید."
+
+msgid "The last balance check failed."
+msgstr "بررسی موجودی ناموفق بود"
 
 msgid "The login code could not be created."
 msgstr "امکان ساخت کد ورود وجود ندارد."
@@ -2169,6 +2298,12 @@ msgstr "رنگ اصلی فرم ورود و پنل کاربری."
 
 msgid "The product you requested is back in stock."
 msgstr "کالایی که منتظرش بودید دوباره موجود شده است."
+
+msgid "The provider balance unit changed. Save the alert threshold again to confirm the new unit."
+msgstr "واحد موجودی این حساب تغییر کرده است. حد هشدار را مطابق واحد جدید تنظیم و دوباره ذخیره کنید."
+
+msgid "The provider did not return a valid balance. Check the connection settings."
+msgstr "سرویس‌دهنده موجودی معتبری برنگرداند. تنظیمات اتصال را بررسی کنید."
 
 msgid "The recovery code and unsubscribe link must be included in the recovery parameter mapping (or custom message). Use templates approved for purchase reminders."
 msgstr "کد بازیابی و لینک لغو دریافت باید در نگاشت متغیرها یا متن درگاه سفارشی قرار بگیرند. از قالب تأییدشده یادآوری خرید استفاده کنید."
@@ -2229,6 +2364,9 @@ msgstr "این بازی منقضی شده است. در نوبت مجاز بعد�
 
 msgid "This game is unavailable."
 msgstr "این بازی در دسترس نیست."
+
+msgid "This gateway has no standard balance endpoint."
+msgstr "این درگاه مسیر استاندارد دریافت موجودی ندارد."
 
 msgid "This invoice link is invalid, expired or does not belong to you."
 msgstr "پیوند این صورتحساب نامعتبر، منقضی یا متعلق به شما نیست."
@@ -2296,6 +2434,9 @@ msgstr "جست‌وجوی گنج"
 msgid "Turn a lucky card"
 msgstr "کارت شانس"
 
+msgid "Turning monitoring off stops scheduled checks and warnings. Sending SMS and saved connection settings are preserved."
+msgstr "با خاموش‌کردن این قابلیت، بررسی دوره‌ای و هشدارها متوقف می‌شوند. ارسال پیامک و اطلاعات اتصال تغییری نمی‌کنند."
+
 msgid "Two lightweight shortcodes compatible with the Classic and Block editors."
 msgstr "دو شورت‌کد سبک، سازگار با ویرایشگر کلاسیک و بلوکی."
 
@@ -2349,6 +2490,9 @@ msgstr "پیش از حذف بر اساس شماره، هویت درخواست‌
 
 msgid "Verify your mobile number to receive one notification when your selected product is restocked."
 msgstr "شمارهٔ همراهتان را تأیید کنید تا پس از تأمین موجودی کالای انتخاب‌شده، یک اعلان دریافت کنید."
+
+msgid "View balance and alert settings"
+msgstr "مشاهدهٔ موجودی و تنظیم هشدار"
 
 msgid "View exact daily counts"
 msgstr "نمایش تعداد دقیق روزانه"
@@ -2479,6 +2623,9 @@ msgstr "کد ورود شما به {site}: {code}"
 msgid "attempts"
 msgstr "بار"
 
+msgid "credit (IR)"
+msgstr "اعتبار (IR)"
+
 msgid "customer profiles"
 msgstr "پروفایل مشتری"
 
@@ -2490,6 +2637,9 @@ msgstr "مخاطب واجد شرایط در این فهرست"
 
 msgid "or"
 msgstr "یا"
+
+msgid "provider credit units"
+msgstr "واحد اعتبار سرویس"
 
 msgid "records"
 msgstr "رکورد"

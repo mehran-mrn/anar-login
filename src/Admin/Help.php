@@ -12,6 +12,7 @@ defined( 'ABSPATH' ) || exit;
 final class Help {
 	public static function text( $key ) {
 		$guides = array(
+			'balance' => __( 'Enable monitoring, check an account, then select periodic checks and enter its alert threshold. Warnings are optional for each account. Balances refresh about every 30 minutes through WordPress scheduled tasks; administrator page views use the saved result. Credentials stay on your server. Other SMS accounts remain available below.', 'anar-toolkit' ),
 			'two_factor' => __( 'Select which accounts require a code after password sign-in. Confirm SMS or email delivery before enabling this option. This protection can remain active independently of the Anar login form.', 'anar-toolkit' ),
 			'login' => __( 'Select SMS, email or Google in connection settings. Configure the selected service, then add the account shortcode or enable the login popup. Test sign-in before replacing an existing login form.', 'anar-toolkit' ),
 			'reset' => __( 'Only a mobile number already linked to an account can reset its password. Configure the SMS provider and place [anar_reset_password] on a page. The code expires after five minutes.', 'anar-toolkit' ),

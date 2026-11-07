@@ -87,11 +87,15 @@ final class Plugin {
 			$providers = new ProviderRegistry( $settings );
 			( new SettingsPage( $settings, $providers ) )->register();
 			( new \Anar\Login\Admin\FeaturesPage() )->register();
+			( new \Anar\Login\Admin\BalancePage() )->register();
 			( new \Anar\Login\Commerce\Admin( new \Anar\Login\Commerce\Settings(), new \Anar\Login\Commerce\Repository(), $providers ) )->register();
 			( new \Anar\Login\Commerce\Privacy( new \Anar\Login\Commerce\Repository(), new \Anar\Login\Commerce\Settings() ) )->register();
 			( new \Anar\Login\Marketing\Privacy() )->register();
 			if ( class_exists( 'WooCommerce' ) ) {
 				( new \Anar\Login\Marketing\Admin() )->register(); }
+		}
+		if ( is_admin() || wp_doing_cron() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
+			( new \Anar\Login\Balance\Monitor() )->register();
 		}
 	}
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.0 — 2026-11-08
+
+* Add optional account credit monitoring with native provider units, cached status and administrator-only balance pages.
+* Add per-account periodic checks, optional low-credit warnings and numeric thresholds; inactive features stay in the secondary catalog.
+* Keep provider credentials outside cached records, preserve successful values on connection failures and reject stale or changed-unit warnings.
+* Stop all scheduled checks when the feature or plugin is disabled.
+
 ## 1.0.0 — 2026-11-07
 
 * Remove the separate signup consent checkbox and lengthy explanation; keep clear form submission and service/privacy links.

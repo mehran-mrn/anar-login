@@ -25,6 +25,7 @@ final class FarazSms extends AbstractProvider {
 	/** @inheritDoc */
 	public function fields() {
 		return array(
+			'balance_api_key' => array( 'label' => __( 'Balance API key (optional)', 'anar-toolkit' ), 'help' => __( 'For balance checks only: enter the new Faraz API key belonging to this same account. Keep the existing sending username and password below.', 'anar-toolkit' ) ),
 			'username'       => __( 'Username', 'anar-toolkit' ),
 			'password'       => __( 'Web service password', 'anar-toolkit' ),
 			'from'           => __( 'Sender number', 'anar-toolkit' ),

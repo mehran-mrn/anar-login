@@ -66,6 +66,7 @@ final class Activator {
 				wp_cache_delete( 'alloptions', 'options' ); }
 		}
 		Features::refresh();
+		\Anar\Login\Balance\Monitor::sync();
 	}
 
 	/**
@@ -76,6 +77,7 @@ final class Activator {
 	public static function deactivate() {
 		wp_clear_scheduled_hook( 'anar_login_daily_cleanup' );
 		wp_clear_scheduled_hook( 'anar_marketing_import_batch' );
+		wp_unschedule_hook( 'anar_sms_balance_refresh' );
 		\Anar\Login\Commerce\Worker::unschedule();
 	}
 }
