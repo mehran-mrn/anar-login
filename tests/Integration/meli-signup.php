@@ -17,7 +17,7 @@ if ( ! defined( 'WP_CLI' ) || ! WP_CLI || 'local' !== wp_get_environment_type() 
 require_once dirname( __DIR__, 3 ) . '/mrnwp-site/includes/meli-partner.php';
 $old = get_option( Meli_Partner::OPTION );
 $old_user = get_current_user_id();
-$old_ip = $_SERVER['REMOTE_ADDR'] ?? null;
+$old_ip = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : null;
 // Isolate abuse counters from other local test runs.
 $_SERVER['REMOTE_ADDR'] = '198.18.' . random_int( 0, 255 ) . '.' . random_int( 1, 254 );
 $requests = array();
