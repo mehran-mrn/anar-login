@@ -1,4 +1,4 @@
-# Anar Toolkit 0.8.3
+# Anar Toolkit 0.8.4
 
 Optional WooCommerce order notifications, automatic cart recovery, customer campaigns and promotional tools, alongside SMS/email/Google login and SMS password recovery. See [commerce documentation](docs/commerce.md), [provider support messages](docs/support-messages-fa.md), and [review reply draft](docs/reviewer-response.md).
 

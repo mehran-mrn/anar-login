@@ -78,6 +78,7 @@ final class Plugin {
 				$users = new UserService( $settings );
 				$otp = new OtpService( $settings, new OtpRepository(), new RateLimiter( $settings ), $providers, $users );
 				( new AdminController( $otp, $settings, $providers ) )->routes();
+				( new \Anar\Login\Api\MeliSignupController() )->routes();
 			},
 			9
 		);

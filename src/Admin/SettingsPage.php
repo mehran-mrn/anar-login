@@ -101,7 +101,9 @@ final class SettingsPage {
 		if ( \Anar\Login\Infrastructure\Features::enabled( 'login' ) ) {
 			wp_enqueue_media(); }
 		wp_enqueue_style( 'anar-login-admin', ANAR_LOGIN_URL . 'assets/css/admin.css', array(), ANAR_LOGIN_VERSION );
+		wp_enqueue_style( 'anar-meli-signup', ANAR_LOGIN_URL . 'assets/css/meli-signup.css', array( 'anar-login-admin' ), ANAR_LOGIN_VERSION );
 		wp_enqueue_script( 'anar-login-admin', ANAR_LOGIN_URL . 'assets/js/admin.js', array(), ANAR_LOGIN_VERSION, true );
+		wp_enqueue_script( 'anar-meli-signup', ANAR_LOGIN_URL . 'assets/js/meli-signup.js', array( 'anar-login-admin' ), ANAR_LOGIN_VERSION, true );
 		wp_localize_script(
 			'anar-login-admin',
 			'AnarLoginAdmin',
@@ -112,6 +114,13 @@ final class SettingsPage {
 				'nonce'   => wp_create_nonce( 'wp_rest' ),
 				'sending' => __( 'Sending…', 'anar-toolkit' ),
 				'network' => __( 'Could not connect. Please try again.', 'anar-toolkit' ),
+				'meli'    => array(
+					'loading' => __( 'Checking available registration plans…', 'anar-toolkit' ),
+					'posting' => __( 'Creating your invoice…', 'anar-toolkit' ),
+					'failed' => __( 'Registration could not be confirmed. Check with Meli Payamak before submitting again.', 'anar-toolkit' ),
+					'irr' => __( 'rial', 'anar-toolkit' ),
+					'irt' => __( 'toman', 'anar-toolkit' ),
+				),
 			)
 		);
 	}
@@ -128,6 +137,9 @@ final class SettingsPage {
 
 		$value     = $this->settings->all();
 		$providers = $this->providers->all();
+		if ( isset( $providers['melipayamak'] ) ) {
+			$providers = array( 'melipayamak' => $providers['melipayamak'] ) + $providers;
+		}
 		$direction = is_rtl() ? 'rtl' : 'ltr';
 		?>
 		<div class="wrap anar-admin" dir="<?php echo esc_attr( $direction ); ?>">
@@ -240,7 +252,11 @@ final class SettingsPage {
 								<label class="anar-provider <?php echo $key === $value['sms_provider'] ? 'is-selected' : ''; ?>">
 									<input type="radio" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[sms_provider]" value="<?php echo esc_attr( $key ); ?>" <?php checked( $value['sms_provider'], $key ); ?>>
 									<span class="anar-provider__mark">✦</span>
-									<span><strong><?php echo esc_html( $provider->title() ); ?></strong><small><?php echo esc_html( method_exists( $provider, 'description' ) ? $provider->description() : __( 'Service template delivery', 'anar-toolkit' ) ); ?></small></span>
+									<span><strong><?php echo esc_html( $provider->title() ); ?></strong>
+									<?php
+									if ( 'melipayamak' === $key ) :
+										?>
+										<span class="anar-meli-badge"><?php esc_html_e( 'Anar user discount', 'anar-toolkit' ); ?></span><?php endif; ?><small><?php echo esc_html( method_exists( $provider, 'description' ) ? $provider->description() : __( 'Service template delivery', 'anar-toolkit' ) ); ?></small></span>
 									<i>✓</i>
 								</label>
 							<?php endforeach; ?>
@@ -248,6 +264,10 @@ final class SettingsPage {
 
 						<?php foreach ( $providers as $key => $provider ) : ?>
 							<div class="anar-card anar-provider-settings" data-provider="<?php echo esc_attr( $key ); ?>" <?php echo $key === $value['sms_provider'] ? '' : 'hidden'; ?>>
+								<?php
+								if ( 'melipayamak' === $key ) {
+									MeliOffer::card(); }
+								?>
 								<div class="anar-card__head"><div><strong>
 									<?php
 									/* translators: %s: SMS provider title. */
@@ -435,6 +455,10 @@ final class SettingsPage {
 						<?php submit_button( __( 'Save settings', 'anar-toolkit' ), 'primary', 'submit', false ); ?>
 					</footer>
 				</form>
+				<?php
+				if ( isset( $providers['melipayamak'] ) ) {
+					MeliOffer::dialog(); }
+				?>
 			</div>
 		</div>
 		<?php
