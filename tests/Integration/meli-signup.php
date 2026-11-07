@@ -17,6 +17,9 @@ if ( ! defined( 'WP_CLI' ) || ! WP_CLI || 'local' !== wp_get_environment_type() 
 require_once dirname( __DIR__, 3 ) . '/mrnwp-site/includes/meli-partner.php';
 $old = get_option( Meli_Partner::OPTION );
 $old_user = get_current_user_id();
+$old_ip = $_SERVER['REMOTE_ADDR'] ?? null;
+// Isolate abuse counters from other local test runs.
+$_SERVER['REMOTE_ADDR'] = '198.18.' . random_int( 0, 255 ) . '.' . random_int( 1, 254 );
 $requests = array();
 $signup_mode = 'success';
 $checks = array();
@@ -68,7 +71,7 @@ try {
 	$verify( is_wp_error( ( new MeliSignup() )->register( array_replace( $input, array( 'consent' => false ) ) ) ), 'Personal data cannot be submitted without explicit consent' );
 	$verify( count( $requests ) === $before, 'Invalid consent makes no relay request' );
 	$result = ( new MeliSignup() )->register( $input );
-	$verify( ! is_wp_error( $result ) && 'https://sign.melipayamak.com/invoice/1782042000' === $result['invoice_url'], 'Opt-in signup returns the official invoice link' );
+	$verify( ! is_wp_error( $result ) && 'https://sign.melipayamak.com/invoice/1782042000' === $result['invoice_url'], 'Opt-in signup returns the official invoice link' . ( is_wp_error( $result ) ? ': ' . $result->get_error_code() : '' ) );
 	$provider_requests = array_values(
 		array_filter(
 			$requests,
@@ -117,6 +120,11 @@ try {
 } finally {
 	remove_filter( 'pre_http_request', $transport, PHP_INT_MAX );
 	wp_set_current_user( $old_user );
+	if ( null === $old_ip ) {
+		unset( $_SERVER['REMOTE_ADDR'] );
+	} else {
+		$_SERVER['REMOTE_ADDR'] = $old_ip;
+	}
 	false === $old ? delete_option( Meli_Partner::OPTION ) : update_option( Meli_Partner::OPTION, $old, false );
 	global $wpdb;
 	$keys = $wpdb->get_col( $wpdb->prepare( "SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s", $wpdb->esc_like( Meli_Partner::PREFIX ) . '%' ) );
