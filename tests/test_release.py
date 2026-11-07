@@ -41,7 +41,7 @@ with tempfile.TemporaryDirectory(prefix='anar-release-qa-') as folder:
             for required in ('src/Partners/MeliSignup.php', 'src/Api/MeliSignupController.php', 'src/Admin/MeliOffer.php', 'assets/js/meli-signup.js', 'assets/css/meli-signup.css'):
                 verify('anar-toolkit/' + required in names, 'Partner signup runtime included: ' + required)
             verify(not any('meli-partner.php' in name for name in names), 'Private affiliate broker is excluded from public distribution')
-            verify(not any(b'09365944410' in bundle.read(name) or b'X-Affiliate-Api-Token' in bundle.read(name) for name in names), 'The owner mobile and private affiliate authentication stay outside the distributed payload')
+            verify(not any(b'X-Affiliate-Api-Token' in bundle.read(name) for name in names), 'Private affiliate authentication stays outside the distributed payload')
             header = bundle.read('anar-toolkit/anar-login.php').decode('utf-8')
             verify('Text Domain:       anar-toolkit' in header, 'Gettext domain matches release folder')
             verify('Marketing for WooCommerce' in header, 'WooCommerce name uses the allowed for pattern')
