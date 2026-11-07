@@ -1,6 +1,6 @@
 <?php
 return array(
-'project-id-version' => 'Anar Toolkit 0.8.1',
+'project-id-version' => 'Anar Toolkit 0.8.2',
 'language' => 'fa_IR',
 'plural-forms' => 'nplurals=2; plural=(n > 1);',
 'messages' => array(
@@ -327,6 +327,7 @@ return array(
 'Kavenegar: token, token2, token3, token10, token20. Faraz/SMS.ir: exact approved variable names. Meli Payamak: variables in template order. Custom gateway: uses the message text and its {message} transport placeholder.' => 'کاوه‌نگار: token، token2، token3، token10 و token20. فراز و SMS.ir: نام دقیق متغیرهای قالب. ملی‌پیامک: ترتیب متغیرهای قالب. درگاه سفارشی: متن پیام با جای‌نگهدار {message} در تنظیمات اتصال ارسال می‌شود.',
 'Kavenegar: token, token2, token3, token10, token20. IPPanel/Faraz/SMS.ir: exact approved variable names. Meli Payamak: variables in template order. Custom gateway: uses the message text and its {message} transport placeholder.' => 'کاوه‌نگار: token، token2، token3، token10 و token20. آی‌پی‌پنل، فراز و SMS.ir: نام دقیق متغیرهای قالب. ملی‌پیامک: ترتیب متغیرهای قالب. درگاه سفارشی: متن پیام با جای‌نگهدار {message} در تنظیمات اتصال ارسال می‌شود.',
 'Kavenegar: token, token2, token3, token10, token20. IPPanel/Panelchi/Faraz/SMS.ir: exact approved variable names. Meli Payamak: variables in template order. Custom gateway: uses the message text and its {message} transport placeholder.' => 'کاوه‌نگار: token، token2، token3، token10 و token20. آی‌پی‌پنل، فراز و SMS.ir: نام دقیق متغیرهای قالب. ملی‌پیامک: ترتیب متغیرهای قالب. درگاه سفارشی: متن پیام با جای‌نگهدار {message} در تنظیمات اتصال ارسال می‌شود.',
+'Kavenegar: token, token2, token3, token10, token20. IPPanel/Panelchi/MaxSMS/Faraz/SMS.ir: exact approved variable names. Meli Payamak: variables in template order. Custom gateway: uses the message text and its {message} transport placeholder.' => 'کاوه‌نگار: token، token2، token3، token10 و token20. در IPPanel، پنل‌چی، MaxSMS، فراز و SMS.ir نام دقیق متغیرهای الگوی تأییدشده را وارد کنید. در ملی‌پیامک، ترتیب متغیرهای الگو رعایت می‌شود. درگاه سفارشی از متن پیام و متغیر {message} در تنظیمات ارسال استفاده می‌کند.',
 'Keep customers in the loop.' => 'مشتری را در جریان خریدش بگذارید.',
 'Keep me signed in on this device' => 'در این دستگاه وارد بمان',
 'Key extension points' => 'نقاط توسعه مهم',
@@ -352,6 +353,7 @@ return array(
 'Marketing retention in days' => 'مدت نگهداری دادهٔ بازاریابی به روز',
 'Marketing workspace' => 'میز کار بازاریابی',
 'Match the cards to complete your game.' => 'برای تکمیل بازی، کارت‌های همسان را پیدا کنید.',
+'MaxSMS uses source number 10001. Leave blank to use this default.' => 'سرشمارهٔ پیش‌فرض مکث‌اس‌ام‌اس 10001 است؛ برای استفاده از آن، این گزینه را خالی بگذارید.',
 'Maximum campaign messages per phone / day' => 'حداکثر پیام کمپین برای هر شماره در روز',
 'Maximum lifetime spend (0 = no maximum)' => 'حداکثر مجموع خرید (۰ یعنی بدون سقف)',
 'Maximum reminders per phone in 24 hours (1–10)' => 'سقف یادآوری هر شماره در ۲۴ ساعت (۱ تا ۱۰)',

@@ -53,6 +53,9 @@ final class NotificationSender {
 		if ( 'panelchi' === $provider ) {
 			return ( new Providers\Panelchi( $this->settings, $this->http ) )->send_template( $recipient, $template, $params );
 		}
+		if ( 'maxsms' === $provider ) {
+			return ( new Providers\MaxSms( $this->settings, $this->http ) )->send_template( $recipient, $template, $params );
+		}
 		$required = array(
 			'kavenegar'   => array( 'api_key' ),
 			'ippanel'     => array( 'api_key', 'from' ),

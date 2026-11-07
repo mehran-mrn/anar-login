@@ -227,7 +227,7 @@ final class Settings {
 		}
 		if ( empty( $provider_fields ) ) {
 			$builtin_fields  = array_fill_keys( array( 'api_key', 'username', 'password', 'from', 'template_id', 'code_parameter' ), '' );
-			$provider_fields = array_fill_keys( array( 'kavenegar', 'melipayamak', 'ippanel', 'panelchi', 'farazsms', 'smsir' ), $builtin_fields );
+			$provider_fields = array_fill_keys( array( 'kavenegar', 'melipayamak', 'ippanel', 'panelchi', 'maxsms', 'farazsms', 'smsir' ), $builtin_fields );
 		}
 
 		$secret_fields = $this->secret_fields();

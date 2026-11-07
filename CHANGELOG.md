@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.8.2 — 2026-11-07
+
+* Add MaxSMS to login, password recovery, store and campaign provider selections.
+* Reuse the Panelchi-compatible pattern transport with separate MaxSMS credentials and templates.
+* Add Persian guidance and regressions for OTP, multi-variable commerce delivery, rejected responses and credential isolation.
+
 ## 0.8.1 — 2026-11-06
 
 * Bundle and register complete Persian runtime catalogs so WordPress.org installs follow the site/user language without a separate download.

@@ -185,7 +185,7 @@ final class Admin {
 						}
 						$this->input( 'events][' . $key . '][message', __( 'Message text for a custom gateway / template reference', 'anar-toolkit' ), $event['message'], 'textarea', __( 'Built-in providers send the approved provider template, not this text. Keep its wording in sync with the approved template.', 'anar-toolkit' ) );
 						$this->input( 'events][' . $key . '][template', __( 'Approved provider template ID or name', 'anar-toolkit' ), $event['template'] );
-						$this->input( 'events][' . $key . '][params', __( 'Provider variables — one name={placeholder} per line', 'anar-toolkit' ), $event['params'], 'textarea', __( 'Kavenegar: token, token2, token3, token10, token20. IPPanel/Panelchi/Faraz/SMS.ir: exact approved variable names. Meli Payamak: variables in template order. Custom gateway: uses the message text and its {message} transport placeholder.', 'anar-toolkit' ) );
+						$this->input( 'events][' . $key . '][params', __( 'Provider variables — one name={placeholder} per line', 'anar-toolkit' ), $event['params'], 'textarea', __( 'Kavenegar: token, token2, token3, token10, token20. IPPanel/Panelchi/MaxSMS/Faraz/SMS.ir: exact approved variable names. Meli Payamak: variables in template order. Custom gateway: uses the message text and its {message} transport placeholder.', 'anar-toolkit' ) );
 						?>
 						<p><code>{site} {name} {order_id} {total} {currency} {status} {tracking_number} {carrier} {tracking_url} <?php echo isset( $event['minutes'] ) ? '{code} {minutes} {recovery_page} {unsubscribe_url} {coupon_code} {coupon_amount} {coupon_expires}' : ''; ?></code></p>
 						<?php if ( isset( $event['minutes'] ) ) : ?>
