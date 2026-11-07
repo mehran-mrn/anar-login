@@ -1,6 +1,6 @@
 # انار — ورود پیامکی، بازیابی خرید و بازاریابی ووکامرس
 
-راهنمای فارسی نسخهٔ ۰.۸.۱. ترجمهٔ رابط همراه افزونه نصب می‌شود؛ برای استفاده، زبان سایت یا کاربر را فارسی انتخاب کنید.
+راهنمای فارسی نسخهٔ ۰.۸.۲. ترجمهٔ رابط همراه افزونه نصب می‌شود؛ برای استفاده، زبان سایت یا کاربر را فارسی انتخاب کنید.
 
 ## معرفی
 
@@ -24,7 +24,7 @@
 
 **ترجمهٔ فارسی همراه افزونه است.** روی وردپرس یا حساب کاربری فارسی، رابط راست‌به‌چپ و ترجمه بدون نصب بستهٔ جداگانه فعال می‌شود. رابط انگلیسی نیز در دسترس است.
 
-**تمام امکانات همیشه رایگان‌اند.** هزینهٔ احتمالی حساب و پیامک را شرکت پیامکی دریافت می‌کند. پنل‌های پشتیبانی‌شده: کاوه‌نگار، ملی‌پیامک، IPPanel، پنل‌چی، فراز پیامک و SMS.ir؛ درگاه HTTPS سفارشی نیز وجود دارد.
+**تمام امکانات همیشه رایگان‌اند.** هزینهٔ احتمالی حساب و پیامک را شرکت پیامکی دریافت می‌کند. پنل‌های پشتیبانی‌شده: کاوه‌نگار، ملی‌پیامک، IPPanel، پنل‌چی، مکث‌اس‌ام‌اس (MaxSMS)، فراز پیامک و SMS.ir؛ درگاه HTTPS سفارشی نیز وجود دارد.
 
 Anar Toolkit provides SMS/email/Google login, SMS password reset, cart recovery, order updates and optional customer campaigns for WooCommerce. Includes Persian RTL and English LTR interfaces. All plugin features are free; SMS provider fees are separate.
 
@@ -130,6 +130,15 @@ Official service/account portal: https://panelchi.com/
 Official API documentation: https://docs.panelchi.com/redoc/
 Account activation, identity verification and an active approved pattern may be required by the provider. Access from servers outside Iran may be restricted. The plugin does not create accounts or patterns, complete identity verification, or poll delivery status automatically.
 Separate publicly accessible terms and privacy-policy URLs could not be verified. Obtain and review the applicable terms and data-processing/privacy notice from Panelchi before enabling this integration; the account portal and API documentation are not represented as privacy policies.
+
+### MaxSMS
+
+Endpoint: https://api.panelchi.com/sms/pattern (HTTPS POST).
+MaxSMS uses the Panelchi-compatible pattern API documented on its official webservice page. The provider receives the recipient, approved pattern slug, pattern variables, source number and Bearer API token at the delivery times described above. MaxSMS settings are stored separately from Panelchi settings; selecting MaxSMS does not reuse a Panelchi account token or pattern automatically. Login and commerce patterns remain separate.
+Official service: https://maxsms.co/
+Official integration documentation: https://maxsms.co/webservice/
+Shared API documentation: https://docs.panelchi.com/redoc/
+Account activation and approved patterns are managed by the provider. Review the applicable MaxSMS service terms and privacy notice, including processing by the shared Panelchi infrastructure, before enabling delivery. A separate public privacy-policy URL has not been verified; the service and API documentation are not represented as privacy policies.
 
 ### Faraz SMS
 

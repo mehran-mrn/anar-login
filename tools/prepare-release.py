@@ -22,7 +22,7 @@ def prepare(package: Path, output: Path, tag: str = '') -> str:
             parts = Path(name).parts
             if not name.startswith('anar-toolkit/') or '\\' in name or '..' in parts:
                 raise ValueError('Unexpected package path: ' + name)
-        for required in ('anar-login.php', 'readme.txt', 'src/Messaging/Providers/IPPanel.php', 'src/Messaging/Providers/Panelchi.php'):
+        for required in ('anar-login.php', 'readme.txt', 'src/Messaging/Providers/IPPanel.php', 'src/Messaging/Providers/Panelchi.php', 'src/Messaging/Providers/MaxSms.php'):
             if 'anar-toolkit/' + required not in names:
                 raise ValueError('Missing runtime file: ' + required)
         readme = bundle.read('anar-toolkit/readme.txt').decode('utf-8-sig')

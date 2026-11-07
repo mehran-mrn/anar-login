@@ -1,8 +1,8 @@
-# Anar Toolkit 0.8.1
+# Anar Toolkit 0.8.2
 
 Optional WooCommerce order notifications, automatic cart recovery, customer campaigns and promotional tools, alongside SMS/email/Google login and SMS password recovery. See [commerce documentation](docs/commerce.md), [provider support messages](docs/support-messages-fa.md), and [review reply draft](docs/reviewer-response.md).
 
-Build the public release with `python tools/package.py --output dist/anar-toolkit.zip`. All six built-in providers, including IPPanel and Panelchi, are included. Development dependencies and editable translation sources are excluded. Compiled Persian MO/PHP catalogs are included so installation does not require a separate language pack.
+Build the public release with `python tools/package.py --output dist/anar-toolkit.zip`. All seven built-in providers, including IPPanel, Panelchi and MaxSMS, are included. Development dependencies and editable translation sources are excluded. Compiled Persian MO/PHP catalogs are included so installation does not require a separate language pack.
 
 Stable GitHub releases publish automatically to [WordPress.org](https://wordpress.org/plugins/anar-toolkit/) after the release checks pass. Configure repository Actions secrets `SVN_USERNAME=mrnwp` and `SVN_PASSWORD` with the WordPress.org SVN password, then publish a release tagged with the plugin version (for example `0.8.0`). Ordinary commits run checks. See [publishing instructions](docs/publishing.md).
 
@@ -24,7 +24,7 @@ Product website: https://mrnwp.ir/
 
 - Passwordless sign-in and registration with an Iranian mobile number or email address
 - Google OAuth 2.0 sign-in
-- Built-in Kavenegar, Meli Payamak, IPPanel, Panelchi, Faraz SMS, and SMS.ir providers
+- Built-in Kavenegar, Meli Payamak, IPPanel, Panelchi, MaxSMS, Faraz SMS, and SMS.ir providers
 - Extensible SMS provider contract and WordPress hooks
 - Hashed OTP storage, atomic verification attempts and request limits, single use, expiration, and scheduled cleanup
 - Per-identity and per-IP rate limits, resend cooldowns, and verification attempt limits
@@ -58,6 +58,7 @@ Product website: https://mrnwp.ir/
 | Meli Payamak | BaseServiceNumber | Username, password, body ID |
 | IPPanel | Edge Pattern API | Access token, sender, pattern code, variable name |
 | Panelchi | Pattern API | API token, approved pattern slug, code variable; sender defaults to 10001 |
+| MaxSMS | Panelchi-compatible Pattern API | Separate MaxSMS API token, approved pattern slug and code variable; sender defaults to 10001 |
 | Faraz SMS | IPPanel-compatible legacy pattern API | Username, password, sender, pattern code, variable name |
 | SMS.ir | Verify API v1 | API key, template ID, parameter name |
 | Custom gateway | Any HTTP API | Endpoint URL, parameters, optional headers and success text |

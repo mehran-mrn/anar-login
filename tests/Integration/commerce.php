@@ -100,10 +100,19 @@ try {
 	update_option( Settings::OPTION, $config );
 	$module->register();
 	$login_data = $old_login;
-	foreach ( array( 'kavenegar', 'ippanel', 'panelchi', 'farazsms', 'melipayamak', 'smsir' ) as $provider ) {
+	foreach ( array( 'kavenegar', 'ippanel', 'panelchi', 'maxsms', 'farazsms', 'melipayamak', 'smsir' ) as $provider ) {
 		$login_data[ 'provider_' . $provider ] = array( 'api_key' => 'TEST-ONLY', 'username' => 'TEST-ONLY', 'password' => 'TEST-ONLY', 'from' => '1000' );
 	}
+	$login_data['provider_maxsms']['api_key'] = 'MAXSMS-TEST-ONLY';
 	update_option( \Anar\Login\Infrastructure\Settings::OPTION_KEY, $login_data );
+	$preserve = $login_data;
+	$preserve['sms_provider'] = 'maxsms';
+	$preserve['provider_maxsms']['api_key'] = '';
+	$preserve['provider_panelchi']['api_key'] = '';
+	$sanitized = $login->sanitize( $preserve, ( new \Anar\Login\Messaging\ProviderRegistry( $login ) )->all() );
+	anar_toolkit_assert( 'maxsms' === $sanitized['sms_provider'] && 'MAXSMS-TEST-ONLY' === $sanitized['provider_maxsms']['api_key'] && 'TEST-ONLY' === $sanitized['provider_panelchi']['api_key'], 'Saving settings preserves MaxSMS and Panelchi secrets independently' );
+	$sanitized = $login->sanitize( $preserve );
+	anar_toolkit_assert( 'MAXSMS-TEST-ONLY' === $sanitized['provider_maxsms']['api_key'], 'Fallback settings sanitization retains MaxSMS credentials' );
 
 	$contact = $repo->consent( '+989123456789', 'shopper@example.test', Module::consent_text() );
 	anar_toolkit_assert( $contact > 0, 'Consent persisted with phone, email and timestamp' );
@@ -174,7 +183,7 @@ try {
 
 	$vars = array( 'order_id' => '123', 'total' => '120000', 'code' => '123456', 'recovery_page' => 'https://example.test/recovery', 'unsubscribe_url' => 'https://example.test/stop' );
 	$event = array( 'template' => '123', 'message' => '{order_id}', 'params' => 'ORDER={order_id}' );
-	foreach ( array( 'ippanel', 'panelchi', 'farazsms', 'melipayamak', 'smsir' ) as $provider ) {
+	foreach ( array( 'ippanel', 'panelchi', 'maxsms', 'farazsms', 'melipayamak', 'smsir' ) as $provider ) {
 		$available = ( new \Anar\Login\Messaging\ProviderRegistry( $login ) )->all();
 		if ( ! isset( $available[ $provider ] ) ) {
 			anar_toolkit_assert( is_wp_error( $sender->send( $provider, '+989123456789', $event, $vars ) ), $provider . ' is unavailable in the public release' );

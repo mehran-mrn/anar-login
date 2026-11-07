@@ -4,7 +4,7 @@ Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.8.1
+Stable tag: 0.8.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,7 +32,7 @@ The complete Persian (fa_IR) translation is bundled with the plugin. Set your Wo
 
 Active features appear first. Inactive capabilities stay below with their guides and activation switches; their storefront services and files are not loaded. Administrator reports query only the selected section. New store and campaign modules start disabled.
 
-Built-in SMS providers: Kavenegar, Meli Payamak, IPPanel, Panelchi, Faraz SMS and SMS.ir, plus a custom HTTPS gateway. Use your own account and approved templates. Provider acceptance does not confirm handset delivery.
+Built-in SMS providers: Kavenegar, Meli Payamak, IPPanel, Panelchi, MaxSMS, Faraz SMS and SMS.ir, plus a custom HTTPS gateway. Use your own account and approved templates. Provider acceptance does not confirm handset delivery.
 
 **100% free, forever, with all features included.** No Pro edition, plugin subscription, license key or feature paywall. SMS providers charge separately for their accounts and message credits.
 
@@ -136,6 +136,15 @@ Official API documentation: https://docs.panelchi.com/redoc/
 Account activation, identity verification and an active approved pattern may be required by the provider. Access from servers outside Iran may be restricted. The plugin does not create accounts or patterns, complete identity verification, or poll delivery status automatically.
 Separate publicly accessible terms and privacy-policy URLs could not be verified. Obtain and review the applicable terms and data-processing/privacy notice from Panelchi before enabling this integration; the account portal and API documentation are not represented as privacy policies.
 
+= MaxSMS =
+
+Endpoint: https://api.panelchi.com/sms/pattern (HTTPS POST).
+MaxSMS uses the Panelchi-compatible pattern API documented on its official webservice page. The provider receives the recipient, approved pattern slug, pattern variables, source number and Bearer API token at the delivery times described above. MaxSMS settings are stored separately from Panelchi settings; selecting MaxSMS does not reuse a Panelchi account token or pattern automatically. Login and commerce patterns remain separate.
+Official service: https://maxsms.co/
+Official integration documentation: https://maxsms.co/webservice/
+Shared API documentation: https://docs.panelchi.com/redoc/
+Account activation and approved patterns are managed by the provider. Review the applicable MaxSMS service terms and privacy notice, including processing by the shared Panelchi infrastructure, before enabling delivery. A separate public privacy-policy URL has not been verified; the service and API documentation are not represented as privacy policies.
+
 = Faraz SMS =
 
 Endpoint: https://ippanel.com/patterns/pattern
@@ -186,6 +195,11 @@ Uninstall preserves data unless deletion was explicitly enabled beforehand. It d
 
 == Changelog ==
 
+= 0.8.2 =
+* Add MaxSMS as a separate provider for login, password recovery, store notifications and customer campaigns.
+* Share the Panelchi-compatible transport while keeping MaxSMS credentials and patterns independent.
+* Include Persian guidance and transport, credential-isolation and actual-package regression checks.
+
 = 0.8.1 =
 * Include complete Persian runtime catalogs so Persian installations work without a separate language ZIP.
 * Refresh the listing, setup and FAQ for the expanded feature set and link the full Persian guide.
@@ -199,6 +213,9 @@ Uninstall preserves data unless deletion was explicitly enabled beforehand. It d
 Full history: https://github.com/mehran-mrn/anar-login/blob/main/CHANGELOG.md
 
 == Upgrade Notice ==
+
+= 0.8.2 =
+MaxSMS is now available in the provider lists. Configure your MaxSMS account token and approved patterns separately.
 
 = 0.8.1 =
 Persian translations are now included. Choose Persian for the site or user; a separate language ZIP is no longer required.

@@ -37,6 +37,15 @@ Official API documentation: https://docs.panelchi.com/redoc/
 Account activation, identity verification and an active approved pattern may be required by the provider. Access from servers outside Iran may be restricted. The plugin does not create accounts or patterns, complete identity verification, or poll delivery status automatically.
 Separate publicly accessible terms and privacy-policy URLs could not be verified. Obtain and review the applicable terms and data-processing/privacy notice from Panelchi before enabling this integration; the account portal and API documentation are not represented as privacy policies.
 
+= MaxSMS =
+
+Endpoint: https://api.panelchi.com/sms/pattern (HTTPS POST).
+MaxSMS uses the Panelchi-compatible pattern API documented on its official webservice page. The provider receives the recipient, approved pattern slug, pattern variables, source number and Bearer API token at the delivery times described above. MaxSMS settings are stored separately from Panelchi settings; selecting MaxSMS does not reuse a Panelchi account token or pattern automatically. Login and commerce patterns remain separate.
+Official service: https://maxsms.co/
+Official integration documentation: https://maxsms.co/webservice/
+Shared API documentation: https://docs.panelchi.com/redoc/
+Account activation and approved patterns are managed by the provider. Review the applicable MaxSMS service terms and privacy notice, including processing by the shared Panelchi infrastructure, before enabling delivery. A separate public privacy-policy URL has not been verified; the service and API documentation are not represented as privacy policies.
+
 = Faraz SMS =
 
 Endpoint: https://ippanel.com/patterns/pattern

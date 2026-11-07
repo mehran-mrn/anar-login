@@ -13,6 +13,7 @@ use Anar\Login\Messaging\Providers\FarazSms;
 use Anar\Login\Messaging\Providers\IPPanel;
 use Anar\Login\Messaging\Providers\Kavenegar;
 use Anar\Login\Messaging\Providers\Melipayamak;
+use Anar\Login\Messaging\Providers\MaxSms;
 use Anar\Login\Messaging\Providers\Panelchi;
 use Anar\Login\Messaging\Providers\SmsIr;
 use WP_Error;
@@ -58,7 +59,7 @@ final class ProviderRegistry {
 
 		$http            = new HttpClient();
 		$this->providers = array();
-		foreach ( array( Kavenegar::class, Melipayamak::class, IPPanel::class, Panelchi::class, FarazSms::class, SmsIr::class, CustomHttp::class ) as $class ) {
+		foreach ( array( Kavenegar::class, Melipayamak::class, IPPanel::class, Panelchi::class, MaxSms::class, FarazSms::class, SmsIr::class, CustomHttp::class ) as $class ) {
 			$provider                            = new $class( $this->settings, $http );
 			$this->providers[ $provider->key() ] = $provider;
 		}
