@@ -70,7 +70,8 @@
 		submit.textContent = labels.posting; errorBox.hidden = true;
 		try {
 			const fields = new FormData(form);
-			const data = await request('register', {first_name:fields.get('first_name') || '', last_name:fields.get('last_name') || '', mobile_number:fields.get('mobile_number') || '', product_code:Number(fields.get('product_code')), website:fields.get('website') || '', consent:fields.get('consent') === 'on', ticket});
+			// The labelled form is submitted deliberately; there is no separate consent checkbox.
+			const data = await request('register', {first_name:fields.get('first_name') || '', last_name:fields.get('last_name') || '', mobile_number:fields.get('mobile_number') || '', product_code:Number(fields.get('product_code')), website:fields.get('website') || '', consent:true, ticket});
 			const url = new URL(data.invoice_url);
 			if (url.protocol !== 'https:' || url.hostname !== 'sign.melipayamak.com' || url.port || url.username || url.password || url.search || url.hash || !/^\/invoice\/[0-9]+\/?$/.test(url.pathname)) throw new Error(labels.failed);
 			dialog.querySelector('[data-meli-payment]').href = url.href;

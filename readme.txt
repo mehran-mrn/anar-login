@@ -4,7 +4,7 @@ Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.8.4
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -120,13 +120,13 @@ A separate public privacy-policy link could not be verified during release prepa
 
 = Optional Meli Payamak partner registration =
 
-The Meli Payamak settings show discount code MPSMVDR and the direct affiliate link https://melipayamak.com/?aff=SMVDR. Anar receives commission from referred purchases and usage. Registration is optional; existing accounts and all other providers remain available. Listing Meli Payamak first does not change the saved provider.
+The Meli Payamak settings show the copyable account top-up discount code MPSMVDR and the direct affiliate link https://melipayamak.com/?aff=SMVDR. Anar receives commission from referred purchases and usage. Registration is optional; existing accounts and all other providers remain available. Listing Meli Payamak first does not change the saved provider.
 
 Only when an administrator chooses registration, the plugin contacts https://mrnwp.ir/wp-json/mrnwp-partners/v1/melipayamak/products to check availability and plans. There are no automatic signup-service requests on page loads or provider selection. Without a configured service, valid plans or JavaScript support, the direct affiliate registration link is used.
 
-After explicit form consent and submission, first name, last name, mobile number, plan code and a short-lived request ticket are sent to https://mrnwp.ir/wp-json/mrnwp-partners/v1/melipayamak/register. MRNWP forwards the four registration fields to https://affiliate.melipayamak.com/api/v1/affiliate/fast-register. It retrieves plans from https://affiliate.melipayamak.com/api/v1/affiliate/products using a private affiliate token and matching affiliate mobile held only on the MRNWP server. No affiliate token is shipped in this plugin, localized to JavaScript or requested from merchant sites.
+After deliberately submitting the clearly labelled registration form, first name, last name, mobile number, plan code and a short-lived request ticket are sent to https://mrnwp.ir/wp-json/mrnwp-partners/v1/melipayamak/register. MRNWP forwards the four registration fields to https://affiliate.melipayamak.com/api/v1/affiliate/fast-register. It retrieves plans from https://affiliate.melipayamak.com/api/v1/affiliate/products using a private affiliate token and matching affiliate mobile held only on the MRNWP server. No affiliate token is shipped in this plugin, localized to JavaScript or requested from merchant sites.
 
-MRNWP does not retain submitted names or raw phone numbers in its application records. It temporarily retains keyed abuse-prevention identifiers, request status and successful invoice links, with daily bounded cleanup of records older than one hour. Hosting access/security logs may separately retain connection metadata according to host policy. Payment happens at https://sign.melipayamak.com/invoice/ and is not confirmed by Anar. Account activation, service credentials and approved patterns remain separate. The documented API has no coupon field; review the discount and final invoice before payment. Prices are displayed only if their currency has been confirmed by the service operator.
+MRNWP does not retain submitted names or raw phone numbers in its application records. It temporarily retains keyed abuse-prevention identifiers, request status and successful invoice links, with daily bounded cleanup of records older than one hour. Hosting access/security logs may separately retain connection metadata according to host policy. Payment happens at https://sign.melipayamak.com/invoice/ and is not confirmed by Anar. Account activation, service credentials and approved patterns remain separate. The discount code is for account top-ups and is copied manually; it is not sent to the registration API or applied to the registration invoice. Prices are displayed only if their currency has been confirmed by the service operator.
 
 MRNWP privacy: https://mrnwp.ir/privacy/
 Meli Payamak terms: https://www.melipayamak.com/rules/
@@ -208,6 +208,10 @@ Uninstall preserves data unless deletion was explicitly enabled beforehand. It d
 
 == Changelog ==
 
+= 1.0.0 =
+* Simplify Meli Payamak signup by replacing the separate checkbox with deliberate form submission.
+* Show the copyable MPSMVDR code for account top-ups, separately from registration payment.
+
 = 0.8.4 =
 * Add a copyable Meli Payamak discount code and a disclosed affiliate signup link.
 * Offer optional administrator-only quick registration when the MRNWP signup service is configured; otherwise open the referral link.
@@ -234,6 +238,9 @@ Uninstall preserves data unless deletion was explicitly enabled beforehand. It d
 Full history: https://github.com/mehran-mrn/anar-login/blob/main/CHANGELOG.md
 
 == Upgrade Notice ==
+
+= 1.0.0 =
+The signup form is shorter. The Anar discount code is for account top-ups and can be copied from the Meli Payamak settings or signup dialog.
 
 = 0.8.4 =
 Meli Payamak settings now include the Anar discount code and optional partner signup. Existing delivery settings remain unchanged.

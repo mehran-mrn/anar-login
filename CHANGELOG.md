@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.0 — 2026-11-07
+
+* Remove the separate signup consent checkbox and lengthy explanation; keep clear form submission and service/privacy links.
+* Present MPSMVDR as a copyable account top-up discount code, separately from registration invoices.
+
 ## 0.8.4 — 2026-11-07
 
 * Add the Meli Payamak Anar-user discount badge, copyable MPSMVDR code and disclosed referral signup.
