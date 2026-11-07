@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: Anar Toolkit 0.8.4\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
+msgstr "Project-Id-Version: Anar Toolkit 0.8.5\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
 
 msgid "%1$s: Your password reset code is %2$s. It expires in 5 minutes. Do not share this code."
 msgstr "%1$s: کد بازنشانی رمز عبور شما %2$s است و تا ۵ دقیقه اعتبار دارد. این کد را در اختیار دیگران نگذارید."
@@ -103,6 +103,9 @@ msgstr "روش‌های ورود به حساب"
 msgid "Account status"
 msgstr "وضعیت حساب"
 
+msgid "Account top-up discount code"
+msgstr "کد تخفیف شارژ پنل"
+
 msgid "Action"
 msgstr "عملیات"
 
@@ -138,9 +141,6 @@ msgstr "شماره موبایل مدیران (حداکثر ۵ شماره، هر 
 
 msgid "Administrators, editors and shop managers"
 msgstr "مدیران، ویرایشگران و مدیران فروشگاه"
-
-msgid "Affiliate partnership: Anar receives a commission from referred purchases and usage. Choosing registration checks the optional MRNWP signup service; if unavailable, the referral website opens. Existing accounts and other SMS providers remain available."
-msgstr "این مسیر همکاری در فروش است و انار از خرید و مصرف حساب‌های معرفی‌شده سهم دریافت می‌کند. با انتخاب ثبت‌نام، آماده‌بودن سرویس ثبت‌نام انار بررسی می‌شود؛ در صورت در دسترس نبودن آن، سایت ملی‌پیامک با کد معرف باز می‌شود. حساب‌های موجود و سایر پنل‌ها نیز قابل استفاده‌اند."
 
 msgid "After a correct password, a code is sent to the account’s mobile, or its email when no mobile is linked. Code and Google sign-ins skip this step, as they already prove ownership."
 msgstr "پس از واردکردن رمز درست، کدی به موبایل حساب (یا اگر موبایلی ثبت نشده، به ایمیل آن) ارسال می‌شود. ورود با کد یکبارمصرف و گوگل این مرحله را ندارد، چون خودشان مالکیت را ثابت می‌کنند."
@@ -192,6 +192,9 @@ msgstr "تخفیف بازیابی خرید انار"
 
 msgid "Anar purchase reminders"
 msgstr "یادآوری خرید انار"
+
+msgid "Anar receives a commission from purchases and usage of referred accounts."
+msgstr "انار از خرید و مصرف حساب‌های معرفی‌شده سهم دریافت می‌کند."
 
 msgid "Anar shipment tracking"
 msgstr "رهگیری مرسولهٔ انار"
@@ -340,8 +343,8 @@ msgstr "اطلاعات فرم ثبت‌نام را بررسی و اصلاح کن
 msgid "Checking available registration plans…"
 msgstr "در حال بررسی طرح‌های ثبت‌نام…"
 
-msgid "Choose a plan and enter the account holder details. Payment takes place on Meli Payamak, after reviewing its invoice."
-msgstr "طرح موردنظر را انتخاب و مشخصات صاحب حساب را وارد کنید. پرداخت پس از بررسی فاکتور در سایت ملی‌پیامک انجام می‌شود."
+msgid "Choose a plan and enter the account holder details. Submitting this form sends these details through Anar to Meli Payamak to create your account."
+msgstr "طرح موردنظر و مشخصات صاحب حساب را وارد کنید. با ارسال فرم، این اطلاعات از طریق انار برای ساخت حساب به ملی‌پیامک فرستاده می‌شود."
 
 msgid "Choose an unmatched card."
 msgstr "کارتی را انتخاب کنید که هنوز جفت نشده است."
@@ -478,6 +481,9 @@ msgstr "کپی کد تخفیف"
 msgid "Copy failed"
 msgstr "ناموفق"
 
+msgid "Copy the Anar discount code to use when topping up your Meli Payamak account."
+msgstr "کد تخفیف کاربران انار را برای شارژ پنل ملی‌پیامک کپی کنید."
+
 msgid "Copy the verified mobile number into an empty billing phone, so checkout is pre-filled."
 msgstr "شمارهٔ موبایل تأییدشده در تلفن صورتحساب خالی ذخیره می‌شود تا فرم تسویه‌حساب از قبل پر باشد."
 
@@ -591,12 +597,6 @@ msgstr "بخش‌های غیرفعال فایل نمایشی بارگذاری ن
 
 msgid "Discount amount"
 msgstr "مقدار تخفیف"
-
-msgid "Discount code: MPSMVDR. Automatic application is not confirmed by this API; check the final amount and discount with Meli Payamak before payment."
-msgstr "کد تخفیف: MPSMVDR. اعمال خودکار این کد در وب‌سرویس تأیید نشده است؛ مبلغ نهایی و تخفیف را پیش از پرداخت در ملی‌پیامک بررسی کنید."
-
-msgid "Discount code: MPSMVDR. Check that the discount is applied and review the final invoice amount before payment."
-msgstr "کد تخفیف: MPSMVDR. پیش از پرداخت، اعمال تخفیف و مبلغ نهایی فاکتور را بررسی کنید."
 
 msgid "Discount type"
 msgstr "نوع تخفیف"
@@ -930,9 +930,6 @@ msgstr "خرید شما چطور بود؟"
 
 msgid "How was your purchase? Share your honest feedback."
 msgstr "خریدتان چطور بود؟ بازخورد خود را با ما به اشتراک بگذارید."
-
-msgid "I agree to sending my name, mobile number and selected plan through MRNWP to Meli Payamak to create an account. This is an affiliate signup."
-msgstr "با ارسال نام، نام خانوادگی، شماره همراه و طرح انتخابی از طریق سرویس MRNWP به ملی‌پیامک برای ساخت حساب موافقم. این ثبت‌نام از مسیر همکاری در فروش انجام می‌شود."
 
 msgid "If a consented unfinished purchase exists, a new code will be sent shortly. Please wait before trying again."
 msgstr "اگر خرید ناتمام همراه با رضایت ثبت‌شده وجود داشته باشد، کد جدید به‌زودی پیامک می‌شود. پیش از تلاش دوباره کمی صبر کنید."
@@ -2313,9 +2310,6 @@ msgstr "استفاده از سرویس فروشگاه"
 
 msgid "Use on your site"
 msgstr "استفاده در سایت"
-
-msgid "Use the Anar discount code when registering and check the discount conditions on your invoice."
-msgstr "هنگام ثبت‌نام از کد تخفیف انار استفاده کنید و شرایط تخفیف را در فاکتور بررسی کنید."
 
 msgid "Use the exact variable names from the approved provider template, one name={placeholder} per line. Include {unsubscribe_url}; surveys also require {action_url}."
 msgstr "نام دقیق متغیرهای الگوی تأییدشدهٔ پنل را وارد کنید؛ هر name={placeholder} در یک خط. {unsubscribe_url} الزامی است و نظرسنجی به {action_url} نیز نیاز دارد."

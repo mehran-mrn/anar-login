@@ -553,16 +553,12 @@
   "Kavenegar: token, token2, token3, token10, token20. IPPanel/Panelchi/MaxSMS/Faraz/SMS.ir: exact approved variable names. Meli Payamak: variables in template order. Custom gateway: uses the message text and its {message} transport placeholder.": "کاوه‌نگار: token، token2، token3، token10 و token20. در IPPanel، پنل‌چی، MaxSMS، فراز و SMS.ir نام دقیق متغیرهای الگوی تأییدشده را وارد کنید. در ملی‌پیامک، ترتیب متغیرهای الگو رعایت می‌شود. درگاه سفارشی از متن پیام و متغیر {message} در تنظیمات ارسال استفاده می‌کند.",
   "Anar user discount": "تخفیف کاربران انار",
   "Need a Meli Payamak account?": "پنل ملی‌پیامک ندارید؟",
-  "Use the Anar discount code when registering and check the discount conditions on your invoice.": "هنگام ثبت‌نام از کد تخفیف انار استفاده کنید و شرایط تخفیف را در فاکتور بررسی کنید.",
   "Copy discount code": "کپی کد تخفیف",
   "Register with Meli Payamak": "ثبت‌نام در ملی‌پیامک",
-  "Affiliate partnership: Anar receives a commission from referred purchases and usage. Choosing registration checks the optional MRNWP signup service; if unavailable, the referral website opens. Existing accounts and other SMS providers remain available.": "این مسیر همکاری در فروش است و انار از خرید و مصرف حساب‌های معرفی‌شده سهم دریافت می‌کند. با انتخاب ثبت‌نام، آماده‌بودن سرویس ثبت‌نام انار بررسی می‌شود؛ در صورت در دسترس نبودن آن، سایت ملی‌پیامک با کد معرف باز می‌شود. حساب‌های موجود و سایر پنل‌ها نیز قابل استفاده‌اند.",
   "Meli Payamak quick signup": "ثبت‌نام سریع ملی‌پیامک",
   "Close signup": "بستن فرم ثبت‌نام",
-  "Choose a plan and enter the account holder details. Payment takes place on Meli Payamak, after reviewing its invoice.": "طرح موردنظر را انتخاب و مشخصات صاحب حساب را وارد کنید. پرداخت پس از بررسی فاکتور در سایت ملی‌پیامک انجام می‌شود.",
   "Account plan": "طرح پنل",
   "First name (optional)": "نام (اختیاری)",
-  "I agree to sending my name, mobile number and selected plan through MRNWP to Meli Payamak to create an account. This is an affiliate signup.": "با ارسال نام، نام خانوادگی، شماره همراه و طرح انتخابی از طریق سرویس MRNWP به ملی‌پیامک برای ساخت حساب موافقم. این ثبت‌نام از مسیر همکاری در فروش انجام می‌شود.",
   "Meli Payamak terms": "شرایط ملی‌پیامک",
   "MRNWP privacy": "حریم خصوصی MRNWP",
   "Create account and get invoice": "ثبت اطلاعات و دریافت فاکتور",
@@ -578,5 +574,8 @@
   "Enter a last name, a valid Iranian mobile number and a plan.": "نام خانوادگی، شماره همراه معتبر ایران و طرح موردنظر را وارد کنید.",
   "Your invoice is ready. Continue on Meli Payamak to review the amount and pay. SMS setup is completed separately.": "فاکتور آماده است. برای بررسی مبلغ و پرداخت، وارد سایت ملی‌پیامک شوید. تنظیم اتصال پیامکی جداگانه انجام می‌شود.",
   "Too many registration requests. Please try again later.": "تعداد درخواست‌های ثبت‌نام بیش از حد مجاز است. بعداً دوباره تلاش کنید.",
-  "Discount code: MPSMVDR. Check that the discount is applied and review the final invoice amount before payment.": "کد تخفیف: MPSMVDR. پیش از پرداخت، اعمال تخفیف و مبلغ نهایی فاکتور را بررسی کنید."
+  "Copy the Anar discount code to use when topping up your Meli Payamak account.": "کد تخفیف کاربران انار را برای شارژ پنل ملی‌پیامک کپی کنید.",
+  "Anar receives a commission from purchases and usage of referred accounts.": "انار از خرید و مصرف حساب‌های معرفی‌شده سهم دریافت می‌کند.",
+  "Choose a plan and enter the account holder details. Submitting this form sends these details through Anar to Meli Payamak to create your account.": "طرح موردنظر و مشخصات صاحب حساب را وارد کنید. با ارسال فرم، این اطلاعات از طریق انار برای ساخت حساب به ملی‌پیامک فرستاده می‌شود.",
+  "Account top-up discount code": "کد تخفیف شارژ پنل"
 }
