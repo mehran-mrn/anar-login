@@ -595,6 +595,9 @@ msgstr "مقدار تخفیف"
 msgid "Discount code: MPSMVDR. Automatic application is not confirmed by this API; check the final amount and discount with Meli Payamak before payment."
 msgstr "کد تخفیف: MPSMVDR. اعمال خودکار این کد در وب‌سرویس تأیید نشده است؛ مبلغ نهایی و تخفیف را پیش از پرداخت در ملی‌پیامک بررسی کنید."
 
+msgid "Discount code: MPSMVDR. Check that the discount is applied and review the final invoice amount before payment."
+msgstr "کد تخفیف: MPSMVDR. پیش از پرداخت، اعمال تخفیف و مبلغ نهایی فاکتور را بررسی کنید."
+
 msgid "Discount type"
 msgstr "نوع تخفیف"
 

@@ -562,7 +562,6 @@
   "Choose a plan and enter the account holder details. Payment takes place on Meli Payamak, after reviewing its invoice.": "طرح موردنظر را انتخاب و مشخصات صاحب حساب را وارد کنید. پرداخت پس از بررسی فاکتور در سایت ملی‌پیامک انجام می‌شود.",
   "Account plan": "طرح پنل",
   "First name (optional)": "نام (اختیاری)",
-  "Discount code: MPSMVDR. Automatic application is not confirmed by this API; check the final amount and discount with Meli Payamak before payment.": "کد تخفیف: MPSMVDR. اعمال خودکار این کد در وب‌سرویس تأیید نشده است؛ مبلغ نهایی و تخفیف را پیش از پرداخت در ملی‌پیامک بررسی کنید.",
   "I agree to sending my name, mobile number and selected plan through MRNWP to Meli Payamak to create an account. This is an affiliate signup.": "با ارسال نام، نام خانوادگی، شماره همراه و طرح انتخابی از طریق سرویس MRNWP به ملی‌پیامک برای ساخت حساب موافقم. این ثبت‌نام از مسیر همکاری در فروش انجام می‌شود.",
   "Meli Payamak terms": "شرایط ملی‌پیامک",
   "MRNWP privacy": "حریم خصوصی MRNWP",
@@ -578,5 +577,6 @@
   "Check the registration fields and try again.": "اطلاعات فرم ثبت‌نام را بررسی و اصلاح کنید.",
   "Enter a last name, a valid Iranian mobile number and a plan.": "نام خانوادگی، شماره همراه معتبر ایران و طرح موردنظر را وارد کنید.",
   "Your invoice is ready. Continue on Meli Payamak to review the amount and pay. SMS setup is completed separately.": "فاکتور آماده است. برای بررسی مبلغ و پرداخت، وارد سایت ملی‌پیامک شوید. تنظیم اتصال پیامکی جداگانه انجام می‌شود.",
-  "Too many registration requests. Please try again later.": "تعداد درخواست‌های ثبت‌نام بیش از حد مجاز است. بعداً دوباره تلاش کنید."
+  "Too many registration requests. Please try again later.": "تعداد درخواست‌های ثبت‌نام بیش از حد مجاز است. بعداً دوباره تلاش کنید.",
+  "Discount code: MPSMVDR. Check that the discount is applied and review the final invoice amount before payment.": "کد تخفیف: MPSMVDR. پیش از پرداخت، اعمال تخفیف و مبلغ نهایی فاکتور را بررسی کنید."
 }

@@ -202,6 +202,7 @@ return array(
 'Disabled modules do not load storefront assets or run feature queries. Existing personal-coupon restrictions and scheduled data cleanup remain in effect.' => 'بخش‌های غیرفعال فایل نمایشی بارگذاری نمی‌کنند و پرس‌وجوی اختصاصی اجرا نمی‌کنند. محدودیت کوپن‌های اختصاصی صادرشده و پاک‌سازی دوره‌ای اطلاعات همچنان برقرار است.',
 'Discount amount' => 'مقدار تخفیف',
 'Discount code: MPSMVDR. Automatic application is not confirmed by this API; check the final amount and discount with Meli Payamak before payment.' => 'کد تخفیف: MPSMVDR. اعمال خودکار این کد در وب‌سرویس تأیید نشده است؛ مبلغ نهایی و تخفیف را پیش از پرداخت در ملی‌پیامک بررسی کنید.',
+'Discount code: MPSMVDR. Check that the discount is applied and review the final invoice amount before payment.' => 'کد تخفیف: MPSMVDR. پیش از پرداخت، اعمال تخفیف و مبلغ نهایی فاکتور را بررسی کنید.',
 'Discount type' => 'نوع تخفیف',
 'Discount validity in hours' => 'اعتبار تخفیف به ساعت',
 'Display name' => 'نام نمایشی',
