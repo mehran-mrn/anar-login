@@ -4,7 +4,7 @@ Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.8.2
+Stable tag: 0.8.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,7 +36,7 @@ Built-in SMS providers: Kavenegar, Meli Payamak, IPPanel, Panelchi, MaxSMS, Fara
 
 **100% free, forever, with all features included.** No Pro edition, plugin subscription, license key or feature paywall. SMS providers charge separately for their accounts and message credits.
 
-[Persian feature and setup guide](https://github.com/mehran-mrn/anar-login/blob/main/docs/plugin-page-fa.md) | [Source and support](https://github.com/mehran-mrn/anar-login) | [MRNWP](https://mrnwp.ir/)
+[Persian feature and setup guide](https://github.com/mehran-mrn/anar-login/blob/main/docs/plugin-page-fa.md) | [Source and support](https://github.com/mehran-mrn/anar-login) | [Product website and Persian guide](https://mrnwp.ir/anar/) | [English product page](https://mrnwp.ir/anar/en/)
 
 == Installation ==
 
@@ -195,6 +195,9 @@ Uninstall preserves data unless deletion was explicitly enabled beforehand. It d
 
 == Changelog ==
 
+= 0.8.3 =
+* Link the dedicated bilingual Anar product pages from plugin metadata, administration and the WordPress.org listing.
+
 = 0.8.2 =
 * Add MaxSMS as a separate provider for login, password recovery, store notifications and customer campaigns.
 * Share the Panelchi-compatible transport while keeping MaxSMS credentials and patterns independent.
@@ -213,6 +216,9 @@ Uninstall preserves data unless deletion was explicitly enabled beforehand. It d
 Full history: https://github.com/mehran-mrn/anar-login/blob/main/CHANGELOG.md
 
 == Upgrade Notice ==
+
+= 0.8.3 =
+The dedicated Anar product pages now include features, setup guidance and the stable latest-version download.
 
 = 0.8.2 =
 MaxSMS is now available in the provider lists. Configure your MaxSMS account token and approved patterns separately.

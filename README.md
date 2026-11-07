@@ -1,4 +1,4 @@
-# Anar Toolkit 0.8.2
+# Anar Toolkit 0.8.3
 
 Optional WooCommerce order notifications, automatic cart recovery, customer campaigns and promotional tools, alongside SMS/email/Google login and SMS password recovery. See [commerce documentation](docs/commerce.md), [provider support messages](docs/support-messages-fa.md), and [review reply draft](docs/reviewer-response.md).
 
@@ -18,7 +18,8 @@ Anar Toolkit includes an English LTR source interface and complete Persian (`fa_
 
 **۱۰۰٪ رایگان، برای همیشه — با تمام امکانات.** هزینهٔ پنل یا ارسال پیامک را شرکت پیامکی دریافت می‌کند.
 
-Product website: https://mrnwp.ir/
+Product website: https://mrnwp.ir/anar/
+English product page: https://mrnwp.ir/anar/en/
 
 ## Features
 
