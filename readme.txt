@@ -4,7 +4,7 @@ Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.8.5
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -208,7 +208,7 @@ Uninstall preserves data unless deletion was explicitly enabled beforehand. It d
 
 == Changelog ==
 
-= 0.8.5 =
+= 1.0.0 =
 * Simplify Meli Payamak signup by replacing the separate checkbox with deliberate form submission.
 * Show the copyable MPSMVDR code for account top-ups, separately from registration payment.
 
@@ -239,7 +239,7 @@ Full history: https://github.com/mehran-mrn/anar-login/blob/main/CHANGELOG.md
 
 == Upgrade Notice ==
 
-= 0.8.5 =
+= 1.0.0 =
 The signup form is shorter. The Anar discount code is for account top-ups and can be copied from the Meli Payamak settings or signup dialog.
 
 = 0.8.4 =
