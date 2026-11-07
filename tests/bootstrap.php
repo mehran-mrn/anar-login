@@ -75,6 +75,10 @@ function sanitize_textarea_field( $value ) {
 	return trim( strip_tags( $value ) );
 }
 
+function sanitize_text_field( $value ) {
+	return trim( wp_strip_all_tags( $value ) );
+}
+
 function is_wp_error( $value ) {
 	return $value instanceof WP_Error;
 }

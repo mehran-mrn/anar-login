@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: Anar Toolkit 0.8.3\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
+msgstr "Project-Id-Version: Anar Toolkit 0.8.4\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
 
 msgid "%1$s: Your password reset code is %2$s. It expires in 5 minutes. Do not share this code."
 msgstr "%1$s: کد بازنشانی رمز عبور شما %2$s است و تا ۵ دقیقه اعتبار دارد. این کد را در اختیار دیگران نگذارید."
@@ -76,6 +76,9 @@ msgstr "وضعیت accepted یعنی درخواست توسط پنل پذیرفت
 msgid "Accepted means the provider accepted the request; it is not a handset delivery receipt. A recovered purchase means a paid order linked to a verified recovery code. These counts describe attribution, not proven extra revenue. Reports cover locally retained data."
 msgstr "وضعیت accepted یعنی درخواست توسط پنل پذیرفته شده و تأیید رسیدن به گوشی نیست. خرید بازیابی‌شده، سفارش پرداخت‌شده‌ای است که به کد بازیابی تأییدشده متصل باشد. این آمار انتساب خرید را نشان می‌دهد و اثبات درآمد اضافه نیست. گزارش‌ها مربوط به داده‌های نگهداری‌شده محلی هستند."
 
+msgid "Account activation, web service credentials and approved SMS patterns are completed separately. Payment is not confirmed inside Anar."
+msgstr "فعال‌سازی حساب، اطلاعات وب‌سرویس و تأیید الگوهای پیامکی جداگانه تکمیل می‌شوند. انار پرداخت را تأیید نمی‌کند."
+
 msgid "Account dashboard"
 msgstr "پنل کاربری"
 
@@ -87,6 +90,9 @@ msgstr "اطلاعات حساب کاربری"
 
 msgid "Account page"
 msgstr "صفحه پنل کاربری"
+
+msgid "Account plan"
+msgstr "طرح پنل"
 
 msgid "Account sections"
 msgstr "بخش‌های حساب"
@@ -132,6 +138,9 @@ msgstr "شماره موبایل مدیران (حداکثر ۵ شماره، هر 
 
 msgid "Administrators, editors and shop managers"
 msgstr "مدیران، ویرایشگران و مدیران فروشگاه"
+
+msgid "Affiliate partnership: Anar receives a commission from referred purchases and usage. Choosing registration checks the optional MRNWP signup service; if unavailable, the referral website opens. Existing accounts and other SMS providers remain available."
+msgstr "این مسیر همکاری در فروش است و انار از خرید و مصرف حساب‌های معرفی‌شده سهم دریافت می‌کند. با انتخاب ثبت‌نام، آماده‌بودن سرویس ثبت‌نام انار بررسی می‌شود؛ در صورت در دسترس نبودن آن، سایت ملی‌پیامک با کد معرف باز می‌شود. حساب‌های موجود و سایر پنل‌ها نیز قابل استفاده‌اند."
 
 msgid "After a correct password, a code is sent to the account’s mobile, or its email when no mobile is linked. Code and Google sign-ins skip this step, as they already prove ownership."
 msgstr "پس از واردکردن رمز درست، کدی به موبایل حساب (یا اگر موبایلی ثبت نشده، به ایمیل آن) ارسال می‌شود. ورود با کد یکبارمصرف و گوگل این مرحله را ندارد، چون خودشان مالکیت را ثابت می‌کنند."
@@ -186,6 +195,9 @@ msgstr "یادآوری خرید انار"
 
 msgid "Anar shipment tracking"
 msgstr "رهگیری مرسولهٔ انار"
+
+msgid "Anar user discount"
+msgstr "تخفیف کاربران انار"
 
 msgid "Anonymous daily browser counts"
 msgstr "شمارش روزانهٔ ناشناس مرورگرها"
@@ -322,6 +334,15 @@ msgstr "بازیابی سبد"
 msgid "Change details"
 msgstr "ویرایش مشخصات"
 
+msgid "Check the registration fields and try again."
+msgstr "اطلاعات فرم ثبت‌نام را بررسی و اصلاح کنید."
+
+msgid "Checking available registration plans…"
+msgstr "در حال بررسی طرح‌های ثبت‌نام…"
+
+msgid "Choose a plan and enter the account holder details. Payment takes place on Meli Payamak, after reviewing its invoice."
+msgstr "طرح موردنظر را انتخاب و مشخصات صاحب حساب را وارد کنید. پرداخت پس از بررسی فاکتور در سایت ملی‌پیامک انجام می‌شود."
+
 msgid "Choose an unmatched card."
 msgstr "کارتی را انتخاب کنید که هنوز جفت نشده است."
 
@@ -342,6 +363,9 @@ msgstr "پاک‌سازی هنگام حذف افزونه"
 
 msgid "Close"
 msgstr "بستن"
+
+msgid "Close signup"
+msgstr "بستن فرم ثبت‌نام"
 
 msgid "Code length"
 msgstr "طول کد"
@@ -448,6 +472,9 @@ msgstr "کپی شد ✓"
 msgid "Copy"
 msgstr "کپی"
 
+msgid "Copy discount code"
+msgstr "کپی کد تخفیف"
+
 msgid "Copy failed"
 msgstr "ناموفق"
 
@@ -490,8 +517,14 @@ msgstr "خریدهای منتسب به کوپن"
 msgid "Create a new account when a verified user does not already have one."
 msgstr "اگر کاربر پس از تأیید کد حسابی نداشت، حساب تازه‌ای برای او ساخته شود."
 
+msgid "Create account and get invoice"
+msgstr "ثبت اطلاعات و دریافت فاکتور"
+
 msgid "Create accounts automatically"
 msgstr "ساخت خودکار حساب"
+
+msgid "Creating your invoice…"
+msgstr "در حال دریافت فاکتور…"
 
 msgid "Currency"
 msgstr "واحد پول"
@@ -558,6 +591,12 @@ msgstr "بخش‌های غیرفعال فایل نمایشی بارگذاری ن
 
 msgid "Discount amount"
 msgstr "مقدار تخفیف"
+
+msgid "Discount code: MPSMVDR. Automatic application is not confirmed by this API; check the final amount and discount with Meli Payamak before payment."
+msgstr "کد تخفیف: MPSMVDR. اعمال خودکار این کد در وب‌سرویس تأیید نشده است؛ مبلغ نهایی و تخفیف را پیش از پرداخت در ملی‌پیامک بررسی کنید."
+
+msgid "Discount code: MPSMVDR. Check that the discount is applied and review the final invoice amount before payment."
+msgstr "کد تخفیف: MPSMVDR. پیش از پرداخت، اعمال تخفیف و مبلغ نهایی فاکتور را بررسی کنید."
 
 msgid "Discount type"
 msgstr "نوع تخفیف"
@@ -630,6 +669,9 @@ msgstr "آدرس وب‌سرویس"
 
 msgid "Engagement reports"
 msgstr "گزارش تعامل مشتریان"
+
+msgid "Enter a last name, a valid Iranian mobile number and a plan."
+msgstr "نام خانوادگی، شماره همراه معتبر ایران و طرح موردنظر را وارد کنید."
 
 msgid "Enter a rating from 1 to 5 and a shorter comment."
 msgstr "امتیازی از ۱ تا ۵ و دیدگاهی کوتاه‌تر وارد کنید."
@@ -753,6 +795,9 @@ msgstr "یادآوری اول عدم خرید"
 
 msgid "First name"
 msgstr "نام"
+
+msgid "First name (optional)"
+msgstr "نام (اختیاری)"
 
 msgid "First purchase"
 msgstr "خرید اول"
@@ -885,6 +930,9 @@ msgstr "خرید شما چطور بود؟"
 
 msgid "How was your purchase? Share your honest feedback."
 msgstr "خریدتان چطور بود؟ بازخورد خود را با ما به اشتراک بگذارید."
+
+msgid "I agree to sending my name, mobile number and selected plan through MRNWP to Meli Payamak to create an account. This is an affiliate signup."
+msgstr "با ارسال نام، نام خانوادگی، شماره همراه و طرح انتخابی از طریق سرویس MRNWP به ملی‌پیامک برای ساخت حساب موافقم. این ثبت‌نام از مسیر همکاری در فروش انجام می‌شود."
 
 msgid "If a consented unfinished purchase exists, a new code will be sent shortly. Please wait before trying again."
 msgstr "اگر خرید ناتمام همراه با رضایت ثبت‌شده وجود داشته باشد، کد جدید به‌زودی پیامک می‌شود. پیش از تلاش دوباره کمی صبر کنید."
@@ -1027,6 +1075,9 @@ msgstr "پاپ‌آپ ورود"
 msgid "Lucky wheel"
 msgstr "گردونهٔ شانس"
 
+msgid "MRNWP privacy"
+msgstr "حریم خصوصی MRNWP"
+
 msgid "Make it work your way."
 msgstr "فروشگاه را به شیوهٔ خودتان اداره کنید."
 
@@ -1062,6 +1113,12 @@ msgstr "سقف یادآوری هر شماره در ۲۴ ساعت (۱ تا ۱۰)"
 
 msgid "Meli Payamak"
 msgstr "ملی پیامک"
+
+msgid "Meli Payamak quick signup"
+msgstr "ثبت‌نام سریع ملی‌پیامک"
+
+msgid "Meli Payamak terms"
+msgstr "شرایط ملی‌پیامک"
 
 msgid "Member since"
 msgstr "عضویت از"
@@ -1146,6 +1203,9 @@ msgstr "ورود در صفحهٔ حساب کاربری"
 
 msgid "My account"
 msgstr "حساب من"
+
+msgid "Need a Meli Payamak account?"
+msgstr "پنل ملی‌پیامک ندارید؟"
 
 msgid "Needs investigation"
 msgstr "نیازمند بررسی"
@@ -1399,6 +1459,9 @@ msgstr "انتخاب جعبهٔ هدیه"
 msgid "Placeholders: {to} recipient, {code} one-time code, {message} full text, {sender} sender number."
 msgstr "متغیرها: {to} گیرنده، {code} کد یک‌بارمصرف، {message} متن کامل، {sender} شمارهٔ فرستنده."
 
+msgid "Please agree to sending your registration details to MRNWP and Meli Payamak."
+msgstr "برای ادامه، ارسال اطلاعات ثبت‌نام به MRNWP و ملی‌پیامک را تأیید کنید."
+
 msgid "Please enter a valid Iranian mobile number."
 msgstr "شماره موبایل ایرانی معتبر نیست."
 
@@ -1612,6 +1675,12 @@ msgstr "درصد پاداش معرفی دوستان"
 msgid "Register as customers"
 msgstr "ثبت‌نام به‌عنوان مشتری"
 
+msgid "Register with Meli Payamak"
+msgstr "ثبت‌نام در ملی‌پیامک"
+
+msgid "Registration could not be confirmed. Check with Meli Payamak before submitting again."
+msgstr "وضعیت ثبت‌نام تأیید نشد. پیش از ثبت دوباره، وضعیت درخواست را با ملی‌پیامک بررسی کنید."
+
 msgid "Registration for new users is disabled."
 msgstr "ثبت‌نام کاربران جدید غیرفعال است."
 
@@ -1668,6 +1737,9 @@ msgstr "نمایش نتیجهٔ من"
 
 msgid "Reveal your surprise"
 msgstr "سورپرایزتان را ببینید"
+
+msgid "Review invoice and pay on Meli Payamak"
+msgstr "بررسی فاکتور و پرداخت در ملی‌پیامک"
 
 msgid "Reward issued"
 msgstr "هدیه صادر شد"
@@ -2200,6 +2272,9 @@ msgstr "تعداد تلاش‌های نادرست زیاد بود. لطفاً ک
 msgid "Too many recovery attempts. Please try again later."
 msgstr "تعداد تلاش‌های بازیابی بیش از حد مجاز است. کمی بعد دوباره تلاش کنید."
 
+msgid "Too many registration requests. Please try again later."
+msgstr "تعداد درخواست‌های ثبت‌نام بیش از حد مجاز است. بعداً دوباره تلاش کنید."
+
 msgid "Too many requests."
 msgstr "تعداد درخواست‌ها بیش از حد مجاز است."
 
@@ -2238,6 +2313,9 @@ msgstr "استفاده از سرویس فروشگاه"
 
 msgid "Use on your site"
 msgstr "استفاده در سایت"
+
+msgid "Use the Anar discount code when registering and check the discount conditions on your invoice."
+msgstr "هنگام ثبت‌نام از کد تخفیف انار استفاده کنید و شرایط تخفیف را در فاکتور بررسی کنید."
 
 msgid "Use the exact variable names from the approved provider template, one name={placeholder} per line. Include {unsubscribe_url}; surveys also require {action_url}."
 msgstr "نام دقیق متغیرهای الگوی تأییدشدهٔ پنل را وارد کنید؛ هر name={placeholder} در یک خط. {unsubscribe_url} الزامی است و نظرسنجی به {action_url} نیز نیاز دارد."
@@ -2353,6 +2431,9 @@ msgstr "پیوند دعوت شما"
 msgid "Your invoice identity"
 msgstr "مشخصات فروشگاه در صورتحساب"
 
+msgid "Your invoice is ready. Continue on Meli Payamak to review the amount and pay. SMS setup is completed separately."
+msgstr "فاکتور آماده است. برای بررسی مبلغ و پرداخت، وارد سایت ملی‌پیامک شوید. تنظیم اتصال پیامکی جداگانه انجام می‌شود."
+
 msgid "Your login code for {site}"
 msgstr "کد ورود به {site}"
 
@@ -2422,8 +2503,14 @@ msgstr "رکورد"
 msgid "requests"
 msgstr "درخواست"
 
+msgid "rial"
+msgstr "ریال"
+
 msgid "seconds"
 msgstr "ثانیه"
+
+msgid "toman"
+msgstr "تومان"
 
 msgid "{site}: Complete your purchase: {recovery_url}\nStop reminders: {unsubscribe_url}"
 msgstr "{site}: ادامه خرید: {recovery_url}\nلغو یادآوری: {unsubscribe_url}"

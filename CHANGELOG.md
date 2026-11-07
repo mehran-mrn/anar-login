@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.8.4 — 2026-11-07
+
+* Add the Meli Payamak Anar-user discount badge, copyable MPSMVDR code and disclosed referral signup.
+* Add an opt-in registration dialog backed by the private MRNWP service; an unavailable service falls back to the referral website.
+* Preserve the selected SMS provider and isolate registration from delivery credentials and checkout.
+
 ## 0.8.3 — 2026-11-07
 
 * Publish the dedicated Persian and English Anar product pages at mrnwp.ir/anar/.

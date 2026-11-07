@@ -38,6 +38,10 @@ with tempfile.TemporaryDirectory(prefix='anar-release-qa-') as folder:
             verify('anar-toolkit/src/Messaging/Providers/IPPanel.php' in names, 'IPPanel included in every profile')
             verify('anar-toolkit/src/Messaging/Providers/Panelchi.php' in names, 'Panelchi included in every profile')
             verify('anar-toolkit/src/Messaging/Providers/MaxSms.php' in names, 'MaxSMS included in every profile')
+            for required in ('src/Partners/MeliSignup.php', 'src/Api/MeliSignupController.php', 'src/Admin/MeliOffer.php', 'assets/js/meli-signup.js', 'assets/css/meli-signup.css'):
+                verify('anar-toolkit/' + required in names, 'Partner signup runtime included: ' + required)
+            verify(not any('meli-partner.php' in name for name in names), 'Private affiliate broker is excluded from public distribution')
+            verify(not any(b'09365944410' in bundle.read(name) or b'X-Affiliate-Api-Token' in bundle.read(name) for name in names), 'The owner mobile and private affiliate authentication stay outside the distributed payload')
             header = bundle.read('anar-toolkit/anar-login.php').decode('utf-8')
             verify('Text Domain:       anar-toolkit' in header, 'Gettext domain matches release folder')
             verify('Marketing for WooCommerce' in header, 'WooCommerce name uses the allowed for pattern')
@@ -51,6 +55,7 @@ with tempfile.TemporaryDirectory(prefix='anar-release-qa-') as folder:
             verify('MaxSms::class' in registry, 'MaxSMS registered in the public runtime')
             readme = bundle.read('anar-toolkit/readme.txt').decode('utf-8')
             verify('https://www.melipayamak.com/rules/' in readme, 'Official Meli Payamak terms retained')
+            verify('Optional Meli Payamak partner registration' in readme and 'commission' in readme and 'https://mrnwp.ir/privacy/' in readme, 'Optional registration and affiliate data flow are disclosed')
             verify('= IPPanel =' in readme and '= Panelchi =' in readme, 'Public documentation matches shipped providers')
             verify('https://docs.panelchi.com/redoc/' in readme, 'Panelchi API documented')
             verify('= MaxSMS =' in readme and 'https://maxsms.co/webservice/' in readme, 'MaxSMS service and shared infrastructure disclosed')
