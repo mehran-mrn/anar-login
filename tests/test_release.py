@@ -41,6 +41,8 @@ with tempfile.TemporaryDirectory(prefix='anar-release-qa-') as folder:
             for required in ('src/Partners/MeliSignup.php', 'src/Api/MeliSignupController.php', 'src/Admin/MeliOffer.php', 'assets/js/meli-signup.js', 'assets/css/meli-signup.css'):
                 verify('anar-toolkit/' + required in names, 'Partner signup runtime included: ' + required)
             verify(not any('meli-partner.php' in name for name in names), 'Private affiliate broker is excluded from public distribution')
+            for required in ('src/Balance/Gateways.php', 'src/Balance/Accounts.php', 'src/Balance/Monitor.php', 'src/Admin/BalancePage.php', 'assets/js/balance.js', 'assets/css/balance.css'):
+                verify('anar-toolkit/' + required in names, 'Balance runtime included: ' + required)
             verify(not any(b'X-Affiliate-Api-Token' in bundle.read(name) for name in names), 'Private affiliate authentication stays outside the distributed payload')
             header = bundle.read('anar-toolkit/anar-login.php').decode('utf-8')
             verify('Text Domain:       anar-toolkit' in header, 'Gettext domain matches release folder')
@@ -56,6 +58,7 @@ with tempfile.TemporaryDirectory(prefix='anar-release-qa-') as folder:
             readme = bundle.read('anar-toolkit/readme.txt').decode('utf-8')
             verify('https://www.melipayamak.com/rules/' in readme, 'Official Meli Payamak terms retained')
             verify('Optional Meli Payamak partner registration' in readme and 'commission' in readme and 'https://mrnwp.ir/privacy/' in readme, 'Optional registration and affiliate data flow are disclosed')
+            verify('Optional SMS account balance monitoring' in readme and 'off by default' in readme and 'account/info' in readme, 'Balance opt-in, endpoints and native-unit behavior are disclosed')
             verify('= IPPanel =' in readme and '= Panelchi =' in readme, 'Public documentation matches shipped providers')
             verify('https://docs.panelchi.com/redoc/' in readme, 'Panelchi API documented')
             verify('= MaxSMS =' in readme and 'https://maxsms.co/webservice/' in readme, 'MaxSMS service and shared infrastructure disclosed')

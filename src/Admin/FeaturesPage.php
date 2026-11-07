@@ -20,7 +20,7 @@ final class FeaturesPage {
 	}
 
 	public static function labels() {
-		return array_merge( array( 'login' => __( 'Customer sign-in', 'anar-toolkit' ), 'reset' => __( 'SMS password recovery', 'anar-toolkit' ), 'two_factor' => __( 'Two-step verification', 'anar-toolkit' ), 'login_log' => __( 'Login SMS report', 'anar-toolkit' ), 'recovery' => __( 'Abandoned carts', 'anar-toolkit' ), 'orders' => __( 'Order notifications', 'anar-toolkit' ) ), \Anar\Login\Marketing\Settings::modules() );
+		return array_merge( array( 'login' => __( 'Customer sign-in', 'anar-toolkit' ), 'reset' => __( 'SMS password recovery', 'anar-toolkit' ), 'two_factor' => __( 'Two-step verification', 'anar-toolkit' ), 'login_log' => __( 'Login SMS report', 'anar-toolkit' ), 'recovery' => __( 'Abandoned carts', 'anar-toolkit' ), 'orders' => __( 'Order notifications', 'anar-toolkit' ), 'balance' => __( 'SMS credit', 'anar-toolkit' ) ), \Anar\Login\Marketing\Settings::modules() );
 	}
 
 	public static function url( $key ) {
@@ -46,6 +46,7 @@ final class FeaturesPage {
 				add_submenu_page( 'anar-login', self::labels()[ $key ], self::labels()[ $key ], 'manage_options', 'anar-toolkit-' . $key, array( $commerce, 'render' ) ); }
 		}
 		add_submenu_page( 'anar-login', __( 'Connection settings', 'anar-toolkit' ), __( 'Connection settings', 'anar-toolkit' ), 'manage_options', 'anar-login-settings', array( new SettingsPage( new Settings(), new \Anar\Login\Messaging\ProviderRegistry( new Settings() ) ), 'render' ) );
+		add_submenu_page( $flags['balance'] ? 'anar-login' : null, __( 'SMS credit', 'anar-toolkit' ), __( 'SMS credit', 'anar-toolkit' ), 'manage_options', 'anar-toolkit-balance', array( BalancePage::class, 'render' ) );
 		add_submenu_page( 'anar-login', __( 'Other features', 'anar-toolkit' ), __( 'Other features', 'anar-toolkit' ), 'manage_options', 'anar-features-other', array( $this, 'render' ) );
 	}
 
@@ -106,6 +107,9 @@ final class FeaturesPage {
 		foreach ( Features::marketing_keys() as $key ) {
 			$marketing['modules'][ $key ] = empty( $selected[ $key ] ) ? 0 : 1; }
 		update_option( 'anar_toolkit_marketing', $marketing, false );
+		$balance = \Anar\Login\Balance\Monitor::settings();
+		$balance['enabled'] = empty( $selected['balance'] ) ? 0 : 1;
+		update_option( \Anar\Login\Balance\Monitor::OPTION, $balance, false );
 		wp_safe_redirect( admin_url( 'admin.php?page=anar-login&saved=1' ) );
 		exit;
 	}

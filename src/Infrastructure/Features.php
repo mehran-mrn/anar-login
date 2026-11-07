@@ -15,7 +15,7 @@ final class Features {
 	private static $refreshing = false;
 
 	private static function empty_flags() {
-		return array_fill_keys( array_merge( array( 'login', 'reset', 'two_factor', 'login_log', 'recovery', 'orders', '_invoice_sms' ), self::marketing_keys() ), false );
+		return array_fill_keys( array_merge( array( 'login', 'reset', 'two_factor', 'login_log', 'recovery', 'orders', 'balance', '_invoice_sms' ), self::marketing_keys() ), false );
 	}
 
 	public static function all() {
@@ -37,6 +37,8 @@ final class Features {
 		$enabled['reset'] = ! empty( $switches['reset'] ) && ( ! isset( $login['password_reset_enabled'] ) || ! empty( $login['password_reset_enabled'] ) );
 		$enabled['two_factor'] = ! empty( $switches['two_factor'] ) && 'off' !== ( $login['two_factor'] ?? 'off' );
 		$enabled['login_log'] = ! empty( $switches['login_log'] );
+		$balance = (array) get_option( 'anar_toolkit_sms_balance', array() );
+		$enabled['balance'] = ! empty( $balance['enabled'] );
 		$enabled['recovery'] = ! empty( $commerce['recovery'] );
 		foreach ( self::order_events() as $event ) {
 			$enabled['orders'] = $enabled['orders'] || ( ! empty( $switches['orders'] ) && ! empty( $commerce[ $event ] ) ); }
@@ -126,10 +128,16 @@ final class Features {
 	}
 
 	public static function changed( $option, $old, $value ) {
-		if ( self::$refreshing || ! in_array( $option, array( self::OPTION, 'anar_login_settings', 'anar_toolkit_commerce', 'anar_toolkit_marketing' ), true ) || $old === $value ) {
+		if ( self::$refreshing || ! in_array( $option, array( self::OPTION, 'anar_login_settings', 'anar_toolkit_commerce', 'anar_toolkit_marketing', 'anar_toolkit_sms_balance' ), true ) || $old === $value ) {
 			return; }
 		$previous = self::OPTION === $option ? (array) $old : (array) get_option( self::OPTION, array() );
 		$snapshot = self::refresh( self::OPTION === $option ? $value : null );
+		if ( 'anar_toolkit_sms_balance' === $option || 'anar_login_settings' === $option ) {
+			\Anar\Login\Balance\Monitor::sync();
+			if ( 'anar_toolkit_sms_balance' === $option ) {
+				return;
+			}
+		}
 		if ( in_array( $option, array( self::OPTION, 'anar_login_settings' ), true ) && ( $previous['enabled'] ?? null ) === $snapshot['enabled'] ) {
 			return; }
 

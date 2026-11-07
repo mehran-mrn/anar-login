@@ -96,6 +96,10 @@ function absint( $value ) {
 	return abs( (int) $value );
 }
 
+function wp_salt( $scheme = 'auth' ) {
+	return 'unit-test-salt-' . $scheme;
+}
+
 function esc_url_raw( $url ) {
 	return $url;
 }

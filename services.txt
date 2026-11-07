@@ -12,6 +12,16 @@ Official service: https://kavenegar.com/وب-سرویس-پیامک.html
 Official API documentation: https://kavenegar.com/rest.html
 Official terms and limited account-data-use notice: https://console.kavenegar.com/membership/signup (open the public terms popover beside the consent checkbox; no account or acceptance is required to read it). The notice addresses account-verification documents. A separate privacy policy covering all SMS recipient/message processing has not been verified. This remains an external-documentation review dependency; the service homepage is not represented as a privacy policy.
 
+= Optional SMS account balance monitoring =
+
+The SMS credit feature is off by default. Enable it from the feature catalog or SMS credit page. An administrator can explicitly check a configured account, opt it into periodic monitoring and independently enable or disable low-credit warnings and set the threshold. Enabling periodic monitoring authorizes authenticated, server-side balance requests to that provider about every 30 minutes through WordPress scheduled tasks; actual timing depends on scheduled-task execution. No balance requests run on normal storefront requests or when rendering administrator pages.
+
+The supported read-only endpoints are https://rest.payamak-panel.com/api/SendSMS/GetCredit (Meli Payamak sending username/password), https://api.kavenegar.com/v1/{API-KEY}/account/info.json, https://edge.ippanel.com/v1/api/payment/credit/mine, https://api.panelchi.com/account/info (Panelchi and MaxSMS), https://api.sms.ir/v1/credit and https://api.iranpayamak.com/ws/v1/account/balance (Faraz). The corresponding account API key/token authenticates each request. Faraz requires its new Api-Key separately from the legacy sending password. Meli Payamak affiliate credentials are not used. No recipient numbers, OTPs, order details or message bodies are sent for balance checks.
+
+Only the validated amount, native unit, timestamps, a keyed account fingerprint and a generic error code are saved locally. Credentials remain in the existing private sending settings and are never included in balance-page scripts, notices or cached records. A failed request retains the last successful amount and marks it outdated/failed; it is not interpreted as zero credit. Account credential changes invalidate the old displayed balance. Thresholds use the displayed provider unit; currencies and SMS units are not silently converted. Only administrators with manage_options can configure or view balance information. No warning SMS or email is sent by this feature.
+
+Provider terms and privacy references are listed in the corresponding service sections below. Additional balance documentation: https://github.com/Melipayamak/melipayamak-php | https://kavenegar.com/rest.html | https://ippanelcom.github.io/Edge-Document/docs/payment/my-credit/ | https://docs.panelchi.com/redoc/ | https://github.com/IPeCompany/SmsPanelV2.TypeScript | https://docs.farazsms.com/service/get-ws-v1-account-balance
+
 = Meli Payamak =
 
 Endpoints: https://rest.payamak-panel.com/api/SendSMS/BaseServiceNumber and https://rest.payamak-panel.com/api/SendSMS/SendSMS
