@@ -11,6 +11,20 @@ use PHPUnit\Framework\TestCase;
 require_once dirname( __DIR__, 2 ) . '/src/Auth/Totp.php';
 
 final class TotpTest extends TestCase {
+	public function test_provisioning_preserves_account_and_issuer_encoding() {
+		$uri = Totp::provisioning_uri( 'GEZDGNBVGY3TQOJQ', 'user+qa@example.test', 'Store: QA' );
+		$parts = parse_url( $uri ); // phpcs:ignore WordPress.WP.AlternativeFunctions.parse_url_parse_url -- Standalone test without a WordPress bootstrap.
+		parse_str( $parts['query'], $query );
+		$this->assertSame( 'otpauth', $parts['scheme'] );
+		$this->assertSame( 'totp', $parts['host'] );
+		$this->assertSame( '/Store  QA:user+qa@example.test', rawurldecode( $parts['path'] ) );
+		$this->assertSame( 'Store  QA', $query['issuer'] );
+		$this->assertSame( 'GEZDGNBVGY3TQOJQ', $query['secret'] );
+		$this->assertSame( 'SHA1', $query['algorithm'] );
+		$this->assertSame( '6', $query['digits'] );
+		$this->assertSame( '30', $query['period'] );
+	}
+
 	/** RFC 6238 SHA-1 vectors truncated to the six characters used by apps. */
 	public function test_rfc_vectors() {
 		$secret = 'GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ';

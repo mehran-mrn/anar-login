@@ -31,12 +31,22 @@ $user_id = wp_insert_user( array( 'user_login' => 'anar-security-' . wp_generate
 $credentials = new CredentialService();
 $flows = new LoginFlowService();
 $tokens = array();
+$original_user = get_current_user_id();
+$original_cookie = $_COOKIE[ LOGGED_IN_COOKIE ] ?? null; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput -- Preserve and restore the exact disposable test cookie.
 try {
 	$secret = Totp::secret();
 	$assert( ! $credentials->enabled( $user_id ), 'No implicit enrollment' );
 	$assert( false === $credentials->enroll( $user_id, $secret, 'bad' ), 'Enrollment needs possession proof' );
 	$counter = (int) floor( time() / 30 );
+	$sessions = WP_Session_Tokens::get_instance( $user_id );
+	$kept_session = $sessions->create( time() + 3600 );
+	$other_session = $sessions->create( time() + 3600 );
+	wp_set_current_user( $user_id );
+	$_COOKIE[ LOGGED_IN_COOKIE ] = wp_generate_auth_cookie( $user_id, time() + 3600, 'logged_in', $kept_session );
 	$codes = $credentials->enroll( $user_id, $secret, Totp::code( $secret, $counter ) );
+	$assert( $sessions->verify( $kept_session ), 'Enrollment retains the verified current session' );
+	$assert( ! $sessions->verify( $other_session ), 'Enrollment revokes older sessions' );
+	wp_set_current_user( $original_user );
 	$assert( is_array( $codes ) && 10 === count( $codes ), 'Ten recovery codes issued' );
 	$assert( $credentials->enabled( $user_id ), 'Credential is active' );
 	$record = $credentials->record( $user_id );
@@ -94,6 +104,12 @@ try {
 	$credentials->remove( $user_id );
 	$assert( true === $security->gate( true, $user ), 'Unenrolled user keeps current login behavior' );
 } finally {
+	wp_set_current_user( $original_user );
+	if ( null === $original_cookie ) {
+		unset( $_COOKIE[ LOGGED_IN_COOKIE ] );
+	} else {
+		$_COOKIE[ LOGGED_IN_COOKIE ] = $original_cookie;
+	}
 	$credentials->remove( $user_id );
 	require_once ABSPATH . 'wp-admin/includes/user.php';
 	wp_delete_user( $user_id );

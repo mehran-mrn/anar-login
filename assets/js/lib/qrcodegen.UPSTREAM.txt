@@ -1,0 +1,9 @@
+Project Nayuki QR Code generator, v1.8.0 (MIT)
+Source: https://github.com/nayuki/QR-Code-generator
+Commit: 720f62bddb7226106071d4728c292cb1df519ceb
+Original: typescript-javascript/qrcodegen.ts
+The complete MIT license is preserved in qrcodegen.js.
+Build: tsc --target ES2015 --lib ES2015,DOM --outFile qrcodegen.js qrcodegen.ts
+The compiled source is wrapped in a function and exported as window.AnarQr
+to avoid replacing a QR library used by another plugin. No algorithm changes.
+Loaded only during authenticator enrollment; no external QR requests.

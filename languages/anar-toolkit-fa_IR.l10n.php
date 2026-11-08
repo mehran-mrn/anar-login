@@ -1,6 +1,6 @@
 <?php
 return array(
-'project-id-version' => 'Anar Toolkit 1.2.4',
+'project-id-version' => 'Anar Toolkit 1.3.0',
 'language' => 'fa_IR',
 'plural-forms' => 'nplurals=2; plural=(n > 1);',
 'messages' => array(
@@ -72,6 +72,7 @@ return array(
 'Administrator mobile numbers (maximum 5, one per line)' => 'شماره موبایل مدیران (حداکثر ۵ شماره، هر شماره در یک خط)',
 'Administrators' => 'مدیران',
 'Administrators, editors and shop managers' => 'مدیران، ویرایشگران و مدیران فروشگاه',
+'Advanced account security is currently available on single-site WordPress installations.' => 'مدیریت پیشرفتهٔ امنیت حساب در حال حاضر برای وردپرس تکی در دسترس است.',
 'Advanced mapping' => 'تنظیمات پیشرفتهٔ متغیرها',
 'After a correct password, a code is sent to the account’s mobile, or its email when no mobile is linked. Code and Google sign-ins skip this step, as they already prove ownership.' => 'پس از واردکردن رمز درست، کدی به موبایل حساب (یا اگر موبایلی ثبت نشده، به ایمیل آن) ارسال می‌شود. ورود با کد یکبارمصرف و گوگل این مرحله را ندارد، چون خودشان مالکیت را ثابت می‌کنند.',
 'After predicted purchase' => 'پس از خرید پیش‌بینی‌شده',
@@ -117,6 +118,7 @@ return array(
 'Authenticator or recovery code' => 'کد رمزساز یا بازیابی',
 'Authenticator protection is active for every sign-in method.' => 'تأیید با برنامهٔ رمزساز برای همهٔ روش‌های ورود این حساب فعال است.',
 'Authenticator removed.' => 'برنامهٔ رمزساز از حساب شما حذف شد.',
+'Authenticator setup QR code' => 'کد QR برای راه‌اندازی برنامهٔ رمزساز',
 'Authenticator setup requires OpenSSL with AES-256-GCM on this server.' => 'برای راه‌اندازی برنامهٔ رمزساز، پشتیبانی سرور از OpenSSL و AES-256-GCM لازم است.',
 'Automatic code filling on Android' => 'پرشدن خودکار کد در اندروید',
 'Automatic mode does not require a separate checkbox. A short notice explains cart storage. Previously stopped numbers remain stopped; every reminder includes an unsubscribe link.' => 'حالت خودکار به تیک جداگانه نیاز ندارد. اطلاعیه‌ای کوتاه ذخیرهٔ سبد را توضیح می‌دهد. شماره‌های لغوشده همچنان لغو می‌مانند و هر یادآوری لینک لغو دریافت دارد.',
@@ -879,6 +881,7 @@ return array(
 'Saved — enter a new value to change it' => 'ذخیره شده — برای تغییر، مقدار جدید را بنویسید',
 'Saved. We will notify you once when this product is back in stock.' => 'ثبت شد. پس از موجود شدن این کالا یک‌بار به شما اطلاع می‌دهیم.',
 'Saving…' => 'در حال ذخیره…',
+'Scan this QR code with your authenticator app, or enter the setup key below. Then enter the six-digit code from the app.' => 'این کد را با برنامهٔ رمزساز اسکن کنید یا کلید زیر را در برنامه وارد کنید. سپس کد شش‌رقمی برنامه را بنویسید.',
 'Schedule' => 'زمان‌بندی',
 'Schedule (site timezone; blank = now)' => 'زمان‌بندی (منطقهٔ زمانی سایت؛ خالی یعنی اکنون)',
 'Scheduled' => 'زمان برنامه‌ریزی‌شده',

@@ -58,7 +58,7 @@ final class CredentialService {
 
 	public function enroll( $user_id, $secret, $code ) {
 		$counter = Totp::match_counter( $secret, $code, time() );
-		if ( ! self::available() || false === $counter || $this->enabled( $user_id ) ) {
+		if ( is_multisite() || ! self::available() || false === $counter || $this->enabled( $user_id ) ) {
 			return false;
 		}
 		$recovery = $this->new_recovery();
@@ -68,7 +68,17 @@ final class CredentialService {
 			'last' => $counter,
 			'recovery' => $recovery['hashes'],
 		);
-		return add_option( self::META . '_' . (int) $user_id, $record, '', false ) ? $recovery['codes'] : false;
+		if ( ! add_option( self::META . '_' . (int) $user_id, $record, '', false ) ) {
+			return false;
+		}
+		$sessions = \WP_Session_Tokens::get_instance( $user_id );
+		$token = get_current_user_id() === (int) $user_id ? wp_get_session_token() : '';
+		if ( $token ) {
+			$sessions->destroy_others( $token );
+		} else {
+			$sessions->destroy_all();
+		}
+		return $recovery['codes'];
 	}
 
 	public function verify( $user_id, $code ) {

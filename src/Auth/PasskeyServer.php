@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 final class PasskeyServer {
 	public static function available() {
 		$host = wp_parse_url( home_url( '/' ), PHP_URL_HOST );
-		return PHP_VERSION_ID >= 80000 && SecureTransport::available() && function_exists( 'openssl_verify' ) && ( 'https' === wp_parse_url( home_url( '/' ), PHP_URL_SCHEME ) || 'localhost' === $host );
+		return ! is_multisite() && PHP_VERSION_ID >= 80000 && SecureTransport::available() && function_exists( 'openssl_verify' ) && ( 'https' === wp_parse_url( home_url( '/' ), PHP_URL_SCHEME ) || 'localhost' === $host );
 	}
 
 	public static function origin() {

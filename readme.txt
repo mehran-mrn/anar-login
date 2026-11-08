@@ -4,7 +4,7 @@ Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.2.4
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,6 +17,8 @@ Anar Toolkit brings sign-in, purchase recovery and customer communication into o
 = Sign-in and account access =
 * Iranian mobile-number registration and SMS login, email verification codes and Google sign-in.
 * SMS password reset for a previously linked phone and optional two-step verification.
+* Optional authenticator apps, recovery codes and passkeys; one shared form with three visual presets.
+* Four-step setup guidance and a saved-form preview in the existing Settings page.
 * On-demand login popup, My Account and classic checkout integration.
 
 = Recover purchases and follow up with customers =
@@ -221,6 +223,14 @@ Yes. Set a budget per pool and a maximum money discount for each prize. Amounts 
 
 == Changelog ==
 
+= 1.3.0 =
+* Add optional authenticator enrollment with a local QR code, recovery codes and account security management.
+* Add optional passkey registration, sign-in and management; load its verifier and browser adapter only when used.
+* Share the sign-in design across verification and account security, with three form styles.
+* Add a four-step setup guide and an inert preview of the saved form within Settings.
+* Preserve ordinary OTP/Google sign-in and consolidate password second-step handling.
+
+
 = 1.2.4 =
 * Place order message editors next to their notification switches and recovery editors next to each reminder time.
 * Remove the redundant store template tab while preserving its bookmarked route.
@@ -285,6 +295,10 @@ Yes. Set a budget per pool and a maximum money discount for each prize. Amounts 
 Full history: https://github.com/mehran-mrn/anar-login/blob/main/CHANGELOG.md
 
 == Upgrade Notice ==
+
+= 1.3.0 =
+Existing sign-in settings are retained. Passkeys are off by default. Advanced account factors currently support single-site WordPress over HTTPS; passkeys additionally require PHP 8.0+. Customers without an enrolled authenticator keep their usual sign-in flow.
+
 
 = 1.1.1 =
 Existing accounts can verify a phone without signing out. Games share the daily attempt limit; each game now has separate display text settings.

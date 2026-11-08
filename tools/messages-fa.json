@@ -191,5 +191,8 @@
   "Use the existing shortcode, popup or WooCommerce integration. Changing where the form appears does not change its verification rules. Save appearance changes before previewing.": "از کد کوتاه، پاپ‌آپ یا اتصال ووکامرس استفاده کنید. محل نمایش فرم، قواعد تأیید هویت را تغییر نمی‌دهد. پیش از دیدن پیش‌نمایش، تغییرات ظاهر را ذخیره کنید.",
   "Previous step": "مرحلهٔ قبل",
   "Next step": "مرحلهٔ بعد",
-  "Sign-in form preview": "پیش‌نمایش فرم ورود"
+  "Sign-in form preview": "پیش‌نمایش فرم ورود",
+  "Scan this QR code with your authenticator app, or enter the setup key below. Then enter the six-digit code from the app.": "این کد را با برنامهٔ رمزساز اسکن کنید یا کلید زیر را در برنامه وارد کنید. سپس کد شش‌رقمی برنامه را بنویسید.",
+  "Authenticator setup QR code": "کد QR برای راه‌اندازی برنامهٔ رمزساز",
+  "Advanced account security is currently available on single-site WordPress installations.": "مدیریت پیشرفتهٔ امنیت حساب در حال حاضر برای وردپرس تکی در دسترس است."
 }

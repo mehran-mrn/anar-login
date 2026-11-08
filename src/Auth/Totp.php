@@ -10,6 +10,12 @@ namespace Anar\Login\Auth;
 defined( 'ABSPATH' ) || exit;
 
 final class Totp {
+	public static function provisioning_uri( $secret, $account, $issuer ) {
+		$issuer = trim( str_replace( ':', ' ', $issuer ) );
+		$account = trim( str_replace( ':', ' ', $account ) );
+		return 'otpauth://totp/' . rawurlencode( $issuer ) . ':' . rawurlencode( $account ) . '?' . http_build_query( array( 'secret' => $secret, 'issuer' => $issuer, 'algorithm' => 'SHA1', 'digits' => 6, 'period' => 30 ), '', '&', PHP_QUERY_RFC3986 );
+	}
+
 	public static function secret() {
 		$alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
 		$result = '';

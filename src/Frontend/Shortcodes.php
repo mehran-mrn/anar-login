@@ -189,7 +189,7 @@ final class Shortcodes {
 	}
 
 	public static function security_link() {
-		return is_user_logged_in() ? '<p><a class="anar-btn anar-btn--soft" href="' . esc_url( add_query_arg( 'action', 'anar_security', wp_login_url() ) ) . '">' . esc_html__( 'Account security', 'anar-toolkit' ) . '</a></p>' : '';
+		return ! is_multisite() && is_user_logged_in() ? '<p><a class="anar-btn anar-btn--soft" href="' . esc_url( add_query_arg( 'action', 'anar_security', wp_login_url() ) ) . '">' . esc_html__( 'Account security', 'anar-toolkit' ) . '</a></p>' : '';
 	}
 
 

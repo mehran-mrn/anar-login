@@ -185,6 +185,9 @@ final class AccountSecurity {
 	}
 
 	public function manage() {
+		if ( is_multisite() ) {
+			wp_die( esc_html__( 'Advanced account security is currently available on single-site WordPress installations.', 'anar-toolkit' ) );
+		}
 		if ( ! is_user_logged_in() ) {
 			wp_safe_redirect( wp_login_url( add_query_arg( 'action', 'anar_security', wp_login_url() ) ) );
 			exit;
@@ -280,7 +283,10 @@ final class AccountSecurity {
 		} elseif ( $enabled ) {
 			echo '<p>' . esc_html__( 'Verify your authenticator or a recovery code to change account security.', 'anar-toolkit' ) . '</p><label for="anar-remove-code">' . esc_html__( 'Authenticator or recovery code', 'anar-toolkit' ) . '</label><input type="text" class="input" id="anar-remove-code" name="proof" autocomplete="one-time-code" dir="ltr" required><button class="anar-btn anar-btn--soft" name="operation" value="remove">' . esc_html__( 'Remove authenticator', 'anar-toolkit' ) . '</button><button class="anar-btn anar-btn--soft" name="operation" value="recovery">' . esc_html__( 'Generate new recovery codes', 'anar-toolkit' ) . '</button>';
 		} elseif ( $secret ) {
-			echo '<p>' . esc_html__( 'Add this setup key in your authenticator app, then enter its six-digit code.', 'anar-toolkit' ) . '</p><p dir="ltr"><code>' . esc_html( $secret ) . '</code></p><input type="hidden" name="flow" value="' . esc_attr( $token ) . '"><label for="anar-enroll-code">' . esc_html__( 'Authenticator code', 'anar-toolkit' ) . '</label><input type="text" class="input" id="anar-enroll-code" name="code" autocomplete="one-time-code" inputmode="numeric" dir="ltr" required><button class="anar-btn anar-btn--primary" name="operation" value="confirm">' . esc_html__( 'Enable authenticator', 'anar-toolkit' ) . '</button>';
+				wp_enqueue_script( 'anar-qr', ANAR_LOGIN_URL . 'assets/js/lib/qrcodegen.js', array(), ANAR_LOGIN_VERSION, true );
+				wp_enqueue_script( 'anar-authenticator', ANAR_LOGIN_URL . 'assets/js/authenticator.js', array( 'anar-qr' ), ANAR_LOGIN_VERSION, true );
+				$issuer = mb_substr( wp_specialchars_decode( wp_strip_all_tags( get_bloginfo( 'name' ) ), ENT_QUOTES ), 0, 32 );
+				echo '<p>' . esc_html__( 'Scan this QR code with your authenticator app, or enter the setup key below. Then enter the six-digit code from the app.', 'anar-toolkit' ) . '</p><div class="anar-authenticator-qr" data-authenticator-uri="' . esc_attr( Totp::provisioning_uri( $secret, $user->user_login, $issuer ) ) . '" role="img" aria-label="' . esc_attr__( 'Authenticator setup QR code', 'anar-toolkit' ) . '" hidden></div><p dir="ltr"><code>' . esc_html( $secret ) . '</code></p><input type="hidden" name="flow" value="' . esc_attr( $token ) . '"><label for="anar-enroll-code">' . esc_html__( 'Authenticator code', 'anar-toolkit' ) . '</label><input type="text" class="input" id="anar-enroll-code" name="code" autocomplete="one-time-code" inputmode="numeric" dir="ltr" required><button class="anar-btn anar-btn--primary" name="operation" value="confirm">' . esc_html__( 'Enable authenticator', 'anar-toolkit' ) . '</button>';
 		} else {
 				echo '<p>' . esc_html__( 'First verify your linked phone number or email to change account security.', 'anar-toolkit' ) . '</p><button class="anar-btn anar-btn--soft" name="operation" value="send" formnovalidate>' . esc_html__( 'Send verification code', 'anar-toolkit' ) . '</button><p><label for="anar-proof">' . esc_html__( 'Verification code', 'anar-toolkit' ) . '</label><input type="text" class="input" id="anar-proof" name="proof" autocomplete="one-time-code" inputmode="numeric" dir="ltr" required></p><button class="anar-btn anar-btn--primary" name="operation" value="start">' . esc_html__( 'Set up authenticator', 'anar-toolkit' ) . '</button>';
 		}

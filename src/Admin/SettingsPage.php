@@ -381,10 +381,12 @@ final class SettingsPage {
 					</section>
 
 					<section class="anar-tab" data-panel="security" hidden>
-							<?php $this->toggle( 'passkeys_enabled', __( 'Passkey sign-in', 'anar-toolkit' ), __( 'Let customers register a passkey from account security. Passkeys require HTTPS and PHP 8.0 or later; the current sign-in methods remain available.', 'anar-toolkit' ), $value ); ?>
-							<?php $this->toggle( 'password_reset_enabled', __( 'SMS password recovery', 'anar-toolkit' ), __( 'Allow linked mobile numbers to reset an existing account password using a separate single-use SMS code.', 'anar-toolkit' ), $value ); ?>
 						<?php $this->section_header( __( 'Security and rate limits', 'anar-toolkit' ), __( 'Configure code lifetime and request limits for your site.', 'anar-toolkit' ), '⌾' ); ?>
 						<div class="anar-card">
+							<?php if ( ! is_multisite() ) : ?>
+								<?php $this->toggle( 'passkeys_enabled', __( 'Passkey sign-in', 'anar-toolkit' ), __( 'Let customers register a passkey from account security. Passkeys require HTTPS and PHP 8.0 or later; the current sign-in methods remain available.', 'anar-toolkit' ), $value ); ?>
+							<?php endif; ?>
+							<?php $this->toggle( 'password_reset_enabled', __( 'SMS password recovery', 'anar-toolkit' ), __( 'Allow linked mobile numbers to reset an existing account password using a separate single-use SMS code.', 'anar-toolkit' ), $value ); ?>
 							<div class="anar-field-row">
 								<label for="anar-two-factor"><strong><?php esc_html_e( 'Two-step verification', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'After a correct password, a code is sent to the account’s mobile, or its email when no mobile is linked. Code and Google sign-ins skip this step, as they already prove ownership.', 'anar-toolkit' ); ?></small></label>
 								<select id="anar-two-factor" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[two_factor]">

@@ -1185,6 +1185,9 @@ body.anar-wp-login .anar-security-card form { margin: 0; padding: 0; border: 0; 
 .anar-security-card pre { max-width: 100%; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 13px; padding: 16px; background: #faf7f8; border-radius: 12px; }
 .anar-security-card small { display: block; margin: 8px 0; color: var(--anar-muted); }
 .anar-security-card .anar-auth__back { margin: 6px 0; }
+.anar-authenticator-qr { width: 240px; max-width: 100%; margin: 18px auto; background: #fff; }
+.anar-authenticator-qr svg { display: block; width: 100%; height: auto; }
+.anar-security-card p > code { overflow-wrap: anywhere; word-break: break-all; }
 .anar-auth--minimal { box-shadow: none; border-radius: 12px; }
 .anar-auth--minimal .anar-auth__glow { display: none; }
 .anar-auth--minimal .anar-auth__header { background: #fff; }
