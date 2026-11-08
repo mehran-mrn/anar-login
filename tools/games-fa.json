@@ -165,5 +165,7 @@
   "The maximum total saving, including the tax reduction, in the store currency. Required for every prize when a monetary budget is enabled. The original percentage still applies up to this ceiling. Zero leaves the prize uncapped when no monetary budget is set.": "حداکثر مبلغ تخفیف با احتساب کاهش مالیات، بر اساس واحد پول فروشگاه است. با فعال بودن بودجهٔ پولی، برای هر جایزه این سقف را تعیین کنید. درصد جایزه تا همین مبلغ اعمال می‌شود. اگر بودجهٔ پولی ندارید، صفر یعنی بدون سقف مبلغ.",
   "Reserved and spent from this pool: %1$s %2$s.": "مجموع تعهد و مصرف این مخزن: %1$s %2$s.",
   "Pending commitments: %1$s. Actual discounts spent: %2$s. Currency: %3$s.": "مبلغ رزروشده: %1$s. تخفیف مصرف‌شده: %2$s. واحد پول: %3$s.",
-  "This reserved gift has expired. Start again when another attempt is available.": "اعتبار جایزهٔ رزروشده به پایان رسیده است. پس از در دسترس بودن نوبت بعدی، دوباره شرکت کنید."
+  "This reserved gift has expired. Start again when another attempt is available.": "اعتبار جایزهٔ رزروشده به پایان رسیده است. پس از در دسترس بودن نوبت بعدی، دوباره شرکت کنید.",
+  "Game gift value": "مقدار جایزهٔ بازی",
+  "The gift value and ceiling were fixed when this coupon was issued. Configure future prizes in Anar game settings.": "مقدار و سقف این جایزه هنگام صدور کد ثبت شده‌اند. جایزه‌های بعدی را در تنظیمات بازی‌های انار تعیین کنید."
 }

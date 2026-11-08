@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.2 — 2026-11-08
+
+* Persist a protected coupon type so disabling or removing Anar cannot turn a monetary gift into an uncapped WooCommerce percentage.
+* Migrate earlier capped coupons without changing their face value, reservation or ordinary display type.
+* Verify no-plugin calculations and idempotent storage migration.
+
 ## 1.2.1 — 2026-11-08
 
 * Centralize SMS configuration in Messages and templates while retaining module timing, audiences and rewards.
