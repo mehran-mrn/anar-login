@@ -94,6 +94,9 @@ msgstr "توکن API"
 msgid "Abandoned carts"
 msgstr "سبدهای رهاشده"
 
+msgid "Accent"
+msgstr "برجسته"
+
 msgid "Accepted by provider"
 msgstr "پذیرفته‌شده توسط سرویس‌دهنده"
 
@@ -168,6 +171,9 @@ msgstr "قابلیت‌های فعال ابتدا نمایش داده می‌ش�
 
 msgid "Add [anar_recover_cart] to a custom page. SMS includes its URL and a separate recovery code. The URL itself contains no code or account-access token."
 msgstr "در صفحه دلخواه، [anar_recover_cart] را قرار دهید. پیامک شامل آدرس صفحه و کد بازیابی جداگانه خواهد بود. آدرس صفحه، کد یا توکن ورود به حساب ندارد."
+
+msgid "Add a passkey"
+msgstr "افزودن کلید عبور"
 
 msgid "Add this exact URL to your Google OAuth settings."
 msgstr "این آدرس را دقیقاً در تنظیمات OAuth گوگل ثبت کنید."
@@ -331,6 +337,9 @@ msgstr "تأیید با برنامهٔ رمزساز برای همهٔ روش‌�
 msgid "Authenticator removed."
 msgstr "برنامهٔ رمزساز از حساب شما حذف شد."
 
+msgid "Authenticator setup requires OpenSSL with AES-256-GCM on this server."
+msgstr "برای راه‌اندازی برنامهٔ رمزساز، پشتیبانی سرور از OpenSSL و AES-256-GCM لازم است."
+
 msgid "Automatic code filling on Android"
 msgstr "پرشدن خودکار کد در اندروید"
 
@@ -457,6 +466,9 @@ msgstr "منبع ثبت"
 msgid "Capture timestamp (UTC Unix time)"
 msgstr "زمان ثبت خودکار (زمان یونیکس UTC)"
 
+msgid "Card"
+msgstr "کارت"
+
 msgid "Carrier"
 msgstr "شرکت حمل‌ونقل"
 
@@ -477,6 +489,9 @@ msgstr "احتمال دریافت جایزه (درصد)"
 
 msgid "Change details"
 msgstr "ویرایش مشخصات"
+
+msgid "Changes to account security require verification."
+msgstr "تغییر تنظیمات امنیت حساب به تأیید هویت نیاز دارد."
 
 msgid "Check balance"
 msgstr "دریافت موجودی"
@@ -1156,6 +1171,9 @@ msgstr "خرید اول"
 msgid "First verify your linked contact to set up an authenticator."
 msgstr "برای راه‌اندازی برنامهٔ رمزساز، ابتدا شماره یا ایمیل متصل به حساب را تأیید کنید."
 
+msgid "First verify your linked phone number or email to change account security."
+msgstr "برای تغییر تنظیمات امنیت حساب، ابتدا شماره یا ایمیل متصل به حساب را تأیید کنید."
+
 msgid "Fixed cart amount"
 msgstr "مبلغ ثابت سبد"
 
@@ -1242,6 +1260,9 @@ msgstr "عمومی"
 
 msgid "General settings"
 msgstr "تنظیمات عمومی"
+
+msgid "Generate new recovery codes"
+msgstr "دریافت کدهای بازیابی جدید"
 
 msgid "Generate recovery discounts"
 msgstr "ایجاد تخفیف بازیابی خرید"
@@ -1474,6 +1495,9 @@ msgstr "خالی بگذارید تا صفحه پنل یا خانه استفاد�
 msgid "Leave this field empty to keep the saved value."
 msgstr "خالی‌گذاشتن این فیلد مقدار ذخیره‌شده را حفظ می‌کند."
 
+msgid "Let customers register a passkey from account security. Passkeys require HTTPS and PHP 8.0 or later; the current sign-in methods remain available."
+msgstr "کاربران می‌توانند از بخش امنیت حساب، کلید عبور ثبت کنند. این روش به اتصال HTTPS و PHP 8 یا جدیدتر نیاز دارد. روش‌های ورود فعلی نیز در دسترس می‌مانند."
+
 msgid "Let me know when it is back."
 msgstr "وقتی موجود شد خبرم کنید."
 
@@ -1702,6 +1726,9 @@ msgstr "ورود در صفحهٔ حساب کاربری"
 msgid "My account"
 msgstr "حساب من"
 
+msgid "My device"
+msgstr "دستگاه من"
+
 msgid "Need a Meli Payamak account?"
 msgstr "پنل ملی‌پیامک ندارید؟"
 
@@ -1780,6 +1807,9 @@ msgstr "به این حساب متصل نیست"
 msgid "Not selected"
 msgstr "انتخاب نشده"
 
+msgid "Not used yet"
+msgstr "هنوز استفاده نشده"
+
 msgid "Notified"
 msgstr "اطلاع داده شد"
 
@@ -1854,6 +1884,9 @@ msgstr "بخش هر بازی را باز کنید، متن‌های آن را ت
 
 msgid "Open abandoned carts"
 msgstr "سبدهای رهاشدهٔ باز"
+
+msgid "Open the secure HTTPS address of this site to manage or verify account security."
+msgstr "برای تنظیم یا تأیید امنیت حساب، نشانی امن سایت را با HTTPS باز کنید."
 
 msgid "Open the sign-in form in a popup from any link to #anar-login, such as a menu item. The form loads only when it is first opened, so page speed is unaffected."
 msgstr "فرم ورود با کلیک روی هر لینکی به ‎#anar-login‎ (مثلاً یک آیتم منو) در پاپ‌آپ باز می‌شود. فرم فقط هنگام اولین بازشدن بارگذاری می‌شود و روی سرعت صفحه اثری ندارد."
@@ -1962,6 +1995,30 @@ msgstr "سرشماره پنل‌چی 10001 است. برای استفاده از 
 
 msgid "Parameters"
 msgstr "پارامترها"
+
+msgid "Passkey"
+msgstr "کلید عبور"
+
+msgid "Passkey added to your account."
+msgstr "کلید عبور به حساب شما اضافه شد."
+
+msgid "Passkey name"
+msgstr "نام کلید عبور"
+
+msgid "Passkey name updated."
+msgstr "نام کلید عبور ذخیره شد."
+
+msgid "Passkey removed."
+msgstr "کلید عبور حذف شد."
+
+msgid "Passkey setup was cancelled. You can try again when ready."
+msgstr "ثبت کلید عبور لغو شد. هر زمان آماده بودید، دوباره تلاش کنید."
+
+msgid "Passkey sign-in"
+msgstr "ورود با کلید عبور"
+
+msgid "Passkey sign-in was cancelled. You can try again or use a verification code."
+msgstr "ورود با کلید عبور لغو شد. می‌توانید دوباره تلاش کنید یا با کد تأیید وارد شوید."
 
 msgid "Password recovery"
 msgstr "بازیابی رمز عبور"
@@ -2302,6 +2359,9 @@ msgstr "درصد پاداش معرفی دوستان"
 msgid "Register as customers"
 msgstr "ثبت‌نام به‌عنوان مشتری"
 
+msgid "Register passkey"
+msgstr "ثبت کلید عبور"
+
 msgid "Register with Meli Payamak"
 msgstr "ثبت‌نام در ملی‌پیامک"
 
@@ -2328,6 +2388,9 @@ msgstr "حذف"
 
 msgid "Remove authenticator"
 msgstr "حذف برنامهٔ رمزساز"
+
+msgid "Remove passkey"
+msgstr "حذف کلید عبور"
 
 msgid "Replace the WooCommerce forms"
 msgstr "جایگزینی فرم‌های ووکامرس"
@@ -2475,6 +2538,9 @@ msgstr "ابتدا تنظیمات را ذخیره کنید. پیام آزمای�
 
 msgid "Save message"
 msgstr "ذخیرهٔ پیام"
+
+msgid "Save name"
+msgstr "ذخیرهٔ نام"
 
 msgid "Save only your birthday month and day to receive a birthday greeting when enabled by the store. Your birth year is not requested."
 msgstr "فقط ماه و روز تولدتان را ذخیره کنید تا در صورت فعال بودن این امکان، پیام تبریک بگیرید. سال تولد درخواست نمی‌شود."
@@ -2632,6 +2698,9 @@ msgstr "پاداش و مهلت انتظار مرجوعی را تعیین و [ana
 msgid "Set the reward, probability and daily limit. Place the shortcode for the required game on a page. Configure the quiz options before using the quiz. Customers must sign in with a verified mobile number."
 msgstr "می‌توانید شورت‌کد چند بازی را هم‌زمان در سایت قرار دهید. سقف دفعات بازی و مشخصات کد تخفیف بین بازی‌ها مشترک است. متن‌ها را در بخش هر بازی تنظیم کنید. کاربرانی که شمارهٔ تأییدشده ندارند، می‌توانند همان‌جا و بدون خروج از حساب، شمارهٔ خود را تأیید کنند."
 
+msgid "Set up authenticator"
+msgstr "راه‌اندازی برنامهٔ رمزساز"
+
 msgid "Settings"
 msgstr "تنظیمات"
 
@@ -2704,6 +2773,9 @@ msgstr "ورود برای بازی"
 msgid "Sign in with a one-time code"
 msgstr "ورود با کد یکبارمصرف"
 
+msgid "Sign in with a passkey"
+msgstr "ورود با کلید عبور"
+
 msgid "Sign in with a password instead"
 msgstr "ورود با رمز عبور"
 
@@ -2731,6 +2803,9 @@ msgstr "ورود در صفحهٔ تسویه‌حساب"
 msgid "Sign-in code"
 msgstr "کد ورود"
 
+msgid "Sign-in form style"
+msgstr "ظاهر فرم ورود"
+
 msgid "Sign-in icon only"
 msgstr "فقط آیکون ورود"
 
@@ -2739,6 +2814,9 @@ msgstr "روش‌های ورود"
 
 msgid "Signing you in…"
 msgstr "در حال ورود…"
+
+msgid "Simple"
+msgstr "ساده"
 
 msgid "Single use"
 msgstr "مصرف یک‌باره"
@@ -3006,6 +3084,12 @@ msgstr "نتیجهٔ عملیات مشخص نشد. تغییرات شما حفظ 
 
 msgid "The page that contains the [anar_account] shortcode."
 msgstr "صفحه‌ای که شورت‌کد [anar_account] در آن قرار دارد."
+
+msgid "The passkey could not be registered. Please try again."
+msgstr "کلید عبور ثبت نشد. دوباره تلاش کنید."
+
+msgid "The passkey could not be verified. Please try again or use another sign-in method."
+msgstr "کلید عبور تأیید نشد. دوباره تلاش کنید یا از روش دیگری وارد شوید."
 
 msgid "The password reset code is invalid, expired or unavailable."
 msgstr "کد بازنشانی رمز نادرست، منقضی یا در دسترس نیست."
@@ -3315,6 +3399,9 @@ msgstr "تأیید شماره و ادامهٔ بازی"
 
 msgid "Verify the requester’s identity before erasing records by phone. Local campaign records are removed; WooCommerce orders and the provider’s records remain separate. A minimal suppression hash remembers stopped messages."
 msgstr "پیش از حذف بر اساس شماره، هویت درخواست‌کننده را بررسی کنید. سوابق محلی کمپین حذف می‌شوند؛ سفارش‌های ووکامرس و سوابق سرویس‌دهنده مستقل هستند. حداقل هش لازم برای حفظ لغو دریافت باقی می‌ماند."
+
+msgid "Verify your authenticator or a recovery code to change account security."
+msgstr "برای تغییر تنظیمات امنیت حساب، کد برنامهٔ رمزساز یا یکی از کدهای بازیابی را وارد کنید."
 
 msgid "Verify your mobile number"
 msgstr "تأیید شمارهٔ همراه"

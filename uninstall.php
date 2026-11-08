@@ -49,7 +49,7 @@ foreach ( array( 'profiles', 'orders', 'purchases', 'jobs', 'stock', 'feedback',
 }
 foreach ( array( 'anar_toolkit_marketing', 'anar_marketing_profile_cursor', 'anar_marketing_import_active', 'anar_marketing_import_page' ) as $anar_marketing_option ) {
 	delete_option( $anar_marketing_option ); }
-foreach ( array( 'anar_auth_flow_', '_anar_authenticator_', 'anar_toolkit_messages_', 'anar_reward_', 'anar_bulk_launch_', '_transient_anar_bulk_preview_', '_transient_timeout_anar_bulk_preview_' ) as $anar_marketing_prefix ) {
+foreach ( array( 'anar_passkey_', 'anar_auth_flow_', '_anar_authenticator_', 'anar_toolkit_messages_', 'anar_reward_', 'anar_bulk_launch_', '_transient_anar_bulk_preview_', '_transient_timeout_anar_bulk_preview_' ) as $anar_marketing_prefix ) {
 	$wpdb->query( $wpdb->prepare( 'DELETE FROM %i WHERE option_name LIKE %s', $wpdb->options, $wpdb->esc_like( $anar_marketing_prefix ) . '%' ) );
 }
 // Preserve WooCommerce financial records, expire personal gifts and remove targeting metadata.
@@ -61,6 +61,7 @@ foreach ( $anar_coupon_ids as $anar_coupon_id ) {
 }
 $wpdb->delete( $wpdb->usermeta, array( 'meta_key' => '_anar_birthday' ), array( '%s' ) );
 $wpdb->delete( $wpdb->usermeta, array( 'meta_key' => '_anar_referral_code' ), array( '%s' ) );
+$wpdb->delete( $wpdb->usermeta, array( 'meta_key' => '_anar_passkey_id' ), array( '%s' ) );
 $wpdb->delete( $wpdb->usermeta, array( 'meta_key' => '_anar_phone' ), array( '%s' ) );
 $wpdb->delete( $wpdb->usermeta, array( 'meta_key' => '_anar_google_sub' ), array( '%s' ) );
 $wpdb->delete( $wpdb->usermeta, array( 'meta_key' => '_anar_google_avatar' ), array( '%s' ) );

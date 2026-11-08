@@ -227,6 +227,14 @@ final class SettingsPage {
 								<div class="anar-color"><input id="anar-color" type="color" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[brand_color]" value="<?php echo esc_attr( $value['brand_color'] ); ?>"><code><?php echo esc_html( $value['brand_color'] ); ?></code></div>
 							</div>
 							<div class="anar-field-row">
+								<label for="anar-form-preset"><strong><?php esc_html_e( 'Sign-in form style', 'anar-toolkit' ); ?></strong></label>
+								<select id="anar-form-preset" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[form_preset]">
+									<?php foreach ( array( 'card' => __( 'Card', 'anar-toolkit' ), 'minimal' => __( 'Simple', 'anar-toolkit' ), 'bold' => __( 'Accent', 'anar-toolkit' ) ) as $preset => $label ) : ?>
+									<option value="<?php echo esc_attr( $preset ); ?>" <?php selected( $value['form_preset'], $preset ); ?>><?php echo esc_html( $label ); ?></option>
+									<?php endforeach; ?>
+								</select>
+							</div>
+							<div class="anar-field-row">
 								<label for="anar-form-logo"><strong><?php esc_html_e( 'Form logo', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'Shown at the top of the sign-in form. The site logo falls back to the site icon, then to a lock icon.', 'anar-toolkit' ); ?></small></label>
 								<div class="anar-logo-picker">
 									<select id="anar-form-logo" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[form_logo]">
@@ -366,6 +374,7 @@ final class SettingsPage {
 					</section>
 
 					<section class="anar-tab" data-panel="security" hidden>
+							<?php $this->toggle( 'passkeys_enabled', __( 'Passkey sign-in', 'anar-toolkit' ), __( 'Let customers register a passkey from account security. Passkeys require HTTPS and PHP 8.0 or later; the current sign-in methods remain available.', 'anar-toolkit' ), $value ); ?>
 							<?php $this->toggle( 'password_reset_enabled', __( 'SMS password recovery', 'anar-toolkit' ), __( 'Allow linked mobile numbers to reset an existing account password using a separate single-use SMS code.', 'anar-toolkit' ), $value ); ?>
 						<?php $this->section_header( __( 'Security and rate limits', 'anar-toolkit' ), __( 'Configure code lifetime and request limits for your site.', 'anar-toolkit' ), '⌾' ); ?>
 						<div class="anar-card">

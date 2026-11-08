@@ -73,13 +73,7 @@ final class WpLogin {
 			)
 		);
 
-		add_filter(
-			'login_body_class',
-			static function ( $classes ) {
-				$classes[] = 'anar-wp-login';
-				return $classes;
-			}
-		);
+		FormView::prepare_wordpress();
 
 		login_header( __( 'Sign in', 'anar-toolkit' ) );
 		echo $form; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped where it is built.

@@ -95,6 +95,10 @@ final class RateLimiter {
 		return true;
 	}
 
+	public function guard_passkey() {
+		return $this->claim( $this->key( 'passkey', $this->client_ip() ), 300, 30 ) ? true : new WP_Error( 'anar_rate_limited', __( 'Too many requests. Please try again later.', 'anar-toolkit' ), array( 'status' => 429 ) );
+	}
+
 	/** Bound authenticator guesses across freshly issued flows. */
 	public function guard_factor( $user_id ) {
 		if ( ! $this->claim( $this->key( 'factor_user', $user_id ), 300, 10 ) || ! $this->claim( $this->key( 'factor_ip', $this->client_ip() ), 900, 100 ) ) {

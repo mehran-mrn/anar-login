@@ -56,26 +56,21 @@ final class LoginFlowService {
 
 	/** Reserve an attempt before checking a factor. Concurrent stale readers lose. */
 	public function attempt( $token, $purpose ) {
-		global $wpdb;
 		$state = $this->read( $token, $purpose );
 		if ( ! $state || $state['attempts'] >= 5 ) {
 			return false;
 		}
 		$previous = wp_json_encode( $state );
 		++$state['attempts'];
-		$updated = $wpdb->query( $wpdb->prepare( 'UPDATE %i SET option_value = %s WHERE option_name = %s AND BINARY option_value = BINARY %s', $wpdb->options, wp_json_encode( $state ), $this->key( $token ), $previous ) );
-		wp_cache_delete( $this->key( $token ), 'options' );
-		return 1 === $updated ? $state : false;
+		$updated = \Anar\Login\Infrastructure\AtomicOptions::replace( $this->key( $token ), $previous, wp_json_encode( $state ) );
+		return $updated ? $state : false;
 	}
 
 	public function consume( $token, $purpose, array $state ) {
-		global $wpdb;
 		if ( ! $this->read( $token, $purpose ) || $state['purpose'] !== $purpose || $state['expires'] <= time() ) {
 			return false;
 		}
-		$deleted = $wpdb->query( $wpdb->prepare( 'DELETE FROM %i WHERE option_name = %s AND BINARY option_value = BINARY %s', $wpdb->options, $this->key( $token ), wp_json_encode( $state ) ) );
-		wp_cache_delete( $this->key( $token ), 'options' );
-		return 1 === $deleted;
+		return \Anar\Login\Infrastructure\AtomicOptions::remove( $this->key( $token ), wp_json_encode( $state ) );
 	}
 
 	public static function cleanup() {

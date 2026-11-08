@@ -12,6 +12,10 @@ defined( 'ABSPATH' ) || exit;
 final class CredentialService {
 	const META = '_anar_authenticator';
 
+	public static function available() {
+		return function_exists( 'openssl_encrypt' ) && function_exists( 'openssl_decrypt' ) && in_array( 'aes-256-gcm', openssl_get_cipher_methods(), true );
+	}
+
 	public function record( $user_id ) {
 		return get_option( self::META . '_' . (int) $user_id, false );
 	}
@@ -29,6 +33,9 @@ final class CredentialService {
 	}
 
 	public function encrypt( $secret ) {
+		if ( ! self::available() ) {
+			throw new \RuntimeException( 'Authenticator encryption is unavailable.' );
+		}
 		$iv = random_bytes( 12 );
 		$tag = '';
 		$ciphertext = openssl_encrypt( $secret, 'aes-256-gcm', $this->key(), OPENSSL_RAW_DATA, $iv, $tag, 'anar-totp-v1' );
@@ -39,6 +46,9 @@ final class CredentialService {
 	}
 
 	public function decrypt( $envelope ) {
+		if ( ! self::available() ) {
+			return false;
+		}
 		$raw = base64_decode( $envelope, true ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode -- Binary envelope.
 		if ( false === $raw || strlen( $raw ) < 29 ) {
 			return false;
@@ -48,25 +58,17 @@ final class CredentialService {
 
 	public function enroll( $user_id, $secret, $code ) {
 		$counter = Totp::match_counter( $secret, $code, time() );
-		if ( false === $counter || $this->enabled( $user_id ) ) {
+		if ( ! self::available() || false === $counter || $this->enabled( $user_id ) ) {
 			return false;
 		}
-		$codes = array();
-		for ( $i = 0; $i < 10; ++$i ) {
-			$codes[] = bin2hex( random_bytes( 16 ) );
-		}
+		$recovery = $this->new_recovery();
 		$record = array(
 			'version' => 1,
 			'secret' => $this->encrypt( $secret ),
 			'last' => $counter,
-			'recovery' => array_map(
-				static function ( $value ) {
-					return hash( 'sha256', $value );
-				},
-				$codes
-			),
+			'recovery' => $recovery['hashes'],
 		);
-		return add_option( self::META . '_' . (int) $user_id, $record, '', false ) ? $codes : false;
+		return add_option( self::META . '_' . (int) $user_id, $record, '', false ) ? $recovery['codes'] : false;
 	}
 
 	public function verify( $user_id, $code ) {
@@ -92,13 +94,37 @@ final class CredentialService {
 			}
 			$next['last'] = $counter;
 		}
-		global $wpdb;
-		$key = self::META . '_' . (int) $user_id;
-		$updated = $wpdb->query( $wpdb->prepare( 'UPDATE %i SET option_value = %s WHERE option_name = %s AND BINARY option_value = BINARY %s', $wpdb->options, maybe_serialize( $next ), $key, maybe_serialize( $previous ) ) );
-		wp_cache_delete( $key, 'options' );
-		if ( 1 === $updated ) {
+		$updated = \Anar\Login\Infrastructure\AtomicOptions::replace( self::META . '_' . (int) $user_id, $previous, $next );
+		if ( $updated ) {
 			$limits->clear_factor( $user_id );
 		}
-		return 1 === $updated;
+		return $updated;
+	}
+	private function new_recovery() {
+		$codes = array();
+		for ( $i = 0; $i < 10; ++$i ) {
+			$codes[] = bin2hex( random_bytes( 16 ) );
+		}
+		return array(
+			'codes' => $codes,
+			'hashes' => array_map(
+				static function ( $code ) {
+					return hash( 'sha256', $code );
+				},
+				$codes
+			),
+		);
+	}
+
+	/** Caller must first pass the shared account-management proof. */
+	public function regenerate_recovery( $user_id ) {
+		$previous = $this->record( $user_id );
+		if ( ! is_array( $previous ) ) {
+			return false;
+		}
+		$recovery = $this->new_recovery();
+		$next = $previous;
+		$next['recovery'] = $recovery['hashes'];
+		return \Anar\Login\Infrastructure\AtomicOptions::replace( self::META . '_' . (int) $user_id, $previous, $next ) ? $recovery['codes'] : false;
 	}
 }

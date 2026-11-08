@@ -1178,3 +1178,15 @@ body.anar-wp-login .anar-auth {
 		animation-iteration-count: infinite !important;
 	}
 }
+
+/* Shared server-rendered security steps use the same form frame. */
+body.anar-wp-login .anar-security-card form { margin: 0; padding: 0; border: 0; background: transparent; box-shadow: none; }
+.anar-security-card .input { width: 100%; max-width: 100%; min-height: 48px; padding: 10px 14px !important; font: inherit; border: 1px solid #ded6d9; border-radius: 13px; }
+.anar-security-card pre { max-width: 100%; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 13px; padding: 16px; background: #faf7f8; border-radius: 12px; }
+.anar-security-card small { display: block; margin: 8px 0; color: var(--anar-muted); }
+.anar-security-card .anar-auth__back { margin: 6px 0; }
+.anar-auth--minimal { box-shadow: none; border-radius: 12px; }
+.anar-auth--minimal .anar-auth__glow { display: none; }
+.anar-auth--minimal .anar-auth__header { background: #fff; }
+.anar-auth--bold .anar-auth__header { background: color-mix(in srgb, var(--anar-accent) 9%, white); }
+.anar-auth--bold .anar-auth__intro h2 { color: var(--anar-accent); }

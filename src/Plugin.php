@@ -70,6 +70,7 @@ final class Plugin {
 			'deleted_user',
 			static function ( $user_id ) {
 				( new \Anar\Login\Auth\CredentialService() )->remove( $user_id );
+				( new \Anar\Login\Auth\PasskeyRepository() )->remove_user( $user_id );
 			}
 		);
 		// Diagnostics are built only for an authenticated administrator's REST request.
@@ -237,6 +238,24 @@ final class Plugin {
 			return $instance;
 		};
 
+		add_action(
+			'rest_api_init',
+			static function () use ( $service ) {
+				foreach ( array( 'options', 'register', 'verify' ) as $operation ) {
+					register_rest_route(
+						'anar-login/v1',
+						'/passkey/' . $operation,
+						array(
+							'methods' => 'POST',
+							'permission_callback' => '__return_true',
+							'callback' => static function ( $request ) use ( $service, $operation ) {
+								return ( new \Anar\Login\Api\PasskeyController( $service() ) )->handle( $operation, $request );
+							},
+						)
+					);
+				}
+			}
+		);
 		add_filter(
 			'anar_login_can_authenticate',
 			function ( $allowed, $user, $remember = false ) use ( $service ) {

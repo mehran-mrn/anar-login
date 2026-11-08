@@ -48,6 +48,12 @@ try {
 	$assert( ! $credentials->verify( $user_id, $codes[0] ), 'Recovery replay rejected' );
 	$assert( 9 === count( $credentials->record( $user_id )['recovery'] ), 'Only one recovery code consumed' );
 	$assert( ! $credentials->verify( $user_id, 'wrong' ), 'Wrong factor rejected' );
+	$assert( $credentials->verify( $user_id, $codes[1] ), 'Fresh proof authorizes recovery-code rotation' );
+	$rotated = $credentials->regenerate_recovery( $user_id );
+	$assert( is_array( $rotated ) && 10 === count( $rotated ), 'Ten replacement recovery codes issued' );
+	$assert( ! $credentials->verify( $user_id, $codes[2] ), 'Rotation invalidates old recovery codes' );
+	$assert( $credentials->verify( $user_id, $rotated[0] ), 'New recovery code works' );
+	$assert( ! $credentials->verify( $user_id, $rotated[0] ), 'New recovery code remains single-use' );
 	$token = $flows->issue( 'login', array( 'user_id' => $user_id ) );
 	$tokens[] = $token;
 	$assert( is_string( $token ) && 64 === strlen( $token ), 'Random 256-bit flow ID' );

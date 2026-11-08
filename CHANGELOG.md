@@ -4,6 +4,9 @@
 
 - Add a shared, browser-bound authenticator verification flow and separate account-security challenges from login codes.
 - Add encrypted authenticator enrollment and single-use recovery codes in the development branch.
+- Add optional passkey enrollment, sign-in, naming and revocation with a bundled, isolated WebAuthn verifier; require HTTPS and PHP 8 for this module.
+- Share one branded frame and three visual presets across sign-in and account-security steps.
+- Require fresh identity proof for security changes and recovery-code regeneration; reject passkey replay and invalid origins, signatures or device counters.
 - Keep account-security engines and assets unloaded on unrelated public requests; add regression checks for the load budget.
 
 
