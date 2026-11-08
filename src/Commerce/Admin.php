@@ -108,7 +108,7 @@ final class Admin {
 				<div class="notice notice-warning inline"><p><?php esc_html_e( 'Install and activate WooCommerce to run these modules. Login features work independently.', 'anar-toolkit' ); ?></p></div>
 			<?php endif; ?>
 			<?php
-			if ( in_array( $tab, array( 'settings', 'templates' ), true ) ) :
+			if ( 'settings' === $tab ) :
 				\Anar\Login\Admin\Help::section( $flags['recovery'] ? 'recovery' : 'orders' );
 				?>
 				<form method="post" action="options.php" class="anar-settings-form"><input type="hidden" name="<?php echo esc_attr( Settings::OPTION ); ?>[_partial]" value="1"><section class="anar-suite-panel" id="settings" data-suite-panel="settings" <?php echo 'settings' === $tab ? '' : 'hidden'; ?>><div class="anar-suite-toolbar"><h2><?php esc_html_e( 'Automation settings', 'anar-toolkit' ); ?></h2></div><div class="anar-settings-grid">
@@ -120,7 +120,12 @@ final class Admin {
 						if ( 'recovery' === $key ? ! $flags['recovery'] : ! $flags['orders'] ) {
 							continue; }
 						?>
-						<p><label><input type="hidden" name="<?php echo esc_attr( Settings::OPTION ); ?>[<?php echo esc_attr( $key ); ?>]" value="0"><input type="checkbox" name="<?php echo esc_attr( Settings::OPTION ); ?>[<?php echo esc_attr( $key ); ?>]" value="1" <?php checked( $value[ $key ] ); ?>> <?php echo esc_html( $label ); ?></label></p>
+						<div class="anar-order-event" data-order-event="<?php echo esc_attr( $key ); ?>"><label><input type="hidden" name="<?php echo esc_attr( Settings::OPTION ); ?>[<?php echo esc_attr( $key ); ?>]" value="0"><input type="checkbox" name="<?php echo esc_attr( Settings::OPTION ); ?>[<?php echo esc_attr( $key ); ?>]" value="1" <?php checked( $value[ $key ] ); ?>> <?php echo esc_html( $label ); ?></label>
+							<?php
+							if ( 'recovery' !== $key ) {
+								\Anar\Login\Admin\MessageCenter::summary( $key, 'orders', true ); }
+							?>
+						</div>
 					<?php endforeach; ?>
 					<p><?php esc_html_e( 'Payment messages are triggered by WooCommerce payment completion, not by viewing the thank-you page. Merely creating an order or choosing cash on delivery does not trigger them.', 'anar-toolkit' ); ?></p>
 					<p><label for="anar-commerce-provider"><strong><?php esc_html_e( 'Commerce SMS provider', 'anar-toolkit' ); ?></strong></label><br><select id="anar-commerce-provider" name="<?php echo esc_attr( Settings::OPTION ); ?>[provider]">
@@ -150,6 +155,17 @@ final class Admin {
 					$this->input( 'link_days', __( 'Recovery eligibility after cart activity, days (1–30)', 'anar-toolkit' ), $value['link_days'], 'number' );
 					$this->input( 'code_minutes', __( 'Recovery code validity, minutes (5–1440)', 'anar-toolkit' ), $value['code_minutes'], 'number' );
 					$this->input( 'retention', __( 'Local data retention, days (7–90)', 'anar-toolkit' ), $value['retention'], 'number' );
+					foreach ( $value['events'] as $key => $event ) {
+						if ( ! isset( $event['minutes'] ) ) {
+							continue; }
+						?>
+							<div class="anar-recovery-message" data-recovery-stage="<?php echo esc_attr( $key ); ?>">
+							<?php \Anar\Login\Admin\MessageCenter::summary( $key, 'recovery' ); ?>
+							<?php $this->input( 'events][' . $key . '][minutes', __( 'Minutes after the last cart change (0 = disabled)', 'anar-toolkit' ), $event['minutes'], 'number' ); ?>
+							</div>
+							<?php
+					}
+						\Anar\Login\Admin\MessageCenter::summary( 'recovery_request', 'recovery' );
 					?>
 					<p><?php esc_html_e( 'Hours use the WordPress site timezone. Action Scheduler is used when available; WP-Cron is the fallback. Execution depends on the site scheduler and may be delayed. Retention cleanup runs daily.', 'anar-toolkit' ); ?> <code><?php echo esc_html( wp_timezone_string() ); ?></code></p>
 				</div>
@@ -171,23 +187,7 @@ final class Admin {
 				endif; if ( $flags['orders'] ) :
 					?>
 					<div class="anar-commerce-card"><h2><?php esc_html_e( 'Order notifications', 'anar-toolkit' ); ?></h2><p><?php esc_html_e( 'Enter shipment details in the Anar box on the WooCommerce order. Standard WooCommerce Shipment Tracking metadata is also supported. For another shipping plugin, enter its tracking-number meta key.', 'anar-toolkit' ); ?></p><?php $this->input( 'tracking_meta_key', __( 'Additional tracking-number meta key', 'anar-toolkit' ), $value['tracking_meta_key'] ); ?><p class="description"><?php esc_html_e( 'Each status is sent once per order. Changed tracking numbers can create a new notification; superseded pending messages are cancelled before sending.', 'anar-toolkit' ); ?></p></div>
-				<?php endif; ?></div></section><section class="anar-suite-panel" id="templates" data-suite-panel="templates" <?php echo 'templates' === $tab ? '' : 'hidden'; ?>><div class="anar-suite-toolbar"><h2><?php esc_html_e( 'Message templates', 'anar-toolkit' ); ?></h2></div><div class="anar-template-grid">
-				<?php
-				foreach ( $value['events'] as $key => $event ) :
-					if ( isset( $event['minutes'] ) ? ! $flags['recovery'] : ! $flags['orders'] ) {
-						continue; }
-					?>
-					<div class="anar-commerce-card">
-						<h2><?php echo esc_html( $labels[ $key ] ); ?></h2>
-						<?php
-						if ( isset( $event['minutes'] ) ) {
-							$this->input( 'events][' . $key . '][minutes', __( 'Minutes after the last cart change (0 = disabled)', 'anar-toolkit' ), $event['minutes'], 'number' );
-						}
-						\Anar\Login\Admin\MessageCenter::summary( $key, isset( $event['minutes'] ) ? 'recovery' : 'orders' );
-						?>
-					</div>
-				<?php endforeach; ?>
-				</div></section><div class="anar-suite-savebar"><?php submit_button(); ?></div>
+				<?php endif; ?></div></section><div class="anar-suite-savebar"><?php submit_button(); ?></div>
 			</form><?php endif; ?>
 			<?php
 			if ( 'privacy' === $tab ) :

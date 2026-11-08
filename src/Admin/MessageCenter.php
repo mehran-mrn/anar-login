@@ -64,11 +64,15 @@ final class MessageCenter {
 		return self::url();
 	}
 
-	public static function summary( $id, $back = '' ) {
+	public static function summary( $id, $back = '', $compact = false ) {
 		$value = MessageSettings::get( $id );
 		$errors = MessageSettings::errors( $id, $value );
 		?>
-		<div class="anar-message-summary" data-message-summary="<?php echo esc_attr( $id ); ?>"><div><strong><?php echo esc_html( MessageCatalog::all()[ $id ]['label'] ?? $id ); ?></strong><span data-message-status><?php echo esc_html( $errors ? __( 'Needs configuration', 'anar-toolkit' ) : __( 'Configuration complete', 'anar-toolkit' ) ); ?></span></div><a class="button" data-message-open href="<?php echo esc_url( self::url( $id, $back ) ); ?>"><?php esc_html_e( 'Edit message', 'anar-toolkit' ); ?></a></div>
+			<div class="anar-message-summary" data-message-summary="<?php echo esc_attr( $id ); ?>"><div>
+			<?php
+			if ( ! $compact ) :
+				?>
+				<strong><?php echo esc_html( MessageCatalog::all()[ $id ]['label'] ?? $id ); ?></strong><?php endif; ?><span data-message-status><?php echo esc_html( $errors ? __( 'Needs configuration', 'anar-toolkit' ) : __( 'Configuration complete', 'anar-toolkit' ) ); ?></span></div><a class="button" data-message-open href="<?php echo esc_url( self::url( $id, $back ) ); ?>"><?php esc_html_e( 'Edit message', 'anar-toolkit' ); ?></a></div>
 		<?php
 	}
 

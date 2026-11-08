@@ -15,7 +15,7 @@ if ( ! defined( 'WP_CLI' ) || ! WP_CLI || 'local' !== wp_get_environment_type() 
 if ( ! defined( 'DOING_AJAX' ) ) {
 	define( 'DOING_AJAX', true );
 }
-$options = array( Settings::OPTION_KEY, 'anar_toolkit_marketing', MessageSettings::OPTION . '_login_otp', MessageSettings::OPTION . '_password_reset', MessageSettings::OPTION . '_mkt_birthday', MessageSettings::OPTION . '_mkt_birthday_gift', MessageSettings::OPTION . '_test_password_reset' );
+$options = array( Settings::OPTION_KEY, 'anar_toolkit_marketing', MessageSettings::OPTION . '_login_otp', MessageSettings::OPTION . '_password_reset', MessageSettings::OPTION . '_mkt_birthday', MessageSettings::OPTION . '_mkt_birthday_gift', MessageSettings::OPTION . '_test_password_reset', 'anar_toolkit_features', 'anar_toolkit_commerce', 'cron' );
 $original = array();
 foreach ( $options as $key ) {
 	$original[ $key ] = get_option( $key );
@@ -61,8 +61,10 @@ add_filter(
 );
 try {
 	wp_set_current_user( 1 );
-	foreach ( array_slice( $options, 2 ) as $key ) {
-		delete_option( $key );
+	foreach ( $options as $key ) {
+		if ( 0 === strpos( $key, MessageSettings::OPTION . '_' ) ) {
+			delete_option( $key );
+		}
 	}
 	$settings = ( new Settings() )->all();
 	$settings['sms_provider'] = 'panelchi';
@@ -120,6 +122,42 @@ try {
 	$assert( empty( $result['success'] ), 'Loading is denied without administrator capability' );
 	$result = $call( 'save', array(), $request_data );
 	$assert( empty( $result['success'] ), 'Saving is denied without administrator capability' );
+	if ( class_exists( 'WooCommerce' ) ) {
+		wp_set_current_user( 1 );
+		$core = (array) get_option( 'anar_toolkit_features', array() );
+		$core = $core['switches'] ?? $core;
+		$core['orders'] = 1;
+		update_option( 'anar_toolkit_features', $core );
+		$commerce_settings = new \Anar\Login\Commerce\Settings();
+		$commerce = $commerce_settings->all();
+		$commerce['recovery'] = 1;
+		$commerce['paid_customer'] = 1;
+		foreach ( array( 31, 83, 167 ) as $index => $minutes ) {
+			$commerce['events'][ 'recovery_' . ( $index + 1 ) ]['minutes'] = $minutes;
+		}
+		update_option( 'anar_toolkit_commerce', $commerce );
+		$_GET = array( 'page' => 'anar-toolkit-commerce', 'tab' => 'templates' );
+		$workspace_tabs = \Anar\Login\Infrastructure\Features::workspace_tabs();
+		$assert( ! isset( $workspace_tabs['templates'] ) && 'settings' === \Anar\Login\Infrastructure\Features::current_tab(), 'The template tab is removed and old bookmarks resolve to automation settings' );
+		ob_start();
+		( new \Anar\Login\Commerce\Admin( $commerce_settings, new \Anar\Login\Commerce\Repository(), new \Anar\Login\Messaging\ProviderRegistry( new Settings() ) ) )->render();
+		$markup = ob_get_clean();
+		$assert( false === strpos( $markup, 'id="templates"' ) && false !== strpos( $markup, 'data-order-event="paid_customer"' ) && false !== strpos( $markup, 'data-message-summary="paid_customer"' ), 'Order switches and their existing message editor render on one settings page' );
+		foreach ( array( 31, 83, 167 ) as $index => $minutes ) {
+			$name = 'name="anar_toolkit_commerce[events][recovery_' . ( $index + 1 ) . '][minutes]"';
+			$assert( 1 === substr_count( $markup, $name ) && false !== strpos( $markup, 'value="' . $minutes . '"' ), 'Recovery timing is retained once next to its message: stage ' . ( $index + 1 ) );
+		}
+		$marketing['modules']['games'] = 1;
+		$marketing['modules']['stock'] = 1;
+		update_option( 'anar_toolkit_marketing', $marketing );
+		foreach ( array( 'games' => 'game_phone', 'stock' => 'stock_verification' ) as $module => $purpose ) {
+			$_GET = array( 'page' => 'anar-toolkit-' . $module );
+			ob_start();
+			( new \Anar\Login\Marketing\Admin() )->render();
+			$markup = ob_get_clean();
+			$assert( false !== strpos( $markup, 'data-message-summary="' . $purpose . '"' ), 'Verification message opens from its own module: ' . $module );
+		}
+	}
 	WP_CLI::log( wp_json_encode( array( 'passed' => true, 'checks' => count( $checks ), 'delivery' => 'mocked', 'results' => $checks ), JSON_PRETTY_PRINT ) );
 } finally {
 	foreach ( $original as $key => $value ) {
