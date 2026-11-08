@@ -46,11 +46,6 @@ final class CredentialService {
 		return openssl_decrypt( substr( $raw, 28 ), 'aes-256-gcm', $this->key(), OPENSSL_RAW_DATA, substr( $raw, 0, 12 ), substr( $raw, 12, 16 ), 'anar-totp-v1' );
 	}
 
-	public function enroll_encrypted( $user_id, $encrypted, $code ) {
-		$secret = $this->decrypt( $encrypted );
-		return $secret ? $this->enroll( $user_id, $secret, $code ) : false;
-	}
-
 	public function enroll( $user_id, $secret, $code ) {
 		$counter = Totp::match_counter( $secret, $code, time() );
 		if ( false === $counter || $this->enabled( $user_id ) ) {

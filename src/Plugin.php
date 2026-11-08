@@ -13,7 +13,6 @@ use Anar\Login\Api\AuthController;
 use Anar\Login\Api\ProfileController;
 use Anar\Login\Auth\GoogleAuth;
 use Anar\Login\Auth\OtpService;
-use Anar\Login\Auth\TwoFactor;
 use Anar\Login\Auth\UserService;
 use Anar\Login\Frontend\Popup;
 use Anar\Login\Frontend\Shortcodes;
@@ -146,8 +145,6 @@ final class Plugin {
 				$users = new UserService( $settings );
 				$otp = new OtpService( $settings, $codes, $limiter, $providers, $users );
 				self::security_hooks( $otp, $users );
-				if ( $flags['two_factor'] ) {
-					( new TwoFactor( $settings, $otp, $users ) )->register(); }
 			}
 			if ( $flags['login'] ) {
 				$google = $settings->get( 'google_enabled', 0 ) ? new GoogleAuth( $settings, $users, $limiter ) : null;
@@ -227,6 +224,11 @@ final class Plugin {
 
 	/** Register lazy security callbacks without loading account security on public pages. */
 	public static function security_hooks( $otp, $users ) {
+		static $registered = false;
+		if ( $registered ) {
+			return;
+		}
+		$registered = true;
 		$service = static function () use ( $otp, $users ) {
 			static $instance;
 			if ( ! $instance ) {
@@ -242,6 +244,12 @@ final class Plugin {
 			},
 			100,
 			3
+		);
+		add_action(
+			'anar_login_verified_session',
+			function ( $user ) use ( $service ) {
+				$service()->verified_session( $user );
+			}
 		);
 		add_action(
 			'login_form_anar_authenticator',
@@ -286,10 +294,18 @@ final class Plugin {
 			100,
 			2
 		);
+		foreach ( array( 'show_user_profile', 'woocommerce_edit_account_form' ) as $hook ) {
+			add_action(
+				$hook,
+				static function () {
+					echo Shortcodes::security_link(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Renderer escapes the link.
+				}
+			);
+		}
 		add_shortcode(
 			'anar_account_security',
-			static function () use ( $service ) {
-				return \Anar\Login\Auth\AccountSecurity::link();
+			static function () {
+				return Shortcodes::security_link();
 			}
 		);
 	}

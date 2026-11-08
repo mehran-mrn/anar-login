@@ -9,12 +9,12 @@ if ( ! defined( 'WP_CLI' ) || 'local' !== wp_get_environment_type() || ! getenv(
 	throw new RuntimeException( 'Disposable instrumented QA only.' ); }
 $feature_mode = getenv( 'ANAR_QA_FEATURE_MODE' );
 $loaded = array();
-foreach ( array( 'Auth\OtpService', 'Auth\GoogleAuth', 'Auth\TwoFactor', 'Auth\PasswordRecovery', 'Commerce\Module', 'Commerce\AutomaticCapture', 'Commerce\OrderEvents', 'Commerce\Worker', 'Marketing\Engine', 'Marketing\Frontend', 'Marketing\Games', 'Marketing\Invoices', 'Marketing\Insights', 'Marketing\Referrals' ) as $class ) {
+foreach ( array( 'Auth\AccountSecurity', 'Auth\CredentialService', 'Auth\LoginFlowService', 'Auth\Totp', 'Auth\OtpService', 'Auth\GoogleAuth', 'Auth\TwoFactor', 'Auth\PasswordRecovery', 'Commerce\Module', 'Commerce\AutomaticCapture', 'Commerce\OrderEvents', 'Commerce\Worker', 'Marketing\Engine', 'Marketing\Frontend', 'Marketing\Games', 'Marketing\Invoices', 'Marketing\Insights', 'Marketing\Referrals' ) as $class ) {
 	$loaded[ $class ] = class_exists( 'Anar' . chr( 92 ) . 'Login' . chr( 92 ) . $class, false ); }
 $expected = array(
 	'off' => array(),
 	'login' => array( 'Auth\OtpService' ),
-	'two_factor' => array( 'Auth\OtpService', 'Auth\TwoFactor' ),
+	'two_factor' => array( 'Auth\OtpService' ),
 	'invoice' => array( 'Marketing\Invoices' ),
 	'games' => array( 'Marketing\Engine', 'Marketing\Games' ),
 	'traffic' => array( 'Marketing\Engine', 'Marketing\Insights' ),

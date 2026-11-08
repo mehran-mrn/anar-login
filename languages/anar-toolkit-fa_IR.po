@@ -1045,6 +1045,9 @@ msgstr "مبلغ کل را با واحد پول فعلی فروشگاه وارد
 msgid "Enter the verification code"
 msgstr "کد تأیید را وارد کنید"
 
+msgid "Enter the verification code sent to your linked contact."
+msgstr "کد تأیید ارسال‌شده به شماره یا ایمیل متصل به حساب را وارد کنید."
+
 msgid "Enter your authenticator code or a recovery code."
 msgstr "کد برنامهٔ رمزساز یا یکی از کدهای بازیابی را وارد کنید."
 

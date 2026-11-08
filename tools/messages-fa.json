@@ -135,5 +135,6 @@
   "First verify your linked contact to set up an authenticator.": "برای راه‌اندازی برنامهٔ رمزساز، ابتدا شماره یا ایمیل متصل به حساب را تأیید کنید.",
   "Continue": "ادامه",
   "Please allow cookies and try again.": "کوکی‌های مرورگر را فعال کنید و دوباره تلاش کنید.",
-  "Please try again.": "لطفاً دوباره تلاش کنید."
+  "Please try again.": "لطفاً دوباره تلاش کنید.",
+  "Enter the verification code sent to your linked contact.": "کد تأیید ارسال‌شده به شماره یا ایمیل متصل به حساب را وارد کنید."
 }

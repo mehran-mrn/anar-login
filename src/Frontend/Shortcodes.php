@@ -209,6 +209,11 @@ final class Shortcodes {
 		return ob_get_clean();
 	}
 
+	public static function security_link() {
+		return is_user_logged_in() ? '<p><a class="anar-btn anar-btn--soft" href="' . esc_url( add_query_arg( 'action', 'anar_security', wp_login_url() ) ) . '">' . esc_html__( 'Account security', 'anar-toolkit' ) . '</a></p>' : '';
+	}
+
+
 	/**
 	 * Account dashboard.
 	 *
@@ -299,7 +304,7 @@ final class Shortcodes {
 				<div class="anar-panel__view" data-anar-view="security" hidden>
 					<div class="anar-section-title"><div><span><?php esc_html_e( 'Security', 'anar-toolkit' ); ?></span><h3><?php esc_html_e( 'Account sign-in methods', 'anar-toolkit' ); ?></h3></div></div>
 					<div class="anar-security-list">
-						<?php echo \Anar\Login\Auth\AccountSecurity::link(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped by renderer. ?>
+						<?php echo self::security_link(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped by renderer. ?>
 						<?php $this->security_method( __( 'SMS sign-in', 'anar-toolkit' ), $phone ? Identity::local_phone( $phone ) : __( 'Not connected to this account', 'anar-toolkit' ), (bool) $phone, 'SMS' ); ?>
 						<?php $this->security_method( __( 'Email sign-in', 'anar-toolkit' ), $user->user_email ? $user->user_email : __( 'Not connected to this account', 'anar-toolkit' ), (bool) $user->user_email, '@' ); ?>
 						<?php $this->security_method( __( 'Google account', 'anar-toolkit' ), $google ? __( 'Connected and verified', 'anar-toolkit' ) : __( 'Not connected to this account', 'anar-toolkit' ), (bool) $google, 'G' ); ?>
