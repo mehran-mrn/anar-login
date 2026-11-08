@@ -18,6 +18,31 @@ final class Games {
 		add_shortcode( 'anar_games', array( $this, 'form' ) );
 		add_shortcode( 'anar_game', array( $this, 'form' ) );
 		add_action( 'wp_ajax_anar_game', array( $this, 'action' ) );
+		add_action( 'wp_ajax_anar_game_phone', array( new PhoneVerification(), 'action' ) );
+	}
+
+	public static function texts( $type, $config ) {
+		$defaults = array(
+			'title' => self::types()[ $type ],
+			'intro' => __( 'Play for a chance to receive a personal store coupon.', 'anar-toolkit' ),
+			'reward_label' => __( 'Your personal coupon', 'anar-toolkit' ),
+			'win_message' => __( 'Your coupon is ready. Use it with your verified billing phone.', 'anar-toolkit' ),
+			'lose_message' => __( 'No coupon was issued for this attempt.', 'anar-toolkit' ),
+			'button_label' => __( 'Reveal my result', 'anar-toolkit' ),
+			'wheel_miss_label' => __( 'Next time', 'anar-toolkit' ),
+		);
+		$saved = $config['game_texts'][ $type ] ?? array();
+		foreach ( $defaults as $key => &$text ) {
+			if ( ! empty( $saved[ $key ] ) && is_string( $saved[ $key ] ) ) {
+				$text = $saved[ $key ];
+			}
+		}
+		unset( $text );
+		return $defaults;
+	}
+
+	public static function quiz_options( $config ) {
+		return array_slice( array_values( array_filter( array_map( 'trim', preg_split( '/\r?\n/', $config['game_quiz_options'] ) ), 'strlen' ) ), 0, 8 );
 	}
 
 	public function form( $atts = array() ) {
@@ -25,19 +50,23 @@ final class Games {
 			return ''; }
 		$atts = shortcode_atts( array( 'type' => 'wheel' ), $atts, 'anar_game' );
 		$type = isset( self::types()[ $atts['type'] ] ) ? $atts['type'] : 'wheel';
-		if ( ! is_user_logged_in() || ! get_user_meta( get_current_user_id(), '_anar_phone', true ) ) {
+		if ( ! is_user_logged_in() ) {
 			return '<div class="anar-game-signin"><p>' . esc_html__( 'Sign in with your verified mobile number to play and receive a personal gift.', 'anar-toolkit' ) . '</p><a href="' . esc_url( wp_login_url( get_permalink() ) ) . '">' . esc_html__( 'Sign in to play', 'anar-toolkit' ) . '</a></div>'; }
+		if ( ! PhoneVerification::phone( get_current_user_id() ) ) {
+			return PhoneVerification::form();
+		}
 		wp_enqueue_script( 'anar-games', ANAR_LOGIN_URL . 'assets/js/games.js', array(), ANAR_LOGIN_VERSION, true );
 		wp_enqueue_style( 'anar-marketing', ANAR_LOGIN_URL . 'assets/css/marketing.css', array(), ANAR_LOGIN_VERSION );
 		$config = ( new Settings() )->all();
+		$texts = self::texts( $type, $config );
 		ob_start();
 		?>
 		<section class="anar-game" data-anar-game data-type="<?php echo esc_attr( $type ); ?>" data-endpoint="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'anar_game' ) ); ?>" data-network="<?php esc_attr_e( 'Could not connect. Please try again.', 'anar-toolkit' ); ?>">
-			<span class="anar-game-kicker"><?php esc_html_e( 'Store promotion', 'anar-toolkit' ); ?></span><h2><?php echo esc_html( self::types()[ $type ] ); ?></h2><p><?php esc_html_e( 'A free store promotion. No payment or purchase stake is required. Coupons have no cash value and are limited to your verified phone.', 'anar-toolkit' ); ?></p>
+				<span class="anar-game-kicker"><?php esc_html_e( 'Store promotion', 'anar-toolkit' ); ?></span><h2><?php echo esc_html( $texts['title'] ); ?></h2><p><?php echo esc_html( $texts['intro'] ); ?></p><p><?php esc_html_e( 'A free store promotion. No payment or purchase stake is required. Coupons have no cash value and are limited to your verified phone.', 'anar-toolkit' ); ?></p>
 			<?php
 			if ( 'wheel' === $type ) :
 				?>
-				<div class="anar-wheel" data-wheel><span>✦</span></div>
+					<div class="anar-wheel-frame"><span class="anar-wheel-pointer" aria-hidden="true">▼</span><div class="anar-wheel" data-wheel><strong class="anar-wheel-prize"><?php echo esc_html( $texts['reward_label'] ); ?></strong><strong class="anar-wheel-miss"><?php echo esc_html( $texts['wheel_miss_label'] ); ?></strong><span>✦</span></div></div>
 				<?php
 elseif ( 'slots' === $type ) :
 	?>
@@ -51,7 +80,7 @@ elseif ( 'quiz' === $type ) :
 	?>
 	<h3><?php echo esc_html( $config['game_quiz_question'] ); ?></h3><div class="anar-game-options">
 	<?php
-	foreach ( array_slice( preg_split( '/\r?\n/', $config['game_quiz_options'] ), 0, 8 ) as $index => $option ) :
+	foreach ( self::quiz_options( $config ) as $index => $option ) :
 		if ( ! trim( $option ) ) {
 			continue; }
 		?>
@@ -71,8 +100,8 @@ else :
 			<?php
 			if ( ! in_array( $type, array( 'boxes', 'cards', 'treasure', 'quiz', 'memory', 'scratch' ), true ) ) :
 				?>
-				<button type="button" class="anar-game-start" data-pick="0"><?php esc_html_e( 'Reveal my result', 'anar-toolkit' ); ?></button><?php endif; ?>
-			<p class="anar-game-result" role="status" aria-live="polite" data-status></p><div class="anar-game-coupon" data-coupon hidden><span><?php esc_html_e( 'Your personal coupon', 'anar-toolkit' ); ?></span><strong dir="ltr"></strong></div>
+					<button type="button" class="anar-game-start" data-pick="0"><?php echo esc_html( $texts['button_label'] ); ?></button><?php endif; ?>
+				<p class="anar-game-result" role="status" aria-live="polite" data-status></p><div class="anar-game-coupon" data-coupon hidden><span><?php echo esc_html( $texts['reward_label'] ); ?></span><strong dir="ltr"></strong></div>
 		</section>
 		<?php
 		return ob_get_clean();
@@ -84,6 +113,7 @@ else :
 		$repo = new Repository();
 		if ( ! ( new Settings() )->enabled( 'games' ) || ! isset( self::types()[ $game ] ) || ! $profile ) {
 			return new \WP_Error( 'anar_game_unavailable', __( 'This game is unavailable.', 'anar-toolkit' ) ); }
+		$texts = self::texts( $game, $config );
 		$table = $repo->table( 'plays' );
 		$play = $play_id ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM %i WHERE id = %d AND profile_id = %d AND game = %s', $table, $play_id, $profile->id, $game ) ) : null;
 		if ( ! $play ) {
@@ -100,7 +130,7 @@ else :
 				$bucket = 'milestone:' . $milestone;
 			}
 			$payload = array( 'won' => 'milestone' === $game || random_int( 1, 100 ) <= $config['game_reward_chance'], 'moves' => 0, 'matched' => array(), 'open' => array(), 'answer' => $config['game_quiz_answer'] );
-			if ( 'quiz' === $game && ( ! $config['game_quiz_question'] || count( preg_split( '/\r?\n/', trim( $config['game_quiz_options'] ) ) ) < 2 ) ) {
+			if ( 'quiz' === $game && ( ! $config['game_quiz_question'] || count( self::quiz_options( $config ) ) < 2 || $config['game_quiz_answer'] > count( self::quiz_options( $config ) ) ) ) {
 				return new \WP_Error( 'anar_quiz_unconfigured', __( 'The store quiz is not configured yet.', 'anar-toolkit' ) ); }
 			$symbols = array( '🍒', '🍋', '🍇', '🍓', '🍒', '🍋', '🍇', '🍓' );
 			for ( $i = count( $symbols ) - 1; $i > 0; --$i ) {
@@ -151,15 +181,19 @@ else :
 			if ( $code ) {
 				$wpdb->update( $table, array( 'coupon_id' => wc_get_coupon_id_by_code( $code ) ), array( 'id' => $play->id ) ); }
 		}
-		return array( 'play_id' => (int) $play->id, 'finished' => $finished, 'won' => $finished && (bool) $code, 'coupon' => $code, 'revealed' => (object) $revealed, 'matched' => $payload['matched'], 'message' => $finished ? ( $code ? __( 'Your coupon is ready. Use it with your verified billing phone.', 'anar-toolkit' ) : __( 'No coupon was issued for this attempt.', 'anar-toolkit' ) ) : __( 'Match the cards to complete your game.', 'anar-toolkit' ) );
+		return array( 'play_id' => (int) $play->id, 'finished' => $finished, 'won' => $finished && (bool) $code, 'coupon' => $code, 'revealed' => (object) $revealed, 'matched' => $payload['matched'], 'message' => $finished ? ( $code ? $texts['win_message'] : $texts['lose_message'] ) : __( 'Match the cards to complete your game.', 'anar-toolkit' ) );
 	}
 
 	public function action() {
 		check_ajax_referer( 'anar_game', 'nonce' );
 		if ( ! is_user_logged_in() ) {
 			wp_send_json_error( array(), 403 ); }
+		$phone = PhoneVerification::phone( get_current_user_id() );
+		if ( ! $phone ) {
+			wp_send_json_error( array( 'message' => __( 'Verify your mobile number before playing.', 'anar-toolkit' ) ), 403 );
+		}
 		$repo = new Repository();
-		$id = $repo->remember( get_user_meta( get_current_user_id(), '_anar_phone', true ), wp_get_current_user()->user_email, wp_get_current_user()->first_name, get_current_user_id() );
+		$id = $repo->remember( $phone, wp_get_current_user()->user_email, wp_get_current_user()->first_name, get_current_user_id() );
 		// phpcs:disable WordPress.Security.NonceVerification.Missing -- Verified above by check_ajax_referer.
 		$game = isset( $_POST['game'] ) ? sanitize_key( wp_unslash( $_POST['game'] ) ) : '';
 		$result = $this->play( $repo->profile( $id ), $game, isset( $_POST['play_id'] ) ? absint( $_POST['play_id'] ) : 0, isset( $_POST['choice'] ) ? (int) $_POST['choice'] : 0 );

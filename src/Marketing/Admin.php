@@ -40,7 +40,7 @@ final class Admin {
 		wp_safe_redirect( wp_get_referer() ?: admin_url( 'admin.php?page=anar-toolkit-bulk' ) );
 		exit; }
 
-	private function field( $key, $label, $value, $type = 'text', $help = '' ) {
+	private function field( $key, $label, $value, $type = 'text', $help = '', $popup_only = false ) {
 		if ( ! $help && false !== strpos( $key, '][params' ) ) {
 			$help = __( 'Use the exact variable names from the approved provider template, one name={placeholder} per line. Include {unsubscribe_url}; surveys also require {action_url}.', 'anar-toolkit' ); }
 		if ( ! $help && false !== strpos( $key, '][template' ) ) {
@@ -57,7 +57,7 @@ else :
 	?>
 			<input id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( Settings::OPTION . '[' . $key . ']' ); ?>" type="<?php echo esc_attr( $type ); ?>" value="<?php echo esc_attr( $value ); ?>" <?php echo 'number' === $type ? 'step="any"' : ''; ?>><?php endif; ?>
 			<?php
-			if ( $help ) :
+			if ( $help && ! $popup_only ) :
 				?>
 	<br><small class="description"><?php echo esc_html( $help ); ?></small><?php endif; ?></div>
 		<?php
@@ -83,7 +83,13 @@ else :
 			return; }
 		?>
 		<section class="anar-suite-panel" id="campaigns"><div class="anar-suite-toolbar"><h2><?php echo esc_html( Settings::modules()[ $module ] ); ?></h2><a href="<?php echo esc_url( admin_url( 'admin.php?page=anar-features-other' ) ); ?>"><?php esc_html_e( 'Other features', 'anar-toolkit' ); ?></a></div>
-		<?php \Anar\Login\Admin\Help::section( $module ); ?>
+		<?php
+		if ( 'games' === $module ) {
+			\Anar\Login\Admin\Help::button( \Anar\Login\Admin\Help::text( $module ) );
+		} else {
+			\Anar\Login\Admin\Help::section( $module );
+		}
+		?>
 		<details class="anar-commerce-card" open><summary><strong><?php esc_html_e( 'Settings', 'anar-toolkit' ); ?></strong></summary><form method="post" action="options.php"><?php settings_fields( 'anar_marketing' ); ?><input type="hidden" name="<?php echo esc_attr( Settings::OPTION ); ?>[_partial]" value="1">
 		<?php
 		$this->module_settings( $module, $config );
@@ -99,6 +105,56 @@ else :
 		?>
 		</section>
 		<?php
+	}
+
+	private function game_settings( $config ) {
+		?>
+		<h3><?php esc_html_e( 'Shared play and reward settings', 'anar-toolkit' ); ?><?php \Anar\Login\Admin\Help::button( __( 'You can display several games at once, on the same page or on different pages. Each game has its own shortcode below. The daily limit and coupon settings are shared by all games.', 'anar-toolkit' ) ); ?></h3>
+		<div class="anar-game-settings-grid">
+		<?php
+		$this->field( 'games_limit', __( 'Daily attempts per customer across all games', 'anar-toolkit' ), $config['games_limit'], 'number', __( 'This is the number of attempts each customer can use per day across all games, not the number of games you can display. For example, 1 allows one attempt in any game. Set a value from 1 to 5.', 'anar-toolkit' ), true );
+		?>
+		<div class="anar-commerce-field"><label for="anar-game-reward-type"><strong><?php esc_html_e( 'Game reward type', 'anar-toolkit' ); ?></strong></label><?php \Anar\Login\Admin\Help::button( __( 'Winning issues one personal, single-use WooCommerce coupon valid for 48 hours. Choose a percentage discount or a fixed discount in the store currency. The same reward applies to every game.', 'anar-toolkit' ) ); ?><br><select id="anar-game-reward-type" name="<?php echo esc_attr( Settings::OPTION ); ?>[game_reward_type]"><option value="percent" <?php selected( $config['game_reward_type'], 'percent' ); ?>><?php esc_html_e( 'Percentage', 'anar-toolkit' ); ?></option><option value="fixed_cart" <?php selected( $config['game_reward_type'], 'fixed_cart' ); ?>><?php esc_html_e( 'Fixed cart amount', 'anar-toolkit' ); ?></option></select></div>
+		<?php
+		$this->field( 'game_reward_amount', __( 'Coupon discount amount', 'anar-toolkit' ), $config['game_reward_amount'], 'number', __( 'For a percentage coupon, enter a value from 0 to 100. For a fixed coupon, enter the amount in the store currency. The gift name below changes its displayed label, not its discount value.', 'anar-toolkit' ), true );
+		$this->field( 'game_reward_chance', __( 'Chance of receiving a coupon (%)', 'anar-toolkit' ), $config['game_reward_chance'], 'number', __( 'Enter 0 to 100. For example, 25 means a 25% chance on each eligible attempt. A correct quiz answer or completing the memory game is also required in those games. Purchase milestones always award the configured coupon.', 'anar-toolkit' ), true );
+		?>
+		</div>
+		<h3><?php esc_html_e( 'Game display and text', 'anar-toolkit' ); ?><?php \Anar\Login\Admin\Help::button( __( 'Open a game to edit its text and copy its shortcode into a page or shortcode block. These panels do not switch games on or off. Leave a text field empty to use its default wording.', 'anar-toolkit' ) ); ?></h3>
+		<?php
+		foreach ( Games::types() as $type => $label ) {
+			$texts = Games::texts( $type, $config );
+			?>
+			<details class="anar-game-settings"><summary><strong><?php echo esc_html( $label ); ?></strong></summary><p><code dir="ltr">[anar_game type="<?php echo esc_attr( $type ); ?>"]</code></p><div class="anar-game-settings-grid">
+			<?php
+			$fields = array(
+				'title' => array( __( 'Game title', 'anar-toolkit' ), __( 'The heading displayed above this game on your site.', 'anar-toolkit' ) ),
+				'intro' => array( __( 'Text above the game', 'anar-toolkit' ), __( 'A short introduction or instruction displayed below the game title.', 'anar-toolkit' ) ),
+				'reward_label' => array( __( 'Gift display name', 'anar-toolkit' ), __( 'For example: 10% off your next order. This name appears above the coupon code and on the winning half of the wheel. This version offers one coupon reward and one no-reward outcome; separate prizes for individual wheel segments are not supported.', 'anar-toolkit' ) ),
+				'win_message' => array( __( 'Message when a coupon is issued', 'anar-toolkit' ), __( 'Shown after the customer wins and the coupon has been created. The coupon code is displayed separately below this message.', 'anar-toolkit' ) ),
+				'lose_message' => array( __( 'Message when no coupon is issued', 'anar-toolkit' ), __( 'Shown when the attempt ends without a coupon. For example: No gift this time. We look forward to seeing you again tomorrow.', 'anar-toolkit' ) ),
+			);
+			if ( in_array( $type, array( 'wheel', 'slots', 'daily', 'milestone' ), true ) ) {
+				$fields['button_label'] = array( __( 'Start button text', 'anar-toolkit' ), __( 'For example: Spin the wheel or Receive my daily gift.', 'anar-toolkit' ) );
+			}
+			if ( 'wheel' === $type ) {
+				$fields['wheel_miss_label'] = array( __( 'Wheel label for no reward', 'anar-toolkit' ), __( 'A short label on the half of the wheel without a gift. The two halves show possible outcomes; the chance of winning is set in the shared settings above.', 'anar-toolkit' ) );
+			}
+			foreach ( $fields as $key => $field ) {
+				$this->field( 'game_texts][' . $type . '][' . $key, $field[0], $texts[ $key ], in_array( $key, array( 'intro', 'win_message', 'lose_message' ), true ) ? 'textarea' : 'text', $field[1], true );
+			}
+			if ( 'quiz' === $type ) {
+				$this->field( 'game_quiz_question', __( 'Quiz question', 'anar-toolkit' ), $config['game_quiz_question'], 'text', __( 'Only the store quiz uses this question. It has no effect on the wheel or other games.', 'anar-toolkit' ), true );
+				$this->field( 'game_quiz_options', __( 'Answer choices, one per line', 'anar-toolkit' ), $config['game_quiz_options'], 'textarea', __( 'Enter 2 to 8 answers, one per line. Empty lines are ignored. These are quiz answers, not wheel prizes.', 'anar-toolkit' ), true );
+				$this->field( 'game_quiz_answer', __( 'Correct answer number', 'anar-toolkit' ), $config['game_quiz_answer'], 'number', __( 'Count the non-empty answers from top to bottom, starting at 1. For example, enter 2 if the second answer is correct.', 'anar-toolkit' ), true );
+			}
+			if ( 'milestone' === $type ) {
+				$this->field( 'game_milestone_orders', __( 'Paid orders per purchase milestone', 'anar-toolkit' ), $config['game_milestone_orders'], 'number', __( 'For example, 3 awards a gift after the third paid order, then after the sixth, and so on. Each milestone can be claimed once.', 'anar-toolkit' ), true );
+			}
+			?>
+			</div></details>
+			<?php
+		}
 	}
 
 	private function module_settings( $module, $config ) {
@@ -131,19 +187,7 @@ else :
 			$fields += array( 'prediction_minimum' => __( 'Minimum purchases for prediction', 'anar-toolkit' ), 'prediction_confidence' => __( 'Minimum prediction confidence (%)', 'anar-toolkit' ) );
 		}
 		if ( 'games' === $module ) {
-			$fields += array( 'games_limit' => __( 'Free game attempts per customer / day', 'anar-toolkit' ), 'game_reward_amount' => __( 'Game gift amount', 'anar-toolkit' ), 'game_reward_chance' => __( 'Game gift probability (%)', 'anar-toolkit' ), 'game_milestone_orders' => __( 'Paid orders per purchase milestone', 'anar-toolkit' ), 'game_quiz_answer' => __( 'Correct quiz option (1–8)', 'anar-toolkit' ) );
-			?>
-			<p><label><?php esc_html_e( 'Game reward type', 'anar-toolkit' ); ?><select name="<?php echo esc_attr( Settings::OPTION ); ?>[game_reward_type]"><option value="percent" <?php selected( $config['game_reward_type'], 'percent' ); ?>><?php esc_html_e( 'Percentage', 'anar-toolkit' ); ?></option><option value="fixed_cart" <?php selected( $config['game_reward_type'], 'fixed_cart' ); ?>><?php esc_html_e( 'Fixed cart amount', 'anar-toolkit' ); ?></option></select></label></p>
-			<?php
-			$this->field( 'game_quiz_question', __( 'Quiz question', 'anar-toolkit' ), $config['game_quiz_question'] );
-			$this->field( 'game_quiz_options', __( 'Quiz options, one per line', 'anar-toolkit' ), $config['game_quiz_options'], 'textarea' );
-			?>
-			<details><summary><?php esc_html_e( 'Storefront shortcodes', 'anar-toolkit' ); ?></summary>
-			<?php
-			foreach ( Games::types() as $key => $label ) :
-				?>
-				<p><code>[anar_game type="<?php echo esc_attr( $key ); ?>"]</code> · <?php echo esc_html( $label ); ?></p><?php endforeach; ?></details>
-			<?php
+			$this->game_settings( $config );
 		}
 		if ( 'referral' === $module ) {
 			$fields += array( 'referral_wait_days' => __( 'Referral refund waiting period in days', 'anar-toolkit' ), 'referral_amount' => __( 'Referral reward percentage', 'anar-toolkit' ), 'referral_minimum' => __( 'Minimum referred order amount', 'anar-toolkit' ) );

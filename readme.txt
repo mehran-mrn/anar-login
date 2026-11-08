@@ -4,7 +4,7 @@ Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -218,6 +218,11 @@ Uninstall preserves data unless deletion was explicitly enabled beforehand. It d
 
 == Changelog ==
 
+= 1.1.1 =
+* Let signed-in existing customers verify and link their phone directly from a game.
+* Clarify shared daily limits and separate quiz settings from each game’s display text.
+* Add editable game titles, prize labels and result messages, a labeled wheel and hover/focus info popups.
+
 = 1.1.0 =
 * Add optional cached SMS credit monitoring for the supported providers.
 * Let administrators independently control periodic checks, warning visibility and thresholds per account.
@@ -253,6 +258,9 @@ Uninstall preserves data unless deletion was explicitly enabled beforehand. It d
 Full history: https://github.com/mehran-mrn/anar-login/blob/main/CHANGELOG.md
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+Existing accounts can verify a phone without signing out. Games share the daily attempt limit; each game now has separate display text settings.
 
 = 1.1.0 =
 SMS credit monitoring is optional and off by default. Enable it, check an account, then choose its warning threshold. Faraz balance checks need the new account API key.

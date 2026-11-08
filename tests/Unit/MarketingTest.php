@@ -51,4 +51,21 @@ final class MarketingTest extends TestCase {
 		$this->assertSame( '100', $clean['rules']['birthday']['discount_amount'] );
 		$this->assertSame( '1,2,3', $clean['products'] );
 	}
+
+	public function test_game_texts_are_sanitized_and_partial_updates_preserve_other_games() {
+		$settings = new Settings();
+		$clean = $settings->sanitize( array( 'game_texts' => array( 'wheel' => array( 'reward_label' => '<b>Ten percent off</b>', 'win_message' => array( 'invalid' ), 'unknown' => 'discard' ), 'unknown' => array( 'title' => 'discard' ) ) ) );
+		$this->assertSame( 'Ten percent off', $clean['game_texts']['wheel']['reward_label'] );
+		$this->assertSame( '', $clean['game_texts']['wheel']['win_message'] );
+		$this->assertArrayNotHasKey( 'unknown', $clean['game_texts'] );
+		$this->assertArrayNotHasKey( 'unknown', $clean['game_texts']['wheel'] );
+		$GLOBALS['anar_test_options'][ Settings::OPTION ] = $clean;
+		try {
+			$partial = $settings->sanitize( array( '_partial' => 1, 'game_texts' => array( 'quiz' => array( 'title' => 'Store knowledge' ) ) ) );
+			$this->assertSame( 'Ten percent off', $partial['game_texts']['wheel']['reward_label'] );
+			$this->assertSame( 'Store knowledge', $partial['game_texts']['quiz']['title'] );
+		} finally {
+			unset( $GLOBALS['anar_test_options'][ Settings::OPTION ] );
+		}
+	}
 }
