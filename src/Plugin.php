@@ -88,6 +88,7 @@ final class Plugin {
 			( new SettingsPage( $settings, $providers ) )->register();
 			( new \Anar\Login\Admin\FeaturesPage() )->register();
 			( new \Anar\Login\Admin\BalancePage() )->register();
+			( new \Anar\Login\Admin\MessageCenter() )->register();
 			( new \Anar\Login\Commerce\Admin( new \Anar\Login\Commerce\Settings(), new \Anar\Login\Commerce\Repository(), $providers ) )->register();
 			( new \Anar\Login\Commerce\Privacy( new \Anar\Login\Commerce\Repository(), new \Anar\Login\Commerce\Settings() ) )->register();
 			( new \Anar\Login\Marketing\Privacy() )->register();
@@ -182,6 +183,7 @@ final class Plugin {
 			}
 		}
 		// Existing personal coupons keep their restrictions even if their creating module is stopped.
+		( new \Anar\Login\Marketing\GameBudget() )->register();
 		add_filter(
 			'woocommerce_coupon_is_valid',
 			static function ( $valid, $coupon ) {

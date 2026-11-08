@@ -121,6 +121,10 @@ final class Worker {
 		$requested = 'recovery_request' === $job->event;
 		$enabled  = $recovery ? $config['recovery'] : ( $config[ $job->event ] ?? false );
 		$event    = $config['events'][ $requested ? 'recovery_1' : $job->event ] ?? null;
+		if ( $event ) {
+			$event = \Anar\Login\Messaging\MessageSettings::apply( $job->event, $event );
+			$config['provider'] = $event['provider'];
+		}
 		if ( ! $enabled || ! $event ) {
 			$this->repository->finish( $job->id, 'cancelled', 'module_disabled' );
 			return;
@@ -151,7 +155,7 @@ final class Worker {
 			if ( is_wp_error( $discount ) ) {
 				$this->repository->finish( $job->id, 'failed', $discount->get_error_code() );
 				return; }
-			if ( $discount['coupon_code'] && false === strpos( 'custom' === $config['provider'] ? $event['message'] : $event['params'], '{coupon_code}' ) ) {
+			if ( $discount['coupon_code'] && false === strpos( 'text' === $event['mode'] ? $event['message'] : $event['params'], '{coupon_code}' ) ) {
 				$this->repository->finish( $job->id, 'failed', 'coupon_mapping_missing' );
 				return; }
 			$variables = array_merge( $variables, $discount );

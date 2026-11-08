@@ -34,6 +34,12 @@ final class FeaturesPage {
 	}
 
 	public function menu() {
+		// Replace WordPress's automatic parent entry, including an earlier registration.
+		foreach ( $GLOBALS['submenu']['anar-login'] ?? array() as $entry ) {
+			if ( 'anar-login' === $entry[2] ) {
+				remove_submenu_page( 'anar-login', 'anar-login' );
+			}
+		}
 		add_submenu_page( 'anar-login', __( 'Features', 'anar-toolkit' ), __( 'Features', 'anar-toolkit' ), 'manage_options', 'anar-login', array( self::class, 'render' ), 0 );
 		$flags = Features::all();
 		$commerce = new \Anar\Login\Commerce\Admin( new \Anar\Login\Commerce\Settings(), new \Anar\Login\Commerce\Repository(), new \Anar\Login\Messaging\ProviderRegistry( new Settings() ) );
@@ -47,7 +53,8 @@ final class FeaturesPage {
 		}
 		add_submenu_page( 'anar-login', __( 'Connection settings', 'anar-toolkit' ), __( 'Connection settings', 'anar-toolkit' ), 'manage_options', 'anar-login-settings', array( new SettingsPage( new Settings(), new \Anar\Login\Messaging\ProviderRegistry( new Settings() ) ), 'render' ) );
 		add_submenu_page( $flags['balance'] ? 'anar-login' : null, __( 'SMS credit', 'anar-toolkit' ), __( 'SMS credit', 'anar-toolkit' ), 'manage_options', 'anar-toolkit-balance', array( BalancePage::class, 'render' ) );
-		add_submenu_page( 'anar-login', __( 'Other features', 'anar-toolkit' ), __( 'Other features', 'anar-toolkit' ), 'manage_options', 'anar-features-other', array( $this, 'render' ) );
+		// Keep older bookmarked URLs working without a second copy of the catalog in the menu.
+		add_submenu_page( null, __( 'Other features', 'anar-toolkit' ), __( 'Other features', 'anar-toolkit' ), 'manage_options', 'anar-features-other', array( $this, 'render' ) );
 	}
 
 	public function assets( $hook ) {

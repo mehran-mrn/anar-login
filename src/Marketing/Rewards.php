@@ -40,7 +40,18 @@ final class Rewards {
 					$coupon->set_usage_limit_per_user( 1 );
 					$coupon->set_individual_use( true );
 					$coupon->set_exclude_sale_items( true );
-					$coupon->set_date_expires( time() + max( 1, min( 720, (int) $rule['discount_hours'] ) ) * HOUR_IN_SECONDS );
+					if ( isset( $rule['minimum_amount'] ) ) {
+						$coupon->set_minimum_amount( $rule['minimum_amount'] );
+					}
+					if ( ! empty( $rule['product_ids'] ) ) {
+						$coupon->set_product_ids( $rule['product_ids'] );
+					}
+					$coupon->set_date_expires( $rule['game_expires_at'] ?? ( time() + max( 1, min( 720, (int) $rule['discount_hours'] ) ) * HOUR_IN_SECONDS ) );
+					if ( ! empty( $rule['game_money_cap'] ) ) {
+						$coupon->update_meta_data( '_anar_game_money_cap', $rule['game_money_cap'] );
+						$coupon->update_meta_data( '_anar_game_currency', $rule['game_currency'] );
+						$coupon->update_meta_data( '_anar_game_play_id', $rule['game_play_id'] );
+					}
 					$coupon->set_description( __( 'Anar customer gift', 'anar-toolkit' ) );
 					$coupon->update_meta_data( '_anar_phone_hash', CommerceRepository::phone_hash( $profile->phone ) );
 					$coupon->update_meta_data( '_anar_marketing_profile', (int) $profile->id );

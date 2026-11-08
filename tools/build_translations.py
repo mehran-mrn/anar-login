@@ -15,6 +15,7 @@ entries = dict((json.loads(a), json.loads(b)) for a, b in re.findall(r'^msgid ("
 entries.update(json.loads((ROOT / 'tools/commerce-fa.json').read_text(encoding='utf-8')))
 entries.update(json.loads((ROOT / 'tools/balance-fa.json').read_text(encoding='utf-8')))
 entries.update(json.loads((ROOT / 'tools/games-fa.json').read_text(encoding='utf-8')))
+entries.update(json.loads((ROOT / 'tools/messages-fa.json').read_text(encoding='utf-8')))
 entries[''] = f'Project-Id-Version: Anar Toolkit {VERSION}\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n'
 ordered = sorted(entries.items())
 (LANG / 'anar-toolkit-fa_IR.po').write_text('\n\n'.join('msgid ' + json.dumps(k, ensure_ascii=False) + '\nmsgstr ' + json.dumps(v, ensure_ascii=False) for k, v in ordered) + '\n', encoding='utf-8')

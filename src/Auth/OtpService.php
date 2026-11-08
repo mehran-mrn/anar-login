@@ -93,10 +93,10 @@ final class OtpService {
 	 * @param array{identity:string,channel:string} $identity Identity.
 	 * @return true|WP_Error
 	 */
-	public function challenge( $identity ) {
+	public function challenge( $identity, $context = 'login_otp' ) {
 		$guard = $this->limiter->guard_request( $identity['identity'] );
 
-		return is_wp_error( $guard ) ? $guard : $this->send_code( $identity );
+		return is_wp_error( $guard ) ? $guard : $this->send_code( $identity, $context );
 	}
 
 	/**
@@ -134,7 +134,7 @@ final class OtpService {
 	 * @param array{identity:string,channel:string} $identity Identity.
 	 * @return true|WP_Error
 	 */
-	private function send_code( $identity ) {
+	private function send_code( $identity, $context = 'login_otp' ) {
 		$ttl  = absint( $this->settings->get( 'otp_ttl', 120 ) );
 		$code = $this->generate_code();
 
@@ -142,7 +142,7 @@ final class OtpService {
 			return new WP_Error( 'anar_otp_storage', __( 'The login code could not be created.', 'anar-toolkit' ), array( 'status' => 500 ) );
 		}
 
-		$sent = $this->dispatch( $identity, $code, $ttl );
+		$sent = $this->dispatch( $identity, $code, $ttl, $context );
 
 		if ( is_wp_error( $sent ) ) {
 			$challenge = $this->repository->latest( $identity['identity'], $identity['channel'] );
@@ -276,9 +276,9 @@ final class OtpService {
 	 * @param int                                   $ttl      Lifetime.
 	 * @return true|WP_Error
 	 */
-	private function dispatch( $identity, $code, $ttl ) {
+	private function dispatch( $identity, $code, $ttl, $context = 'login_otp' ) {
 		if ( 'sms' === $identity['channel'] ) {
-			return $this->providers->send( $identity['identity'], $code, $this->render( (string) $this->settings->get( 'sms_message', '' ), $code, $ttl ) );
+			return $this->providers->send( $identity['identity'], $code, $this->render( (string) $this->settings->get( 'sms_message', '' ), $code, $ttl ), $context );
 		}
 
 		$subject = $this->render( (string) $this->settings->get( 'email_subject', '' ), $code, $ttl );

@@ -22,6 +22,9 @@ final class Dashboard {
 		$labels = array(
 			'login_otp' => __( 'Login code', 'anar-toolkit' ),
 			'password_reset' => __( 'Password recovery', 'anar-toolkit' ),
+			'two_factor' => __( 'Two-step verification', 'anar-toolkit' ),
+			'game_phone' => __( 'Game phone verification', 'anar-toolkit' ),
+			'stock_verification' => __( 'Stock request verification', 'anar-toolkit' ),
 			'paid_customer' => __( 'Payment confirmation', 'anar-toolkit' ),
 			'paid_admin' => __( 'Paid order to administrators', 'anar-toolkit' ),
 			'new_admin' => __( 'New order to administrators', 'anar-toolkit' ),

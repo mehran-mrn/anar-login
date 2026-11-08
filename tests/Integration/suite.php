@@ -61,7 +61,7 @@ $clear_limits = static function () use ( $wpdb ) {
 try {
 	\Anar\Login\Infrastructure\Activator::activate();
 	update_option( \Anar\Login\Infrastructure\Features::OPTION, array( 'login' => 1, 'reset' => 1, 'orders' => 1 ) );
-	foreach ( array( 'profiles', 'orders', 'purchases', 'jobs', 'stock', 'feedback', 'plays', 'referrals', 'bulk', 'visits' ) as $table ) {
+	foreach ( array( 'profiles', 'orders', 'purchases', 'jobs', 'stock', 'feedback', 'plays', 'game_awards', 'referrals', 'bulk', 'visits' ) as $table ) {
 		$wpdb->query( $wpdb->prepare( 'DELETE FROM %i', $repo->table( $table ) ) ); }
 	foreach ( array( 'contacts', 'carts', 'messages' ) as $table ) {
 		$wpdb->query( $wpdb->prepare( 'DELETE FROM %i', $carts->table( $table ) ) ); }
@@ -95,7 +95,7 @@ try {
 	$marketing['provider'] = 'panelchi';
 	update_option( Settings::OPTION, $marketing );
 	anar_suite_check( ! $settings->enabled(), 'Every new marketing module is disabled by default' );
-	foreach ( array( 'profiles', 'orders', 'purchases', 'jobs', 'stock', 'feedback', 'plays', 'referrals', 'bulk', 'visits' ) as $table ) {
+	foreach ( array( 'profiles', 'orders', 'purchases', 'jobs', 'stock', 'feedback', 'plays', 'game_awards', 'referrals', 'bulk', 'visits' ) as $table ) {
 		anar_suite_check( $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM %i', $repo->table( $table ) ) ) !== null, 'Schema installed: ' . $table ); }
 	$product = new WC_Product_Simple();
 	$product->set_name( 'Anar suite test product' );

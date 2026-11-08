@@ -277,6 +277,10 @@ final class SettingsPage {
 								<div class="anar-fields-grid">
 									<?php foreach ( $provider->fields() as $field => $definition ) : ?>
 										<?php
+										if ( in_array( $field, array( 'template_id', 'code_parameter' ), true ) ) {
+											continue;
+										}
+
 										$config     = isset( $value[ 'provider_' . $key ] ) ? $value[ 'provider_' . $key ] : array();
 										$definition = Settings::field_definition( $definition );
 										$is_secret  = in_array( $field, $this->settings->secret_fields(), true );
@@ -306,14 +310,12 @@ final class SettingsPage {
 						<?php endforeach; ?>
 
 						<div class="anar-card">
-							<div class="anar-field-row anar-field-row--stack">
-								<label for="anar-sms-message"><strong><?php esc_html_e( 'SMS fallback message', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'Template providers only use {code}; this message is available to developers and text-message providers.', 'anar-toolkit' ); ?></small></label>
-								<textarea id="anar-sms-message" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[sms_message]" rows="3"><?php echo esc_textarea( $value['sms_message'] ); ?></textarea>
-								<div class="anar-placeholders"><code>{code}</code><code>{site}</code><code>{domain}</code><code>{minutes}</code></div>
-							</div>
+						<?php
+						foreach ( array( 'login_otp', 'two_factor', 'password_reset', 'game_phone', 'stock_verification' ) as $message_id ) {
+							\Anar\Login\Admin\MessageCenter::summary( $message_id, 'login' ); }
+						?>
 						</div>
-
-						<div class="anar-card anar-tip">
+<div class="anar-card anar-tip">
 							<span class="dashicons dashicons-smartphone" aria-hidden="true"></span>
 							<div>
 								<strong><?php esc_html_e( 'Automatic code filling on Android', 'anar-toolkit' ); ?></strong>
@@ -323,15 +325,7 @@ final class SettingsPage {
 							</div>
 						</div>
 
-						<div class="anar-card anar-sms-test">
-							<div class="anar-card__head"><div><strong><?php esc_html_e( 'Send a test SMS', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'Tests the provider and details currently entered above, even before saving. The provider’s exact response is shown if delivery fails.', 'anar-toolkit' ); ?></small></div></div>
-							<div class="anar-sms-test__row">
-								<label class="screen-reader-text" for="anar-test-phone"><?php esc_html_e( 'Mobile number', 'anar-toolkit' ); ?></label>
-								<input id="anar-test-phone" type="tel" inputmode="tel" dir="ltr" placeholder="09121234567" autocomplete="off">
-								<button type="button" class="button button-secondary"><?php esc_html_e( 'Send test', 'anar-toolkit' ); ?></button>
-							</div>
-							<p class="anar-sms-test__result" role="status" aria-live="polite" hidden></p>
-						</div>
+						<p><a class="button" href="<?php echo esc_url( \Anar\Login\Admin\MessageCenter::url( 'login_otp', 'login' ) ); ?>"><?php esc_html_e( 'Configure and test the sign-in message', 'anar-toolkit' ); ?></a></p>
 					</section>
 
 					<section class="anar-tab" data-panel="google" hidden>
