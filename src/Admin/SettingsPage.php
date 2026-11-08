@@ -159,10 +159,12 @@ final class SettingsPage {
 			<hr class="wp-header-end">
 
 			<?php settings_errors(); ?>
+			<?php MessageCenter::notice(); ?>
 
 			<div class="anar-admin__layout">
 				<aside class="anar-admin__nav"><?php $this->navigation( $value ); ?></aside>
-<form class="anar-admin__content" method="post" action="options.php">
+<div class="anar-admin__content">
+<form class="anar-connection-form" method="post" action="options.php">
 					<?php settings_fields( 'anar_login' ); ?>
 
 					<section class="anar-tab is-active" data-panel="general">
@@ -246,7 +248,7 @@ final class SettingsPage {
 					</section>
 
 					<section class="anar-tab" data-panel="sms" hidden>
-						<?php $this->section_header( __( 'SMS provider', 'anar-toolkit' ), __( 'Configure the delivery service and OTP template details.', 'anar-toolkit' ), '◈' ); ?>
+						<?php $this->section_header( __( 'SMS provider', 'anar-toolkit' ), __( 'Connect your SMS service here. Message content and approved templates are available in Messages and templates.', 'anar-toolkit' ), '◈' ); ?>
 						<div class="anar-provider-grid">
 							<?php foreach ( $providers as $key => $provider ) : ?>
 								<label class="anar-provider <?php echo $key === $value['sms_provider'] ? 'is-selected' : ''; ?>">
@@ -449,6 +451,15 @@ final class SettingsPage {
 						<?php submit_button( __( 'Save settings', 'anar-toolkit' ), 'primary', 'submit', false ); ?>
 					</footer>
 				</form>
+				<section class="anar-tab" data-panel="messages" hidden>
+					<?php $this->section_header( __( 'Messages and templates', 'anar-toolkit' ), __( 'Find a message and edit it here. The same editor is available in each feature.', 'anar-toolkit' ), '✉' ); ?>
+					<?php ( new MessageCenter() )->catalog(); ?>
+				</section>
+				<section class="anar-tab" data-panel="sending" hidden>
+					<?php $this->section_header( __( 'Campaign sending rules', 'anar-toolkit' ), __( 'Set shared limits and customer filters for marketing campaigns. Verification codes and order notifications keep their own rules.', 'anar-toolkit' ), '⚙' ); ?>
+					<?php ( new MessageCenter() )->shared(); ?>
+				</section>
+				</div>
 				<?php
 				if ( isset( $providers['melipayamak'] ) ) {
 					MeliOffer::dialog(); }
@@ -469,6 +480,11 @@ final class SettingsPage {
 		$labels = array( 'general' => __( 'General', 'anar-toolkit' ), 'sms' => __( 'SMS', 'anar-toolkit' ), 'email' => __( 'Email', 'anar-toolkit' ), 'google' => __( 'Google sign-in', 'anar-toolkit' ), 'security' => __( 'Security', 'anar-toolkit' ), 'woocommerce' => __( 'WooCommerce', 'anar-toolkit' ), 'install' => __( 'Add to pages', 'anar-toolkit' ) );
 		$primary = array( 'general' => $flags['login'], 'sms' => ( $flags['login'] && 'email' !== $value['identity_mode'] ) || $flags['two_factor'] || $flags['reset'] || \Anar\Login\Infrastructure\Features::queue_needed(), 'email' => $flags['login'] && 'phone' !== $value['identity_mode'], 'google' => $flags['login'] && ! empty( $value['google_enabled'] ), 'security' => $flags['login'] || $flags['reset'] || $flags['two_factor'], 'woocommerce' => $flags['login'] && WooCommerce::active(), 'install' => $flags['login'] );
 		$first = true;
+		?>
+		<div class="anar-admin__nav-label"><?php esc_html_e( 'Shared settings', 'anar-toolkit' ); ?></div>
+		<button type="button" data-tab="messages"><?php esc_html_e( 'Messages and templates', 'anar-toolkit' ); ?></button>
+		<button type="button" data-tab="sending"><?php esc_html_e( 'Campaign sending rules', 'anar-toolkit' ); ?></button>
+		<?php
 		foreach ( array( true => __( 'Connection settings', 'anar-toolkit' ), false => __( 'Other features', 'anar-toolkit' ) ) as $enabled => $heading ) {
 			?>
 			<div class="anar-admin__nav-label"><?php echo esc_html( $heading ); ?></div>

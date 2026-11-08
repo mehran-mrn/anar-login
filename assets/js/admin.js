@@ -6,8 +6,11 @@
 	if (!root) return;
 
 	const showTab = (name) => {
+		const connection = root.querySelector('.anar-connection-form');
+		if (connection) connection.hidden = name === 'messages' || name === 'sending';
 		root.querySelectorAll('[data-tab]').forEach((button) => {
 			button.classList.toggle('is-active', button.dataset.tab === name);
+			button.setAttribute('aria-current', button.dataset.tab === name ? 'true' : 'false');
 		});
 		root.querySelectorAll('[data-panel]').forEach((panel) => {
 			const active = panel.dataset.panel === name;
@@ -22,7 +25,12 @@
 	};
 
 	root.querySelectorAll('[data-tab]').forEach((button) => {
-		button.addEventListener('click', () => showTab(button.dataset.tab));
+		button.addEventListener('click', () => {
+			showTab(button.dataset.tab);
+			const address = new URL(window.location.href);
+			address.searchParams.set('section', button.dataset.tab);
+			window.history.replaceState(window.history.state, '', address);
+		});
 	});
 
 	let savedTab = '';
@@ -34,7 +42,7 @@
 	const requestedTab = new URL(window.location.href).searchParams.get('section');
 	if (requestedTab && root.querySelector(`[data-panel="${requestedTab}"]`)) showTab(requestedTab);
 	else if (savedTab && root.querySelector(`[data-panel="${savedTab}"]`)) showTab(savedTab);
-	else { const first = root.querySelector('[data-tab]'); if (first) showTab(first.dataset.tab); }
+	else { const first = root.querySelector('[data-tab].is-active') || root.querySelector('[data-tab]'); if (first) showTab(first.dataset.tab); }
 
 	const logoMode = root.querySelector('#anar-form-logo');
 	const logoCustom = root.querySelector('.anar-logo-picker__custom');

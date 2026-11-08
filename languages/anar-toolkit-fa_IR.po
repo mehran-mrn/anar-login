@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: Anar Toolkit 1.2.2\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
+msgstr "Project-Id-Version: Anar Toolkit 1.2.3\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
 
 msgid "%1$d paid orders. A gift at every %2$d orders."
 msgstr "%1$d سفارش پرداخت‌شده؛ یک هدیه پس از هر %2$d سفارش."
@@ -185,7 +185,7 @@ msgid "Administrators, editors and shop managers"
 msgstr "مدیران، ویرایشگران و مدیران فروشگاه"
 
 msgid "Advanced mapping"
-msgstr "نگاشت پیشرفته"
+msgstr "تنظیمات پیشرفتهٔ متغیرها"
 
 msgid "After a correct password, a code is sent to the account’s mobile, or its email when no mobile is linked. Code and Google sign-ins skip this step, as they already prove ownership."
 msgstr "پس از واردکردن رمز درست، کدی به موبایل حساب (یا اگر موبایلی ثبت نشده، به ایمیل آن) ارسال می‌شود. ورود با کد یکبارمصرف و گوگل این مرحله را ندارد، چون خودشان مالکیت را ثابت می‌کنند."
@@ -403,6 +403,9 @@ msgstr "عملکرد کمپین‌ها · ۳۰ روز"
 msgid "Campaign purchases are attributed through personal gift coupons. Attribution does not prove incremental revenue."
 msgstr "خریدهای کمپین از طریق کوپن‌های هدیهٔ اختصاصی نسبت داده می‌شوند. این انتساب، افزایش واقعی درآمد را اثبات نمی‌کند."
 
+msgid "Campaign sending rules"
+msgstr "قواعد ارسال پیام‌های بازاریابی"
+
 msgid "Campaign setup"
 msgstr "راه‌اندازی کمپین‌ها"
 
@@ -523,6 +526,9 @@ msgstr "بستن"
 msgid "Close signup"
 msgstr "بستن فرم ثبت‌نام"
 
+msgid "Close without saving this message?"
+msgstr "پنجره بدون ذخیرهٔ تغییرات این پیام بسته شود؟"
+
 msgid "Code length"
 msgstr "طول کد"
 
@@ -569,7 +575,7 @@ msgid "Confidential values are not displayed again in the admin interface."
 msgstr "مقادیر محرمانه دوباره در رابط مدیریت نمایش داده نمی‌شوند."
 
 msgid "Configuration"
-msgstr "وضعیت تنظیم"
+msgstr "وضعیت تنظیمات"
 
 msgid "Configuration complete"
 msgstr "تنظیمات کامل است"
@@ -619,6 +625,9 @@ msgstr "بازدید تأییدشده بازیابی:"
 msgid "Connect to %s"
 msgstr "اتصال به %s"
 
+msgid "Connect your SMS service here. Message content and approved templates are available in Messages and templates."
+msgstr "اطلاعات اتصال سرویس پیامکی را در این بخش وارد کنید. متن پیام‌ها و الگوهای تأییدشده در بخش «پیام‌ها و الگوها» تنظیم می‌شوند."
+
 msgid "Connected and verified"
 msgstr "متصل و تأییدشده"
 
@@ -645,6 +654,9 @@ msgstr "شماره‌های همراه مخاطبان"
 
 msgid "Continue a purchase with your recovery code"
 msgstr "ادامه خرید با کد بازیابی"
+
+msgid "Continue editing"
+msgstr "ادامهٔ ویرایش"
 
 msgid "Continue this game"
 msgstr "ادامهٔ همین بازی"
@@ -843,6 +855,9 @@ msgstr "خاموش"
 
 msgid "Disabled modules do not load storefront assets or run feature queries. Existing personal-coupon restrictions and scheduled data cleanup remain in effect."
 msgstr "بخش‌های غیرفعال فایل نمایشی بارگذاری نمی‌کنند و پرس‌وجوی اختصاصی اجرا نمی‌کنند. محدودیت کوپن‌های اختصاصی صادرشده و پاک‌سازی دوره‌ای اطلاعات همچنان برقرار است."
+
+msgid "Discard changes"
+msgstr "کنار گذاشتن تغییرات"
 
 msgid "Discount amount"
 msgstr "مقدار تخفیف"
@@ -1080,6 +1095,9 @@ msgstr "پرکردن تلفن صورتحساب"
 
 msgid "Filter"
 msgstr "فیلتر"
+
+msgid "Find a message and edit it here. The same editor is available in each feature."
+msgstr "پیام موردنظر را پیدا و ویرایش کنید. همین پنجره از تنظیمات هر قابلیت نیز در دسترس است."
 
 msgid "Find four pairs in 24 moves"
 msgstr "چهار جفت را در ۲۴ حرکت پیدا کنید"
@@ -1325,7 +1343,7 @@ msgid "Inactive for at least 30 minutes"
 msgstr "دست‌کم ۳۰ دقیقه بدون تغییر"
 
 msgid "Include inactive messages"
-msgstr "نمایش پیام‌های ماژول‌های خاموش"
+msgstr "نمایش پیام‌های قابلیت‌های غیرفعال"
 
 msgid "Include the required variable %s."
 msgstr "متغیر ضروری %s را در پیام یا نگاشت قرار دهید."
@@ -1422,6 +1440,9 @@ msgstr "شورت‌کدهای سبک، سازگار با ویرایشگر کلا
 
 msgid "Limits and customer filters use the shared campaign settings."
 msgstr "محدودیت‌های ارسال و شرایط انتخاب مشتری از تنظیمات مشترک بازاریابی گرفته می‌شوند."
+
+msgid "Loading message…"
+msgstr "در حال دریافت پیام…"
 
 msgid "Local data retention, days (7–90)"
 msgstr "مدت نگهداری داده‌های محلی، به روز (۷ تا ۹۰)"
@@ -1540,11 +1561,17 @@ msgstr "وضعیت پیام‌ها"
 msgid "Message templates"
 msgstr "الگوهای پیام"
 
+msgid "Message text"
+msgstr "متن پیام"
+
 msgid "Message text / panel template reference"
 msgstr "متن پیام یا متن مرجع الگوی پنل"
 
 msgid "Message text for a custom gateway / template reference"
 msgstr "متن پیام برای درگاه سفارشی / مرجع قالب"
+
+msgid "Message variant"
+msgstr "نسخهٔ پیام"
 
 msgid "Message when a coupon is issued"
 msgstr "پیام دریافت جایزه"
@@ -1878,6 +1905,9 @@ msgstr "تعداد سفارش پرداخت‌شده برای هر جایزهٔ �
 
 msgid "Pairs"
 msgstr "جفت"
+
+msgid "Panel template reference"
+msgstr "متن الگوی ثبت‌شده در پنل"
 
 msgid "Panel variable mapping"
 msgstr "ارتباط متغیرهای پنل با اطلاعات فروشگاه"
@@ -2233,6 +2263,9 @@ msgstr "ثبت‌نام کاربران جدید غیرفعال است."
 msgid "Registration is unavailable because no safe new-user role is configured. Please contact the site administrator."
 msgstr "ثبت‌نام به دلیل نبود نقش امن برای کاربر جدید در دسترس نیست. لطفاً با مدیر سایت تماس بگیرید."
 
+msgid "Reload saved message"
+msgstr "دریافت آخرین نسخهٔ ذخیره‌شده"
+
 msgid "Reminder timing and privacy"
 msgstr "زمان‌بندی یادآوری و حریم خصوصی"
 
@@ -2362,6 +2395,9 @@ msgstr "متن نمونهٔ کمپین"
 msgid "Sample preview"
 msgstr "پیش‌نمایش نمونه"
 
+msgid "Save and close"
+msgstr "ذخیره و بستن"
+
 msgid "Save and return"
 msgstr "ذخیره و بازگشت"
 
@@ -2415,6 +2451,9 @@ msgstr "ذخیره شده — برای تغییر، مقدار جدید را ب�
 
 msgid "Saved. We will notify you once when this product is back in stock."
 msgstr "ثبت شد. پس از موجود شدن این کالا یک‌بار به شما اطلاع می‌دهیم."
+
+msgid "Saving…"
+msgstr "در حال ذخیره…"
 
 msgid "Schedule"
 msgstr "زمان‌بندی"
@@ -2518,6 +2557,9 @@ msgstr "ارسال الگوی خدماتی"
 msgid "Set new password"
 msgstr "ثبت رمز عبور جدید"
 
+msgid "Set shared limits and customer filters for marketing campaigns. Verification codes and order notifications keep their own rules."
+msgstr "محدودیت ارسال و شرایط مشترک مخاطبان پیام‌های بازاریابی را تنظیم کنید. پیام‌های تأیید و اطلاع‌رسانی سفارش، قواعد جداگانهٔ خود را دارند."
+
 msgid "Set the delay after order completion and configure a template containing {action_url}. Each paid order accepts one response. Optional product reviews require moderation; the gift is independent of the rating."
 msgstr "فاصلهٔ زمانی پس از تکمیل سفارش را تعیین و الگویی دارای {action_url} تنظیم کنید. هر سفارش پرداخت‌شده یک پاسخ می‌پذیرد. دیدگاه اختیاری کالا به تأیید مدیر نیاز دارد و هدیه به امتیاز وابسته نیست."
 
@@ -2553,6 +2595,9 @@ msgstr "مخزن مشترک: %1$d کد رزرو یا صادر شده؛ %2$s وا
 
 msgid "Shared prize pool"
 msgstr "مخزن جوایز"
+
+msgid "Shared settings"
+msgstr "تنظیمات مشترک"
 
 msgid "Shared with other games"
 msgstr "مشترک با بازی‌های دیگر"
@@ -2885,7 +2930,10 @@ msgid "The maximum total saving, including the tax reduction, in the store curre
 msgstr "حداکثر مبلغ تخفیف با احتساب کاهش مالیات، بر اساس واحد پول فروشگاه است. با فعال بودن بودجهٔ پولی، برای هر جایزه این سقف را تعیین کنید. درصد جایزه تا همین مبلغ اعمال می‌شود. اگر بودجهٔ پولی ندارید، صفر یعنی بدون سقف مبلغ."
 
 msgid "The message changed in another session. Reload before saving."
-msgstr "تنظیمات این پیام هم‌زمان تغییر کرده است. صفحه را دوباره بارگذاری کنید و پس از بررسی، ذخیره کنید."
+msgstr "این پیام در نشست دیگری تغییر کرده است. آخرین نسخهٔ ذخیره‌شده را دریافت و بررسی کنید."
+
+msgid "The operation could not be confirmed. Your changes are still here. Please try again."
+msgstr "نتیجهٔ عملیات مشخص نشد. تغییرات شما حفظ شده است؛ دوباره تلاش کنید."
 
 msgid "The page that contains the [anar_account] shortcode."
 msgstr "صفحه‌ای که شورت‌کد [anar_account] در آن قرار دارد."
@@ -2969,7 +3017,7 @@ msgid "The wheel shows possible prizes. Segment size does not indicate the chanc
 msgstr "بخش‌های گردونه، نتیجه‌های ممکن را نشان می‌دهند. اندازهٔ هر بخش بیانگر احتمال برد آن نیست."
 
 msgid "These settings affect all customer campaigns, including birthday and repeat-purchase messages."
-msgstr "این تنظیمات روی همهٔ کمپین‌های ارتباط با مشتری، از جمله تولد و یادآوری خرید مجدد، اثر می‌گذارند."
+msgstr "این تنظیمات برای همهٔ پیام‌های بازاریابی، از جمله تبریک تولد و یادآوری خرید مجدد، اعمال می‌شوند."
 
 msgid "These two fields apply only when no named prize rows are configured. A win issues one personal, single-use coupon valid for 48 hours."
 msgstr "اگر هیچ ردیفی در مخزن جایزه تعریف نشده باشد، این دو مقدار استفاده می‌شوند. جایزه یک کد تخفیف اختصاصی و یک‌بارمصرف با اعتبار ۴۸ ساعت است."
@@ -3018,6 +3066,9 @@ msgstr "این پیوند نامعتبر یا منقضی است."
 
 msgid "This message does not provide %s."
 msgstr "متغیر %s برای این پیام در دسترس نیست."
+
+msgid "This message has unsaved changes."
+msgstr "تغییرات این پیام هنوز ذخیره نشده است."
 
 msgid "This message is unavailable."
 msgstr "این پیام در دسترس نیست."

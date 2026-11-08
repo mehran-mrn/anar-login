@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.3 — 2026-11-08
+
+* Move message configuration and shared marketing rules into the existing Settings layout; remove the separate visible message menu and redirect legacy URLs.
+* Reuse one on-demand message dialog from all module summaries, with independent asynchronous saving, inline validation, saved-message reload and separate gift variants.
+* Preserve parent drafts, filters, scroll and keyboard focus; handle unsaved changes inside the dialog, including browser Back and variant changes.
+* Share control styles across settings, commerce and the feature catalog; use a full-screen mobile editor and responsive message rows.
+* Support contextual info help in dynamically loaded editors and verify capability, nonces, stale revisions and mocked exact-message tests.
+
 ## 1.2.2 — 2026-11-08
 
 * Persist a protected coupon type so disabling or removing Anar cannot turn a monetary gift into an uncapped WooCommerce percentage.
