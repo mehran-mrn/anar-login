@@ -174,7 +174,7 @@ final class MessageCenter {
 			?>
 			<option value="<?php echo esc_attr( '{' . $variable . '}' ); ?>"><?php echo esc_html( MessageCatalog::variable_labels()[ $variable ] ?? $variable ); ?></option><?php } ?></datalist>
 		<template data-mapping-template><div class="anar-message-map-row"><input aria-label="<?php esc_attr_e( 'Panel variable name', 'anar-toolkit' ); ?>" placeholder="<?php esc_attr_e( 'Panel variable name', 'anar-toolkit' ); ?>"><input list="anar-message-variables" aria-label="<?php esc_attr_e( 'Store value or variable', 'anar-toolkit' ); ?>" placeholder="<?php esc_attr_e( 'Store value or variable', 'anar-toolkit' ); ?>"><span><button type="button" class="button" data-up aria-label="<?php esc_attr_e( 'Move up', 'anar-toolkit' ); ?>">↑</button><button type="button" class="button" data-down aria-label="<?php esc_attr_e( 'Move down', 'anar-toolkit' ); ?>">↓</button><button type="button" class="button" data-remove><?php esc_html_e( 'Remove', 'anar-toolkit' ); ?></button></span></div></template>
-		<p><strong><?php esc_html_e( 'Required variables', 'anar-toolkit' ); ?>:</strong> 
+		<p><strong><?php esc_html_e( 'Required variables', 'anar-toolkit' ); ?>:</strong>
 		<?php
 		echo esc_html(
 			implode(
