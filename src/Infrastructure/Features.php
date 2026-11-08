@@ -100,13 +100,12 @@ final class Features {
 			$tabs['overview'] = __( 'Overview', 'anar-toolkit' );
 			$tabs['carts'] = __( 'Abandoned carts', 'anar-toolkit' ); }
 		if ( self::queue_needed() || $flags['login_log'] ) {
-			$tabs['messages'] = __( 'Messages', 'anar-toolkit' ); }
+			$tabs['messages'] = __( 'Sending report', 'anar-toolkit' ); }
 		if ( self::marketing() ) {
 			$active = array_keys( array_filter( array_intersect_key( $flags, array_flip( self::marketing_keys() ) ) ) );
 			$tabs['campaigns'] = 1 === count( $active ) ? \Anar\Login\Marketing\Settings::modules()[ $active[0] ] : __( 'Campaigns & CRM', 'anar-toolkit' ); }
 		if ( $flags['recovery'] || $flags['orders'] ) {
-			$tabs['settings'] = __( 'Automations & discounts', 'anar-toolkit' );
-			$tabs['templates'] = __( 'Message templates', 'anar-toolkit' ); }
+			$tabs['settings'] = __( 'Automations & discounts', 'anar-toolkit' ); }
 		$tabs['privacy'] = __( 'Data controls', 'anar-toolkit' );
 		return $tabs;
 	}
@@ -117,6 +116,8 @@ final class Features {
 		$tabs = self::workspace_tabs();
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only administrator navigation.
 		$tab = isset( $_GET['tab'] ) && is_string( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : '';
+		// Older template bookmarks now show each message next to its automation.
+		$tab = 'templates' === $tab ? 'settings' : $tab;
 		return isset( $tabs[ $tab ] ) ? $tab : (string) array_key_first( $tabs );
 	}
 

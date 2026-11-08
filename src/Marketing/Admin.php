@@ -109,6 +109,7 @@ else :
 
 	private function game_settings( $config ) {
 		?>
+		<?php \Anar\Login\Admin\MessageCenter::summary( 'game_phone', 'games' ); ?>
 		<?php GameAdmin::render( $config ); ?>
 		<h3><?php esc_html_e( 'Winning chance and single-reward fallback', 'anar-toolkit' ); ?></h3><div class="anar-game-settings-grid">
 		<?php
@@ -177,6 +178,9 @@ else :
 		}
 		if ( 'games' === $module ) {
 			$this->game_settings( $config );
+		}
+		if ( 'stock' === $module ) {
+			\Anar\Login\Admin\MessageCenter::summary( 'stock_verification', 'stock' );
 		}
 		if ( 'referral' === $module ) {
 			$fields += array( 'referral_wait_days' => __( 'Referral refund waiting period in days', 'anar-toolkit' ), 'referral_amount' => __( 'Referral reward percentage', 'anar-toolkit' ), 'referral_minimum' => __( 'Minimum referred order amount', 'anar-toolkit' ) );

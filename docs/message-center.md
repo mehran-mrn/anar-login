@@ -25,3 +25,5 @@ The dialog has one keyboard focus scope, a visible title/close action, an inline
 Shared `admin-controls.css` styles apply only to Anar admin surfaces. Message CSS is structural, inheriting the settings palette and typography. Info help uses delegated events so dynamically loaded editors behave like existing pages. Storefront assets and message dispatch rules are unchanged by this UI release.
 
 `tests/Integration/message-editor.php` covers real WordPress AJAX responses, capabilities, nonces, independent saves, stale edits, required variables, inheritance, gift variants and shared settings with mocked SMS. Run it only in disposable local WordPress alongside `messages.php`.
+
+Version 1.2.4 removes the commerce template tab. Order notification switches contain compact message summaries; recovery timing and summaries share one settings card. Games and stock settings expose their own verification messages. `tab=templates` resolves to automation settings. The full catalog remains in Settings and sending history is labeled Sending report. No binding or dispatch behavior changes.

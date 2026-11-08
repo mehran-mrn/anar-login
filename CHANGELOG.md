@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.4 — 2026-11-08
+
+* Remove the redundant commerce template tab and resolve older template URLs to automation settings.
+* Place each order message next to its switch and each recovery message next to its existing timing field.
+* Expose game-phone and stock-request verification messages in their own modules, using the same shared dialog.
+* Label delivery history as Sending report and retain the complete catalog under Settings.
+* Document the proposed login roadmap separately from implemented features.
+
 ## 1.2.3 — 2026-11-08
 
 * Move message configuration and shared marketing rules into the existing Settings layout; remove the separate visible message menu and redirect legacy URLs.
