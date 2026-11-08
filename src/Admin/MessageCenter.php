@@ -105,7 +105,7 @@ final class MessageCenter {
 	}
 
 	public function render() {
-		( new SettingsPage( new Settings(), new ProviderRegistry( new Settings() ) ) )->render();
+		( new SettingsPage( new Settings(), ProviderRegistry::shared() ) )->render();
 	}
 
 	public static function notice() {
@@ -152,7 +152,7 @@ final class MessageCenter {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
-		$providers = ( new ProviderRegistry( new Settings() ) )->all();
+		$providers = ProviderRegistry::shared()->all();
 		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Read-only filter selection.
 		$group = isset( $_GET['group'] ) && is_string( $_GET['group'] ) ? sanitize_key( $_GET['group'] ) : '';
 		$search = isset( $_GET['s'] ) && is_string( $_GET['s'] ) ? sanitize_text_field( wp_unslash( $_GET['s'] ) ) : '';
@@ -204,7 +204,7 @@ final class MessageCenter {
 			$value = $draft['value'];
 			delete_transient( 'anar_message_draft_' . get_current_user_id() );
 		}
-		$providers = ( new ProviderRegistry( new Settings() ) )->all();
+		$providers = ProviderRegistry::shared()->all();
 		$sample = MessageSettings::preview( $id, $value );
 		?>
 		<?php
@@ -263,7 +263,7 @@ final class MessageCenter {
 		<p class="anar-message-scope"><?php esc_html_e( 'These settings affect all customer campaigns, including birthday and repeat-purchase messages.', 'anar-toolkit' ); ?></p><form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="anar-card anar-message-shared" data-message-shared><?php wp_nonce_field( 'anar_message_shared' ); ?><input type="hidden" name="action" value="anar_message"><input type="hidden" name="id" value="shared"><input type="hidden" name="operation" value="shared">
 		<label><?php esc_html_e( 'SMS provider', 'anar-toolkit' ); ?><select name="shared[provider]"><option value=""><?php esc_html_e( 'Use commerce provider', 'anar-toolkit' ); ?></option>
 		<?php
-		foreach ( ( new ProviderRegistry( new Settings() ) )->all() as $provider_key => $provider ) {
+		foreach ( ProviderRegistry::shared()->all() as $provider_key => $provider ) {
 			?>
 			<option value="<?php echo esc_attr( $provider_key ); ?>" <?php selected( $value['provider'], $provider_key ); ?>><?php echo esc_html( $provider->title() ); ?></option><?php } ?></select></label>
 		<?php
@@ -331,7 +331,7 @@ final class MessageCenter {
 					$is_recovery = 'recovery' === $message_group;
 					$source = MessageCatalog::all()[ $id ]['source'];
 					if ( 'auth' === $source ) {
-						$result = ( new ProviderRegistry( new Settings() ) )->send( $phone, '123456', $sample['text'], $id );
+						$result = ProviderRegistry::shared()->send( $phone, '123456', $sample['text'], $id );
 					} else {
 						$result = ( new \Anar\Login\Messaging\NotificationSender( new Settings(), new \Anar\Login\Messaging\HttpClient() ) )->send( $current['provider'], $phone, $current, $sample['variables'], $is_recovery );
 					}
@@ -359,7 +359,7 @@ final class MessageCenter {
 			}
 			if ( $ok && isset( MessageCatalog::all()[ $id ] ) ) {
 				$saved = MessageSettings::get( $id, $variant );
-				$registry = ( new ProviderRegistry( new Settings() ) )->all();
+				$registry = ProviderRegistry::shared()->all();
 				$response['revision'] = MessageSettings::fingerprint( $saved );
 				$response['value'] = MessageSettings::sanitize( $saved );
 				// The list follows the module's active variant, which can differ from the editor.

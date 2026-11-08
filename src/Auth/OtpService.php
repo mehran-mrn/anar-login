@@ -20,9 +20,6 @@ final class OtpService {
 	/** @var Settings */
 	private $settings;
 
-	/** @var OtpRepository */
-	private $repository;
-
 	/** @var RateLimiter */
 	private $limiter;
 
@@ -31,6 +28,9 @@ final class OtpService {
 
 	/** @var UserService */
 	private $users;
+
+	/** @var CodeChallenge */
+	private $codes;
 
 	/**
 	 * Constructor.
@@ -42,23 +42,38 @@ final class OtpService {
 	 * @param UserService      $users      Users.
 	 */
 	public function __construct( Settings $settings, OtpRepository $repository, RateLimiter $limiter, ProviderRegistry $providers, UserService $users ) {
-		$this->settings   = $settings;
-		$this->repository = $repository;
-		$this->limiter    = $limiter;
-		$this->providers  = $providers;
-		$this->users      = $users;
+		$this->settings  = $settings;
+		$this->limiter   = $limiter;
+		$this->providers = $providers;
+		$this->users     = $users;
+		$this->codes     = new CodeChallenge( $settings, $repository, $limiter, $providers );
+	}
+
+	/**
+	 * Shared code service, for features that issue their own purpose-bound codes.
+	 *
+	 * @return CodeChallenge
+	 */
+	public function codes() {
+		return $this->codes;
 	}
 
 	/**
 	 * Request a new code.
 	 *
 	 * @param string $raw_identity User input.
+	 * @param mixed  $proof        Solved bot-check puzzle, when one was requested.
 	 * @return array<string,mixed>|WP_Error
 	 */
-	public function request( $raw_identity ) {
+	public function request( $raw_identity, $proof = null ) {
 		$identity = $this->identity( $raw_identity );
 		if ( is_wp_error( $identity ) ) {
 			return $identity;
+		}
+
+		$human = ( new BotChallenge( $this->settings, $this->limiter ) )->guard( $proof );
+		if ( is_wp_error( $human ) ) {
+			return $human;
 		}
 
 		$guard = $this->limiter->guard_request( $identity['identity'] );
@@ -107,26 +122,14 @@ final class OtpService {
 	 * @return true|WP_Error
 	 */
 	public function check( $identity, $raw_code, $purpose = 'login' ) {
-		$code = preg_replace( '/\D/', '', Identity::latin_digits( (string) $raw_code ) );
-		if ( ! $code ) {
-			return $this->invalid_code();
-		}
+		$checked = $this->codes->verify( $this->storage_key( $identity, $purpose ), $identity['channel'], $raw_code, array( 'attempts' => absint( $this->settings->get( 'max_verify_attempts', 5 ) ) ) );
 
-		$storage_identity = 'login' === $purpose ? $identity['identity'] : $purpose . '|' . $identity['identity'];
-		$challenge = $this->repository->latest( $storage_identity, $identity['channel'] );
-		if ( ! $challenge || strtotime( $challenge->expires_at . ' UTC' ) < time() ) {
-			return $this->invalid_code();
-		}
+		return is_wp_error( $checked ) ? $checked : true;
+	}
 
-		if ( ! $this->repository->claim_attempt( $challenge->id, absint( $this->settings->get( 'max_verify_attempts', 5 ) ) ) ) {
-			return new WP_Error( 'anar_too_many_attempts', __( 'Too many incorrect attempts. Please request a new code.', 'anar-toolkit' ), array( 'status' => 429 ) );
-		}
-
-		if ( ! $this->repository->matches( $challenge, $storage_identity, $code ) || ! $this->repository->consume( $challenge->id ) ) {
-			return $this->invalid_code();
-		}
-
-		return true;
+	/** Codes for purposes other than sign-in are stored apart from login codes. */
+	private function storage_key( $identity, $purpose ) {
+		return 'login' === $purpose ? $identity['identity'] : $purpose . '|' . $identity['identity'];
 	}
 
 	/**
@@ -136,22 +139,24 @@ final class OtpService {
 	 * @return true|WP_Error
 	 */
 	private function send_code( $identity, $context = 'login_otp', $purpose = 'login' ) {
-		$ttl  = absint( $this->settings->get( 'otp_ttl', 120 ) );
-		$code = $this->generate_code();
-
-		if ( ! $this->repository->create( 'login' === $purpose ? $identity['identity'] : $purpose . '|' . $identity['identity'], $identity['channel'], $code, $ttl ) ) {
-			return new WP_Error( 'anar_otp_storage', __( 'The login code could not be created.', 'anar-toolkit' ), array( 'status' => 500 ) );
-		}
-
-		$sent = $this->dispatch( $identity, $code, $ttl, $context );
+		$sent = $this->codes->issue(
+			$identity,
+			$this->storage_key( $identity, $purpose ),
+			function ( $code, $ttl ) use ( $identity ) {
+				return $this->message( $identity['channel'], $code, $ttl );
+			},
+			array(
+				'ttl'     => absint( $this->settings->get( 'otp_ttl', 120 ) ),
+				'length'  => absint( $this->settings->get( 'otp_length', 5 ) ),
+				'context' => $context,
+				'limit'   => false,
+			)
+		);
 
 		if ( is_wp_error( $sent ) ) {
-			$storage_identity = 'login' === $purpose ? $identity['identity'] : $purpose . '|' . $identity['identity'];
-			$challenge = $this->repository->latest( $storage_identity, $identity['channel'] );
-			if ( $challenge ) {
-				$this->repository->consume( $challenge->id );
+			if ( 'anar_otp_storage' === $sent->get_error_code() ) {
+				return $sent;
 			}
-			$this->limiter->release( $identity['identity'] );
 			$this->log_error( $sent, $identity['channel'] );
 
 			return new WP_Error(
@@ -195,11 +200,17 @@ final class OtpService {
 			return $user;
 		}
 
-		return array(
+		$result = array(
 			'message'  => __( 'You have signed in successfully.', 'anar-toolkit' ),
 			'redirect' => $this->users->redirect_url( $user, (string) $redirect_to ),
 			'user'     => $this->users->profile( $user ),
 		);
+		$profile = $this->users->created() ? \Anar\Login\Api\ProfileController::completion( $user, (string) $this->settings->get( 'profile_step', 'off' ) ) : null;
+		if ( $profile ) {
+			$result['profile'] = $profile;
+		}
+
+		return $result;
 	}
 
 	/**
@@ -220,7 +231,8 @@ final class OtpService {
 			return new WP_Error( 'anar_invalid_identity', __( 'Please enter a valid Iranian mobile number.', 'anar-toolkit' ), array( 'status' => 400 ) );
 		}
 
-		$sent = $this->dispatch( $identity, $this->generate_code(), absint( $this->settings->get( 'otp_ttl', 120 ) ) );
+		$code = CodeChallenge::generate( absint( $this->settings->get( 'otp_length', 5 ) ) );
+		$sent = $this->providers->send( $identity['identity'], $code, $this->message( 'sms', $code, absint( $this->settings->get( 'otp_ttl', 120 ) ) ) );
 		if ( is_wp_error( $sent ) ) {
 			$detail = $this->error_detail( $sent );
 
@@ -264,35 +276,22 @@ final class OtpService {
 	}
 
 	/**
-	 * Generate a uniformly random numeric code.
+	 * Login code message for a channel: SMS text, or email subject and body.
 	 *
-	 * @return string
+	 * @param string $channel Channel.
+	 * @param string $code    Code.
+	 * @param int    $ttl     Lifetime.
+	 * @return string|string[]
 	 */
-	private function generate_code() {
-		$length = absint( $this->settings->get( 'otp_length', 5 ) );
-
-		return (string) random_int( 10 ** ( $length - 1 ), ( 10 ** $length ) - 1 );
-	}
-
-	/**
-	 * Deliver a code over the identity's channel.
-	 *
-	 * @param array{identity:string,channel:string} $identity Identity.
-	 * @param string                                $code     Code.
-	 * @param int                                   $ttl      Lifetime.
-	 * @return true|WP_Error
-	 */
-	private function dispatch( $identity, $code, $ttl, $context = 'login_otp' ) {
-		if ( 'sms' === $identity['channel'] ) {
-			return $this->providers->send( $identity['identity'], $code, $this->render( (string) $this->settings->get( 'sms_message', '' ), $code, $ttl ), $context );
+	private function message( $channel, $code, $ttl ) {
+		if ( 'sms' === $channel ) {
+			return $this->render( (string) $this->settings->get( 'sms_message', '' ), $code, $ttl );
 		}
 
-		$subject = $this->render( (string) $this->settings->get( 'email_subject', '' ), $code, $ttl );
-		$body    = $this->render( (string) $this->settings->get( 'email_message', '' ), $code, $ttl );
-
-		return wp_mail( $identity['identity'], $subject, $body )
-			? true
-			: new WP_Error( 'anar_email_failed', __( 'The email could not be sent. Please check the site email settings.', 'anar-toolkit' ) );
+		return array(
+			$this->render( (string) $this->settings->get( 'email_subject', '' ), $code, $ttl ),
+			$this->render( (string) $this->settings->get( 'email_message', '' ), $code, $ttl ),
+		);
 	}
 
 	/**
@@ -332,15 +331,6 @@ final class OtpService {
 		);
 
 		return (string) apply_filters( 'anar_login_otp_message', $template, $code, $ttl );
-	}
-
-	/**
-	 * Standard invalid-code error.
-	 *
-	 * @return WP_Error
-	 */
-	private function invalid_code() {
-		return new WP_Error( 'anar_invalid_code', __( 'The code is invalid or has expired.', 'anar-toolkit' ), array( 'status' => 400 ) );
 	}
 
 	/**

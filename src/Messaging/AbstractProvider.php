@@ -49,6 +49,88 @@ abstract class AbstractProvider implements SmsProviderInterface {
 	}
 
 	/**
+	 * Send a login code through the configured approved template.
+	 *
+	 * Every built-in transport goes through send_template(), so OTP and commerce
+	 * messages share one request/response implementation per provider.
+	 *
+	 * @param string $recipient Canonical phone.
+	 * @param string $code      OTP.
+	 * @param string $message   Rendered fallback message.
+	 * @return true|WP_Error
+	 */
+	public function send( $recipient, $code, $message ) {
+		$config = $this->config();
+		$ready  = $this->require_config( $config, array_merge( $this->template_credentials(), array( 'template_id' ) ) );
+		if ( is_wp_error( $ready ) ) {
+			return $ready;
+		}
+
+		return $this->send_template( $recipient, (string) $config['template_id'], array( $this->code_parameter() => (string) $code ) );
+	}
+
+	/**
+	 * Send through an approved panel template (pattern).
+	 *
+	 * @param string               $recipient Canonical phone.
+	 * @param string               $template  Template/pattern identifier.
+	 * @param array<string,string> $params    Template variables by panel name.
+	 * @return true|WP_Error
+	 */
+	public function send_template( $recipient, $template, $params ) {
+		return new WP_Error( 'anar_template_unavailable', __( 'This provider does not support approved-template delivery.', 'anar-toolkit' ) );
+	}
+
+	/**
+	 * Send free text from the account's own sender line.
+	 *
+	 * @param string $recipient Canonical phone.
+	 * @param string $text      Message text.
+	 * @return true|WP_Error
+	 */
+	public function send_text( $recipient, $text ) {
+		return new WP_Error( 'anar_text_unavailable', __( 'Plain-text delivery needs a supported provider and sender number.', 'anar-toolkit' ) );
+	}
+
+	/**
+	 * Credentials required for approved-template delivery.
+	 *
+	 * @return string[]
+	 */
+	public function template_credentials() {
+		return array();
+	}
+
+	/**
+	 * Credentials required for plain-text delivery, or null when unsupported.
+	 *
+	 * @return string[]|null
+	 */
+	public function text_credentials() {
+		return null;
+	}
+
+	/**
+	 * Allowed template variable names, or null when the panel accepts any name.
+	 *
+	 * @return string[]|null
+	 */
+	public function parameter_names() {
+		return null;
+	}
+
+	/**
+	 * Template variable that carries the login code.
+	 *
+	 * @return string
+	 */
+	protected function code_parameter() {
+		$config = $this->config();
+
+		return ! empty( $config['code_parameter'] ) ? (string) $config['code_parameter'] : 'code';
+	}
+
+	/**
 	 * Provider settings.
 	 *
 	 * @return array<string,string>

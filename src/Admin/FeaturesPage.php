@@ -42,7 +42,7 @@ final class FeaturesPage {
 		}
 		add_submenu_page( 'anar-login', __( 'Features', 'anar-toolkit' ), __( 'Features', 'anar-toolkit' ), 'manage_options', 'anar-login', array( self::class, 'render' ), 0 );
 		$flags = Features::all();
-		$commerce = new \Anar\Login\Commerce\Admin( new \Anar\Login\Commerce\Settings(), new \Anar\Login\Commerce\Repository(), new \Anar\Login\Messaging\ProviderRegistry( new Settings() ) );
+		$commerce = new \Anar\Login\Commerce\Admin( new \Anar\Login\Commerce\Settings(), new \Anar\Login\Commerce\Repository(), \Anar\Login\Messaging\ProviderRegistry::shared() );
 		if ( $flags['recovery'] || $flags['orders'] || $flags['login_log'] || Features::queue_needed() ) {
 			add_submenu_page( 'anar-login', __( 'Commerce toolkit', 'anar-toolkit' ), __( 'Commerce toolkit', 'anar-toolkit' ), 'manage_options', 'anar-toolkit-commerce', array( $commerce, 'render' ) ); }
 		if ( ! $flags['recovery'] && ! $flags['orders'] && ! $flags['login_log'] && ! Features::queue_needed() ) {
@@ -51,7 +51,7 @@ final class FeaturesPage {
 			if ( $flags[ $key ] && class_exists( 'WooCommerce' ) ) {
 				add_submenu_page( 'anar-login', self::labels()[ $key ], self::labels()[ $key ], 'manage_options', 'anar-toolkit-' . $key, array( $commerce, 'render' ) ); }
 		}
-		add_submenu_page( 'anar-login', __( 'Settings', 'anar-toolkit' ), __( 'Settings', 'anar-toolkit' ), 'manage_options', 'anar-login-settings', array( new SettingsPage( new Settings(), new \Anar\Login\Messaging\ProviderRegistry( new Settings() ) ), 'render' ) );
+		add_submenu_page( 'anar-login', __( 'Settings', 'anar-toolkit' ), __( 'Settings', 'anar-toolkit' ), 'manage_options', 'anar-login-settings', array( new SettingsPage( new Settings(), \Anar\Login\Messaging\ProviderRegistry::shared() ), 'render' ) );
 		add_submenu_page( $flags['balance'] ? 'anar-login' : null, __( 'SMS credit', 'anar-toolkit' ), __( 'SMS credit', 'anar-toolkit' ), 'manage_options', 'anar-toolkit-balance', array( BalancePage::class, 'render' ) );
 		// Keep older bookmarked URLs working without a second copy of the catalog in the menu.
 		add_submenu_page( null, __( 'Other features', 'anar-toolkit' ), __( 'Other features', 'anar-toolkit' ), 'manage_options', 'anar-features-other', array( $this, 'render' ) );

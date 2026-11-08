@@ -12,6 +12,7 @@ use Anar\Login\Infrastructure\RateLimiter;
 use Anar\Login\Infrastructure\Settings;
 use Anar\Login\Messaging\ProviderRegistry;
 use Anar\Login\Support\Identity;
+use Anar\Login\Support\PhoneDirectory;
 use WP_Error;
 
 defined( 'ABSPATH' ) || exit;
@@ -20,13 +21,11 @@ final class PasswordRecovery {
 	private $settings;
 	private $codes;
 	private $limits;
-	private $providers;
 
 	public function __construct( Settings $settings, OtpRepository $codes, RateLimiter $limits, ProviderRegistry $providers ) {
 		$this->settings = $settings;
-		$this->codes = $codes;
 		$this->limits = $limits;
-		$this->providers = $providers;
+		$this->codes = new CodeChallenge( $settings, $codes, $limits, $providers );
 	}
 
 	public function register() {
@@ -43,7 +42,7 @@ final class PasswordRecovery {
 					'methods' => 'POST',
 					'permission_callback' => '__return_true',
 					'callback' => function ( $request ) use ( $operation ) {
-						$response = $this->$operation( (string) $request->get_param( 'phone' ), (string) $request->get_param( 'code' ), (string) $request->get_param( 'password' ), (string) $request->get_param( 'website' ) );
+						$response = $this->$operation( (string) $request->get_param( 'phone' ), (string) $request->get_param( 'code' ), (string) $request->get_param( 'password' ), (string) $request->get_param( 'website' ), $request->get_param( 'proof' ) );
 						return is_wp_error( $response ) ? $response : new \WP_REST_Response( $response, 200, array( 'Cache-Control' => 'no-store' ) );
 					},
 					'args' => array( 'phone' => array( 'required' => true, 'type' => 'string' ) ),
@@ -54,14 +53,7 @@ final class PasswordRecovery {
 
 	/** Resolve exactly one linked account; billing phone alone is never reset authority. */
 	private function user( $phone ) {
-		$ids = array();
-		foreach ( array( '_anar_phone', \Anar\Login\Support\PhoneKeys::legacy() ) as $key ) {
-			foreach ( array( $phone, ltrim( $phone, '+' ), Identity::local_phone( $phone ) ) as $value ) {
-				foreach ( get_users( array( 'meta_key' => $key, 'meta_value' => $value, 'number' => 2, 'fields' => 'ID', 'count_total' => false ) ) as $id ) {
-					$ids[ (int) $id ] = true;
-				}
-			}
-		}
+		$ids = PhoneDirectory::find( $phone, 2 );
 		if ( 1 !== count( $ids ) ) {
 			return false;
 		}
@@ -74,39 +66,36 @@ final class PasswordRecovery {
 		return 'password|' . $user->ID . '|' . $phone . '|' . hash( 'sha256', $user->user_pass );
 	}
 
-	public function request( $raw_phone, $unused_code = '', $unused_password = '', $website = '' ) {
+	public function request( $raw_phone, $unused_code = '', $unused_password = '', $website = '', $proof = null ) {
 		$generic = array( 'message' => __( 'If this number is linked to an eligible account, a password reset code will be sent. Please wait before requesting another.', 'anar-toolkit' ) );
 		$phone = Identity::normalize( $raw_phone );
 		if ( $website || is_wp_error( $phone ) || 'sms' !== $phone['channel'] || ! $this->settings->get( 'password_reset_enabled', 1 ) ) {
 			return $generic;
 		}
-		$limit = $this->limits->guard_request( 'password|' . $phone['identity'] );
+		$human = ( new BotChallenge( $this->settings, $this->limits ) )->guard( $proof );
+		if ( is_wp_error( $human ) ) {
+			return $human;
+		}
+		// The limit is spent before the lookup, so its behavior cannot reveal accounts.
+		$limit = $this->limits->guard_request( $phone['identity'], 'password' );
 		$user = $this->user( $phone['identity'] );
 		if ( is_wp_error( $limit ) || ! $user ) {
 			return $generic;
 		}
-		$code = (string) random_int( 100000, 999999 );
-		$identity = $this->identity( $user, $phone['identity'] );
-		if ( ! $this->codes->create( $identity, 'reset', $code, 300 ) ) {
-			return $generic;
-		}
-		$sent = $this->providers->send(
-			$phone['identity'],
-			$code,
-			sprintf(
-			/* translators: 1: site name, 2: password reset code. */
-				__( '%1$s: Your password reset code is %2$s. It expires in 5 minutes. Do not share this code.', 'anar-toolkit' ),
-				get_bloginfo( 'name' ),
-				$code
-			),
-			'password_reset'
+		$this->codes->issue(
+			$phone,
+			$this->identity( $user, $phone['identity'] ),
+			static function ( $code ) {
+				/* translators: 1: site name, 2: password reset code. */
+				return sprintf( __( '%1$s: Your password reset code is %2$s. It expires in 5 minutes. Do not share this code.', 'anar-toolkit' ), get_bloginfo( 'name' ), $code );
+			},
+			array(
+				'channel' => 'reset',
+				'context' => 'password_reset',
+				'scope'   => 'password',
+				'limit'   => false,
+			)
 		);
-		if ( is_wp_error( $sent ) ) {
-			$challenge = $this->codes->latest( $identity, 'reset' );
-			if ( $challenge ) {
-				$this->codes->consume( $challenge->id );
-			}
-		}
 		return $generic;
 	}
 
@@ -123,10 +112,9 @@ final class PasswordRecovery {
 		if ( ! $user ) {
 			return $error;
 		}
-		$identity = $this->identity( $user, $phone['identity'] );
-		$challenge = $this->codes->latest( $identity, 'reset' );
-		$code = trim( Identity::latin_digits( $raw_code ) );
-		if ( ! $challenge || ! $this->codes->claim_attempt( $challenge->id, 5 ) || ! preg_match( '/^\d{6}$/D', $code ) || ! $this->codes->matches( $challenge, $identity, $code ) ) {
+		// Checked now, consumed only once the new password passes validation.
+		$challenge = $this->codes->verify( $this->identity( $user, $phone['identity'] ), 'reset', $raw_code, array( 'length' => 6, 'consume' => false ) );
+		if ( is_wp_error( $challenge ) ) {
 			return $error;
 		}
 		$errors = new WP_Error();
@@ -137,7 +125,7 @@ final class PasswordRecovery {
 		if ( $errors->has_errors() ) {
 			return $errors;
 		}
-		if ( ! $this->codes->consume( $challenge->id ) ) {
+		if ( ! $this->codes->consume( $challenge ) ) {
 			return $error;
 		}
 		reset_password( $user, $password );

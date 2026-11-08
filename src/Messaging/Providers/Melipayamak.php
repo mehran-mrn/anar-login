@@ -43,39 +43,85 @@ final class Melipayamak extends AbstractProvider {
 	}
 
 	/** @inheritDoc */
+	public function template_credentials() {
+		return array( 'username', 'password' );
+	}
+
+	/** @inheritDoc */
+	public function text_credentials() {
+		return array( 'username', 'password', 'from' );
+	}
+
+	/**
+	 * Login code: the approved template when configured, else plain text.
+	 *
+	 * @inheritDoc
+	 */
 	public function send( $recipient, $code, $message ) {
 		$config = $this->config();
-		$ready  = $this->require_config( $config, array( 'username', 'password' ) );
+		$ready  = $this->require_config( $config, $this->template_credentials() );
+		if ( is_wp_error( $ready ) ) {
+			return $ready;
+		}
+		if ( ! empty( $config['template_id'] ) ) {
+			return $this->send_template( $recipient, (string) $config['template_id'], array( (string) $code ) );
+		}
+		if ( ! empty( $config['from'] ) ) {
+			return $this->send_text( $recipient, $message );
+		}
+
+		return new WP_Error( 'anar_sms_not_configured', __( 'Enter a template body ID, or a sender number for plain-text messages.', 'anar-toolkit' ) );
+	}
+
+	/** @inheritDoc */
+	public function send_template( $recipient, $template, $params ) {
+		$config = $this->config();
+		$ready  = $this->require_config( $config, $this->template_credentials() );
 		if ( is_wp_error( $ready ) ) {
 			return $ready;
 		}
 
-		$template = (string) ( $config['template_id'] ?? '' );
-		$from     = (string) ( $config['from'] ?? '' );
-		if ( ! $template && ! $from ) {
-			return new WP_Error(
-				'anar_sms_not_configured',
-				__( 'Enter a template body ID, or a sender number for plain-text messages.', 'anar-toolkit' )
-			);
-		}
-
-		$body = array(
-			'username' => $config['username'],
-			'password' => $config['password'],
-			'to'       => $this->local_phone( $recipient ),
+		// BaseServiceNumber takes the template variables in order, separated by ";".
+		return $this->post(
+			'https://rest.payamak-panel.com/api/SendSMS/BaseServiceNumber',
+			array(
+				'username' => $config['username'],
+				'password' => $config['password'],
+				'to'       => $this->local_phone( $recipient ),
+				'bodyId'   => (string) $template,
+				'text'     => implode( ';', array_map( 'strval', $params ) ),
+			)
 		);
+	}
 
-		if ( $template ) {
-			$endpoint       = 'https://rest.payamak-panel.com/api/SendSMS/BaseServiceNumber';
-			$body['text']   = $code;
-			$body['bodyId'] = $template;
-		} else {
-			$endpoint        = 'https://rest.payamak-panel.com/api/SendSMS/SendSMS';
-			$body['from']    = $from;
-			$body['text']    = $message;
-			$body['isflash'] = 'false';
+	/** @inheritDoc */
+	public function send_text( $recipient, $text ) {
+		$config = $this->config();
+		if ( is_wp_error( $this->require_config( $config, $this->text_credentials() ) ) ) {
+			return parent::send_text( $recipient, $text );
 		}
 
+		return $this->post(
+			'https://rest.payamak-panel.com/api/SendSMS/SendSMS',
+			array(
+				'username' => $config['username'],
+				'password' => $config['password'],
+				'from'     => $config['from'],
+				'to'       => $this->local_phone( $recipient ),
+				'text'     => (string) $text,
+				'isflash'  => 'false',
+			)
+		);
+	}
+
+	/**
+	 * Post a form request and read Meli Payamak's acceptance signal.
+	 *
+	 * @param string               $endpoint Endpoint.
+	 * @param array<string,string> $body     Form fields.
+	 * @return true|WP_Error
+	 */
+	private function post( $endpoint, $body ) {
 		$result = $this->http->request(
 			'POST',
 			$endpoint,
@@ -84,7 +130,6 @@ final class Melipayamak extends AbstractProvider {
 				'body'    => $body,
 			)
 		);
-
 		if ( is_wp_error( $result ) ) {
 			return $result;
 		}

@@ -115,7 +115,7 @@ try {
 	$clear();
 	$service->process( $phone, '', true );
 	$assert( is_wp_error( $service->process( $phone, $provider->code ) ) && ! PhoneVerification::phone( $users[1] ), 'A phone linked to another account cannot be claimed' );
-	update_user_meta( $users[2], \Anar\Login\Support\PhoneKeys::legacy(), '09121112222' );
+	update_user_meta( $users[2], 'digits_phone', '09121112222' );
 	$clear();
 	$service->process( '+989121112222', '', true );
 	$assert( is_wp_error( $service->process( '+989121112222', $provider->code ) ), 'Legacy phone ownership is respected in local phone format' );

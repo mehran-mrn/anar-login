@@ -33,14 +33,17 @@ class IPPanel extends AbstractProvider {
 	}
 
 	/** @inheritDoc */
-	public function send( $recipient, $code, $message ) {
+	public function template_credentials() {
+		return array( 'api_key', 'from' );
+	}
+
+	/** @inheritDoc */
+	public function send_template( $recipient, $template, $params ) {
 		$config = $this->config();
-		$ready  = $this->require_config( $config, array( 'api_key', 'from', 'template_id' ) );
+		$ready  = $this->require_config( $config, $this->template_credentials() );
 		if ( is_wp_error( $ready ) ) {
 			return $ready;
 		}
-
-		$parameter = ! empty( $config['code_parameter'] ) ? $config['code_parameter'] : 'code';
 
 		$result = $this->http->request(
 			'POST',
@@ -54,15 +57,14 @@ class IPPanel extends AbstractProvider {
 					array(
 						'sending_type' => 'pattern',
 						'from_number'  => $config['from'],
-						'code'         => $config['template_id'],
+						'code'         => (string) $template,
 						'recipients'   => array( $recipient ),
-						'params'       => array( $parameter => $code ),
+						'params'       => $params,
 					),
 					JSON_UNESCAPED_UNICODE
 				),
 			)
 		);
-
 		if ( is_wp_error( $result ) ) {
 			return $result;
 		}

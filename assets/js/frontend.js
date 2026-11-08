@@ -26,6 +26,16 @@
 		return minutes ? `${numbers.format(minutes)}:${padded}` : numbers.format(seconds);
 	};
 
+	// Loads the puzzle solver only when the server asks for it.
+	const solveChallenge = async (challenge) => {
+		try {
+			await import(challenge.script);
+			return await window.AnarChallenge.solve(challenge);
+		} catch (error) {
+			throw new Error(strings.network);
+		}
+	};
+
 	const request = async (path, payload, authenticated) => {
 		const headers = { 'Content-Type': 'application/json' };
 		// Sign-in requests deliberately omit the nonce: a stale one from a cached page would be rejected.
@@ -48,6 +58,11 @@
 			body = await response.json();
 		} catch (error) {
 			body = {};
+		}
+		// The server may ask for the invisible bot check; solve it once and resend.
+		if (428 === response.status && body.data && body.data.challenge && !payload.proof) {
+			const proof = await solveChallenge(body.data.challenge);
+			return request(path, Object.assign({}, payload, { proof }), authenticated);
 		}
 		if (!response.ok) {
 			const failure = new Error(body.message || strings.network);
@@ -179,6 +194,72 @@
 			listenForOtp();
 		};
 
+		// Built from text nodes only, so server strings can never inject markup.
+		const profileStep = (result) => {
+			const text = result.profile.strings || {};
+			const form = document.createElement('form');
+			form.className = 'anar-form anar-form--profile';
+			const title = document.createElement('p');
+			title.className = 'anar-code-copy';
+			title.textContent = text.title || '';
+			form.appendChild(title);
+			// Same markup and styles as the account page name fields.
+			const fields = document.createElement('div');
+			fields.className = 'anar-fields';
+			form.appendChild(fields);
+			const field = (name, label, autocomplete) => {
+				const wrap = document.createElement('label');
+				wrap.textContent = label || '';
+				const input = document.createElement('input');
+				input.type = 'text';
+				input.name = name;
+				input.required = true;
+				input.maxLength = 60;
+				input.autocomplete = autocomplete;
+				wrap.appendChild(input);
+				fields.appendChild(wrap);
+				return input;
+			};
+			const first = field('first_name', text.first, 'given-name');
+			field('last_name', text.last, 'family-name');
+			const save = document.createElement('button');
+			save.type = 'submit';
+			save.className = 'anar-btn anar-btn--primary';
+			const saveLabel = document.createElement('span');
+			saveLabel.textContent = text.save || '';
+			save.appendChild(saveLabel);
+			form.appendChild(save);
+			const go = () => {
+				card.classList.add('is-success');
+				loading(save, true, strings.redirecting);
+				window.location.assign(result.redirect || window.location.href);
+			};
+			if (!result.profile.required) {
+				const skip = document.createElement('button');
+				skip.type = 'button';
+				skip.className = 'anar-auth__back';
+				skip.textContent = text.skip || '';
+				skip.addEventListener('click', go);
+				form.appendChild(skip);
+			}
+			form.addEventListener('submit', async (event) => {
+				event.preventDefault();
+				loading(save, true);
+				message('');
+				try {
+					await request('profile/complete', { token: result.profile.token, first_name: form.elements.first_name.value.trim(), last_name: form.elements.last_name.value.trim() });
+					go();
+				} catch (error) {
+					loading(save, false);
+					message(error.message, 'error');
+				}
+			});
+			codeForm.hidden = true;
+			codeForm.after(form);
+			message(result.message, 'success');
+			first.focus({ preventScroll: true });
+		};
+
 		const verify = async () => {
 			if (verifying) return;
 			const code = latinDigits(codeInput.value).replace(/\D/g, '');
@@ -200,6 +281,13 @@
 				});
 				stopOtpListener();
 				window.clearInterval(interval);
+				if (result.profile && result.profile.token) {
+					// New accounts: ask for a name now that the number is proven, then continue.
+					verifying = false;
+					loading(codeSubmit, false);
+					profileStep(result);
+					return;
+				}
 				card.classList.add('is-success');
 				message(result.message, 'success');
 				// The button stays busy while the browser navigates, so the used code cannot be resubmitted.

@@ -8,6 +8,7 @@
 namespace Anar\Login\Admin;
 
 use Anar\Login\Auth\GoogleAuth;
+use Anar\Login\Infrastructure\RateLimiter;
 use Anar\Login\Infrastructure\Settings;
 use Anar\Login\Integrations\WooCommerce;
 use Anar\Login\Messaging\ProviderRegistry;
@@ -187,6 +188,14 @@ final class SettingsPage {
 							</div>
 							<?php $this->toggle( 'allow_registration', __( 'Create accounts automatically', 'anar-toolkit' ), __( 'Create a new account when a verified user does not already have one.', 'anar-toolkit' ), $value ); ?>
 							<div class="anar-field-row">
+								<label for="anar-profile-step"><strong><?php esc_html_e( 'Name after sign-up', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'Ask new customers for their first and last name right after the code is verified, never before. Existing customers are not asked.', 'anar-toolkit' ); ?></small></label>
+								<select id="anar-profile-step" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[profile_step]">
+									<option value="off" <?php selected( $value['profile_step'], 'off' ); ?>><?php esc_html_e( 'Do not ask', 'anar-toolkit' ); ?></option>
+									<option value="optional" <?php selected( $value['profile_step'], 'optional' ); ?>><?php esc_html_e( 'Ask, with a skip option', 'anar-toolkit' ); ?></option>
+									<option value="required" <?php selected( $value['profile_step'], 'required' ); ?>><?php esc_html_e( 'Ask, without skipping', 'anar-toolkit' ); ?></option>
+								</select>
+							</div>
+							<div class="anar-field-row">
 								<label for="anar-role"><strong><?php esc_html_e( 'New user role', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'Only Subscriber and Customer roles with basic read access are allowed. Elevated or custom roles cannot be used for public registration.', 'anar-toolkit' ); ?></small></label>
 								<select id="anar-role" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[default_role]">
 									<?php foreach ( get_editable_roles() as $role => $details ) : ?>
@@ -228,6 +237,16 @@ final class SettingsPage {
 							<div class="anar-field-row">
 								<label for="anar-redirect"><strong><?php esc_html_e( 'Redirect URL after sign-in', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'Leave empty to use the account page or home page.', 'anar-toolkit' ); ?></small></label>
 								<input id="anar-redirect" type="url" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[login_redirect]" value="<?php echo esc_attr( $value['login_redirect'] ); ?>" dir="ltr" placeholder="<?php echo esc_attr( home_url( '/' ) ); ?>">
+							</div>
+							<div class="anar-field-row">
+								<?php
+								$anar_role_lines = array();
+								foreach ( (array) $value['role_redirects'] as $anar_role => $anar_url ) {
+									$anar_role_lines[] = $anar_role . ' = ' . $anar_url;
+								}
+								?>
+								<label for="anar-role-redirects"><strong><?php esc_html_e( 'Redirect by role', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'Optional. One per line as role = URL, for example shop_manager = /wp-admin/. A requested return page, such as checkout, still comes first.', 'anar-toolkit' ); ?></small></label>
+								<textarea id="anar-role-redirects" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[role_redirects]" rows="3" dir="ltr" placeholder="shop_manager = <?php echo esc_attr( admin_url() ); ?>"><?php echo esc_textarea( implode( "\n", $anar_role_lines ) ); ?></textarea>
 							</div>
 							<div class="anar-field-row">
 								<label for="anar-color"><strong><?php esc_html_e( 'Brand color', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'The primary color of the sign-in form and account dashboard.', 'anar-toolkit' ); ?></small></label>
@@ -403,6 +422,31 @@ final class SettingsPage {
 								<?php $this->number_field( 'resend_delay', __( 'Resend interval', 'anar-toolkit' ), $value, 30, 300, __( 'seconds', 'anar-toolkit' ) ); ?>
 								<?php $this->number_field( 'max_requests_hour', __( 'Hourly send limit', 'anar-toolkit' ), $value, 2, 30, __( 'requests', 'anar-toolkit' ) ); ?>
 								<?php $this->number_field( 'max_verify_attempts', __( 'Attempts per code', 'anar-toolkit' ), $value, 3, 10, __( 'attempts', 'anar-toolkit' ) ); ?>
+							</div>
+							<div class="anar-field-row">
+								<label for="anar-bot-challenge"><strong><?php esc_html_e( 'Invisible bot check', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'Before a code is sent, the browser solves a short puzzle in the background, with no image or click. Adaptive mode asks only when one address requests repeatedly or the whole site sees an unusual volume, so SMS floods stop costing you money.', 'anar-toolkit' ); ?></small></label>
+								<select id="anar-bot-challenge" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[bot_challenge]">
+									<option value="adaptive" <?php selected( $value['bot_challenge'], 'adaptive' ); ?>><?php esc_html_e( 'Adaptive (recommended)', 'anar-toolkit' ); ?></option>
+									<option value="always" <?php selected( $value['bot_challenge'], 'always' ); ?>><?php esc_html_e( 'Every code request', 'anar-toolkit' ); ?></option>
+									<option value="off" <?php selected( $value['bot_challenge'], 'off' ); ?>><?php esc_html_e( 'Off', 'anar-toolkit' ); ?></option>
+								</select>
+							</div>
+							<div class="anar-fields-grid anar-fields-grid--security">
+								<?php $this->number_field( 'challenge_threshold', __( 'Site-wide alert level', 'anar-toolkit' ), $value, 20, 100000, __( 'SMS codes per hour', 'anar-toolkit' ) ); ?>
+							</div>
+							<div class="anar-field-row">
+								<?php $detected = RateLimiter::detected_proxy_headers(); ?>
+								<label for="anar-client-ip"><strong><?php esc_html_e( 'Visitor address behind a CDN', 'anar-toolkit' ); ?></strong><small>
+									<?php esc_html_e( 'With ArvanCloud, Cloudflare or another proxy, every visitor arrives from the proxy address and would share one limit. Choose the header your CDN fills with the real visitor address. Only choose a header when all traffic passes through that proxy.', 'anar-toolkit' ); ?>
+									<?php if ( $detected && ! $value['client_ip_header'] ) : ?>
+										<br><b><?php /* translators: %s: HTTP header names. */ echo esc_html( sprintf( __( 'Detected on this request: %s', 'anar-toolkit' ), implode( ', ', $detected ) ) ); ?></b>
+									<?php endif; ?>
+								</small></label>
+								<select id="anar-client-ip" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[client_ip_header]">
+									<?php foreach ( RateLimiter::proxy_headers() as $header => $label ) : ?>
+										<option value="<?php echo esc_attr( $header ); ?>" <?php selected( $value['client_ip_header'], $header ); ?>><?php echo esc_html( $label ); ?></option>
+									<?php endforeach; ?>
+								</select>
 							</div>
 							<?php $this->toggle( 'debug_log', __( 'Technical error log', 'anar-toolkit' ), __( 'Log only error codes and channel names; OTPs and confidential data are never logged.', 'anar-toolkit' ), $value ); ?>
 							<?php $this->toggle( 'delete_data', __( 'Clean up when uninstalling', 'anar-toolkit' ), __( 'A full uninstall removes the code table and plugin metadata. Deactivation keeps the data.', 'anar-toolkit' ), $value ); ?>

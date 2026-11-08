@@ -8,10 +8,9 @@
 namespace Anar\Login\Marketing;
 
 use Anar\Login\Commerce\Repository as CommerceRepository;
-use Anar\Login\Infrastructure\OtpRepository;
-use Anar\Login\Infrastructure\RateLimiter;
+use Anar\Login\Auth\BotChallenge;
+use Anar\Login\Auth\CodeChallenge;
 use Anar\Login\Infrastructure\Settings as LoginSettings;
-use Anar\Login\Messaging\ProviderRegistry;
 use Anar\Login\Support\Identity;
 
 defined( 'ABSPATH' ) || exit;
@@ -246,26 +245,33 @@ final class Frontend {
 		$product = isset( $_POST['product_id'] ) ? wc_get_product( absint( $_POST['product_id'] ) ) : null;
 		if ( ! $this->settings->enabled( 'stock' ) || ! $phone || is_wp_error( $phone ) || 'sms' !== $phone['channel'] || ! $product || 'publish' !== $product->get_status() || $product->is_in_stock() ) {
 			wp_send_json_error( array( 'message' => __( 'This subscription is not available.', 'anar-toolkit' ) ), 400 ); }
-		$codes = new OtpRepository();
-		$limits = new RateLimiter( new LoginSettings() );
+		$login = new LoginSettings();
+		$codes = CodeChallenge::create( $login );
 		$identity = 'stock|' . $phone['identity'];
 		if ( ! empty( $_POST['request_code'] ) ) {
-			if ( is_wp_error( $limits->guard_request( $identity ) ) ) {
+			$proof = isset( $_POST['proof'] ) && is_array( $_POST['proof'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['proof'] ) ) : null;
+			$human = ( new BotChallenge( $login, $codes->limiter() ) )->guard( $proof );
+			if ( is_wp_error( $human ) ) {
+				wp_send_json_error( array( 'message' => $human->get_error_message(), 'challenge' => $human->get_error_data()['challenge'] ), 428 ); }
+			$sent = $codes->issue(
+				$phone,
+				$identity,
+				static function ( $code ) {
+					/* translators: %s: verification code. */
+					return sprintf( __( 'Your stock-notification verification code is %s.', 'anar-toolkit' ), $code );
+				},
+				array(
+					'channel' => 'stock',
+					'context' => 'stock_verification',
+					'scope'   => 'stock',
+				)
+			);
+			if ( is_wp_error( $sent ) && in_array( $sent->get_error_code(), array( 'anar_too_soon', 'anar_rate_limited' ), true ) ) {
 				wp_send_json_error( array( 'message' => __( 'Please wait before requesting another code.', 'anar-toolkit' ) ), 429 ); }
-			$code = (string) random_int( 100000, 999999 );
-			if ( $codes->create( $identity, 'stock', $code, 300 ) ) {
-				$result = ( new ProviderRegistry( new LoginSettings() ) )->send( $phone['identity'], $code, sprintf( /* translators: %s: verification code. */ __( 'Your stock-notification verification code is %s.', 'anar-toolkit' ), $code ), 'stock_verification' );
-				if ( is_wp_error( $result ) ) {
-					$challenge = $codes->latest( $identity, 'stock' );
-					if ( $challenge ) {
-						$codes->consume( $challenge->id ); }
-				}
-			}
 			wp_send_json_success( array( 'message' => __( 'If delivery is available, a verification code will arrive shortly.', 'anar-toolkit' ) ) );
 		}
-		$code = isset( $_POST['code'] ) && is_string( $_POST['code'] ) ? Identity::latin_digits( sanitize_text_field( wp_unslash( $_POST['code'] ) ) ) : '';
-		$challenge = $codes->latest( $identity, 'stock' );
-		if ( is_wp_error( $limits->guard_recovery( $identity ) ) || ! $challenge || ! $codes->claim_attempt( $challenge->id, 5 ) || ! $codes->matches( $challenge, $identity, $code ) || ! $codes->consume( $challenge->id ) ) {
+		$code = isset( $_POST['code'] ) && is_string( $_POST['code'] ) ? sanitize_text_field( wp_unslash( $_POST['code'] ) ) : '';
+		if ( is_wp_error( $codes->limiter()->guard_recovery( $identity ) ) || is_wp_error( $codes->verify( $identity, 'stock', $code ) ) ) {
 			wp_send_json_error( array( 'message' => __( 'The verification code is invalid or expired.', 'anar-toolkit' ) ), 400 ); }
 		$id = $this->repository->remember( $phone['identity'] );
 		if ( ! $this->repository->allowed( $this->repository->profile( $id ) ) ) {

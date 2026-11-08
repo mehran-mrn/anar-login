@@ -147,6 +147,21 @@ final class ProvidersTest extends TestCase {
 		$this->assertCount( 0, $GLOBALS['anar_test_http_requests'] );
 	}
 
+	public function test_otp_and_commerce_share_one_transport_per_provider() {
+		$GLOBALS['anar_test_options'][ Settings::OPTION_KEY ]['provider_kavenegar'] = array( 'api_key' => 'KEY', 'template_id' => 'verify' );
+		$this->respond( array( 'return' => array( 'status' => 200 ) ) );
+		$this->assertTrue( ( new ProviderRegistry( new Settings() ) )->all()['kavenegar']->send( '+989123456789', '4321', '' ) );
+		$sender = new NotificationSender( new Settings(), new HttpClient() );
+		$this->assertTrue( $sender->send( 'kavenegar', '09123456789', array( 'template' => 'order', 'params' => "token={order_id}\ntoken2={name}", 'message' => '' ), array( 'order_id' => '42', 'name' => 'Sara' ) ) );
+		list( $otp, $order ) = $GLOBALS['anar_test_http_requests'];
+		$this->assertSame( $otp['url'], $order['url'] );
+		$this->assertSame( 'POST', $otp['args']['method'] );
+		$this->assertSame( array( 'token' => '4321', 'receptor' => '09123456789', 'template' => 'verify' ), $otp['args']['body'] );
+		$this->assertSame( array( 'token' => '42', 'token2' => 'Sara', 'receptor' => '09123456789', 'template' => 'order' ), $order['args']['body'] );
+		$this->assertInstanceOf( WP_Error::class, $sender->send( 'kavenegar', '09123456789', array( 'template' => 'order', 'params' => 'amount={order_id}', 'message' => '' ), array( 'order_id' => '42' ) ) );
+		$this->assertCount( 2, $GLOBALS['anar_test_http_requests'], 'Kavenegar rejects unknown token names before any request.' );
+	}
+
 	public function test_ippanel_success_requires_true_status_and_message_ids() {
 		$provider = new IPPanel( new Settings(), new HttpClient() );
 		foreach ( array( false, 'false', null ) as $status ) {

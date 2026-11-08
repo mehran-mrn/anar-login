@@ -1193,3 +1193,12 @@ body.anar-wp-login .anar-security-card form { margin: 0; padding: 0; border: 0; 
 .anar-auth--minimal .anar-auth__header { background: #fff; }
 .anar-auth--bold .anar-auth__header { background: color-mix(in srgb, var(--anar-accent) 9%, white); }
 .anar-auth--bold .anar-auth__intro h2 { color: var(--anar-accent); }
+
+/* Name step right after sign-up. */
+.anar-form--profile .anar-fields {
+	margin-top: 12px;
+}
+
+.anar-form--profile .anar-btn {
+	margin-top: 18px;
+}

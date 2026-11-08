@@ -36,12 +36,35 @@ final class ProviderRegistry {
 	private $settings;
 
 	/**
+	 * Shared HTTP client.
+	 *
+	 * @var HttpClient|null
+	 */
+	private $http;
+
+	/**
 	 * Constructor.
 	 *
-	 * @param Settings $settings Settings.
+	 * @param Settings        $settings Settings.
+	 * @param HttpClient|null $http     HTTP client shared by every provider.
 	 */
-	public function __construct( Settings $settings ) {
+	/**
+	 * Request-wide registry for screens that list or validate many messages.
+	 *
+	 * @return self
+	 */
+	public static function shared() {
+		static $instance;
+		if ( ! $instance ) {
+			$instance = new self( new Settings() );
+		}
+
+		return $instance;
+	}
+
+	public function __construct( Settings $settings, ?HttpClient $http = null ) {
 		$this->settings = $settings;
+		$this->http     = $http;
 	}
 
 	/**
@@ -57,7 +80,7 @@ final class ProviderRegistry {
 			return $this->providers;
 		}
 
-		$http            = new HttpClient();
+		$http            = $this->http ? $this->http : new HttpClient();
 		$this->providers = array();
 		foreach ( array( Kavenegar::class, Melipayamak::class, IPPanel::class, Panelchi::class, MaxSms::class, FarazSms::class, SmsIr::class, CustomHttp::class ) as $class ) {
 			$provider                            = new $class( $this->settings, $http );
@@ -103,10 +126,12 @@ final class ProviderRegistry {
 			}
 			$minutes = 'login_otp' === $context || 'two_factor' === $context ? max( 1, (int) ceil( $this->settings->get( 'otp_ttl', 120 ) / 60 ) ) : 5;
 			$vars = array( 'code' => $code, 'site' => get_bloginfo( 'name' ), 'domain' => wp_parse_url( home_url(), PHP_URL_HOST ), 'minutes' => $minutes );
-			if ( 'custom' === $key ) {
-				$result = ( new CustomHttp( $this->settings, new HttpClient() ) )->send( $recipient, $code, \Anar\Login\Commerce\Templates::render( $value['message'], $vars ) );
+			$providers = $this->all();
+			if ( 'custom' === $key && isset( $providers['custom'] ) ) {
+				// Verification messages may use {code} alone, so the custom gateway receives both.
+				$result = $providers['custom']->send( $recipient, $code, \Anar\Login\Commerce\Templates::render( $value['message'], $vars ) );
 			} else {
-				$result = ( new NotificationSender( $this->settings, new HttpClient() ) )->send( $key, $recipient, $value, $vars );
+				$result = ( new NotificationSender( $this->settings, $this->http ? $this->http : new HttpClient(), $this ) )->send( $key, $recipient, $value, $vars );
 			}
 			do_action( 'anar_toolkit_sms_result', $recipient, sanitize_key( $context ), $key, $result );
 			return $result;

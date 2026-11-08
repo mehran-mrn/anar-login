@@ -12,36 +12,58 @@ defined( 'ABSPATH' ) || exit;
 final class Insights {
 	public function register() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'assets' ) );
-		add_action( 'wp_ajax_anar_visit', array( $this, 'visit' ) );
-		add_action( 'wp_ajax_nopriv_anar_visit', array( $this, 'visit' ) );
+		add_action( 'rest_api_init', array( $this, 'routes' ) );
 	}
 
 	public function assets() {
 		if ( ! ( new Settings() )->enabled( 'traffic' ) || current_user_can( 'manage_woocommerce' ) || is_cart() || is_checkout() || is_account_page() || is_404() ) {
 			return; }
-		wp_enqueue_script( 'anar-insights', ANAR_LOGIN_URL . 'assets/js/insights.js', array(), ANAR_LOGIN_VERSION, true );
-		wp_localize_script( 'anar-insights', 'AnarInsights', array( 'endpoint' => admin_url( 'admin-ajax.php' ), 'nonce' => wp_create_nonce( 'anar_visit' ) ) );
+		wp_enqueue_script(
+			'anar-insights',
+			ANAR_LOGIN_URL . 'assets/js/insights.js',
+			array(),
+			ANAR_LOGIN_VERSION,
+			array(
+				'in_footer' => true,
+				'strategy'  => 'defer',
+			)
+		);
+		// No nonce: it would be shared by every visitor and expire inside cached pages.
+		wp_add_inline_script( 'anar-insights', 'window.AnarInsights=' . wp_json_encode( array( 'endpoint' => esc_url_raw( rest_url( 'anar-login/v1/visit' ) ) ) ) . ';', 'before' );
 	}
 
-	public function visit() {
+	/**
+	 * Beacon endpoint. REST avoids admin-ajax, which boots the whole admin area
+	 * (and every plugin's admin code) for each storefront page view.
+	 */
+	public function routes() {
+		register_rest_route(
+			'anar-login/v1',
+			'/visit',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'visit' ),
+				'permission_callback' => '__return_true',
+			)
+		);
+	}
+
+	public function visit( $request ) {
 		global $wpdb;
-		check_ajax_referer( 'anar_visit', 'nonce' );
-		$token = isset( $_POST['visitor'] ) && is_string( $_POST['visitor'] ) ? sanitize_text_field( wp_unslash( $_POST['visitor'] ) ) : '';
-		if ( ! ( new Settings() )->enabled( 'traffic' ) || current_user_can( 'manage_woocommerce' ) || ! preg_match( '/^[a-f0-9-]{32,36}$/D', $token ) ) {
-			wp_send_json_error( array(), 400 ); }
-		$ip = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
-		$limit = 'anar_visit_' . hash_hmac( 'sha256', $ip . '|' . floor( time() / 60 ), wp_salt( 'nonce' ) );
-		$attempts = (int) get_transient( $limit );
-		if ( $attempts > 120 ) {
-			wp_send_json_error( array(), 429 ); }
-		set_transient( $limit, $attempts + 1, 60 );
-		$source = isset( $_POST['source'] ) && is_string( $_POST['source'] ) ? strtolower( sanitize_text_field( wp_unslash( $_POST['source'] ) ) ) : '';
+		$token  = (string) $request->get_param( 'visitor' );
+		$source = strtolower( sanitize_text_field( (string) $request->get_param( 'source' ) ) );
+		if ( ! ( new Settings() )->enabled( 'traffic' ) || ! preg_match( '/^[a-f0-9-]{32,36}$/D', $token ) ) {
+			return new \WP_REST_Response( null, 400 ); }
+		// Bounded in the plugin's own limits table; transients would grow wp_options on sites without an object cache.
+		$limits = new \Anar\Login\Infrastructure\RateLimiter( new \Anar\Login\Infrastructure\Settings() );
+		if ( ! $limits->allow( 'visit_ip', $limits->client_ip(), MINUTE_IN_SECONDS, 120 ) ) {
+			return new \WP_REST_Response( null, 429 ); }
 		$source = preg_match( '/^[a-z0-9.-]{0,190}$/D', $source ) ? $source : '';
 		$repo = new Repository();
 		$day = wp_date( 'Y-m-d' );
 		$key = hash_hmac( 'sha256', $day . '|' . $token, wp_salt( 'auth' ) );
 		$wpdb->query( $wpdb->prepare( 'INSERT INTO %i (visit_key, day, source, views, updated_at) VALUES (%s,%s,%s,1,%d) ON DUPLICATE KEY UPDATE views = LEAST(views + 1, 200), updated_at = VALUES(updated_at)', $repo->table( 'visits' ), $key, $day, $source, time() ) );
-		wp_send_json_success();
+		return new \WP_REST_Response( null, 204 );
 	}
 
 	public static function report( $days = 30 ) {

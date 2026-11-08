@@ -102,11 +102,14 @@ final class MessageSettings {
 		if ( ! $item ) {
 			return array( __( 'This message is unavailable.', 'anar-toolkit' ) );
 		}
-		$registry = ( new ProviderRegistry( new Settings() ) )->all();
+		$registry = ProviderRegistry::shared()->all();
 		if ( ! empty( $value['account_changed'] ) ) {
 			$errors[] = __( 'The provider account changed. Review and save this message again.', 'anar-toolkit' );
 		}
-		$required_credentials = array( 'kavenegar' => array( 'api_key' ), 'ippanel' => array( 'api_key', 'from' ), 'farazsms' => array( 'username', 'password', 'from' ), 'melipayamak' => array( 'username', 'password' ), 'panelchi' => array( 'api_key' ), 'maxsms' => array( 'api_key' ), 'smsir' => array( 'api_key' ), 'custom' => array( 'url' ) );
+		$transport = $registry[ $value['provider'] ?? '' ] ?? null;
+		$text_credentials = $transport instanceof AbstractProvider ? $transport->text_credentials() : null;
+		$credentials = $transport instanceof AbstractProvider ? ( 'text' === ( $value['mode'] ?? '' ) ? (array) $text_credentials : $transport->template_credentials() ) : array();
+		$parameter_names = $transport instanceof AbstractProvider ? $transport->parameter_names() : null;
 		$config = ( new Settings() )->provider( $value['provider'] ?? '' );
 		if ( 'auth' === $item['source'] && 'custom' === ( $value['provider'] ?? '' ) && false === strpos( ( $config['params'] ?? '' ) . ( $config['url'] ?? '' ), '{message}' ) && false === strpos( ( $config['params'] ?? '' ) . ( $config['url'] ?? '' ), '{code}' ) ) {
 			$errors[] = __( 'The custom gateway must include {code} or {message} for verification messages.', 'anar-toolkit' );
@@ -114,19 +117,19 @@ final class MessageSettings {
 		if ( 'auth' !== $item['source'] && 'custom' === ( $value['provider'] ?? '' ) && false === strpos( ( $config['params'] ?? '' ) . ( $config['url'] ?? '' ), '{message}' ) ) {
 			$errors[] = __( 'The custom gateway must use the {message} placeholder for commerce messages.', 'anar-toolkit' );
 		}
-		foreach ( $required_credentials[ $value['provider'] ?? '' ] ?? array() as $credential ) {
+		foreach ( 'text' === ( $value['mode'] ?? '' ) ? array_diff( $credentials, array( 'from' ) ) : $credentials as $credential ) {
 			if ( empty( $config[ $credential ] ) ) {
 				$errors[] = __( 'Complete the provider connection settings first.', 'anar-toolkit' );
 				break;
 			}
 		}
-		if ( 'text' === ( $value['mode'] ?? '' ) && 'melipayamak' === $value['provider'] && empty( $config['from'] ) ) {
+		if ( 'text' === ( $value['mode'] ?? '' ) && in_array( 'from', $credentials, true ) && empty( $config['from'] ) ) {
 			$errors[] = __( 'Plain-text delivery needs a supported provider and sender number.', 'anar-toolkit' );
 		}
 		if ( ! isset( $registry[ $value['provider'] ?? '' ] ) ) {
 			$errors[] = __( 'The selected SMS provider is unavailable.', 'anar-toolkit' );
 		}
-		if ( 'text' === ( $value['mode'] ?? '' ) && ! in_array( $value['provider'], array( 'custom', 'melipayamak' ), true ) ) {
+		if ( 'text' === ( $value['mode'] ?? '' ) && $transport && null === $text_credentials ) {
 			$errors[] = __( 'This provider does not support plain-text delivery here.', 'anar-toolkit' );
 		}
 		if ( 'template' === ( $value['mode'] ?? '' ) && ( ! trim( $value['template'] ?? '' ) || ! trim( $value['params'] ?? '' ) ) ) {
@@ -152,7 +155,7 @@ final class MessageSettings {
 					continue;
 				}
 				$names[ $match[1] ] = true;
-				if ( 'kavenegar' === $value['provider'] && ! in_array( $match[1], array( 'token', 'token2', 'token3', 'token10', 'token20' ), true ) ) {
+				if ( null !== $parameter_names && ! in_array( $match[1], $parameter_names, true ) ) {
 					$errors[] = __( 'Kavenegar accepts token, token2, token3, token10 and token20.', 'anar-toolkit' );
 				}
 			}

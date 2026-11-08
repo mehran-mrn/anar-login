@@ -38,14 +38,8 @@ class Panelchi extends AbstractProvider {
 	}
 
 	/** @inheritDoc */
-	public function send( $recipient, $code, $message ) {
-		$config = $this->config();
-		$ready  = $this->require_config( $config, array( 'api_key', 'template_id' ) );
-		if ( is_wp_error( $ready ) ) {
-			return $ready;
-		}
-		$parameter = ! empty( $config['code_parameter'] ) ? $config['code_parameter'] : 'code';
-		return $this->send_template( $recipient, $config['template_id'], array( $parameter => (string) $code ) );
+	public function template_credentials() {
+		return array( 'api_key' );
 	}
 
 	/**
@@ -58,7 +52,7 @@ class Panelchi extends AbstractProvider {
 	 */
 	public function send_template( $recipient, $template, $variables ) {
 		$config = $this->config();
-		$ready  = $this->require_config( $config, array( 'api_key' ) );
+		$ready  = $this->require_config( $config, $this->template_credentials() );
 		if ( is_wp_error( $ready ) ) {
 			return $ready;
 		}

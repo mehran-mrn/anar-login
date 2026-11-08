@@ -82,6 +82,9 @@ msgstr "کد آزمایشی به %s ارسال شد."
 msgid "A valid mobile number is required."
 msgstr "شماره موبایل معتبر لازم است."
 
+msgid "A verification code has been sent to the new number."
+msgstr "کد تأیید به شمارهٔ جدید ارسال شد."
+
 msgid "A verification code has been sent to your linked contact."
 msgstr "کد تأیید به شماره یا ایمیل متصل به حساب شما ارسال شد."
 
@@ -172,6 +175,9 @@ msgstr "قابلیت‌های فعال"
 msgid "Active features appear first. Other features remain below with their instructions and activation switch. Turning a feature off keeps its settings and stored records."
 msgstr "قابلیت‌های فعال ابتدا نمایش داده می‌شوند. سایر قابلیت‌ها همراه با راهنما و کلید فعال‌سازی پایین‌تر قرار دارند. غیرفعال‌سازی، تنظیمات و سوابق را حذف نمی‌کند."
 
+msgid "Adaptive (recommended)"
+msgstr "هوشمند (پیشنهادی)"
+
 msgid "Add [anar_recover_cart] to a custom page. SMS includes its URL and a separate recovery code. The URL itself contains no code or account-access token."
 msgstr "در صفحه دلخواه، [anar_recover_cart] را قرار دهید. پیامک شامل آدرس صفحه و کد بازیابی جداگانه خواهد بود. آدرس صفحه، کد یا توکن ورود به حساب ندارد."
 
@@ -229,6 +235,9 @@ msgstr "همهٔ مخاطبان واجد شرایط"
 msgid "All gifts in this promotion have been claimed."
 msgstr "همهٔ جوایز این برنامه دریافت شده‌اند."
 
+msgid "All other devices have been signed out."
+msgstr "از همهٔ دستگاه‌های دیگر خارج شدید."
+
 msgid "All statuses"
 msgstr "همهٔ وضعیت‌ها"
 
@@ -252,6 +261,9 @@ msgstr "این سقف برای مجموع درصد کدهای صادرشده ا�
 
 msgid "An updated balance is needed."
 msgstr "نیاز به بررسی تازه"
+
+msgid "Anar SMS password reset"
+msgstr "بازیابی رمز پیامکی انار"
 
 msgid "Anar Toolkit"
 msgstr "جعبه‌ابزار انار"
@@ -282,6 +294,12 @@ msgstr "انار از خرید و مصرف حساب‌های معرفی‌شده
 
 msgid "Anar shipment tracking"
 msgstr "رهگیری مرسولهٔ انار"
+
+msgid "Anar sign-in button"
+msgstr "دکمهٔ ورود انار"
+
+msgid "Anar sign-in form"
+msgstr "فرم ورود انار"
 
 msgid "Anar user discount"
 msgstr "تخفیف کاربران انار"
@@ -315,6 +333,15 @@ msgstr "الگوی تأییدشدهٔ پنل"
 
 msgid "Approved template ID / slug"
 msgstr "شناسه / نامک الگوی تأییدشده"
+
+msgid "Ask new customers for their first and last name right after the code is verified, never before. Existing customers are not asked."
+msgstr "نام و نام خانوادگی مشتری تازه، بلافاصله پس از تأیید کد پرسیده می‌شود، نه پیش از آن. از مشتریان قبلی پرسیده نمی‌شود."
+
+msgid "Ask, with a skip option"
+msgstr "پرسیده شود، با امکان ردکردن"
+
+msgid "Ask, without skipping"
+msgstr "پرسیده شود، بدون امکان ردکردن"
 
 msgid "Attempt completed"
 msgstr "این نوبت به پایان رسید"
@@ -388,6 +415,9 @@ msgstr "موجودی دریافت شد"
 msgid "Balance settings saved."
 msgstr "تنظیمات اعتبار پیامک ذخیره شد."
 
+msgid "Before a code is sent, the browser solves a short puzzle in the background, with no image or click. Adaptive mode asks only when one address requests repeatedly or the whole site sees an unusual volume, so SMS floods stop costing you money."
+msgstr "پیش از ارسال کد، مرورگر در پس‌زمینه یک معمای کوتاه را حل می‌کند؛ بدون تصویر و بدون کلیک. در حالت هوشمند فقط وقتی فعال می‌شود که یک نشانی پشت‌سرهم درخواست بدهد یا حجم کل سایت غیرعادی شود؛ بنابراین ارسال انبوه رباتی، هزینهٔ پیامک برای شما نمی‌سازد."
+
 msgid "Before predicted purchase"
 msgstr "پیش از خرید پیش‌بینی‌شده"
 
@@ -420,6 +450,9 @@ msgstr "پنل‌های آماده، قالب تأییدشده سرویس را �
 
 msgid "Bulk campaigns"
 msgstr "کمپین‌های ارسال گروهی"
+
+msgid "Button text"
+msgstr "متن دکمه"
 
 msgid "CONVERSATION HEALTH"
 msgstr "وضعیت پیام‌رسانی"
@@ -522,6 +555,9 @@ msgstr "در حال بررسی طرح‌های ثبت‌نام…"
 
 msgid "Checking balance…"
 msgstr "در حال دریافت موجودی…"
+
+msgid "Checking your connection. Please try again."
+msgstr "در حال بررسی اتصال؛ لطفاً دوباره تلاش کنید."
 
 msgid "Cherry"
 msgstr "گیلاس"
@@ -675,6 +711,9 @@ msgstr "اتصال سرویس را تنظیم و ذخیره کنید. الگوی
 
 msgid "Confirm and queue this campaign"
 msgstr "تأیید و افزودن این کمپین به صف"
+
+msgid "Confirm new number"
+msgstr "تأیید شمارهٔ جدید"
 
 msgid "Confirm new password"
 msgstr "تکرار رمز عبور جدید"
@@ -919,8 +958,14 @@ msgstr "روش ارسال"
 msgid "Designed by Mehran Marandi"
 msgstr "طراحی و توسعه توسط مهران مرندی"
 
+msgid "Detected on this request: %s"
+msgstr "شناسایی‌شده در همین درخواست: %s"
+
 msgid "Direct / unknown"
 msgstr "مستقیم / نامشخص"
+
+msgid "Direct connection (REMOTE_ADDR)"
+msgstr "اتصال مستقیم (REMOTE_ADDR)"
 
 msgid "Disabled"
 msgstr "خاموش"
@@ -948,6 +993,9 @@ msgstr "نام نمایشی نمی‌تواند خالی باشد."
 
 msgid "Display on the site"
 msgstr "نمایش در سایت"
+
+msgid "Do not ask"
+msgstr "پرسیده نشود"
 
 msgid "Do not combine with other coupons"
 msgstr "با کوپن‌های دیگر ترکیب نشود"
@@ -1066,6 +1114,9 @@ msgstr "شناسه یا نامک الگوی تأییدشده در پنل پیا�
 msgid "Enter the approved template and its variables."
 msgstr "شناسهٔ الگوی تأییدشده و متغیرهای آن را وارد کنید."
 
+msgid "Enter the code sent to %s."
+msgstr "کد ارسال‌شده به %s را وارد کنید."
+
 msgid "Enter the code we sent to %s."
 msgstr "کدی را که به %s ارسال شد وارد کنید."
 
@@ -1102,6 +1153,9 @@ msgstr "ایمیل خود را وارد کنید؛ رمز یک‌بارمصرف 
 msgid "Enter your email address."
 msgstr "ایمیل را وارد کنید."
 
+msgid "Enter your first and last name."
+msgstr "نام و نام خانوادگی خود را وارد کنید."
+
 msgid "Enter your mobile number and we will text you a one-time password."
 msgstr "شماره موبایل خود را وارد کنید؛ رمز یک‌بارمصرف برایتان پیامک می‌شود."
 
@@ -1125,6 +1179,9 @@ msgstr "کد خطا"
 
 msgid "Event"
 msgstr "رویداد"
+
+msgid "Every code request"
+msgstr "برای هر درخواست کد"
 
 msgid "Every message has a story."
 msgstr "جزئیات هر پیام را ببینید."
@@ -1450,6 +1507,9 @@ msgstr "شناسهٔ کالاهای مشمول (خالی یعنی همه)"
 msgid "Install and activate WooCommerce to run these modules. Login features work independently."
 msgstr "برای اجرای این ماژول‌ها، ووکامرس را نصب و فعال کنید. قابلیت‌های ورود مستقل کار می‌کنند."
 
+msgid "Invisible bot check"
+msgstr "بررسی نامرئی ربات"
+
 msgid "Invoice number prefix"
 msgstr "پیشوند شمارهٔ صورتحساب"
 
@@ -1531,11 +1591,17 @@ msgstr "کاربران می‌توانند از بخش امنیت حساب، ک�
 msgid "Let me know when it is back."
 msgstr "وقتی موجود شد خبرم کنید."
 
+msgid "Lets customers reset their password with a code sent to their linked mobile."
+msgstr "مشتری می‌تواند با کدی که به موبایل متصل حسابش ارسال می‌شود، رمز عبور را بازنشانی کند."
+
 msgid "Lightweight shortcodes compatible with the Classic and Block editors."
 msgstr "شورت‌کدهای سبک، سازگار با ویرایشگر کلاسیک و بلوکی."
 
 msgid "Limits and customer filters use the shared campaign settings."
 msgstr "محدودیت‌های ارسال و شرایط انتخاب مشتری از تنظیمات مشترک بازاریابی گرفته می‌شوند."
+
+msgid "Linked number: %s"
+msgstr "شمارهٔ متصل: %s"
 
 msgid "Loading message…"
 msgstr "در حال دریافت پیام…"
@@ -1759,6 +1825,9 @@ msgstr "حساب من"
 msgid "My device"
 msgstr "دستگاه من"
 
+msgid "Name after sign-up"
+msgstr "نام پس از ثبت‌نام"
+
 msgid "Need a Meli Payamak account?"
 msgstr "پنل ملی‌پیامک ندارید؟"
 
@@ -1770,6 +1839,9 @@ msgstr "نیازمند بررسی"
 
 msgid "New customers"
 msgstr "مشتریان جدید"
+
+msgid "New mobile number"
+msgstr "شمارهٔ موبایل جدید"
 
 msgid "New order to administrators"
 msgstr "اعلام سفارش جدید به مدیران"
@@ -1818,6 +1890,9 @@ msgstr "پیامی با این شرایط پیدا نشد."
 
 msgid "No messages yet."
 msgstr "هنوز پیامی ثبت نشده است."
+
+msgid "No mobile number is linked to this account."
+msgstr "هیچ شمارهٔ موبایلی به این حساب متصل نیست."
 
 msgid "No phone number or email is linked to this account."
 msgstr "هیچ شماره موبایل یا ایمیلی به این حساب متصل نیست."
@@ -1939,6 +2014,9 @@ msgstr "فرم ورود با کلیک روی هر لینکی به ‎#anar-login
 msgid "Opens the login popup; signed-in users go to their account. For menus, add a custom link to #anar-login."
 msgstr "پاپ‌آپ ورود را باز می‌کند؛ کاربران واردشده به حساب خود می‌روند. برای منو، یک پیوند دلخواه با آدرس ‎#anar-login‎ اضافه کنید."
 
+msgid "Opens the sign-in popup, or the account page when signed in."
+msgstr "پنجرهٔ ورود را باز می‌کند؛ اگر کاربر وارد شده باشد، به صفحهٔ حساب می‌رود."
+
 msgid "Optional Gregorian dates in the WordPress timezone. The end date is inclusive. Leave both empty for an ongoing promotion."
 msgstr "تاریخ‌ها اختیاری و بر اساس تقویم میلادی و منطقهٔ زمانی وردپرس هستند. روز پایان نیز شامل برنامه می‌شود. برای برگزاری بدون محدودیت زمانی، هر دو کادر را خالی بگذارید."
 
@@ -1956,6 +2034,9 @@ msgstr "در صورت نیاز، کد رنگ شش‌رقمی مانند #86405B 
 
 msgid "Optional. One per line as Name: value."
 msgstr "اختیاری. هر هدر در یک خط به شکل Name: value."
+
+msgid "Optional. One per line as role = URL, for example shop_manager = /wp-admin/. A requested return page, such as checkout, still comes first."
+msgstr "اختیاری. هر خط به شکل نقش = نشانی، مثلاً shop_manager = /wp-admin/. صفحهٔ بازگشت درخواستی، مانند تسویه‌حساب، همچنان مقدم است."
 
 msgid "Order cancelled"
 msgstr "سفارش لغوشده"
@@ -2070,6 +2151,9 @@ msgstr "بازیابی رمز عبور"
 
 msgid "Password reset code"
 msgstr "کد بازنشانی رمز عبور"
+
+msgid "Passwordless sign-in and sign-up with a mobile or email code."
+msgstr "ورود و ثبت‌نام بدون رمز با کد موبایل یا ایمیل."
 
 msgid "Passwordless sign-in on My Account and checkout."
 msgstr "ورود بدون رمز در حساب کاربری و صفحهٔ تسویه‌حساب."
@@ -2401,6 +2485,9 @@ msgstr "بازیابی · یادآوری سوم"
 msgid "Redirect URL after sign-in"
 msgstr "آدرس انتقال پس از ورود"
 
+msgid "Redirect by role"
+msgstr "مقصد بر اساس نقش"
+
 msgid "Reference"
 msgstr "شناسهٔ مرجع"
 
@@ -2494,6 +2581,9 @@ msgstr "ابتدا موجودی حساب را دریافت کنید؛ سپس ح�
 msgid "Retry"
 msgstr "تلاش مجدد"
 
+msgid "Return address after sign-in (optional)"
+msgstr "نشانی بازگشت پس از ورود (اختیاری)"
+
 msgid "Returning customer?"
 msgstr "قبلاً از ما خرید کرده‌اید؟"
 
@@ -2520,6 +2610,9 @@ msgstr "فرصتی دوباره برای خرید"
 
 msgid "SMS"
 msgstr "پیامک"
+
+msgid "SMS codes per hour"
+msgstr "کد پیامکی در ساعت"
 
 msgid "SMS credit"
 msgstr "اعتبار پیامک"
@@ -2568,6 +2661,9 @@ msgstr "پیش‌نمایش نمونه"
 
 msgid "Save and close"
 msgstr "ذخیره و بستن"
+
+msgid "Save and continue"
+msgstr "ذخیره و ادامه"
 
 msgid "Save and return"
 msgstr "ذخیره و بازگشت"
@@ -2703,6 +2799,9 @@ msgstr "ارسال پیامک آزمایشی"
 
 msgid "Send a test from the message editor, then sign in from a private browser window using your own contact. Test sending uses your provider credit."
 msgstr "از ویرایشگر پیام یک ارسال آزمایشی انجام دهید، سپس در پنجرهٔ خصوصی مرورگر با شماره یا ایمیل خود وارد شوید. ارسال آزمایشی از اعتبار پنل پیامکی مصرف می‌کند."
+
+msgid "Send code to the new number"
+msgstr "ارسال کد به شمارهٔ جدید"
 
 msgid "Send login code"
 msgstr "دریافت کد ورود"
@@ -2851,6 +2950,9 @@ msgstr "برای بازی و دریافت هدیهٔ اختصاصی با شما�
 msgid "Sign out"
 msgstr "خروج از حساب"
 
+msgid "Sign out all other devices"
+msgstr "خروج از همهٔ دستگاه‌های دیگر"
+
 msgid "Sign-in & security"
 msgstr "ورود و امنیت"
 
@@ -2884,6 +2986,9 @@ msgstr "روش‌های ورود"
 msgid "Sign-in setup guide"
 msgstr "راهنمای راه‌اندازی ورود"
 
+msgid "Signed-in devices"
+msgstr "دستگاه‌های واردشده"
+
 msgid "Signing you in…"
 msgstr "در حال ورود…"
 
@@ -2898,6 +3003,12 @@ msgstr "دامنهٔ سایت"
 
 msgid "Site logo"
 msgstr "لوگوی سایت"
+
+msgid "Site-wide alert level"
+msgstr "آستانهٔ هشدار کل سایت"
+
+msgid "Skip for now"
+msgstr "فعلاً رد شو"
 
 msgid "Smart product offers"
 msgstr "پیشنهاد هوشمند کالا"
@@ -3319,6 +3430,9 @@ msgstr "این پیش‌نمایش حداکثر ۱۰٬۰۰۰ مخاطب را پ�
 msgid "This promotion is not currently available."
 msgstr "در حال حاضر امکان شرکت در این برنامه وجود ندارد."
 
+msgid "This provider does not support approved-template delivery."
+msgstr "این درگاه از ارسال با الگوی تأییدشده پشتیبانی نمی‌کند."
+
 msgid "This provider does not support plain-text delivery here."
 msgstr "این درگاه در این مسیر از ارسال متنی پشتیبانی نمی‌کند."
 
@@ -3334,6 +3448,9 @@ msgstr "لینک یادآوری نامعتبر یا منقضی شده است."
 msgid "This reserved gift has expired. Start again when another attempt is available."
 msgstr "اعتبار جایزهٔ رزروشده به پایان رسیده است. پس از در دسترس بودن نوبت بعدی، دوباره شرکت کنید."
 
+msgid "This step has expired. You can add your name from your account page."
+msgstr "مهلت این مرحله تمام شده است. می‌توانید نام خود را از صفحهٔ حساب کاربری اضافه کنید."
+
 msgid "This stops future campaign and abandoned-cart reminders for your number. Payment and shipment service notices are separate."
 msgstr "این کار کمپین‌ها و یادآوری سبد رهاشده را برای شمارهٔ شما متوقف می‌کند. اعلان‌های خدماتی پرداخت و مرسوله مستقل هستند."
 
@@ -3345,6 +3462,9 @@ msgstr "این نظرسنجی دیگر در دسترس نیست."
 
 msgid "This verification expired. Please sign in again."
 msgstr "مهلت تأیید تمام شده است. لطفاً دوباره وارد شوید."
+
+msgid "To change it, first enter the verification or authenticator code above, then the new number."
+msgstr "برای تغییر، ابتدا کد تأیید یا کد برنامهٔ رمزساز را در کادر بالا وارد کنید و سپس شمارهٔ جدید را بنویسید."
 
 msgid "Today is another opportunity"
 msgstr "امروز هم فرصتی برای دریافت هدیه است"
@@ -3502,6 +3622,9 @@ msgstr "مشاهدهٔ موجودی و تنظیم هشدار"
 msgid "View exact daily counts"
 msgstr "نمایش تعداد دقیق روزانه"
 
+msgid "Visitor address behind a CDN"
+msgstr "نشانی بازدیدکننده پشت CDN"
+
 msgid "Visitor days"
 msgstr "روزهای بازدیدکننده"
 
@@ -3516,6 +3639,9 @@ msgstr "رمز عبور وب‌سرویس"
 
 msgid "Welcome"
 msgstr "خوش آمدید"
+
+msgid "Welcome! What should we call you?"
+msgstr "خوش آمدید! شما را چه صدا کنیم؟"
 
 msgid "Wheel label for no reward"
 msgstr "عنوان بخش بدون جایزهٔ گردونه"
@@ -3534,6 +3660,9 @@ msgstr "احتمال برد و جایزهٔ ثابت"
 
 msgid "Winning issues one personal, single-use WooCommerce coupon valid for 48 hours. Choose a percentage discount or a fixed discount in the store currency. The same reward applies to every game."
 msgstr "جایزهٔ برنده، یک کد تخفیف اختصاصی و یک‌بارمصرف ووکامرس با اعتبار ۴۸ ساعت است. تخفیف می‌تواند درصدی یا مبلغ ثابت بر اساس واحد پول فروشگاه باشد. مشخصات جایزه برای همهٔ بازی‌ها یکسان است."
+
+msgid "With ArvanCloud, Cloudflare or another proxy, every visitor arrives from the proxy address and would share one limit. Choose the header your CDN fills with the real visitor address. Only choose a header when all traffic passes through that proxy."
+msgstr "با ابرآروان، کلودفلر یا هر پراکسی دیگر، همهٔ بازدیدکنندگان با نشانی پراکسی می‌رسند و یک محدودیت مشترک پیدا می‌کنند. سرآیندی را انتخاب کنید که CDN شما نشانی واقعی بازدیدکننده را در آن می‌گذارد. فقط وقتی سرآیند را انتخاب کنید که همهٔ ترافیک از همان پراکسی عبور کند."
 
 msgid "With a gift"
 msgstr "با هدیه"
@@ -3618,6 +3747,9 @@ msgstr "کد ورود شما: {code}\nاین کد تا {minutes} دقیقه مع
 
 msgid "Your mobile number could not be saved. Please try again."
 msgstr "ذخیرهٔ شمارهٔ همراه انجام نشد. لطفاً دوباره تلاش کنید."
+
+msgid "Your mobile number has been changed. Other devices have been signed out."
+msgstr "شمارهٔ موبایل شما تغییر کرد و از دستگاه‌های دیگر خارج شدید."
 
 msgid "Your mobile number is verified. Loading the game…"
 msgstr "شمارهٔ همراه شما تأیید شد. بازی در حال بارگذاری است…"

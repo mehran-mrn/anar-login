@@ -34,11 +34,16 @@ final class Settings {
 			'identity_mode'       => 'both',
 			'default_role'        => 'subscriber',
 			'login_redirect'      => '',
+			'role_redirects'      => array(),
+			'profile_step'        => 'off',
 			'otp_length'          => 5,
 			'otp_ttl'             => 120,
 			'resend_delay'        => 60,
 			'max_requests_hour'   => 5,
 			'max_verify_attempts' => 5,
+			'client_ip_header'    => '',
+			'bot_challenge'       => 'adaptive',
+			'challenge_threshold' => 200,
 			'sms_provider'        => 'kavenegar',
 			'sms_message'         => __( 'Your {site} login code is: {code}', 'anar-toolkit' ),
 			'email_subject'       => __( 'Your login code for {site}', 'anar-toolkit' ),
@@ -206,11 +211,18 @@ final class Settings {
 		$output['identity_mode']       = in_array( $identity_mode, array( 'both', 'phone', 'email' ), true ) ? $identity_mode : 'both';
 		$output['default_role']        = isset( $input['default_role'] ) && self::is_assignable_role( $input['default_role'] ) ? sanitize_key( $input['default_role'] ) : 'subscriber';
 		$output['login_redirect']      = isset( $input['login_redirect'] ) ? esc_url_raw( $input['login_redirect'] ) : '';
+		$profile_step                  = sanitize_key( $input['profile_step'] ?? $current['profile_step'] );
+		$output['profile_step']        = in_array( $profile_step, array( 'off', 'optional', 'required' ), true ) ? $profile_step : 'off';
+		$output['role_redirects']      = array_key_exists( 'role_redirects', $input ) ? self::role_redirects( $input['role_redirects'] ) : (array) $current['role_redirects'];
 		$output['otp_length']          = max( 4, min( 8, absint( $input['otp_length'] ?? $defaults['otp_length'] ) ) );
 		$output['otp_ttl']             = max( 60, min( 600, absint( $input['otp_ttl'] ?? $defaults['otp_ttl'] ) ) );
 		$output['resend_delay']        = max( 30, min( 300, absint( $input['resend_delay'] ?? $defaults['resend_delay'] ) ) );
 		$output['max_requests_hour']   = max( 2, min( 30, absint( $input['max_requests_hour'] ?? $defaults['max_requests_hour'] ) ) );
 		$output['max_verify_attempts'] = max( 3, min( 10, absint( $input['max_verify_attempts'] ?? $defaults['max_verify_attempts'] ) ) );
+		$output['client_ip_header']    = RateLimiter::proxy_header( (string) ( $input['client_ip_header'] ?? $current['client_ip_header'] ) );
+		$bot_challenge                 = sanitize_key( $input['bot_challenge'] ?? $current['bot_challenge'] );
+		$output['bot_challenge']       = in_array( $bot_challenge, array( 'off', 'adaptive', 'always' ), true ) ? $bot_challenge : 'adaptive';
+		$output['challenge_threshold'] = max( 20, min( 100000, absint( $input['challenge_threshold'] ?? $current['challenge_threshold'] ) ) );
 		$output['sms_provider']        = sanitize_key( $input['sms_provider'] ?? $defaults['sms_provider'] );
 		$output['sms_message']         = sanitize_textarea_field( $input['sms_message'] ?? $current['sms_message'] );
 		$output['email_subject']       = sanitize_text_field( $input['email_subject'] ?? $defaults['email_subject'] );
@@ -270,6 +282,36 @@ final class Settings {
 	 * @param array<string,mixed> $definition Normalized definition.
 	 * @return string
 	 */
+	/**
+	 * Parse "role = URL" lines into a map of existing roles to destinations.
+	 *
+	 * @param string|array<string,string> $raw Textarea value or stored map.
+	 * @return array<string,string>
+	 */
+	public static function role_redirects( $raw ) {
+		if ( is_array( $raw ) ) {
+			$lines = array();
+			foreach ( $raw as $role => $url ) {
+				$lines[] = $role . '=' . $url;
+			}
+			$raw = implode( "\n", $lines );
+		}
+		$map = array();
+		foreach ( preg_split( '/\r?\n/', (string) $raw ) as $line ) {
+			$parts = preg_split( '/\s*[=|]\s*/', trim( $line ), 2 );
+			if ( 2 !== count( $parts ) ) {
+				continue;
+			}
+			$role = sanitize_key( $parts[0] );
+			$url  = esc_url_raw( $parts[1] );
+			if ( $role && $url && function_exists( 'wp_roles' ) && wp_roles()->is_role( $role ) ) {
+				$map[ $role ] = $url;
+			}
+		}
+
+		return $map;
+	}
+
 	private function sanitize_field( $value, $definition ) {
 		// options.php has already unslashed the input; doing it again would break JSON escapes.
 		$value = is_scalar( $value ) ? (string) $value : '';

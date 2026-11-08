@@ -52,6 +52,9 @@ final class Activator {
 		// Autoloaded: the version is compared on every request, so it must not cost its own query.
 		update_option( 'anar_login_db_version', ANAR_LOGIN_VERSION, true );
 		update_option( 'anar_game_money_schema', '1', true );
+		// Capped game coupons keep their WooCommerce filters after the games module stops;
+		// stores that never issued one skip those filters entirely.
+		update_option( 'anar_game_budget_coupons', (int) (bool) $wpdb->get_var( $wpdb->prepare( 'SELECT 1 FROM %i WHERE meta_key = %s LIMIT 1', $wpdb->postmeta, '_anar_game_money_cap' ) ), true );
 
 		if ( ! wp_next_scheduled( 'anar_login_daily_cleanup' ) ) {
 			wp_schedule_event( time() + HOUR_IN_SECONDS, 'daily', 'anar_login_daily_cleanup' );

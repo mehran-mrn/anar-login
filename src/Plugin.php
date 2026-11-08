@@ -90,7 +90,7 @@ final class Plugin {
 		);
 		if ( is_admin() ) {
 			$settings = new Settings();
-			$providers = new ProviderRegistry( $settings );
+			$providers = ProviderRegistry::shared();
 			( new SettingsPage( $settings, $providers ) )->register();
 			( new \Anar\Login\Admin\FeaturesPage() )->register();
 			( new \Anar\Login\Admin\BalancePage() )->register();
@@ -153,7 +153,9 @@ final class Plugin {
 				$shortcodes->register();
 				( new AuthController( $otp, $google, $settings ) )->register();
 				( new ProfileController( $users ) )->register();
-				( new Popup( $settings, $shortcodes ) )->register();
+				$popup = new Popup( $settings, $shortcodes );
+				$popup->register();
+				( new \Anar\Login\Frontend\Blocks( $shortcodes, $popup, $flags['reset'] ) )->register();
 				( new WpLogin( $settings, $shortcodes ) )->register();
 				if ( $settings->get( 'replace_theme_login', 1 ) && WoodMart::active() ) {
 					( new WoodMart() )->register(); }
@@ -188,7 +190,8 @@ final class Plugin {
 			}
 		}
 		// Existing personal coupons keep their restrictions even if their creating module is stopped.
-		( new \Anar\Login\Marketing\GameBudget() )->register();
+		if ( $flags['games'] || get_option( 'anar_game_budget_coupons' ) ) {
+			( new \Anar\Login\Marketing\GameBudget() )->register(); }
 		add_filter(
 			'woocommerce_coupon_is_valid',
 			static function ( $valid, $coupon ) {
@@ -345,7 +348,7 @@ final class Plugin {
 	public function init() {
 		// Register the bundled fallback; WordPress keeps global language packs first.
 		load_plugin_textdomain( 'anar-toolkit', false, dirname( plugin_basename( ANAR_LOGIN_FILE ) ) . '/languages' );
-		if ( ANAR_LOGIN_VERSION !== get_option( 'anar_login_db_version' ) || '1' !== get_option( 'anar_game_money_schema' ) ) {
+		if ( ANAR_LOGIN_VERSION !== get_option( 'anar_login_db_version' ) || '1' !== get_option( 'anar_game_money_schema' ) || false === get_option( 'anar_game_budget_coupons' ) ) {
 			Activator::activate();
 		}
 		$features = (array) get_option( \Anar\Login\Infrastructure\Features::OPTION, array() );

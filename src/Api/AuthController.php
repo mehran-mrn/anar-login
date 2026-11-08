@@ -117,7 +117,7 @@ final class AuthController {
 			return new WP_Error( 'anar_bot', __( 'The request is invalid.', 'anar-toolkit' ), array( 'status' => 400 ) );
 		}
 
-		return $this->otp->request( (string) $request->get_param( 'identity' ) );
+		return $this->otp->request( (string) $request->get_param( 'identity' ), $request->get_param( 'proof' ) );
 	}
 
 	/**

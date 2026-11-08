@@ -148,6 +148,25 @@ final class CustomHttp extends AbstractProvider {
 	 * @param string $format    Format key.
 	 * @return string
 	 */
+	/** @inheritDoc */
+	public function text_credentials() {
+		return array( 'url' );
+	}
+
+	/**
+	 * Free text needs the {message} placeholder; a code-only request would drop it.
+	 *
+	 * @inheritDoc
+	 */
+	public function send_text( $recipient, $text ) {
+		$config = $this->config();
+		if ( false === strpos( (string) ( $config['params'] ?? '' ) . (string) ( $config['url'] ?? '' ), '{message}' ) ) {
+			return new WP_Error( 'anar_custom_message_required', __( 'The custom gateway must use the {message} placeholder for commerce messages.', 'anar-toolkit' ) );
+		}
+
+		return $this->send( $recipient, '', $text );
+	}
+
 	private function format_phone( $recipient, $format ) {
 		$national = (string) preg_replace( '/^\+98/', '', $recipient );
 

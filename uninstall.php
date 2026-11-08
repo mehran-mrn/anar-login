@@ -41,6 +41,7 @@ delete_option( 'anar_game_pool_migrated' );
 delete_option( 'anar_game_budget_scan' );
 delete_option( 'anar_game_budget_cursor' );
 delete_option( 'anar_game_money_schema' );
+delete_option( 'anar_game_budget_coupons' );
 delete_option( 'anar_game_coupon_storage' );
 delete_option( 'anar_toolkit_worker_lock' );
 delete_option( 'anar_toolkit_scan_cursor' );

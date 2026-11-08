@@ -2,7 +2,7 @@
 /**
  * Login popup that loads on demand.
  *
- * Every page only carries a ~1 KB inline loader. The form markup, stylesheet and
+ * Every page only carries a small deferred, browser-cached loader. The form markup, stylesheet and
  * script are fetched on the first click of a trigger (and preloaded on hover),
  * so the popup adds no requests and no render-blocking assets to page views.
  *
@@ -50,7 +50,7 @@ final class Popup {
 			return;
 		}
 
-		add_action( 'wp_footer', array( $this, 'loader' ), 99 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'loader' ) );
 		add_action( 'rest_api_init', array( $this, 'routes' ) );
 		add_filter( 'wp_speculation_rules_href_exclude_paths', array( $this, 'exclude_from_prefetch' ) );
 	}
@@ -133,17 +133,20 @@ final class Popup {
 	}
 
 	/**
-	 * Print the inline loader.
+	 * Enqueue the small deferred loader.
+	 *
+	 * A separate file is cached by the browser across pages, keeps page HTML
+	 * lighter and works under a strict Content Security Policy. Clicks made
+	 * before it runs simply follow the link to the account page.
 	 *
 	 * @return void
 	 */
 	public function loader() {
-		$file      = ANAR_LOGIN_PATH . 'assets/js/popup.js';
 		$logged_in = is_user_logged_in();
 		$popup     = (bool) $this->settings->get( 'popup_enabled', 0 );
 
 		// Signed-in visitors only need the loader for explicit popup triggers.
-		if ( ! is_readable( $file ) || ( $logged_in && ! $popup ) ) {
+		if ( $logged_in && ! $popup ) {
 			return;
 		}
 
@@ -160,14 +163,17 @@ final class Popup {
 			'title'       => __( 'Sign in', 'anar-toolkit' ),
 		);
 
-		$source = (string) file_get_contents( $file ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Local plugin file.
-		// The loader ships on every page, so drop whole-line comments and indentation.
-		$source = (string) preg_replace( array( '#^\s*//.*$#m', '#^\s+#m', '#\n+#' ), array( '', '', "\n" ), $source );
-
-		wp_print_inline_script_tag(
-			'window.AnarLoginPopup=' . wp_json_encode( $config ) . ';' . $source,
-			array( 'id' => 'anar-login-popup' )
+		wp_enqueue_script(
+			'anar-login-popup',
+			ANAR_LOGIN_URL . 'assets/js/popup.js',
+			array(),
+			ANAR_LOGIN_VERSION,
+			array(
+				'in_footer' => true,
+				'strategy'  => 'defer',
+			)
 		);
+		wp_add_inline_script( 'anar-login-popup', 'window.AnarLoginPopup=' . wp_json_encode( $config ) . ';', 'before' );
 	}
 
 	/**

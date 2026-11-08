@@ -35,15 +35,19 @@ final class FarazSms extends AbstractProvider {
 	}
 
 	/** @inheritDoc */
-	public function send( $recipient, $code, $message ) {
+	public function template_credentials() {
+		return array( 'username', 'password', 'from' );
+	}
+
+	/** @inheritDoc */
+	public function send_template( $recipient, $template, $params ) {
 		$config = $this->config();
-		$ready  = $this->require_config( $config, array( 'username', 'password', 'from', 'template_id' ) );
+		$ready  = $this->require_config( $config, $this->template_credentials() );
 		if ( is_wp_error( $ready ) ) {
 			return $ready;
 		}
 
-		$parameter = ! empty( $config['code_parameter'] ) ? $config['code_parameter'] : 'code';
-		$result    = $this->http->request(
+		$result = $this->http->request(
 			'POST',
 			'https://ippanel.com/patterns/pattern',
 			array(
@@ -52,12 +56,11 @@ final class FarazSms extends AbstractProvider {
 					'password'     => $config['password'],
 					'from'         => $config['from'],
 					'to'           => wp_json_encode( array( $this->local_phone( $recipient ) ) ),
-					'input_data'   => wp_json_encode( array( $parameter => $code ), JSON_UNESCAPED_UNICODE ),
-					'pattern_code' => $config['template_id'],
+					'input_data'   => wp_json_encode( $params, JSON_UNESCAPED_UNICODE ),
+					'pattern_code' => (string) $template,
 				),
 			)
 		);
-
 		if ( is_wp_error( $result ) ) {
 			return $result;
 		}

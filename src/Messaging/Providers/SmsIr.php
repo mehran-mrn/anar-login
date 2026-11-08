@@ -32,15 +32,27 @@ final class SmsIr extends AbstractProvider {
 	}
 
 	/** @inheritDoc */
-	public function send( $recipient, $code, $message ) {
+	public function template_credentials() {
+		return array( 'api_key' );
+	}
+
+	/** @inheritDoc */
+	public function send_template( $recipient, $template, $params ) {
 		$config = $this->config();
-		$ready  = $this->require_config( $config, array( 'api_key', 'template_id' ) );
+		$ready  = $this->require_config( $config, $this->template_credentials() );
 		if ( is_wp_error( $ready ) ) {
 			return $ready;
 		}
 
-		$parameter = ! empty( $config['code_parameter'] ) ? $config['code_parameter'] : 'code';
-		$result    = $this->http->request(
+		$values = array();
+		foreach ( $params as $name => $value ) {
+			$values[] = array(
+				'name'  => (string) $name,
+				'value' => (string) $value,
+			);
+		}
+
+		$result = $this->http->request(
 			'POST',
 			'https://api.sms.ir/v1/send/verify',
 			array(
@@ -51,19 +63,13 @@ final class SmsIr extends AbstractProvider {
 				'body'    => wp_json_encode(
 					array(
 						'mobile'     => $this->local_phone( $recipient ),
-						'templateId' => absint( $config['template_id'] ),
-						'parameters' => array(
-							array(
-								'name'  => $parameter,
-								'value' => $code,
-							),
-						),
+						'templateId' => absint( $template ),
+						'parameters' => $values,
 					),
 					JSON_UNESCAPED_UNICODE
 				),
 			)
 		);
-
 		if ( is_wp_error( $result ) ) {
 			return $result;
 		}

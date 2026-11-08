@@ -1,5 +1,20 @@
 # Changelog
 
+## Unreleased
+
+- Send OTP, commerce and marketing SMS through one transport per provider (`send_template` / `send_text`); remove the duplicated endpoint switch from the notification sender.
+- Issue and verify every one-time code (login, second step, password reset, number linking, stock alerts) through one `CodeChallenge` service.
+- Share one hourly code allowance per mobile number across all purposes and check the network address first, so one address cannot exhaust a victim's allowance.
+- Add an invisible, self-hosted proof-of-work bot check for public code requests, adaptive by default; its solver loads only when the server asks for it.
+- Read the visitor address from a chosen CDN header (ArvanCloud, Cloudflare, load balancers) and group IPv6 visitors by /64.
+- Resolve phones to accounts in one query through `PhoneDirectory`; read `digits_phone` openly for sites migrating from Digits.
+- Let signed-in customers change their mobile number with proof of the current contact and the new number, and sign out other devices.
+- Add optional per-role sign-in destinations and an optional name step right after sign-up.
+- Add block editor blocks for the sign-in form, sign-in button and SMS password reset, rendered by the existing shortcodes.
+- Load the popup loader as a deferred, browser-cached file instead of reading and inlining it on every page.
+- Record traffic insights through a REST beacon without a cached nonce or transients.
+- Register game-budget coupon filters only while the games module is on or capped game coupons exist.
+
 ## 1.3.0 — 2026-11-09
 
 - Add a shared, browser-bound authenticator verification flow and separate account-security challenges from login codes.

@@ -9,6 +9,7 @@ namespace Anar\Login\Auth;
 
 use Anar\Login\Infrastructure\Settings;
 use Anar\Login\Support\Identity;
+use Anar\Login\Support\PhoneDirectory;
 use WP_Error;
 use WP_User;
 
@@ -21,6 +22,9 @@ final class UserService {
 	 * @var Settings
 	 */
 	private $settings;
+
+	/** @var bool Whether the last login_or_create() call registered the account. */
+	private $created = false;
 
 	/**
 	 * Constructor.
@@ -42,41 +46,17 @@ final class UserService {
 			return get_user_by( 'email', $identity['identity'] );
 		}
 
-		$meta_keys = (array) apply_filters(
-			'anar_login_phone_meta_keys',
-			array( '_anar_phone', \Anar\Login\Support\PhoneKeys::legacy() )
-		);
-		$values    = array_unique(
-			array(
-				$identity['identity'],
-				ltrim( $identity['identity'], '+' ),
-				Identity::local_phone( $identity['identity'] ),
-			)
-		);
-
-		foreach ( $meta_keys as $meta_key ) {
-			foreach ( $values as $value ) {
-				$users = get_users(
-					array(
-						'number'      => 1,
-						'count_total' => false,
-						'meta_key'    => sanitize_key( $meta_key ),
-						'meta_value'  => $value,
-					)
-				);
-
-				if ( ! empty( $users ) ) {
-					if ( '_anar_phone' !== $meta_key ) {
-						update_user_meta( $users[0]->ID, '_anar_phone', $identity['identity'] );
-						do_action( 'anar_login_phone_identity_linked', $users[0]->ID, $meta_key );
-					}
-
-					return $users[0];
-				}
-			}
+		$found = PhoneDirectory::find( $identity['identity'], 1 );
+		if ( ! $found ) {
+			return false;
+		}
+		$user = get_user_by( 'id', (int) key( $found ) );
+		if ( $user && PhoneDirectory::META_KEY !== current( $found ) ) {
+			// Adopt numbers verified by a previous login plugin as canonical phones.
+			PhoneDirectory::link( $user->ID, $identity['identity'], current( $found ) );
 		}
 
-		return false;
+		return $user ? $user : false;
 	}
 
 	/**
@@ -86,7 +66,13 @@ final class UserService {
 	 * @param bool                                  $remember Remember login.
 	 * @return WP_User|WP_Error
 	 */
+	/** Whether the last login_or_create() call registered a new account. */
+	public function created() {
+		return $this->created;
+	}
+
 	public function login_or_create( $identity, $remember ) {
+		$this->created = false;
 		$user = $this->find_by_identity( $identity );
 
 		if ( ! $user ) {
@@ -98,6 +84,7 @@ final class UserService {
 			if ( is_wp_error( $user ) ) {
 				return $user;
 			}
+			$this->created = true;
 		}
 
 		return $this->login( $user, $remember );
@@ -237,6 +224,14 @@ final class UserService {
 	 */
 	public function redirect_url( WP_User $user, $requested = '' ) {
 		$configured = (string) $this->settings->get( 'login_redirect', '' );
+		// A destination for the user's role wins over the general one, e.g. staff to the dashboard.
+		$by_role = (array) $this->settings->get( 'role_redirects', array() );
+		foreach ( (array) $user->roles as $role ) {
+			if ( ! empty( $by_role[ $role ] ) ) {
+				$configured = (string) $by_role[ $role ];
+				break;
+			}
+		}
 		$panel_id   = absint( $this->settings->get( 'panel_page_id', 0 ) );
 		$panel_url  = $panel_id ? get_permalink( $panel_id ) : '';
 		/**

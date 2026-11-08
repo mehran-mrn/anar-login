@@ -61,6 +61,9 @@ final class Rewards {
 					$coupon->update_meta_data( '_anar_marketing_profile', (int) $profile->id );
 					$coupon->update_meta_data( '_anar_marketing_origin', $origin );
 					$coupon->save();
+					if ( ! empty( $rule['game_money_cap'] ) && ! get_option( 'anar_game_budget_coupons' ) ) {
+						update_option( 'anar_game_budget_coupons', 1, true );
+					}
 				}
 			} finally {
 				delete_option( $lock ); }

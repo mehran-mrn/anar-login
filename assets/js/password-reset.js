@@ -14,8 +14,16 @@
 			try {
 				const data = new FormData(form);
 				if (operation === 'request') { data.delete('password'); data.delete('confirm'); data.delete('code'); }
-				const response = await fetch(root.dataset.endpoint + operation, {method: 'POST', body: data, credentials: 'same-origin', cache: 'no-store'});
-				const result = await response.json();
+				let response = await fetch(root.dataset.endpoint + operation, {method: 'POST', body: data, credentials: 'same-origin', cache: 'no-store'});
+				let result = await response.json();
+				// Invisible bot check: solve the puzzle the server sent, then resend once.
+				if (428 === response.status && result.data && result.data.challenge) {
+					await import(result.data.challenge.script);
+					const proof = await window.AnarChallenge.solve(result.data.challenge);
+					Object.keys(proof).forEach(function (key) { data.set('proof[' + key + ']', proof[key]); });
+					response = await fetch(root.dataset.endpoint + operation, {method: 'POST', body: data, credentials: 'same-origin', cache: 'no-store'});
+					result = await response.json();
+				}
 				status.textContent = result.message || status.dataset.network;
 				if (response.ok && operation === 'request') {
 					root.querySelector('[data-reset-fields]').hidden = false;

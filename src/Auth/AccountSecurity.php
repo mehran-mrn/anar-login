@@ -8,6 +8,8 @@
 namespace Anar\Login\Auth;
 
 use Anar\Login\Infrastructure\Settings;
+use Anar\Login\Support\Identity;
+use Anar\Login\Support\PhoneDirectory;
 use WP_Error;
 use Anar\Login\Frontend\FormView;
 
@@ -208,6 +210,8 @@ final class AccountSecurity {
 		$token = '';
 		$codes = array();
 		$passkey_flow = '';
+		$phone_flow = '';
+		$phone_to = '';
 		if ( 'post' === sanitize_key( wp_unslash( $_SERVER['REQUEST_METHOD'] ?? '' ) ) ) {
 			check_admin_referer( 'anar_security_manage' );
 			$operation = $this->value( 'passkey_rename' ) ? 'passkey_rename' : ( $this->value( 'passkey_key' ) ? 'passkey_remove' : $this->value( 'operation' ) );
@@ -265,6 +269,57 @@ final class AccountSecurity {
 						$notice = __( 'Passkey removed.', 'anar-toolkit' );
 					}
 				}
+			} elseif ( 'sessions_logout' === $operation ) {
+				\WP_Session_Tokens::get_instance( $user->ID )->destroy_others( wp_get_session_token() );
+				$notice = __( 'All other devices have been signed out.', 'anar-toolkit' );
+			} elseif ( 'phone_send' === $operation && ( ( ! $identity && ! $enabled ) || $this->authorize_management( $user, $this->value( 'proof' ) ) ) ) {
+				// The current contact (or authenticator) authorized the change; now prove the new number.
+				$phone = Identity::normalize( $this->value( 'new_phone' ) );
+				if ( is_wp_error( $phone ) || 'sms' !== $phone['channel'] ) {
+					$errors->add( 'anar_phone_invalid', __( 'Please enter a valid Iranian mobile number.', 'anar-toolkit' ) );
+				} else {
+					$phone_flow = $flows->issue( 'phone_change', array( 'user_id' => (int) $user->ID, 'phone' => $phone['identity'] ), 600 );
+					$sent = is_wp_error( $phone_flow ) ? $phone_flow : $this->otp->codes()->issue(
+						$phone,
+						'phone-change|' . $phone_flow,
+						static function ( $code ) {
+							/* translators: %s: verification code. */
+							return sprintf( __( 'Your account mobile verification code is %s. It expires in 5 minutes.', 'anar-toolkit' ), $code );
+						},
+						array(
+							'channel' => 'phone',
+							'scope'   => 'phone_change',
+						)
+					);
+					if ( is_wp_error( $sent ) ) {
+						$errors = $sent;
+						$phone_flow = '';
+					} else {
+						$phone_to = $phone['identity'];
+						$notice = __( 'A verification code has been sent to the new number.', 'anar-toolkit' );
+					}
+				}
+			} elseif ( 'phone_confirm' === $operation ) {
+				$token = $this->value( 'phone_flow' );
+				$attempt = $flows->attempt( $token, 'phone_change' );
+				$checked = $attempt && (int) $attempt['data']['user_id'] === (int) $user->ID ? $this->otp->codes()->verify( 'phone-change|' . $token, 'phone', $this->value( 'phone_code' ), array( 'length' => 6 ) ) : false;
+				if ( ! $checked || is_wp_error( $checked ) || ! $flows->consume( $token, 'phone_change', $attempt ) ) {
+					$errors->add( 'anar_phone_code', __( 'The verification code is invalid or expired.', 'anar-toolkit' ) );
+					if ( $attempt ) {
+						$phone_flow = $token;
+						$phone_to = $attempt['data']['phone'];
+					}
+				} else {
+					$linked = PhoneDirectory::claim( $user->ID, $attempt['data']['phone'], 'account_change' );
+					if ( is_wp_error( $linked ) ) {
+						$errors = $linked;
+					} else {
+						// A changed sign-in identity ends sessions on every other device.
+						\WP_Session_Tokens::get_instance( $user->ID )->destroy_others( wp_get_session_token() );
+						$identity = $this->policy->identity_for( $user );
+						$notice = __( 'Your mobile number has been changed. Other devices have been signed out.', 'anar-toolkit' );
+					}
+				}
 			} else {
 				$errors->add( 'anar_factor_invalid', __( 'The code is invalid. Please try again.', 'anar-toolkit' ) );
 			}
@@ -277,7 +332,10 @@ final class AccountSecurity {
 		}
 		echo '<form method="post" class="anar-form">';
 		wp_nonce_field( 'anar_security_manage' );
-		if ( $passkey_flow ) {
+		if ( $phone_flow ) {
+			/* translators: %s: new mobile number. */
+			echo '<p>' . esc_html( sprintf( __( 'Enter the code sent to %s.', 'anar-toolkit' ), Identity::local_phone( $phone_to ) ) ) . '</p><input type="hidden" name="phone_flow" value="' . esc_attr( $phone_flow ) . '"><label for="anar-phone-code">' . esc_html__( 'Verification code', 'anar-toolkit' ) . '</label><input type="text" class="input" id="anar-phone-code" name="phone_code" autocomplete="one-time-code" inputmode="numeric" maxlength="6" dir="ltr" required><button class="anar-btn anar-btn--primary" name="operation" value="phone_confirm">' . esc_html__( 'Confirm new number', 'anar-toolkit' ) . '</button>';
+		} elseif ( $passkey_flow ) {
 			echo '<label for="anar-passkey-name">' . esc_html__( 'Passkey name', 'anar-toolkit' ) . '</label><input type="text" class="input" id="anar-passkey-name" name="passkey_name" maxlength="80" value="' . esc_attr__( 'My device', 'anar-toolkit' ) . '">';
 			echo \Anar\Login\Frontend\Passkeys::button( 'register', $passkey_flow ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Shared renderer escapes values.
 		} elseif ( $enabled ) {
@@ -290,7 +348,24 @@ final class AccountSecurity {
 		} else {
 				echo '<p>' . esc_html__( 'First verify your linked phone number or email to change account security.', 'anar-toolkit' ) . '</p><button class="anar-btn anar-btn--soft" name="operation" value="send" formnovalidate>' . esc_html__( 'Send verification code', 'anar-toolkit' ) . '</button><p><label for="anar-proof">' . esc_html__( 'Verification code', 'anar-toolkit' ) . '</label><input type="text" class="input" id="anar-proof" name="proof" autocomplete="one-time-code" inputmode="numeric" dir="ltr" required></p><button class="anar-btn anar-btn--primary" name="operation" value="start">' . esc_html__( 'Set up authenticator', 'anar-toolkit' ) . '</button>';
 		}
-		if ( ! $secret && ! $passkey_flow && \Anar\Login\Frontend\Passkeys::enabled() ) {
+		if ( ! $secret && ! $passkey_flow && ! $phone_flow ) {
+			$current = (string) get_user_meta( $user->ID, PhoneDirectory::META_KEY, true );
+			/* translators: %s: linked mobile number. */
+			echo '<h3>' . esc_html__( 'Mobile number', 'anar-toolkit' ) . '</h3><p>' . esc_html( $current ? sprintf( __( 'Linked number: %s', 'anar-toolkit' ), Identity::local_phone( $current ) ) : __( 'No mobile number is linked to this account.', 'anar-toolkit' ) ) . '</p>';
+			if ( $identity || $enabled ) {
+				echo '<p><small>' . esc_html__( 'To change it, first enter the verification or authenticator code above, then the new number.', 'anar-toolkit' ) . '</small></p>';
+			}
+			echo '<label for="anar-new-phone">' . esc_html__( 'New mobile number', 'anar-toolkit' ) . '</label><input type="tel" class="input" id="anar-new-phone" name="new_phone" autocomplete="tel" inputmode="tel" dir="ltr"><button class="anar-btn anar-btn--soft" name="operation" value="phone_send" formnovalidate>' . esc_html__( 'Send code to the new number', 'anar-toolkit' ) . '</button>';
+			$sessions = \WP_Session_Tokens::get_instance( $user->ID )->get_all();
+			if ( count( $sessions ) > 1 ) {
+				echo '<h3>' . esc_html__( 'Signed-in devices', 'anar-toolkit' ) . '</h3><ul class="anar-sessions">';
+				foreach ( array_slice( $sessions, 0, 10 ) as $session ) {
+					echo '<li><small dir="ltr">' . esc_html( mb_substr( (string) ( $session['ua'] ?? '' ), 0, 70 ) ) . '</small><br><small>' . esc_html( ( $session['ip'] ?? '' ) . ' — ' . ( empty( $session['login'] ) ? '' : wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), (int) $session['login'] ) ) ) . '</small></li>';
+				}
+				echo '</ul><button class="anar-btn anar-btn--soft" name="operation" value="sessions_logout" formnovalidate>' . esc_html__( 'Sign out all other devices', 'anar-toolkit' ) . '</button>';
+			}
+		}
+		if ( ! $secret && ! $passkey_flow && ! $phone_flow && \Anar\Login\Frontend\Passkeys::enabled() ) {
 			echo '<p><button class="anar-btn anar-btn--soft" name="operation" value="passkey_start">' . esc_html__( 'Add a passkey', 'anar-toolkit' ) . '</button></p>';
 			foreach ( ( new PasskeyRepository() )->all( $user->ID ) as $key => $record ) {
 				echo '<p><label>' . esc_html__( 'Passkey name', 'anar-toolkit' ) . '<input type="text" class="input" name="passkey_name_' . esc_attr( $key ) . '" value="' . esc_attr( $record['name'] ) . '" maxlength="80"></label><small>' . esc_html( $record['last_used'] ? wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $record['last_used'] ) : __( 'Not used yet', 'anar-toolkit' ) ) . '</small><button class="anar-auth__back" name="passkey_rename" value="' . esc_attr( $key ) . '">' . esc_html__( 'Save name', 'anar-toolkit' ) . '</button> <button class="anar-auth__back" name="passkey_key" value="' . esc_attr( $key ) . '">' . esc_html__( 'Remove passkey', 'anar-toolkit' ) . '</button></p>';
