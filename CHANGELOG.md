@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Add a shared, browser-bound authenticator verification flow and separate account-security challenges from login codes.
+- Add encrypted authenticator enrollment and single-use recovery codes in the development branch.
+- Keep account-security engines and assets unloaded on unrelated public requests; add regression checks for the load budget.
+
+
 ## 1.2.4 — 2026-11-08
 
 * Remove the redundant commerce template tab and resolve older template URLs to automation settings.

@@ -179,6 +179,10 @@ final class GoogleAuth {
 
 		$user = $this->users->login_google( $data, true );
 		if ( is_wp_error( $user ) ) {
+			if ( 'anar_factor_required' === $user->get_error_code() ) {
+				$data = $user->get_error_data();
+				return add_query_arg( 'redirect_to', rawurlencode( wp_validate_redirect( $saved['redirect'], '' ) ), $data['redirect'] );
+			}
 			$codes = array(
 				'anar_registration_disabled' => 'registration_off',
 				'anar_account_blocked'       => 'account_blocked',

@@ -31,7 +31,7 @@ English product page: https://mrnwp.ir/anar/en/
 - Per-identity and per-IP rate limits, resend cooldowns, and verification attempt limits
 - Account-enumeration-resistant OTP responses
 - Automatic user creation restricted to Subscriber or Customer with basic read capabilities; roles are revalidated after filters at registration time
-- Existing-account lookup through Anar Login metadata or `digits_phone`
+- Existing-account lookup through linked phone metadata and configured legacy keys
 - Responsive login, account, and admin interfaces in both LTR and RTL
 - Email delivery through `wp_mail`, compatible with SMTP plugins
 - Optional data cleanup on uninstall

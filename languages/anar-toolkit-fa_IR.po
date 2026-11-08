@@ -79,6 +79,9 @@ msgstr "کد آزمایشی به %s ارسال شد."
 msgid "A valid mobile number is required."
 msgstr "شماره موبایل معتبر لازم است."
 
+msgid "A verification code has been sent to your linked contact."
+msgstr "کد تأیید به شماره یا ایمیل متصل به حساب شما ارسال شد."
+
 msgid "A warning appears at this balance or below. Use the displayed account unit; the value is not converted between currencies or SMS units."
 msgstr "هشدار با رسیدن موجودی به این مقدار یا کمتر نمایش داده می‌شود. حد را با همان واحد نمایش‌داده‌شده وارد کنید."
 
@@ -127,6 +130,9 @@ msgstr "طرح پنل"
 msgid "Account sections"
 msgstr "بخش‌های حساب"
 
+msgid "Account security"
+msgstr "امنیت حساب"
+
 msgid "Account sign-in methods"
 msgstr "روش‌های ورود به حساب"
 
@@ -135,6 +141,9 @@ msgstr "وضعیت حساب"
 
 msgid "Account top-up discount code"
 msgstr "کد تخفیف شارژ پنل"
+
+msgid "Account verification"
+msgstr "تأیید امنیت حساب"
 
 msgid "Action"
 msgstr "عملیات"
@@ -162,6 +171,9 @@ msgstr "در صفحه دلخواه، [anar_recover_cart] را قرار دهید.
 
 msgid "Add this exact URL to your Google OAuth settings."
 msgstr "این آدرس را دقیقاً در تنظیمات OAuth گوگل ثبت کنید."
+
+msgid "Add this setup key in your authenticator app, then enter its six-digit code."
+msgstr "این کلید را در برنامهٔ رمزساز خود ثبت کنید؛ سپس کد شش‌رقمی برنامه را وارد کنید."
 
 msgid "Add to pages"
 msgstr "نصب در صفحات"
@@ -306,6 +318,18 @@ msgstr "مخاطبان و قواعد ارسال"
 
 msgid "Audience segment"
 msgstr "گروه مخاطبان"
+
+msgid "Authenticator code"
+msgstr "کد برنامهٔ رمزساز"
+
+msgid "Authenticator or recovery code"
+msgstr "کد رمزساز یا بازیابی"
+
+msgid "Authenticator protection is active for every sign-in method."
+msgstr "تأیید با برنامهٔ رمزساز برای همهٔ روش‌های ورود این حساب فعال است."
+
+msgid "Authenticator removed."
+msgstr "برنامهٔ رمزساز از حساب شما حذف شد."
 
 msgid "Automatic code filling on Android"
 msgstr "پرشدن خودکار کد در اندروید"
@@ -556,6 +580,9 @@ msgstr "ابزارهای فروشگاه"
 msgid "Complete account details"
 msgstr "تکمیل اطلاعات حساب"
 
+msgid "Complete account verification to sign in."
+msgstr "برای ورود، تأیید امنیت حساب را تکمیل کنید."
+
 msgid "Complete the SMS account connection settings first."
 msgstr "ابتدا اطلاعات اتصال حساب پیامکی را کامل کنید."
 
@@ -651,6 +678,9 @@ msgstr "برآورد محافظه‌کارانه تعداد بخش‌های پی
 
 msgid "Contact mobile numbers"
 msgstr "شماره‌های همراه مخاطبان"
+
+msgid "Continue"
+msgstr "ادامه"
 
 msgid "Continue a purchase with your recovery code"
 msgstr "ادامه خرید با کد بازیابی"
@@ -934,6 +964,9 @@ msgstr "بررسی اعتبار پیامکی فعال باشد"
 msgid "Enable SMS credit monitoring before checking an account."
 msgstr "ابتدا بررسی اعتبار پیامکی را فعال و تنظیمات را ذخیره کنید."
 
+msgid "Enable authenticator"
+msgstr "فعال‌سازی برنامهٔ رمزساز"
+
 msgid "Enable monitoring, check an account, then select periodic checks and enter its alert threshold. Warnings are optional for each account. Balances refresh about every 30 minutes through WordPress scheduled tasks; administrator page views use the saved result. Credentials stay on your server. Other SMS accounts remain available below."
 msgstr "این قابلیت را فعال و ذخیره کنید. موجودی حساب را دریافت کنید؛ سپس بررسی دوره‌ای، نمایش هشدار و حد آن را تعیین کنید. بررسی‌ها تقریباً هر ۳۰ دقیقه با زمان‌بندی وردپرس انجام می‌شوند. صفحهٔ مدیریت آخرین نتیجهٔ ذخیره‌شده را نشان می‌دهد. اطلاعات دسترسی روی سرور شما می‌ماند. سایر حساب‌ها در بخش پایین در دسترس‌اند."
 
@@ -1011,6 +1044,9 @@ msgstr "مبلغ کل را با واحد پول فعلی فروشگاه وارد
 
 msgid "Enter the verification code"
 msgstr "کد تأیید را وارد کنید"
+
+msgid "Enter your authenticator code or a recovery code."
+msgstr "کد برنامهٔ رمزساز یا یکی از کدهای بازیابی را وارد کنید."
 
 msgid "Enter your email address and we will send you a one-time password."
 msgstr "ایمیل خود را وارد کنید؛ رمز یک‌بارمصرف برایتان ارسال می‌شود."
@@ -1113,6 +1149,9 @@ msgstr "نام (اختیاری)"
 
 msgid "First purchase"
 msgstr "خرید اول"
+
+msgid "First verify your linked contact to set up an authenticator."
+msgstr "برای راه‌اندازی برنامهٔ رمزساز، ابتدا شماره یا ایمیل متصل به حساب را تأیید کنید."
 
 msgid "Fixed cart amount"
 msgstr "مبلغ ثابت سبد"
@@ -2002,6 +2041,9 @@ msgstr "سهمیه و زمان برگزاری بازی‌ها"
 msgid "Please agree to sending your registration details to MRNWP and Meli Payamak."
 msgstr "برای ادامه، ارسال اطلاعات ثبت‌نام به MRNWP و ملی‌پیامک را تأیید کنید."
 
+msgid "Please allow cookies and try again."
+msgstr "کوکی‌های مرورگر را فعال کنید و دوباره تلاش کنید."
+
 msgid "Please enter a valid Iranian mobile number."
 msgstr "شماره موبایل ایرانی معتبر نیست."
 
@@ -2010,6 +2052,12 @@ msgstr "نشانی ایمیل معتبر نیست."
 
 msgid "Please share your purchase feedback."
 msgstr "لطفاً بازخورد خود را دربارهٔ خرید ثبت کنید."
+
+msgid "Please sign in again."
+msgstr "لطفاً دوباره وارد شوید."
+
+msgid "Please try again."
+msgstr "لطفاً دوباره تلاش کنید."
 
 msgid "Please wait %d seconds before requesting another code."
 msgstr "لطفاً %d ثانیه تا ارسال دوباره صبر کنید."
@@ -2275,6 +2323,9 @@ msgstr "یادآوری متوقف شد"
 msgid "Remove"
 msgstr "حذف"
 
+msgid "Remove authenticator"
+msgstr "حذف برنامهٔ رمزساز"
+
 msgid "Replace the WooCommerce forms"
 msgstr "جایگزینی فرم‌های ووکامرس"
 
@@ -2436,6 +2487,9 @@ msgstr "پیش از ارسال آزمایشی، تنظیمات پیام را ذ�
 
 msgid "Save the order to queue a shipment SMS when this event is enabled and its template is configured."
 msgstr "اگر این رویداد فعال و الگوی آن تنظیم باشد، با ذخیرهٔ سفارش پیامک مرسوله در صف قرار می‌گیرد."
+
+msgid "Save these recovery codes now. Each code works once."
+msgstr "این کدهای بازیابی را اکنون در جای امنی نگه دارید. هر کد فقط یک بار قابل استفاده است."
 
 msgid "Saved"
 msgstr "ذخیره شده"
@@ -2881,8 +2935,20 @@ msgstr "اطلاعات حساب تغییر کرده است. موجودی را د
 msgid "The code is invalid or has expired."
 msgstr "کد نامعتبر یا منقضی شده است."
 
+msgid "The code is invalid or this verification expired. Please sign in again if needed."
+msgstr "کد معتبر نیست یا مهلت تأیید تمام شده است. در صورت نیاز دوباره وارد شوید."
+
 msgid "The code is invalid, expired or unavailable. Check the number and latest code, or request a new code."
 msgstr "کد نامعتبر، منقضی یا غیرقابل استفاده است. شماره و آخرین کد را بررسی کنید یا کد جدید بخواهید."
+
+msgid "The code is invalid. Please try again later."
+msgstr "کد معتبر نیست. کمی بعد دوباره تلاش کنید."
+
+msgid "The code is invalid. Please try again."
+msgstr "کد معتبر نیست. دوباره تلاش کنید."
+
+msgid "The code is invalid. Start setup again."
+msgstr "کد معتبر نیست. راه‌اندازی را دوباره شروع کنید."
 
 msgid "The code, recovery page and unsubscribe link must be included in the recovery parameter mapping (or custom message). Use templates approved for purchase reminders."
 msgstr "کد، آدرس صفحه بازیابی و لینک لغو دریافت باید در نگاشت متغیرها یا متن درگاه سفارشی قرار بگیرند. از قالب تأییدشده یادآوری خرید استفاده کنید."
@@ -3112,6 +3178,9 @@ msgstr "ثبت این درخواست در دسترس نیست."
 msgid "This survey is no longer available."
 msgstr "این نظرسنجی دیگر در دسترس نیست."
 
+msgid "This verification expired. Please sign in again."
+msgstr "مهلت تأیید تمام شده است. لطفاً دوباره وارد شوید."
+
 msgid "Today is another opportunity"
 msgstr "امروز هم فرصتی برای دریافت هدیه است"
 
@@ -3177,6 +3246,9 @@ msgstr "رمز عبوری با طول ۱۲ تا ۴۰۹۶ بایت انتخاب �
 
 msgid "Use commerce provider"
 msgstr "استفاده از سرویس فروشگاه"
+
+msgid "Use interactive sign-in for this account."
+msgstr "برای این حساب از فرم ورود سایت استفاده کنید."
 
 msgid "Use on your site"
 msgstr "استفاده در سایت"

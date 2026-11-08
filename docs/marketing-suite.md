@@ -29,7 +29,7 @@ Disabled runtime components are not instantiated and do not enqueue storefront f
 
 ## Authentication, carts and order events
 
-SMS password recovery uses an already linked Anar/Digits phone, a separate six-digit five-minute challenge, five guesses, rate limits and normal WordPress reset hooks. A billing number alone cannot reset an account. Successful resets revoke old sessions. Use `[anar_reset_password]` or the reset section in the login form/popup.
+SMS password recovery uses an already linked linked phone, a separate six-digit five-minute challenge, five guesses, rate limits and normal WordPress reset hooks. A billing number alone cannot reset an account. Successful resets revoke old sessions. Use `[anar_reset_password]` or the reset section in the login form/popup.
 
 Automatic cart capture is the default capture mode when reminders are enabled. Known account numbers and numbers entered at checkout are saved with a visible notice, without a separate checkbox. The optional explicit-preference mode remains available. Neither mode overrides an existing unsubscribe. Cart recovery restores standard products at current prices/stock after phone-code verification; bundles, subscriptions and custom item metadata are not reconstructed.
 

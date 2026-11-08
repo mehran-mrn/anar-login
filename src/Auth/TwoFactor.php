@@ -205,7 +205,7 @@ final class TwoFactor {
 			10 * MINUTE_IN_SECONDS
 		);
 
-		$sent = $this->otp->challenge( $identity, 'two_factor' );
+		$sent = $this->otp->challenge( $identity, 'two_factor', 'password_second_' . hash( 'sha256', $token ) );
 
 		wp_safe_redirect( $this->screen_url( $token, is_wp_error( $sent ) ? 'failed' : 'sent' ) );
 		exit;
@@ -241,7 +241,7 @@ final class TwoFactor {
 			check_admin_referer( self::ACTION . '_' . $token );
 
 			if ( isset( $_POST['anar_resend'] ) ) {
-				$sent = $this->otp->challenge( $identity, 'two_factor' );
+				$sent = $this->otp->challenge( $identity, 'two_factor', 'password_second_' . hash( 'sha256', $token ) );
 				if ( is_wp_error( $sent ) ) {
 					$errors->add( $sent->get_error_code(), $sent->get_error_message() );
 				} else {
@@ -249,7 +249,7 @@ final class TwoFactor {
 				}
 			} else {
 				$code    = isset( $_POST['anar_code'] ) ? sanitize_text_field( wp_unslash( $_POST['anar_code'] ) ) : '';
-				$checked = $this->otp->check( $identity, $code );
+				$checked = $this->otp->check( $identity, $code, 'password_second_' . hash( 'sha256', $token ) );
 
 				if ( is_wp_error( $checked ) ) {
 					$errors->add( $checked->get_error_code(), $checked->get_error_message() );

@@ -49,7 +49,7 @@ foreach ( array( 'profiles', 'orders', 'purchases', 'jobs', 'stock', 'feedback',
 }
 foreach ( array( 'anar_toolkit_marketing', 'anar_marketing_profile_cursor', 'anar_marketing_import_active', 'anar_marketing_import_page' ) as $anar_marketing_option ) {
 	delete_option( $anar_marketing_option ); }
-foreach ( array( 'anar_toolkit_messages_', 'anar_reward_', 'anar_bulk_launch_', '_transient_anar_bulk_preview_', '_transient_timeout_anar_bulk_preview_' ) as $anar_marketing_prefix ) {
+foreach ( array( 'anar_auth_flow_', '_anar_authenticator_', 'anar_toolkit_messages_', 'anar_reward_', 'anar_bulk_launch_', '_transient_anar_bulk_preview_', '_transient_timeout_anar_bulk_preview_' ) as $anar_marketing_prefix ) {
 	$wpdb->query( $wpdb->prepare( 'DELETE FROM %i WHERE option_name LIKE %s', $wpdb->options, $wpdb->esc_like( $anar_marketing_prefix ) . '%' ) );
 }
 // Preserve WooCommerce financial records, expire personal gifts and remove targeting metadata.
