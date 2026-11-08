@@ -1,0 +1,147 @@
+/* Game surfaces share the store font and an adjustable accent. */
+.anar-game[data-anar-game],.anar-game[data-anar-game-preview]{--game-accent:#873b58;--game-ink:#312c35;--game-paper:#fffaf5;--game-soft:#f1e4e7;--game-gold:#d9b36c;--game-line:#dfd5d3;box-sizing:border-box;position:relative;isolation:isolate;max-width:600px;margin:28px auto;padding:30px;border:1px solid var(--game-line);border-radius:26px;background:var(--game-paper);box-shadow:0 16px 48px #30252e0b;color:var(--game-ink);font:inherit;text-align:center;overflow:hidden;line-height:1.8}
+.anar-game.anar-skin-ocean{--game-accent:#245e79;--game-paper:#f7fbfb;--game-soft:#dfedf0;--game-gold:#d1b77f;--game-line:#cfdee2}
+.anar-game.anar-skin-forest{--game-accent:#326451;--game-paper:#fbfbf3;--game-soft:#e1eade;--game-gold:#c4a25c;--game-line:#d4ddcf}
+.anar-game[data-anar-game] *{box-sizing:border-box}
+.anar-game[data-anar-game] [hidden]{display:none!important}
+.anar-game-header{text-align:start;position:relative}
+.anar-game[data-anar-game] h2{color:var(--game-ink);font:inherit;font-weight:750;font-size:27px;letter-spacing:-.7px;line-height:1.5;margin:16px 0 8px}
+.anar-game-header>p{color:#655c66;font-size:13px;margin:0;line-height:1.9}
+.anar-game[data-anar-game] .anar-game-kicker{color:var(--game-accent);font-size:11px;letter-spacing:0;font-weight:650}
+.anar-game-quota{float:inline-end;border:1px solid var(--game-line);border-radius:30px;padding:3px 10px;font-size:10px;white-space:nowrap;color:#655c66}
+.anar-game[data-anar-game] .anar-game-instruction{font-size:13px;color:var(--game-accent);font-weight:650;margin:24px 0 6px}
+.anar-game-stage{padding:8px 0 18px;position:relative}
+.anar-game[data-anar-game] button{font:inherit;letter-spacing:0;cursor:pointer;transition:transform .22s,box-shadow .22s,background .22s;touch-action:manipulation}
+.anar-game[data-anar-game] button:disabled{opacity:1;cursor:default}
+.anar-game[data-anar-game] button:focus-visible,.anar-game[data-anar-game] canvas:focus-visible{outline:3px solid var(--game-accent);outline-offset:5px}
+.anar-game[data-anar-game] .anar-game-start{display:inline-flex;align-items:center;justify-content:center;gap:30px;min-height:48px;min-width:200px;max-width:100%;padding:12px 24px;border-radius:13px;background:var(--game-accent);color:white;box-shadow:0 5px 0 #00000012;border:0;font-size:14px;font-weight:650}
+.anar-game-start:hover:enabled{transform:translateY(-2px);box-shadow:0 7px 0 #00000012}
+.anar-game-start:active:enabled{transform:translateY(2px);box-shadow:0 2px 0 #00000012}
+.anar-game-start span{font-size:22px;line-height:1}
+.anar-game[data-anar-game] .anar-game-secondary{background:transparent;color:var(--game-accent);border:1px solid var(--game-line);min-height:44px;font-size:12px;padding:9px 18px;border-radius:10px}
+.anar-game[data-anar-game] .anar-game-caption{font-size:10px;color:#6c636d;line-height:1.8;margin:12px auto 0;max-width:380px}
+.anar-game-icon{display:block;width:60px;height:60px;margin:auto;flex-shrink:0}
+.anar-game-footer{font-size:10px;color:#6f666d;border-top:1px solid var(--game-line);padding-top:14px;margin-top:18px;line-height:1.8}
+.anar-game[data-anar-game] .anar-game-result{font-size:13px;font-weight:600;min-height:24px;margin:18px 0 0;color:var(--game-accent)}
+.anar-game[data-state=running] [data-status]:before{content:"";display:inline-block;width:12px;height:12px;margin-inline-end:8px;border:2px solid var(--game-line);border-top-color:var(--game-accent);border-radius:50%;animation:anar-game-spin .7s linear infinite;vertical-align:middle}
+.anar-game[data-state=error] .anar-game-result{color:#9e3b29}
+.anar-game[data-state=quota] .anar-game-stage,.anar-game[data-state=exhausted] .anar-game-stage{opacity:.55;filter:saturate(.4)}
+.anar-game[data-anar-game] .anar-game-coupon{background:white;border:1px dashed var(--game-accent);border-radius:14px;padding:16px;margin-top:16px;animation:anar-game-appear .45s both}
+.anar-game-coupon>span{display:block;color:var(--game-accent);font-size:12px;font-weight:600}
+.anar-game-coupon>div{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:12px;margin-top:8px}
+.anar-game[data-anar-game] .anar-game-coupon strong{font-family:ui-monospace,monospace;color:var(--game-ink);letter-spacing:.5px;overflow-wrap:anywhere;font-size:19px;line-height:1.5;display:block;min-width:0}
+.anar-game-coupon button{background:var(--game-soft)!important;color:var(--game-accent)!important;font-size:11px!important;padding:7px 12px!important;border-radius:8px!important;min-height:40px}
+/* Wheel: the disk rotates, the pointer and centre badge remain fixed. */
+.anar-game .anar-wheel-frame{width:min(100%,350px);aspect-ratio:1;margin:20px auto 12px;position:relative;display:block}
+.anar-game .anar-wheel{position:absolute;inset:0;width:auto;height:auto;margin:0;border:8px solid var(--game-paper);outline:1px solid var(--game-line);border-radius:50%;box-shadow:0 12px 25px #30252e1a;background:var(--game-soft);transition:none;overflow:hidden}
+.anar-wheel-sector{position:absolute;inset:0;background:conic-gradient(from 0deg,var(--sector-color) 0deg var(--slice),transparent var(--slice));transform:rotate(var(--angle));--sector-color:var(--game-accent)}
+.anar-wheel-sector[data-tone="1"]{--sector-color:var(--game-soft)}
+.anar-wheel-sector[data-tone="2"]{--sector-color:var(--game-gold)}
+.anar-game .anar-wheel-label{position:absolute;inset:auto;top:50%;left:50%;display:block;width:76px;max-height:65px;overflow:hidden;background:var(--game-paper);border-radius:8px;padding:5px 3px;color:var(--game-ink);font-size:10px;font-weight:650;line-height:1.6;transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-111px) rotate(calc(-1 * var(--angle)));text-align:center;overflow-wrap:anywhere}
+.anar-game .anar-wheel-pointer{position:absolute;top:-8px;left:calc(50% - 13px);z-index:3;width:26px;height:38px;background:var(--game-ink);clip-path:polygon(0 0,100% 0,50% 100%);filter:drop-shadow(0 3px 1px #0003)}
+.anar-wheel-hub{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:grid;place-items:center;width:66px;height:66px;border-radius:50%;border:5px solid var(--game-paper);background:var(--game-ink);color:var(--game-gold);box-shadow:0 3px 15px #0003}
+.anar-wheel-hub .anar-game-icon{width:34px;height:34px}
+/* Silver cover with an actual transparent scratch trail. */
+.anar-game .anar-scratch{position:relative;width:100%;min-height:0;aspect-ratio:2.1;display:block;overflow:hidden;margin:18px 0;border:1px solid var(--game-line);border-radius:20px;background:var(--game-soft);color:var(--game-accent);cursor:crosshair}
+.anar-scratch-under{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:radial-gradient(ellipse,var(--game-paper),var(--game-soft));font-size:13px}
+.anar-scratch-under .anar-game-icon{margin:0;width:58px;height:58px}
+.anar-game .anar-scratch canvas{width:100%;height:100%;position:absolute;inset:0;touch-action:none;transition:opacity .5s}
+.anar-game .anar-scratch.is-revealed canvas{opacity:0;pointer-events:none}
+/* Box lids lift independently from the gift inside. */
+.anar-game .anar-game-grid{display:grid;gap:14px;margin:24px 0 12px;perspective:1000px}
+.anar-game .anar-grid-boxes,.anar-game .anar-grid-cards{grid-template-columns:repeat(3,minmax(0,1fr))}
+.anar-game .anar-game-grid button{position:relative;display:block;background:transparent;color:var(--game-accent);box-shadow:none;border:0;padding:0;min-width:0;min-height:130px;border-radius:16px;font-size:14px;perspective:700px}
+.anar-piece-inner{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .65s cubic-bezier(.2,.8,.3,1)}
+.anar-piece-front,.anar-piece-back{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;backface-visibility:hidden;border-radius:16px}
+.anar-piece-back{background:var(--game-accent);color:white;transform:rotateY(180deg);border:5px double #ffffff50}
+.anar-piece-back .anar-game-icon{width:42px;height:42px;margin:0}
+.anar-piece-number{display:block;font-size:11px;font-weight:500;line-height:1;opacity:.7}
+.anar-gift-box{position:relative;display:block;width:88px;height:86px;margin-top:18px}
+.anar-gift-body{position:absolute;inset:21px 5px 0;background:var(--game-accent);border-radius:3px 3px 10px 10px;box-shadow:inset -10px 0 #00000012,0 10px 15px #0000000c}
+.anar-gift-body:before{content:"";position:absolute;inset:0 34% 0 40%;background:var(--game-gold)}
+.anar-gift-lid{position:absolute;inset:9px 0 auto;height:20px;background:var(--game-accent);border-radius:5px;z-index:2;box-shadow:0 4px 0 #0002;transition:transform .7s cubic-bezier(.2,.8,.3,1)}
+.anar-gift-lid:before{content:"";position:absolute;inset:0 35% 0 41%;background:var(--game-gold)}
+.anar-gift-bow{position:absolute;top:-9px;left:22px;width:25px;height:20px;border:5px solid var(--game-gold);border-radius:15px 15px 0 15px;transform:rotate(15deg);z-index:3;transition:transform .7s}
+.anar-gift-bow:after{content:"";position:absolute;top:-10px;left:14px;width:25px;height:20px;border:5px solid var(--game-gold);border-radius:15px 15px 15px 0;transform:rotate(-35deg)}
+.anar-grid-boxes button:nth-child(2){color:var(--game-ink)}
+.anar-grid-boxes button:nth-child(2) .anar-gift-body,.anar-grid-boxes button:nth-child(2) .anar-gift-lid{background:var(--game-gold)}
+.anar-grid-boxes button:nth-child(2) .anar-gift-body:before,.anar-grid-boxes button:nth-child(2) .anar-gift-lid:before{background:var(--game-accent)}
+.anar-grid-boxes button:nth-child(3) .anar-gift-body,.anar-grid-boxes button:nth-child(3) .anar-gift-lid{background:var(--game-ink)}
+.anar-game .anar-grid-boxes .is-revealed{transform:none;background:none;color:var(--game-accent)}
+.anar-grid-boxes .is-revealed .anar-gift-lid{transform:translate(-12px,-45px) rotate(-18deg)}
+.anar-grid-boxes .is-revealed .anar-gift-bow{transform:translate(-12px,-45px) rotate(-3deg)}
+.anar-grid-boxes .anar-piece-back{transform:none;background:none;color:var(--game-gold);inset:0 0 45%;border:0;opacity:0;transition:opacity .5s .25s,translate .5s .25s;translate:0 20px;z-index:1}
+.anar-grid-boxes .is-revealed .anar-piece-back{opacity:1;translate:0 -8px}
+.anar-game-grid button:hover:enabled{transform:translateY(-5px)}
+.anar-game-grid button:not(.is-selected):disabled{opacity:.55}
+/* Cards have two separate faces, so text is never mirrored. */
+.anar-game .anar-grid-cards button{height:180px}
+.anar-grid-cards .anar-piece-front{background:var(--game-accent);color:var(--game-gold);border:6px double #ffffff60;box-shadow:0 6px 0 var(--game-line);background-image:repeating-linear-gradient(45deg,transparent 0 12px,#ffffff08 12px 13px)}
+.anar-grid-cards button:nth-child(2) .anar-piece-front{background-color:var(--game-ink)}
+.anar-game .anar-grid-cards .is-revealed,.anar-game .anar-grid-memory .is-revealed{transform:none;background:none}
+.anar-grid-cards .is-revealed .anar-piece-inner,.anar-grid-memory .is-revealed .anar-piece-inner{transform:rotateY(180deg)}
+/* Reels move inside clipped windows and stop one at a time. */
+.anar-slot-machine{max-width:390px;margin:20px auto 10px;padding:24px 17px 18px;background:var(--game-accent);border:1px solid #0002;border-radius:24px;box-shadow:inset 0 2px #ffffff50,0 10px 0 var(--game-line);position:relative}
+.anar-slot-lights{display:block;height:10px;background:radial-gradient(circle,var(--game-gold) 3px,transparent 4px) 0 0/20px 10px;margin:-12px 0 13px}
+.anar-game .anar-slots{display:flex;gap:8px;margin:0;justify-content:center;border:5px solid #0002;border-radius:16px;background:#0002;overflow:hidden}
+.anar-reel{height:100px;min-width:0;flex:1;background:var(--game-paper);overflow:hidden;position:relative;box-shadow:inset 0 6px 12px #0001}
+.anar-reel:after{content:"";position:absolute;inset:0;background:linear-gradient(#0001,transparent 25% 75%,#0001);pointer-events:none}
+.anar-reel-strip{transform:translateY(0);will-change:transform}
+.anar-game .anar-slots span{display:grid;place-items:center;height:100px;width:100%;padding:14px;border:0;border-radius:0;background:none;box-shadow:none;font-size:inherit}
+.anar-reel .anar-game-icon{width:62px;height:62px;color:var(--game-accent)}
+.anar-reel:nth-child(2) .anar-game-icon{color:#a46822}
+.anar-reel:nth-child(3) .anar-game-icon{color:#516941}
+.anar-slot-base{display:block;width:90px;height:8px;background:#0003;border:2px solid #ffffff30;border-radius:12px;margin:20px auto 0}
+.anar-game[data-state=running] .anar-reel-strip{animation:anar-game-reel .38s linear infinite}
+.anar-game[data-state=running] .anar-reel:nth-child(2) .anar-reel-strip{animation-delay:-.12s}
+.anar-game[data-state=running] .anar-reel:nth-child(3) .anar-reel-strip{animation-delay:-.25s}
+/* Treasure tiles lie on a small, illustrated map. */
+.anar-game .anar-grid-treasure{grid-template-columns:repeat(3,minmax(0,1fr));padding:20px;background:radial-gradient(ellipse at 20% 80%,#a5b9a440,transparent 40%),repeating-linear-gradient(25deg,#e9ddc1 0 24px,#e3d6b8 25px 26px);border:1px solid #d2c39e;border-radius:24px;gap:12px}
+.anar-game .anar-grid-treasure button{min-height:78px;border:1px dashed #9c855a;background:#fff8e899;border-radius:50% 45% 40% 48%;box-shadow:0 4px 0 #b3a17e50;color:#79623e}
+.anar-grid-treasure .anar-piece-front .anar-game-icon{width:30px;height:30px;margin:0;opacity:.65}
+.anar-grid-treasure .anar-piece-front{gap:5px}
+.anar-game .anar-grid-treasure .is-revealed{transform:none;background:var(--game-accent)}
+.anar-grid-treasure .anar-piece-back{transform:none;opacity:0;background:var(--game-accent);border:0;border-radius:40%;transition:opacity .5s}
+.anar-grid-treasure .is-revealed .anar-piece-back{opacity:1}
+/* Daily gift and milestone journey. */
+.anar-daily-gift{position:relative;min-height:235px;max-width:350px;margin:12px auto 0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;background:radial-gradient(ellipse,var(--game-soft),transparent 70%)}
+.anar-daily-date{font-size:11px;border:1px solid var(--game-line);background:var(--game-paper);padding:3px 14px;border-radius:20px;color:var(--game-accent);z-index:1}
+.anar-daily-icon{padding:14px;border-radius:22px;background:var(--game-accent);color:var(--game-gold);box-shadow:0 7px 0 var(--game-line);transform:rotate(-7deg);z-index:1;transition:transform .6s}
+.anar-daily-icon .anar-game-icon{width:70px;height:70px}
+.anar-daily-gift>strong{font-size:13px;z-index:1}
+.anar-daily-rays{position:absolute;width:min(220px,90%);height:auto;aspect-ratio:1;border:1px dashed var(--game-line);border-radius:50%;transform:none}
+.anar-daily-rays:after{content:"";position:absolute;inset:16px;border:1px solid var(--game-line);border-radius:50%}
+.anar-game[data-state=won] .anar-daily-icon{transform:rotate(7deg) scale(1.1)}
+.anar-milestones{position:relative;display:flex;justify-content:space-between;max-width:400px;margin:45px auto 20px;padding:0 10px}
+.anar-milestone-node{position:relative;z-index:1;display:flex;align-items:center;flex-direction:column;gap:10px;font-size:13px;color:var(--game-accent)}
+.anar-milestone-node .anar-game-icon{width:66px;height:66px;background:var(--game-paper);padding:14px;border:2px solid var(--game-line);border-radius:50%}
+.anar-milestone-node.is-complete .anar-game-icon{background:var(--game-accent);color:var(--game-gold);border-color:var(--game-accent)}
+.anar-milestone-track{position:absolute;inset:31px 35px auto;height:5px;border-radius:10px;background:var(--game-line);overflow:hidden}
+.anar-milestone-track span{display:block;height:100%;background:var(--game-accent)}
+/* Quiz choices and memory board. */
+.anar-quiz-heading{display:flex;align-items:center;gap:14px;text-align:start;padding:18px;background:var(--game-soft);border-radius:16px;margin:14px 0}
+.anar-quiz-heading .anar-game-icon{width:35px;height:35px;margin:0;color:var(--game-accent)}
+.anar-game .anar-quiz-heading h3{font:inherit;font-size:14px;font-weight:650;margin:0;line-height:1.9}
+.anar-game .anar-game-options{display:grid;gap:10px;margin:18px 0 0}
+.anar-game .anar-game-options button{display:flex;align-items:center;gap:12px;min-height:52px;padding:10px 14px;background:white;border:1px solid var(--game-line);color:var(--game-ink);text-align:start;border-radius:12px;font-size:13px}
+.anar-game-options button>span{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:var(--game-soft);color:var(--game-accent);font-size:11px;flex-shrink:0}
+.anar-game-options button>strong{flex:1;font-weight:500}
+.anar-game-options button>i{width:15px;height:15px;border:1px solid var(--game-line);border-radius:50%;flex-shrink:0}
+.anar-game-options button.is-selected{border-color:var(--game-accent);box-shadow:0 0 0 1px var(--game-accent)}
+.anar-game-options .is-selected>i{border:4px solid var(--game-accent)}
+.anar-memory-meter{display:flex;justify-content:space-between;gap:12px;font-size:11px;color:#655c66;margin:16px 0}
+.anar-memory-meter b{font-weight:600;color:var(--game-accent);margin-inline-start:8px;direction:ltr;display:inline-block}
+.anar-game .anar-grid-memory{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0}
+.anar-game .anar-grid-memory button{min-height:105px;aspect-ratio:.8}
+.anar-grid-memory .anar-piece-front{background:var(--game-soft);border:1px solid var(--game-line);box-shadow:0 4px 0 var(--game-line);gap:8px}
+.anar-grid-memory .anar-piece-front .anar-game-icon{width:30px;height:30px;margin:0;opacity:.6}
+.anar-grid-memory .anar-piece-back{background:white;color:var(--game-accent);border:1px solid var(--game-line);box-shadow:0 4px 0 var(--game-line)}
+.anar-grid-memory .is-matched .anar-piece-back{background:var(--game-soft);border:2px solid var(--game-accent)}
+.anar-game .anar-grid-memory .is-matched{opacity:1;transform:none;background:none;color:var(--game-accent);box-shadow:none}
+.anar-grid-memory button.is-matched:after{content:"✓";position:absolute;inset:3px 6px auto auto;font-size:13px;color:var(--game-accent);z-index:2}
+@keyframes anar-game-spin{to{transform:rotate(360deg)}}
+@keyframes anar-game-reel{to{transform:translateY(-400px)}}
+@keyframes anar-game-appear{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:480px){.anar-game[data-anar-game]{padding:22px 16px;border-radius:20px;margin:20px auto}.anar-game[data-anar-game] h2{font-size:23px}.anar-game-header>p{font-size:12px}.anar-game-quota{font-size:9px;padding:2px 7px}.anar-game .anar-wheel-frame{max-width:295px}.anar-game .anar-wheel-label{width:66px;font-size:9px;transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-91px) rotate(calc(-1 * var(--angle)))}.anar-game .anar-game-grid{gap:10px}.anar-gift-box{scale:.8}.anar-game .anar-grid-cards button{height:150px}.anar-game .anar-grid-memory button{min-height:80px}.anar-grid-memory .anar-piece-back .anar-game-icon{width:33px;height:33px}.anar-game .anar-grid-treasure{padding:14px}.anar-game .anar-grid-treasure button{min-height:68px}.anar-game[data-anar-game] .anar-game-coupon strong{font-size:16px}}
+@media(max-width:340px){.anar-game .anar-wheel-label{transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-78px) rotate(calc(-1 * var(--angle)));width:58px}.anar-game-quota{float:none;display:block;width:max-content;margin-top:8px}.anar-game .anar-game-grid{gap:6px}.anar-game .anar-grid-memory button{min-height:67px}.anar-gift-box{scale:.7}.anar-piece-number{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.anar-game[data-anar-game] *{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}

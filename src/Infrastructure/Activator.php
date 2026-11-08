@@ -51,6 +51,7 @@ final class Activator {
 			\Anar\Login\Marketing\Repository::install();
 		// Autoloaded: the version is compared on every request, so it must not cost its own query.
 		update_option( 'anar_login_db_version', ANAR_LOGIN_VERSION, true );
+		update_option( 'anar_game_money_schema', '1', true );
 
 		if ( ! wp_next_scheduled( 'anar_login_daily_cleanup' ) ) {
 			wp_schedule_event( time() + HOUR_IN_SECONDS, 'daily', 'anar_login_daily_cleanup' );

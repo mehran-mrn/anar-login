@@ -85,6 +85,32 @@ final class ProviderRegistry {
 	 */
 	public function send( $recipient, $code, $message, $context = 'login_otp' ) {
 		$key       = sanitize_key( $this->settings->get( 'sms_provider', '' ) );
+		$binding = MessageSettings::stored( $context );
+		if ( null === $binding && 'login_otp' !== $context && isset( MessageCatalog::all()[ $context ] ) && 'auth' === MessageCatalog::all()[ $context ]['source'] ) {
+			$binding = MessageSettings::stored( 'login_otp' );
+		}
+		if ( null !== $binding ) {
+			$identity = \Anar\Login\Support\Identity::normalize( $recipient );
+			if ( is_wp_error( $identity ) || 'sms' !== $identity['channel'] ) {
+				return new WP_Error( 'anar_invalid_recipient', __( 'A valid mobile number is required.', 'anar-toolkit' ) );
+			}
+			$recipient = $identity['identity'];
+			$value = MessageSettings::get( $context );
+			$key = $value['provider'];
+			$errors = MessageSettings::errors( $context, $value );
+			if ( $errors ) {
+				return new WP_Error( 'anar_message_incomplete', implode( ' ', $errors ) );
+			}
+			$minutes = 'login_otp' === $context || 'two_factor' === $context ? max( 1, (int) ceil( $this->settings->get( 'otp_ttl', 120 ) / 60 ) ) : 5;
+			$vars = array( 'code' => $code, 'site' => get_bloginfo( 'name' ), 'domain' => wp_parse_url( home_url(), PHP_URL_HOST ), 'minutes' => $minutes );
+			if ( 'custom' === $key ) {
+				$result = ( new CustomHttp( $this->settings, new HttpClient() ) )->send( $recipient, $code, \Anar\Login\Commerce\Templates::render( $value['message'], $vars ) );
+			} else {
+				$result = ( new NotificationSender( $this->settings, new HttpClient() ) )->send( $key, $recipient, $value, $vars );
+			}
+			do_action( 'anar_toolkit_sms_result', $recipient, sanitize_key( $context ), $key, $result );
+			return $result;
+		}
 		$providers = $this->all();
 		if ( empty( $providers[ $key ] ) ) {
 			return new WP_Error( 'anar_provider_missing', __( 'The selected SMS provider is unavailable.', 'anar-toolkit' ) );

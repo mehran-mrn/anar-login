@@ -25,6 +25,9 @@ final class NotificationSender {
 	}
 
 	public function send( $provider, $recipient, $event, $variables, $recovery = false ) {
+		if ( ! empty( $event['account_changed'] ) ) {
+			return new WP_Error( 'anar_message_account_changed', __( 'The provider account changed. Review and save this message again.', 'anar-toolkit' ) );
+		}
 		$identity = Identity::normalize( $recipient );
 		if ( is_wp_error( $identity ) || 'sms' !== $identity['channel'] ) {
 			return new WP_Error( 'anar_invalid_recipient', __( 'A valid mobile number is required.', 'anar-toolkit' ) );
@@ -32,7 +35,8 @@ final class NotificationSender {
 		$recipient = $identity['identity'];
 		$config    = $this->settings->provider( $provider );
 		$message   = Templates::render( $event['message'], $variables );
-		$mapping   = 'custom' === $provider ? $event['message'] : $event['params'];
+			$text_mode = 'text' === ( $event['mode'] ?? ( 'custom' === $provider ? 'text' : 'template' ) );
+			$mapping   = $text_mode ? $event['message'] : $event['params'];
 		if ( $recovery && ( false === strpos( $mapping, '{code}' ) || false === strpos( $mapping, '{recovery_page}' ) || false === strpos( $mapping, '{unsubscribe_url}' ) ) ) {
 			return new WP_Error( 'anar_recovery_code_required', __( 'Recovery messages must include the code, recovery page and unsubscribe link.', 'anar-toolkit' ) );
 		}
@@ -41,6 +45,17 @@ final class NotificationSender {
 				return new WP_Error( 'anar_custom_message_required', __( 'The custom gateway must use the {message} placeholder for commerce messages.', 'anar-toolkit' ) );
 			}
 			return ( new Providers\CustomHttp( $this->settings, $this->http ) )->send( $recipient, '', $message );
+		}
+		if ( $text_mode ) {
+			if ( 'melipayamak' !== $provider || empty( $config['username'] ) || empty( $config['password'] ) || empty( $config['from'] ) ) {
+				return new WP_Error( 'anar_text_unavailable', __( 'Plain-text delivery needs a supported provider and sender number.', 'anar-toolkit' ) );
+			}
+			$result = $this->http->request( 'POST', 'https://rest.payamak-panel.com/api/SendSMS/SendSMS', array( 'body' => array( 'username' => $config['username'], 'password' => $config['password'], 'from' => $config['from'], 'to' => Identity::local_phone( $recipient ), 'text' => $message, 'isflash' => 'false' ) ) );
+			if ( is_wp_error( $result ) ) {
+				return $result;
+			}
+			$value = (string) ( $result['json']['Value'] ?? trim( $result['body'], "\" \t\n\r\0\x0B" ) );
+			return 1 === (int) ( $result['json']['RetStatus'] ?? 0 ) || ( ctype_digit( $value ) && strlen( $value ) > 15 ) ? true : new WP_Error( 'anar_sms_rejected', __( 'The SMS provider did not accept this message.', 'anar-toolkit' ) );
 		}
 		$params   = Templates::parameters( $event['params'], $variables );
 		$template = trim( (string) $event['template'] );

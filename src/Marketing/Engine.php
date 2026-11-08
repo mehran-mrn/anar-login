@@ -322,8 +322,9 @@ final class Engine {
 		if ( $recent >= $config['daily_limit'] || $when > time() ) {
 			$queue->postpone( $job->id, max( time() + HOUR_IN_SECONDS, $when ) );
 			return; }
-		$provider = $config['provider'] ?: ( new CommerceSettings() )->get( 'provider' );
-		$mapping = 'custom' === $provider ? $rule['message'] : $rule['params'];
+		$rule = \Anar\Login\Messaging\MessageSettings::apply( 'mkt_' . $task->event, $rule );
+		$provider = $rule['provider'];
+		$mapping = 'text' === $rule['mode'] ? $rule['message'] : $rule['params'];
 		if ( false === strpos( $mapping, '{unsubscribe_url}' ) || ( 'survey' === $task->event && false === strpos( $mapping, '{action_url}' ) ) || ( 'survey' !== $task->event && 'none' !== $rule['discount_type'] && false === strpos( $mapping, '{coupon_code}' ) ) ) {
 			$queue->finish( $job->id, 'failed', 'campaign_mapping_incomplete' );
 			return; }
@@ -340,7 +341,7 @@ final class Engine {
 			$queue->finish( $job->id, 'failed', 'campaign_gift_unavailable' );
 			return;
 		}
-		$rendered = 'custom' === $provider ? \Anar\Login\Commerce\Templates::render( $rule['message'], $vars ) : implode( "\n", \Anar\Login\Commerce\Templates::parameters( $rule['params'], $vars ) );
+		$rendered = 'text' === $rule['mode'] ? \Anar\Login\Commerce\Templates::render( $rule['message'], $vars ) : implode( "\n", \Anar\Login\Commerce\Templates::parameters( $rule['params'], $vars ) );
 		if ( false === strpos( $rendered, $vars['unsubscribe_url'] ) || ( 'survey' === $task->event && false === strpos( $rendered, $vars['action_url'] ) ) || ( 'survey' !== $task->event && 'none' !== $rule['discount_type'] && false === strpos( $rendered, $vars['coupon_code'] ) ) ) {
 			$queue->finish( $job->id, 'failed', 'campaign_mapping_incomplete' );
 			return;

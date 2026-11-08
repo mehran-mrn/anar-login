@@ -37,7 +37,7 @@ final class Melipayamak extends AbstractProvider {
 			),
 			'from'        => array(
 				'label' => __( 'Sender number (optional)', 'anar-toolkit' ),
-				'help'  => __( 'Only used when the template ID is empty: the SMS fallback message is then sent as plain text from this dedicated number.', 'anar-toolkit' ),
+				'help'  => __( 'Used for messages whose delivery method is plain text. Approved-template messages use the panel service line.', 'anar-toolkit' ),
 			),
 		);
 	}

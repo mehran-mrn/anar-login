@@ -37,14 +37,18 @@ foreach ( array( 'melipayamak', 'kavenegar', 'ippanel', 'panelchi', 'maxsms', 's
 	delete_option( 'anar_sms_balance_lock_' . $anar_balance_provider );
 }
 delete_option( 'anar_marketing_import_lock' );
+delete_option( 'anar_game_pool_migrated' );
+delete_option( 'anar_game_budget_scan' );
+delete_option( 'anar_game_budget_cursor' );
+delete_option( 'anar_game_money_schema' );
 delete_option( 'anar_toolkit_worker_lock' );
 delete_option( 'anar_toolkit_scan_cursor' );
-foreach ( array( 'profiles', 'orders', 'purchases', 'jobs', 'stock', 'feedback', 'plays', 'referrals', 'bulk', 'visits' ) as $anar_marketing_table ) {
+foreach ( array( 'profiles', 'orders', 'purchases', 'jobs', 'stock', 'feedback', 'plays', 'game_awards', 'referrals', 'bulk', 'visits' ) as $anar_marketing_table ) {
 	$wpdb->query( $wpdb->prepare( 'DROP TABLE IF EXISTS %i', $wpdb->prefix . 'anar_marketing_' . $anar_marketing_table ) );
 }
 foreach ( array( 'anar_toolkit_marketing', 'anar_marketing_profile_cursor', 'anar_marketing_import_active', 'anar_marketing_import_page' ) as $anar_marketing_option ) {
 	delete_option( $anar_marketing_option ); }
-foreach ( array( 'anar_reward_', 'anar_bulk_launch_', '_transient_anar_bulk_preview_', '_transient_timeout_anar_bulk_preview_' ) as $anar_marketing_prefix ) {
+foreach ( array( 'anar_toolkit_messages_', 'anar_reward_', 'anar_bulk_launch_', '_transient_anar_bulk_preview_', '_transient_timeout_anar_bulk_preview_' ) as $anar_marketing_prefix ) {
 	$wpdb->query( $wpdb->prepare( 'DELETE FROM %i WHERE option_name LIKE %s', $wpdb->options, $wpdb->esc_like( $anar_marketing_prefix ) . '%' ) );
 }
 // Preserve WooCommerce financial records, expire personal gifts and remove targeting metadata.

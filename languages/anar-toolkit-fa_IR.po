@@ -1,8 +1,14 @@
 msgid ""
-msgstr "Project-Id-Version: Anar Toolkit 1.1.1\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
+msgstr "Project-Id-Version: Anar Toolkit 1.2.1\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
+
+msgid "%1$d paid orders. A gift at every %2$d orders."
+msgstr "%1$d سفارش پرداخت‌شده؛ یک هدیه پس از هر %2$d سفارش."
 
 msgid "%1$s: Your password reset code is %2$s. It expires in 5 minutes. Do not share this code."
 msgstr "%1$s: کد بازنشانی رمز عبور شما %2$s است و تا ۵ دقیقه اعتبار دارد. این کد را در اختیار دیگران نگذارید."
+
+msgid "%d attempts left today"
+msgstr "%d نوبت باقی‌مانده برای امروز"
 
 msgid "09121234567 or name@example.com"
 msgstr "09121234567 یا name@example.com"
@@ -25,14 +31,23 @@ msgstr "تصویری روشن از فروشگاه شما."
 msgid "A code is invalidated atomically after its first successful verification."
 msgstr "کد پس از اولین تأیید به‌صورت اتمیک باطل می‌شود."
 
+msgid "A dedicated pool uses the same prize rows with independent stock, winner and percentage-point counters."
+msgstr "مخزن اختصاصی از همین ردیف‌های جایزه استفاده می‌کند، اما موجودی، تعداد برنده و مجموع واحد درصد آن جداگانه محاسبه می‌شود."
+
 msgid "A free store promotion. No payment or purchase stake is required. Coupons have no cash value and are limited to your verified phone."
 msgstr "شرکت در این بازی رایگان است و نیازی به پرداخت یا خرید ندارد. کد تخفیف فقط با شمارهٔ همراه تأییدشدهٔ شما قابل استفاده است و ارزش نقدی ندارد."
 
 msgid "A full uninstall removes the code table and plugin metadata. Deactivation keeps the data."
 msgstr "با حذف کامل افزونه، جدول کدها و متادیتای اختصاصی حذف می‌شوند. غیرفعال‌سازی ساده داده‌ها را نگه می‌دارد."
 
+msgid "A gift from your store"
+msgstr "هدیه‌ای از فروشگاه شما"
+
 msgid "A little birthday surprise"
 msgstr "سورپرایزی کوچک برای تولدتان"
+
+msgid "A little gift for a new day"
+msgstr "هدیه‌ای کوچک برای یک روز تازه"
 
 msgid "A little gift, just for you. Use it with your verified billing phone."
 msgstr "هدیه‌ای کوچک، مخصوص شما. آن را با شمارهٔ همراه تأییدشدهٔ صورتحساب استفاده کنید."
@@ -48,6 +63,9 @@ msgstr "پیشنهادی تازه برای بازدید بعدی شما."
 
 msgid "A saved product is no longer available. Your current cart has been kept."
 msgstr "یکی از محصولات ذخیره‌شده دیگر قابل خرید نیست. سبد فعلی شما حفظ شد."
+
+msgid "A separate limit for each game"
+msgstr "سهمیهٔ مستقل برای هر بازی"
 
 msgid "A short introduction or instruction displayed below the game title."
 msgstr "توضیح کوتاه یا روش شرکت در بازی را بنویسید. این متن زیر عنوان بازی نمایش داده می‌شود."
@@ -121,6 +139,9 @@ msgstr "کد تخفیف شارژ پنل"
 msgid "Action"
 msgstr "عملیات"
 
+msgid "Action URL"
+msgstr "پیوند اقدام مشتری"
+
 msgid "Actions"
 msgstr "عملیات"
 
@@ -145,14 +166,26 @@ msgstr "این آدرس را دقیقاً در تنظیمات OAuth گوگل ث�
 msgid "Add to pages"
 msgstr "نصب در صفحات"
 
+msgid "Add up to eight prizes. With no named rows, the single reward below remains active. A named row enables the pool. Keep the row in the same position when editing: its issued stock is tracked by that position. Changing labels or limits does not reset issued prizes."
+msgstr "تا هشت جایزه تعریف کنید. اگر نام همهٔ ردیف‌ها خالی باشد، جایزهٔ ثابت زیر استفاده می‌شود. با نام‌گذاری یک ردیف، مخزن فعال می‌شود. شمارش جوایز هر ردیف به جایگاه آن وابسته است؛ هنگام ویرایش، ردیف‌ها را جابه‌جا نکنید. تغییر نام یا سقف، شمارش جوایز قبلی را صفر نمی‌کند."
+
+msgid "Add variable"
+msgstr "افزودن متغیر"
+
 msgid "Additional tracking-number meta key"
 msgstr "کلید متای اضافی کد رهگیری"
 
 msgid "Administrator mobile numbers (maximum 5, one per line)"
 msgstr "شماره موبایل مدیران (حداکثر ۵ شماره، هر شماره در یک خط)"
 
+msgid "Administrators"
+msgstr "مدیران"
+
 msgid "Administrators, editors and shop managers"
 msgstr "مدیران، ویرایشگران و مدیران فروشگاه"
+
+msgid "Advanced mapping"
+msgstr "نگاشت پیشرفته"
 
 msgid "After a correct password, a code is sent to the account’s mobile, or its email when no mobile is linked. Code and Google sign-ins skip this step, as they already prove ownership."
 msgstr "پس از واردکردن رمز درست، کدی به موبایل حساب (یا اگر موبایلی ثبت نشده، به ایمیل آن) ارسال می‌شود. ورود با کد یکبارمصرف و گوگل این مرحله را ندارد، چون خودشان مالکیت را ثابت می‌کنند."
@@ -163,8 +196,14 @@ msgstr "پس از خرید پیش‌بینی‌شده"
 msgid "Alert threshold"
 msgstr "حد نمایش هشدار"
 
+msgid "All categories"
+msgstr "همهٔ دسته‌ها"
+
 msgid "All eligible contacts"
 msgstr "همهٔ مخاطبان واجد شرایط"
+
+msgid "All gifts in this promotion have been claimed."
+msgstr "همهٔ جوایز این برنامه دریافت شده‌اند."
 
 msgid "All statuses"
 msgstr "همهٔ وضعیت‌ها"
@@ -183,6 +222,9 @@ msgstr "مبلغ"
 
 msgid "An offer worth coming back for."
 msgstr "پیشنهادی برای بازگشت به خرید."
+
+msgid "An optional issuance limit, not a monetary budget. A 10% coupon uses 10 points. For example, 100 points permits ten 10% coupons. Fixed-amount prizes do not use these points. Zero means unlimited."
+msgstr "این سقف برای مجموع درصد کدهای صادرشده است، نه مبلغ هزینهٔ تخفیف. هر کد ۱۰ درصدی، ۱۰ واحد مصرف می‌کند؛ بنابراین ۱۰۰ واحد برای ده کد ۱۰ درصدی کافی است. جایزهٔ مبلغ ثابت از این سقف مصرف نمی‌کند. صفر یعنی بدون محدودیت."
 
 msgid "An updated balance is needed."
 msgstr "نیاز به بررسی تازه"
@@ -235,14 +277,23 @@ msgstr "پاسخ‌های پیشنهادی؛ هر پاسخ در یک خط"
 msgid "Any panel with a web API"
 msgstr "هر پنلی که وب‌سرویس دارد"
 
+msgid "Appearance preview"
+msgstr "پیش‌نمایش رنگ‌بندی"
+
 msgid "Apply"
 msgstr "اعمال"
 
 msgid "Approved provider template ID or name"
 msgstr "شناسه یا نام قالب تأییدشده سرویس"
 
+msgid "Approved template"
+msgstr "الگوی تأییدشدهٔ پنل"
+
 msgid "Approved template ID / slug"
 msgstr "شناسه / نامک الگوی تأییدشده"
+
+msgid "Attempt completed"
+msgstr "این نوبت به پایان رسید"
 
 msgid "Attempts per code"
 msgstr "سقف تلاش برای هر کد"
@@ -280,6 +331,9 @@ msgstr "ارتباطی ماندگار با مشتری"
 msgid "Back in stock"
 msgstr "اطلاع موجودی مجدد"
 
+msgid "Back to settings"
+msgstr "بازگشت به تنظیمات"
+
 msgid "Balance API key (optional)"
 msgstr "کلید API دریافت موجودی (اختیاری)"
 
@@ -294,6 +348,12 @@ msgstr "تنظیمات اعتبار پیامک ذخیره شد."
 
 msgid "Before predicted purchase"
 msgstr "پیش از خرید پیش‌بینی‌شده"
+
+msgid "Berry"
+msgstr "توت‌فرنگی"
+
+msgid "Berry and cream"
+msgstr "زرشکی و کرم"
 
 msgid "Bill to"
 msgstr "صورتحساب برای"
@@ -328,6 +388,12 @@ msgstr "تقویم"
 msgid "Campaign"
 msgstr "کمپین"
 
+msgid "Campaign content"
+msgstr "متن کمپین"
+
+msgid "Campaign ends"
+msgstr "تاریخ پایان"
+
 msgid "Campaign messages and gifts"
 msgstr "پیام‌ها و هدایای کمپین"
 
@@ -340,6 +406,9 @@ msgstr "خریدهای کمپین از طریق کوپن‌های هدیهٔ ا�
 msgid "Campaign setup"
 msgstr "راه‌اندازی کمپین‌ها"
 
+msgid "Campaign starts"
+msgstr "تاریخ شروع"
+
 msgid "Campaign title"
 msgstr "عنوان کمپین"
 
@@ -351,6 +420,9 @@ msgstr "لغو پیام‌های باقی‌مانده"
 
 msgid "Cancelled"
 msgstr "لغوشده"
+
+msgid "Capped game discount"
+msgstr "تخفیف بازی با سقف مبلغ"
 
 msgid "Capture source"
 msgstr "منبع ثبت"
@@ -369,6 +441,9 @@ msgstr "سوابق سبد"
 
 msgid "Cart recovery"
 msgstr "بازیابی سبد"
+
+msgid "Category"
+msgstr "دسته"
 
 msgid "Chance of receiving a coupon (%)"
 msgstr "احتمال دریافت جایزه (درصد)"
@@ -394,8 +469,20 @@ msgstr "در حال بررسی طرح‌های ثبت‌نام…"
 msgid "Checking balance…"
 msgstr "در حال دریافت موجودی…"
 
+msgid "Cherry"
+msgstr "گیلاس"
+
+msgid "Choose a box to open"
+msgstr "یکی از جعبه‌ها را باز کنید"
+
+msgid "Choose a card to turn"
+msgstr "یکی از کارت‌ها را برگردانید"
+
 msgid "Choose a plan and enter the account holder details. Submitting this form sends these details through Anar to Meli Payamak to create your account."
 msgstr "طرح موردنظر و مشخصات صاحب حساب را وارد کنید. با ارسال فرم، این اطلاعات از طریق انار برای ساخت حساب به ملی‌پیامک فرستاده می‌شود."
+
+msgid "Choose a spot on the treasure map"
+msgstr "یک نقطه از نقشهٔ گنج را انتخاب کنید"
 
 msgid "Choose an unmatched card."
 msgstr "کارتی را انتخاب کنید که هنوز جفت نشده است."
@@ -406,14 +493,29 @@ msgstr "انتخاب تصویر"
 msgid "Choose item %d"
 msgstr "انتخاب مورد %d"
 
+msgid "Choose one answer"
+msgstr "پاسخ خود را انتخاب کنید"
+
+msgid "Choose separate limits to let a customer play each game once a day. Existing installations keep their shared limit until you change this setting. Attempts already used today still count."
+msgstr "برای اینکه مشتری بتواند روزانه یک بار در هر بازی شرکت کند، سهمیهٔ مستقل را انتخاب کنید. تنظیم قبلی تا زمان تغییر شما حفظ می‌شود. نوبت‌های استفاده‌شدهٔ امروز همچنان محاسبه می‌شوند."
+
 msgid "Choose the least-privileged suitable role."
 msgstr "کم‌دسترسی‌ترین نقش مناسب را انتخاب کنید."
 
 msgid "Chrome on Android can fill the code with one tap when the last line of your provider template is exactly:"
 msgstr "اگر خط آخر الگوی پیامک دقیقاً به شکل زیر باشد، کروم اندروید کد را با یک لمس وارد می‌کند:"
 
+msgid "Citrus"
+msgstr "مرکبات"
+
+msgid "Claim my milestone gift"
+msgstr "دریافت جایزهٔ خرید"
+
 msgid "Clean up when uninstalling"
 msgstr "پاک‌سازی هنگام حذف افزونه"
+
+msgid "Clear about 40% of the cover to reveal your result."
+msgstr "حدود ۴۰ درصد پوشش را پاک کنید تا نتیجه نمایش داده شود."
 
 msgid "Close"
 msgstr "بستن"
@@ -429,6 +531,9 @@ msgstr "اعتبار کد"
 
 msgid "Code parameter name"
 msgstr "نام پارامتر کد"
+
+msgid "Code validity in minutes"
+msgstr "اعتبار کد به دقیقه"
 
 msgid "Code variable name in the pattern"
 msgstr "نام متغیر کد در پترن"
@@ -454,11 +559,20 @@ msgstr "اطلاعات اتصال سرویس پیامک را در تنظیمات
 msgid "Complete the configured purchase milestone before claiming this gift."
 msgstr "برای دریافت این هدیه، تعداد خرید تعیین‌شده را تکمیل کنید."
 
+msgid "Complete the provider connection settings first."
+msgstr "ابتدا اطلاعات اتصال درگاه را کامل کنید."
+
 msgid "Completed"
 msgstr "تکمیل‌شده"
 
 msgid "Confidential values are not displayed again in the admin interface."
 msgstr "مقادیر محرمانه دوباره در رابط مدیریت نمایش داده نمی‌شوند."
+
+msgid "Configuration"
+msgstr "وضعیت تنظیم"
+
+msgid "Configuration complete"
+msgstr "تنظیمات کامل است"
 
 msgid "Configure"
 msgstr "تنظیمات"
@@ -469,8 +583,14 @@ msgstr "ابتدا حساب پیامکی را در تنظیمات اتصال و�
 msgid "Configure an approved commerce template and its parameter mapping."
 msgstr "قالب تأییدشده فروشگاه و نگاشت متغیرهای آن را تنظیم کنید."
 
+msgid "Configure and test the sign-in message"
+msgstr "تنظیم و آزمایش پیام ورود"
+
 msgid "Configure code lifetime and request limits for your site."
 msgstr "عمر کد و سقف درخواست‌ها را متناسب با سایت خود تنظیم کنید."
+
+msgid "Configure each message once. Timing, audiences and gifts stay in their modules."
+msgstr "هر پیام را یک بار در این بخش تنظیم کنید. زمان ارسال، مخاطبان و هدیه در تنظیمات ماژول مربوط به آن قرار دارند."
 
 msgid "Configure provider credentials in SMS settings"
 msgstr "تنظیم اطلاعات اتصال در بخش پیامک"
@@ -502,6 +622,9 @@ msgstr "اتصال به %s"
 msgid "Connected and verified"
 msgstr "متصل و تأییدشده"
 
+msgid "Connection interrupted. Retry to continue the same game."
+msgstr "ارتباط قطع شد. با زدن «ادامهٔ همین بازی»، همان نوبت را دنبال کنید."
+
 msgid "Connection settings"
 msgstr "تنظیمات اتصال"
 
@@ -523,17 +646,29 @@ msgstr "شماره‌های همراه مخاطبان"
 msgid "Continue a purchase with your recovery code"
 msgstr "ادامه خرید با کد بازیابی"
 
+msgid "Continue this game"
+msgstr "ادامهٔ همین بازی"
+
 msgid "Continue to payment, or replace your current cart with the saved products. Prices and availability are checked again. This link does not sign you in."
 msgstr "پرداخت را ادامه دهید یا سبد فعلی را با محصولات ذخیره‌شده جایگزین کنید. قیمت و موجودی دوباره بررسی می‌شوند. این لینک شما را وارد حساب نمی‌کند."
 
 msgid "Continue with Google"
 msgstr "ادامه با حساب گوگل"
 
+msgid "Continue without a prize"
+msgstr "ادامهٔ بازی بدون جایزه"
+
+msgid "Copied"
+msgstr "کپی شد"
+
 msgid "Copied ✓"
 msgstr "کپی شد ✓"
 
 msgid "Copy"
 msgstr "کپی"
+
+msgid "Copy code"
+msgstr "کپی کد"
 
 msgid "Copy discount code"
 msgstr "کپی کد تخفیف"
@@ -586,8 +721,20 @@ msgstr "پاسخ‌ها را از بالا به پایین و از شمارهٔ 
 msgid "Counts page views locally and shows recorded sales and products. Checkout, account pages and administrator visits are excluded. Visitor days are daily browser counts, not a count of unique people."
 msgstr "بازدید صفحه‌ها را محلی می‌شمارد و فروش و کالاهای ثبت‌شده را نمایش می‌دهد. تسویه‌حساب، حساب کاربری و بازدید مدیران مستثنا هستند. «روزهای بازدیدکننده» شمارش روزانهٔ مرورگرهاست، نه تعداد افراد یکتا."
 
+msgid "Coupon amount"
+msgstr "مقدار تخفیف"
+
+msgid "Coupon code"
+msgstr "کد تخفیف"
+
 msgid "Coupon discount amount"
 msgstr "مقدار تخفیف جایزه"
+
+msgid "Coupon expiry"
+msgstr "پایان اعتبار تخفیف"
+
+msgid "Coupon validity in hours"
+msgstr "اعتبار کد تخفیف، به ساعت"
 
 msgid "Coupon-attributed purchases"
 msgstr "خریدهای منتسب به کوپن"
@@ -607,6 +754,9 @@ msgstr "در حال دریافت فاکتور…"
 msgid "Currency"
 msgstr "واحد پول"
 
+msgid "Custom accent color"
+msgstr "رنگ اصلی دلخواه"
+
 msgid "Custom gateway"
 msgstr "درگاه سفارشی"
 
@@ -616,8 +766,14 @@ msgstr "تصویر دلخواه"
 msgid "Customer"
 msgstr "مشتری"
 
+msgid "Customer campaigns"
+msgstr "ارتباط با مشتری"
+
 msgid "Customer lifecycle"
 msgstr "چرخهٔ ارتباط با مشتری"
+
+msgid "Customer name"
+msgstr "نام مشتری"
 
 msgid "Customer purchase history"
 msgstr "تاریخچهٔ خرید مشتری"
@@ -633,6 +789,12 @@ msgstr "مشتری ماه و روز تولد را در جزئیات حساب ی�
 
 msgid "Customize the one-time password email."
 msgstr "متن ایمیل رمز یک‌بارمصرف را شخصی‌سازی کنید."
+
+msgid "Daily attempts for this game"
+msgstr "سهمیهٔ روزانهٔ این بازی"
+
+msgid "Daily attempts in shared mode"
+msgstr "نوبت روزانه در حالت مشترک"
 
 msgid "Daily attempts per customer across all games"
 msgstr "سقف دفعات بازی هر مشتری در روز"
@@ -658,14 +820,26 @@ msgstr "روز"
 msgid "Days from trigger (prediction can be negative)"
 msgstr "روز پس از رویداد (برای پیش‌بینی می‌تواند منفی باشد)"
 
+msgid "Dedicated stock for this game"
+msgstr "موجودی اختصاصی این بازی"
+
 msgid "Default WooCommerce cart page"
 msgstr "صفحه پیش‌فرض سبد خرید ووکامرس"
+
+msgid "Default label for a single reward. Named prizes use the display name in their pool row."
+msgstr "عنوان پیش‌فرض برای جایزهٔ ثابت است. جایزه‌های مخزن با نام همان ردیف نمایش داده می‌شوند."
+
+msgid "Delivery method"
+msgstr "روش ارسال"
 
 msgid "Designed by Mehran Marandi"
 msgstr "طراحی و توسعه توسط مهران مرندی"
 
 msgid "Direct / unknown"
 msgstr "مستقیم / نامشخص"
+
+msgid "Disabled"
+msgstr "خاموش"
 
 msgid "Disabled modules do not load storefront assets or run feature queries. Existing personal-coupon restrictions and scheduled data cleanup remain in effect."
 msgstr "بخش‌های غیرفعال فایل نمایشی بارگذاری نمی‌کنند و پرس‌وجوی اختصاصی اجرا نمی‌کنند. محدودیت کوپن‌های اختصاصی صادرشده و پاک‌سازی دوره‌ای اطلاعات همچنان برقرار است."
@@ -697,11 +871,23 @@ msgstr "هر ماژول در ابتدا غیرفعال است. پیش از فع�
 msgid "Each status is sent once per order. Changed tracking numbers can create a new notification; superseded pending messages are cancelled before sending."
 msgstr "هر وضعیت یک‌بار برای هر سفارش ارسال می‌شود. تغییر کد رهگیری می‌تواند اعلان تازه‌ای ایجاد کند؛ پیام‌های قدیمیِ در صف پیش از ارسال لغو می‌شوند."
 
+msgid "Each variable needs a unique panel name and a value."
+msgstr "برای هر متغیر، یک نام بدون تکرار از پنل و یک مقدار وارد کنید."
+
 msgid "Edge API token or access key"
 msgstr "توکن یا کلید دسترسی Edge API"
 
+msgid "Edit"
+msgstr "ویرایش"
+
+msgid "Edit message"
+msgstr "ویرایش پیام"
+
 msgid "Eligible contacts: %1$d · Invalid rows: %2$d"
 msgstr "مخاطبان واجد شرایط: %1$d · سطرهای نامعتبر: %2$d"
+
+msgid "Eligible product IDs"
+msgstr "شناسهٔ محصولات مشمول تخفیف"
 
 msgid "Email"
 msgstr "ایمیل"
@@ -784,11 +970,17 @@ msgstr "اطلاعات مرسوله را در جعبهٔ انار در سفار�
 msgid "Enter the ID or slug of the template approved in your SMS panel. A template must match the purpose of this message."
 msgstr "شناسه یا نامک الگوی تأییدشده در پنل پیامکی را وارد کنید. کاربرد الگو باید با موضوع این پیام مطابقت داشته باشد."
 
+msgid "Enter the approved template and its variables."
+msgstr "شناسهٔ الگوی تأییدشده و متغیرهای آن را وارد کنید."
+
 msgid "Enter the code we sent to %s."
 msgstr "کدی را که به %s ارسال شد وارد کنید."
 
 msgid "Enter the complete verification code."
 msgstr "کد تأیید را کامل وارد کنید."
+
+msgid "Enter the message text."
+msgstr "متن پیام را وارد کنید."
 
 msgid "Enter the mobile number already linked to your account. Login codes and purchase recovery codes cannot reset your password."
 msgstr "شمارهٔ همراهی را وارد کنید که از قبل به حساب شما متصل است. کد ورود و کد بازیابی خرید برای بازنشانی رمز عبور قابل استفاده نیستند."
@@ -798,6 +990,9 @@ msgstr "شماره دریافت‌کننده پیامک و آخرین کد با�
 
 msgid "Enter the store details. Customers can print an invoice from My Account or use an expiring signed link. Enable the invoice message stage separately if its link should also be sent by SMS."
 msgstr "مشخصات فروشگاه را وارد کنید. مشتری از بخش حساب کاربری یا پیوند امضاشدهٔ مدت‌دار، صورتحساب را چاپ می‌کند. برای ارسال پیوند با پیامک، مرحلهٔ پیام صورتحساب را جداگانه فعال کنید."
+
+msgid "Enter the total in the current store currency. Zero means no monetary budget. New capped coupons reserve their maximum cost, including the tax reduction. Paid orders consume the actual discount and release the remainder. Unused expired coupons release their reservation. Saved unpaid orders keep it reserved. Older uncapped coupons are outside this new budget."
+msgstr "مبلغ کل را با واحد پول فعلی فروشگاه وارد کنید. صفر یعنی بدون سقف پولی. هنگام صدور کد، حداکثر مبلغ تخفیف با احتساب کاهش مالیات رزرو می‌شود. پس از پرداخت، تخفیف واقعی ثبت و باقی‌مانده آزاد می‌شود. اعتبار کد استفاده‌نشده که تمام شود، رزرو آن آزاد می‌شود؛ سفارش ثبت‌شده و پرداخت‌نشده، رزرو خود را نگه می‌دارد. کدهای قدیمیِ بدون سقف مبلغ، خارج از این بودجه‌اند."
 
 msgid "Enter the verification code"
 msgstr "کد تأیید را وارد کنید"
@@ -886,6 +1081,9 @@ msgstr "پرکردن تلفن صورتحساب"
 msgid "Filter"
 msgstr "فیلتر"
 
+msgid "Find four pairs in 24 moves"
+msgstr "چهار جفت را در ۲۴ حرکت پیدا کنید"
+
 msgid "First inactivity reminder"
 msgstr "یادآوری اول عدم خرید"
 
@@ -919,11 +1117,17 @@ msgstr "برای مثال، عدد ۳ یعنی مشتری پس از سومین �
 msgid "For example: 10% off your next order. This name appears above the coupon code and on the winning half of the wheel. This version offers one coupon reward and one no-reward outcome; separate prizes for individual wheel segments are not supported."
 msgstr "برای مثال: «۱۰ درصد تخفیف خرید بعدی». این نام بالای کد تخفیف و، در گردونه، روی نیمهٔ دارای جایزه نمایش داده می‌شود. این نسخه یک جایزهٔ تخفیف و یک نتیجهٔ بدون جایزه دارد؛ تعیین جایزه‌های متفاوت برای بخش‌های گردونه در دسترس نیست."
 
+msgid "For example: 10% off your next order. This name appears on the wheel and above the coupon. Clear it to remove this prize from future draws."
+msgstr "برای مثال: «۱۰ درصد تخفیف خرید بعدی». این نام روی گردونه و بالای کد تخفیف نمایش داده می‌شود. با خالی کردن نام، این جایزه از انتخاب‌های بعدی حذف می‌شود."
+
 msgid "For example: Spin the wheel or Receive my daily gift."
 msgstr "برای مثال: «گردونه را بچرخانید» یا «دریافت هدیهٔ روزانه»."
 
 msgid "For signed-out visitors, every WooCommerce login form and the theme’s login links (header account, side panels, WoodMart dropdowns) use the passwordless form."
 msgstr "برای بازدیدکنندگانی که وارد نشده‌اند، همهٔ فرم‌های ورود ووکامرس و لینک‌های ورود قالب (حساب کاربری در هدر، پنل‌های کناری و منوهای کشویی وودمارت) از فرم ورود بدون رمز استفاده می‌کنند."
+
+msgid "Forest and gold"
+msgstr "سبز و طلایی"
 
 msgid "Forgot your password? Reset it by SMS"
 msgstr "رمز عبور را فراموش کرده‌اید؟ با پیامک بازنشانی کنید"
@@ -937,8 +1141,14 @@ msgstr "لوگوی فرم"
 msgid "Free game attempts per customer / day"
 msgstr "تعداد بازی رایگان هر مشتری در روز"
 
+msgid "Free to play. Coupons are personal and have no cash value."
+msgstr "شرکت در بازی رایگان است. کد تخفیف اختصاصی شماست و ارزش نقدی ندارد."
+
 msgid "Fruit match"
 msgstr "میوه‌های همسان"
+
+msgid "Game appearance"
+msgstr "پوستهٔ بازی‌ها"
 
 msgid "Game attempts"
 msgstr "دفعات بازی"
@@ -951,6 +1161,12 @@ msgstr "مقدار هدیهٔ بازی"
 
 msgid "Game gift probability (%)"
 msgstr "احتمال دریافت هدیهٔ بازی (درصد)"
+
+msgid "Game phone verification"
+msgstr "تأیید شماره برای بازی"
+
+msgid "Game records are being updated. Please try again shortly."
+msgstr "سوابق بازی‌ها در حال به‌روزرسانی است. لطفاً کمی بعد دوباره تلاش کنید."
 
 msgid "Game reward type"
 msgstr "نوع تخفیف جایزه"
@@ -1003,6 +1219,9 @@ msgstr "ورود با گوگل فعال نیست."
 msgid "Google sign-in was cancelled."
 msgstr "ورود با گوگل لغو شد."
 
+msgid "Grape"
+msgstr "انگور"
+
 msgid "Gregorian"
 msgstr "میلادی"
 
@@ -1038,6 +1257,9 @@ msgstr "سقف ارسال ساعتی"
 
 msgid "Hours use the WordPress site timezone. Action Scheduler is used when available; WP-Cron is the fallback. Execution depends on the site scheduler and may be delayed. Retention cleanup runs daily."
 msgstr "ساعت‌ها مطابق منطقه زمانی وردپرس هستند. در صورت وجود، Action Scheduler استفاده می‌شود و در غیر این صورت WP-Cron کارها را اجرا می‌کند. اجرا به زمان‌بند سایت وابسته است و ممکن است تأخیر داشته باشد. پاک‌سازی اطلاعات روزانه انجام می‌شود."
+
+msgid "How daily attempts are counted"
+msgstr "روش محاسبهٔ سهمیهٔ روزانه"
 
 msgid "How to capture carts"
 msgstr "روش ثبت سبدها"
@@ -1090,11 +1312,20 @@ msgstr "سفارش‌های پرداخت‌شدهٔ ووکامرس در دسته
 msgid "Import up to 1,000 phone numbers at a time."
 msgstr "هر بار حداکثر ۱۰۰۰ شمارهٔ همراه درون‌ریزی کنید."
 
+msgid "In template mode this is a reference only. Editing it does not change the approved text in your SMS panel."
+msgstr "در ارسال الگویی، این متن فقط مرجع پیش‌نمایش است. ویرایش آن، متن الگوی تأییدشده در پنل پیامکی را تغییر نمی‌دهد."
+
 msgid "Inactive"
 msgstr "غیرفعال"
 
 msgid "Inactive for at least 30 minutes"
 msgstr "دست‌کم ۳۰ دقیقه بدون تغییر"
+
+msgid "Include inactive messages"
+msgstr "نمایش پیام‌های ماژول‌های خاموش"
+
+msgid "Include the required variable %s."
+msgstr "متغیر ضروری %s را در پیام یا نگاشت قرار دهید."
 
 msgid "Included category IDs (blank = all)"
 msgstr "شناسهٔ دسته‌های مشمول (خالی یعنی همه)"
@@ -1107,6 +1338,9 @@ msgstr "برای اجرای این ماژول‌ها، ووکامرس را نص�
 
 msgid "Invoice number prefix"
 msgstr "پیشوند شمارهٔ صورتحساب"
+
+msgid "Issued or reserved in the shared pool: %d"
+msgstr "صادر یا رزرو شده در مخزن مشترک: %d"
 
 msgid "It may be time to reorder your product."
 msgstr "شاید زمان خرید دوبارهٔ کالای شما رسیده باشد."
@@ -1168,6 +1402,9 @@ msgstr "آخرین خرید"
 msgid "Last successful check: %s"
 msgstr "آخرین بررسی موفق: %s"
 
+msgid "Last test accepted by the provider; handset delivery is not confirmed."
+msgstr "پنل، آخرین ارسال آزمایشی را پذیرفته است؛ دریافت پیام روی گوشی هنوز تأیید نشده است."
+
 msgid "Leave empty to use the account page or home page."
 msgstr "خالی بگذارید تا صفحه پنل یا خانه استفاده شود."
 
@@ -1179,6 +1416,9 @@ msgstr "وقتی موجود شد خبرم کنید."
 
 msgid "Lightweight shortcodes compatible with the Classic and Block editors."
 msgstr "شورت‌کدهای سبک، سازگار با ویرایشگر کلاسیک و بلوکی."
+
+msgid "Limits and customer filters use the shared campaign settings."
+msgstr "محدودیت‌های ارسال و شرایط انتخاب مشتری از تنظیمات مشترک بازاریابی گرفته می‌شوند."
 
 msgid "Local data retention, days (7–90)"
 msgstr "مدت نگهداری داده‌های محلی، به روز (۷ تا ۹۰)"
@@ -1237,11 +1477,29 @@ msgstr "سرشمارهٔ پیش‌فرض مکث‌اس‌ام‌اس 10001 اس�
 msgid "Maximum campaign messages per phone / day"
 msgstr "حداکثر پیام کمپین برای هر شماره در روز"
 
+msgid "Maximum coupons for this prize"
+msgstr "سقف تعداد این جایزه"
+
 msgid "Maximum lifetime spend (0 = no maximum)"
 msgstr "حداکثر مجموع خرید (۰ یعنی بدون سقف)"
 
+msgid "Maximum money discount for the single reward"
+msgstr "سقف مبلغ تخفیف جایزهٔ ثابت"
+
+msgid "Maximum money discount per coupon"
+msgstr "سقف مبلغ تخفیف هر کد"
+
 msgid "Maximum reminders per phone in 24 hours (1–10)"
 msgstr "سقف یادآوری هر شماره در ۲۴ ساعت (۱ تا ۱۰)"
+
+msgid "Maximum saving: %1$s %2$s, including tax."
+msgstr "حداکثر مبلغ تخفیف با احتساب مالیات: %1$s %2$s."
+
+msgid "Maximum winners per pool"
+msgstr "سقف تعداد برنده در هر مخزن"
+
+msgid "Maximum wins per customer"
+msgstr "سقف دریافت این جایزه برای هر مشتری"
 
 msgid "Meli Payamak"
 msgstr "ملی پیامک"
@@ -1258,6 +1516,9 @@ msgstr "عضویت از"
 msgid "Memory match"
 msgstr "بازی حافظه"
 
+msgid "Message"
+msgstr "پیام"
+
 msgid "Message / approved-template reference"
 msgstr "متن پیام / متن الگوی تأییدشده"
 
@@ -1267,11 +1528,17 @@ msgstr "گزارش پیام‌ها"
 msgid "Message preferences"
 msgstr "تنظیم دریافت پیام"
 
+msgid "Message saved."
+msgstr "تنظیمات پیام ذخیره شد."
+
 msgid "Message status"
 msgstr "وضعیت پیام‌ها"
 
 msgid "Message templates"
 msgstr "الگوهای پیام"
+
+msgid "Message text / panel template reference"
+msgstr "متن پیام یا متن مرجع الگوی پنل"
 
 msgid "Message text for a custom gateway / template reference"
 msgstr "متن پیام برای درگاه سفارشی / مرجع قالب"
@@ -1285,6 +1552,9 @@ msgstr "پیام نوبت بدون جایزه"
 msgid "Messages"
 msgstr "پیام‌ها"
 
+msgid "Messages and templates"
+msgstr "پیام‌ها و الگوها"
+
 msgid "Minimum cart amount"
 msgstr "حداقل مبلغ سبد"
 
@@ -1293,6 +1563,9 @@ msgstr "حداقل فاصلهٔ پیام‌های کمپین به ساعت"
 
 msgid "Minimum lifetime spend"
 msgstr "حداقل مجموع خرید"
+
+msgid "Minimum order amount"
+msgstr "حداقل مبلغ خرید"
 
 msgid "Minimum prediction confidence (%)"
 msgstr "حداقل اطمینان پیش‌بینی (درصد)"
@@ -1333,11 +1606,23 @@ msgstr "بررسی دیدگاه کالا"
 msgid "Modules"
 msgstr "ماژول‌ها"
 
+msgid "Monetary budget per pool"
+msgstr "بودجهٔ پولی هر مخزن"
+
 msgid "Month"
 msgstr "ماه"
 
 msgid "More than a single purchase."
 msgstr "ارتباطی فراتر از یک خرید."
+
+msgid "Move down"
+msgstr "انتقال به پایین"
+
+msgid "Move up"
+msgstr "انتقال به بالا"
+
+msgid "Moves"
+msgstr "حرکت"
 
 msgid "My Account sign-in"
 msgstr "ورود در صفحهٔ حساب کاربری"
@@ -1347,6 +1632,9 @@ msgstr "حساب من"
 
 msgid "Need a Meli Payamak account?"
 msgstr "پنل ملی‌پیامک ندارید؟"
+
+msgid "Needs configuration"
+msgstr "نیازمند تنظیم"
 
 msgid "Needs investigation"
 msgstr "نیازمند بررسی"
@@ -1393,6 +1681,9 @@ msgstr "درون‌ریزی تاریخچه در حال اجرا نیست."
 msgid "No logo"
 msgstr "بدون لوگو"
 
+msgid "No messages match these filters."
+msgstr "پیامی با این شرایط پیدا نشد."
+
 msgid "No messages yet."
 msgstr "هنوز پیامی ثبت نشده است."
 
@@ -1426,6 +1717,9 @@ msgstr "اطلاع‌رسانی هنگام موجود شدن"
 msgid "OUTGOING ACTIVITY"
 msgstr "فعالیت ارسال"
 
+msgid "Ocean and sand"
+msgstr "آبی و شنی"
+
 msgid "Off"
 msgstr "خاموش"
 
@@ -1443,6 +1737,9 @@ msgstr "یک فرم واحد، مشتریان فعلی را وارد و مشتر
 
 msgid "One per line as name=value, or a complete JSON object for APIs with nested bodies or numeric values. Sent as the query string for GET requests."
 msgstr "هر پارامتر در یک خط به شکل name=value، یا یک شیء JSON کامل برای وب‌سرویس‌هایی که بدنهٔ تودرتو یا مقدار عددی می‌خواهند. در متد GET به‌صورت query string ارسال می‌شود."
+
+msgid "One shared limit for all games"
+msgstr "سهمیهٔ مشترک بین همهٔ بازی‌ها"
 
 msgid "One-time code"
 msgstr "کد یک‌بارمصرف"
@@ -1492,11 +1789,20 @@ msgstr "فرم ورود با کلیک روی هر لینکی به ‎#anar-login
 msgid "Opens the login popup; signed-in users go to their account. For menus, add a custom link to #anar-login."
 msgstr "پاپ‌آپ ورود را باز می‌کند؛ کاربران واردشده به حساب خود می‌روند. برای منو، یک پیوند دلخواه با آدرس ‎#anar-login‎ اضافه کنید."
 
+msgid "Optional Gregorian dates in the WordPress timezone. The end date is inclusive. Leave both empty for an ongoing promotion."
+msgstr "تاریخ‌ها اختیاری و بر اساس تقویم میلادی و منطقهٔ زمانی وردپرس هستند. روز پایان نیز شامل برنامه می‌شود. برای برگزاری بدون محدودیت زمانی، هر دو کادر را خالی بگذارید."
+
 msgid "Optional but recommended. Delivery counts as successful only for HTTP 2xx responses that contain this text, such as \"status\":200."
 msgstr "اختیاری ولی توصیه‌شده. ارسال فقط وقتی موفق حساب می‌شود که پاسخ HTTP 2xx باشد و این متن را داشته باشد؛ مثلاً \"status\":200."
 
+msgid "Optional comma-separated WooCommerce product IDs. Leave empty for all eligible products."
+msgstr "در صورت نیاز، شناسهٔ محصولات ووکامرس را با ویرگول جدا کنید. کادر خالی یعنی همهٔ محصولات واجد شرایط."
+
 msgid "Optional first-party measurement"
 msgstr "اندازه‌گیری اختیاری در همین سایت"
+
+msgid "Optional six-digit color such as #86405B. Leave empty to use the selected palette. All games use your site font."
+msgstr "در صورت نیاز، کد رنگ شش‌رقمی مانند #86405B را وارد کنید. کادر خالی یعنی استفاده از رنگ پوسته. قلم همهٔ بازی‌ها از سایت شما گرفته می‌شود."
 
 msgid "Optional. One per line as Name: value."
 msgstr "اختیاری. هر هدر در یک خط به شکل Name: value."
@@ -1513,6 +1819,9 @@ msgstr "صورتحساب سفارش"
 msgid "Order notifications"
 msgstr "اعلان‌های سفارش"
 
+msgid "Order number"
+msgstr "شمارهٔ سفارش"
+
 msgid "Order on hold"
 msgstr "سفارش در انتظار بررسی"
 
@@ -1521,6 +1830,12 @@ msgstr "سفارش در حال پردازش"
 
 msgid "Order refunded"
 msgstr "سفارش مستردشده"
+
+msgid "Order status"
+msgstr "وضعیت سفارش"
+
+msgid "Order total"
+msgstr "مبلغ سفارش"
 
 msgid "Orders"
 msgstr "سفارش‌ها"
@@ -1557,6 +1872,15 @@ msgstr "سفارش‌های پرداخت‌شده"
 
 msgid "Paid orders per purchase milestone"
 msgstr "تعداد سفارش پرداخت‌شده برای هر جایزهٔ خرید"
+
+msgid "Pairs"
+msgstr "جفت"
+
+msgid "Panel variable mapping"
+msgstr "ارتباط متغیرهای پنل با اطلاعات فروشگاه"
+
+msgid "Panel variable name"
+msgstr "نام متغیر در پنل"
 
 msgid "Panelchi uses source number 10001. Leave blank to use this default."
 msgstr "سرشماره پنل‌چی 10001 است. برای استفاده از این مقدار پیش‌فرض، خالی بگذارید."
@@ -1606,6 +1930,12 @@ msgstr "هشدار پرداخت ناموفق"
 msgid "Payment messages are triggered by WooCommerce payment completion, not by viewing the thank-you page. Merely creating an order or choosing cash on delivery does not trigger them."
 msgstr "اعلان پرداخت با تأیید پرداخت ووکامرس اجرا می‌شود. مشاهده صفحه تشکر، ساخت سفارش یا انتخاب پرداخت در محل به‌تنهایی پیامکی ارسال نمی‌کند."
 
+msgid "Pending commitments: %1$s. Actual discounts spent: %2$s. Currency: %3$s."
+msgstr "مبلغ رزروشده: %1$s. تخفیف مصرف‌شده: %2$s. واحد پول: %3$s."
+
+msgid "Per-game limits and a total daily limit"
+msgstr "سهمیهٔ هر بازی همراه با سقف کل روزانه"
+
 msgid "Percentage"
 msgstr "درصدی"
 
@@ -1624,8 +1954,17 @@ msgstr "انتخاب جعبهٔ هدیه"
 msgid "Placeholders: {to} recipient, {code} one-time code, {message} full text, {sender} sender number."
 msgstr "متغیرها: {to} گیرنده، {code} کد یک‌بارمصرف، {message} متن کامل، {sender} شمارهٔ فرستنده."
 
+msgid "Plain text"
+msgstr "پیامک متنی"
+
+msgid "Plain-text delivery needs a supported provider and sender number."
+msgstr "برای ارسال متنی، درگاه پشتیبانی‌شده و شمارهٔ فرستنده لازم است."
+
 msgid "Play for a chance to receive a personal store coupon."
 msgstr "در بازی شرکت کنید و شانس دریافت کد تخفیف اختصاصی فروشگاه را داشته باشید."
+
+msgid "Play limits and campaign"
+msgstr "سهمیه و زمان برگزاری بازی‌ها"
 
 msgid "Please agree to sending your registration details to MRNWP and Meli Payamak."
 msgstr "برای ادامه، ارسال اطلاعات ثبت‌نام به MRNWP و ملی‌پیامک را تأیید کنید."
@@ -1657,8 +1996,14 @@ msgstr "دکمهٔ پاپ‌آپ"
 msgid "Post-purchase surveys"
 msgstr "نظرسنجی پس از خرید"
 
+msgid "Predicted purchase date"
+msgstr "تاریخ پیش‌بینی خرید"
+
 msgid "Predicted purchase day"
 msgstr "روز خرید پیش‌بینی‌شده"
+
+msgid "Prediction confidence"
+msgstr "اطمینان پیش‌بینی"
 
 msgid "Prediction model"
 msgstr "مدل پیش‌بینی"
@@ -1668,6 +2013,9 @@ msgstr "پیش‌بینی، هدایا و تجربهٔ مشتری"
 
 msgid "Prepare a bulk campaign"
 msgstr "آماده‌سازی ارسال گروهی"
+
+msgid "Preparing your result…"
+msgstr "نتیجهٔ بازی در حال آماده شدن است…"
 
 msgid "Preview eligible audience"
 msgstr "پیش‌نمایش مخاطبان واجد شرایط"
@@ -1684,8 +2032,26 @@ msgstr "چاپ صورتحساب"
 msgid "Printable invoices"
 msgstr "صورتحساب قابل چاپ"
 
+msgid "Prize %d — unused"
+msgstr "جایزهٔ %d؛ تعریف نشده"
+
+msgid "Prize display name"
+msgstr "نام نمایشی جایزه"
+
+msgid "Prize pool for this game"
+msgstr "مخزن جایزهٔ این بازی"
+
+msgid "Prize selection weight"
+msgstr "وزن انتخاب جایزه"
+
 msgid "Product / variation"
 msgstr "کالا / متغیر"
+
+msgid "Product URL"
+msgstr "نشانی محصول"
+
+msgid "Product name"
+msgstr "نام محصول"
 
 msgid "Product purchase intervals"
 msgstr "فاصلهٔ خریدهای کالا"
@@ -1762,6 +2128,9 @@ msgstr "مسیر بازگشت به خرید"
 msgid "Raw OTPs are never stored in the database."
 msgstr "OTP خام هرگز در دیتابیس ذخیره نمی‌شود."
 
+msgid "Receive today’s gift"
+msgstr "دریافت هدیهٔ امروز"
+
 msgid "Recent customer profiles"
 msgstr "پروفایل مشتریان اخیر"
 
@@ -1816,6 +2185,9 @@ msgstr "پیام یادآوری باید کد، آدرس صفحه بازیابی
 msgid "Recovery messages must include the recovery code and unsubscribe link."
 msgstr "پیام یادآوری باید کد بازیابی و لینک لغو دریافت را داشته باشد."
 
+msgid "Recovery page URL"
+msgstr "نشانی صفحهٔ بازیابی خرید"
+
 msgid "Recovery sending starts at hour (0–23)"
 msgstr "ساعت شروع ارسال یادآوری (۰ تا ۲۳)"
 
@@ -1864,6 +2236,9 @@ msgstr "زمان‌بندی یادآوری و حریم خصوصی"
 msgid "Reminders stopped"
 msgstr "یادآوری متوقف شد"
 
+msgid "Remove"
+msgstr "حذف"
+
 msgid "Replace the WooCommerce forms"
 msgstr "جایگزینی فرم‌های ووکامرس"
 
@@ -1882,11 +2257,20 @@ msgstr "پاسخ درخواست، وجود حساب را افشا نمی‌کن�
 msgid "Requested recovery code"
 msgstr "کد بازیابی درخواستی"
 
+msgid "Required variables"
+msgstr "متغیرهای ضروری"
+
+msgid "Required when a monetary budget is enabled and no named prizes are configured. This is the maximum saving from one coupon, including tax, in the store currency. Zero leaves the old reward uncapped when no monetary budget is set."
+msgstr "اگر بودجهٔ پولی فعال است و مخزن جایزه تعریف نشده، این سقف را تعیین کنید. مبلغ، حداکثر تخفیف هر کد با احتساب مالیات و بر اساس واحد پول فروشگاه است. وقتی بودجهٔ پولی ندارید، صفر یعنی ادامهٔ جایزهٔ قبلی بدون سقف مبلغ."
+
 msgid "Resend code"
 msgstr "ارسال دوباره"
 
 msgid "Resend interval"
 msgstr "فاصله ارسال مجدد"
+
+msgid "Reserved and spent from this pool: %1$s %2$s."
+msgstr "مجموع تعهد و مصرف این مخزن: %1$s %2$s."
 
 msgid "Results and outgoing queue"
 msgstr "نتایج و صف ارسال"
@@ -1908,6 +2292,9 @@ msgstr "قبلاً از ما خرید کرده‌اید؟"
 
 msgid "Reveal my result"
 msgstr "نمایش نتیجهٔ من"
+
+msgid "Reveal without scratching"
+msgstr "نمایش نتیجه بدون خراشیدن"
 
 msgid "Reveal your surprise"
 msgstr "سورپرایزتان را ببینید"
@@ -1963,6 +2350,18 @@ msgstr "واحد پیامکی"
 msgid "SMS, email and Google login, SMS password reset, cart recovery and customer communication tools for WooCommerce."
 msgstr "ورود با پیامک، ایمیل و گوگل، بازیابی رمز پیامکی، بازیابی سبد و ابزارهای ارتباط با مشتری ووکامرس."
 
+msgid "Sample"
+msgstr "نمونه"
+
+msgid "Sample campaign content"
+msgstr "متن نمونهٔ کمپین"
+
+msgid "Sample preview"
+msgstr "پیش‌نمایش نمونه"
+
+msgid "Save and return"
+msgstr "ذخیره و بازگشت"
+
 msgid "Save balance settings"
 msgstr "ذخیره تنظیمات اعتبار"
 
@@ -1978,6 +2377,12 @@ msgstr "ذخیره تغییرات"
 msgid "Save feature selection"
 msgstr "ذخیرهٔ انتخاب قابلیت‌ها"
 
+msgid "Save first. This sends sample values through this exact message configuration and may use SMS credit. No order, campaign or real discount is created."
+msgstr "ابتدا تنظیمات را ذخیره کنید. پیام آزمایشی با داده‌های نمونه و همین الگو و درگاه ارسال می‌شود و ممکن است از اعتبار پیامکی شما کم کند. سفارش، کمپین یا کد تخفیف واقعی ایجاد نمی‌شود."
+
+msgid "Save message"
+msgstr "ذخیرهٔ پیام"
+
 msgid "Save only your birthday month and day to receive a birthday greeting when enabled by the store. Your birth year is not requested."
 msgstr "فقط ماه و روز تولدتان را ذخیره کنید تا در صورت فعال بودن این امکان، پیام تبریک بگیرید. سال تولد درخواست نمی‌شود."
 
@@ -1986,6 +2391,9 @@ msgstr "ذخیره ترجیح یادآوری"
 
 msgid "Save settings"
 msgstr "ذخیره تنظیمات"
+
+msgid "Save the message before sending a test."
+msgstr "پیش از ارسال آزمایشی، تنظیمات پیام را ذخیره کنید."
 
 msgid "Save the order to queue a shipment SMS when this event is enabled and its template is configured."
 msgstr "اگر این رویداد فعال و الگوی آن تنظیم باشد، با ذخیرهٔ سفارش پیامک مرسوله در صف قرار می‌گیرد."
@@ -2022,6 +2430,15 @@ msgstr "کارت خراشیدنی"
 
 msgid "Scratch or tap to reveal"
 msgstr "برای نمایش، بکشید یا بزنید"
+
+msgid "Scratch the silver cover"
+msgstr "پوشش نقره‌ای کارت را بخراشید"
+
+msgid "Scratch with your finger or mouse, or use the reveal button below."
+msgstr "با انگشت یا ماوس بخراشید، یا دکمهٔ نمایش نتیجه را بزنید."
+
+msgid "Search messages"
+msgstr "جست‌وجوی پیام"
 
 msgid "Second inactivity reminder"
 msgstr "یادآوری دوم عدم خرید"
@@ -2086,6 +2503,9 @@ msgstr "شمارهٔ فرستنده (اختیاری)"
 msgid "Sending"
 msgstr "در حال ارسال"
 
+msgid "Sending report"
+msgstr "گزارش ارسال"
+
 msgid "Sending…"
 msgstr "در حال ارسال…"
 
@@ -2116,14 +2536,32 @@ msgstr "تنظیمات"
 msgid "Share your link. An eligible first purchase can earn a personal coupon after completion and the store refund waiting period. Self-referrals and refunded orders do not qualify."
 msgstr "پیوندتان را به اشتراک بگذارید. اولین خرید واجد شرایط می‌تواند پس از تکمیل و پایان مهلت بازگشت وجه، برای شما کوپن اختصاصی داشته باشد. معرفی خود و سفارش مستردشده مشمول نیستند."
 
+msgid "Shared campaign settings"
+msgstr "تنظیمات مشترک بازاریابی"
+
+msgid "Shared campaign settings saved."
+msgstr "تنظیمات مشترک بازاریابی ذخیره شد."
+
 msgid "Shared play and reward settings"
 msgstr "تنظیمات مشترک بازی‌ها و جایزه"
+
+msgid "Shared pool: %1$d coupons reserved or issued; %2$s percentage points used."
+msgstr "مخزن مشترک: %1$d کد رزرو یا صادر شده؛ %2$s واحد درصد مصرف شده است."
+
+msgid "Shared prize pool"
+msgstr "مخزن جوایز"
+
+msgid "Shared with other games"
+msgstr "مشترک با بازی‌های دیگر"
 
 msgid "Ship to"
 msgstr "ارسال به"
 
 msgid "Shipment tracking"
 msgstr "رهگیری مرسوله"
+
+msgid "Shipping carrier"
+msgstr "شرکت حمل‌ونقل"
 
 msgid "Show above the WooCommerce forms"
 msgstr "نمایش بالای فرم‌های ووکامرس"
@@ -2179,8 +2617,14 @@ msgstr "ورود و امنیت"
 msgid "Sign-in and recovery"
 msgstr "ورود و بازیابی رمز"
 
+msgid "Sign-in and verification"
+msgstr "ورود و تأیید شماره"
+
 msgid "Sign-in at checkout"
 msgstr "ورود در صفحهٔ تسویه‌حساب"
+
+msgid "Sign-in code"
+msgstr "کد ورود"
 
 msgid "Sign-in icon only"
 msgstr "فقط آیکون ورود"
@@ -2194,6 +2638,9 @@ msgstr "در حال ورود…"
 msgid "Single use"
 msgstr "مصرف یک‌باره"
 
+msgid "Site domain"
+msgstr "دامنهٔ سایت"
+
 msgid "Site logo"
 msgstr "لوگوی سایت"
 
@@ -2203,6 +2650,12 @@ msgstr "پیشنهاد هوشمند کالا"
 msgid "Spend"
 msgstr "مجموع خرید"
 
+msgid "Spin the wheel"
+msgstr "چرخاندن گردونه"
+
+msgid "Spin to discover your gift"
+msgstr "گردونه را بچرخانید و نتیجه را ببینید"
+
 msgid "Stage times are minutes after the last saved cart change. A value of 0 disables that stage. Payment, cancellation, expiry or opting out stops future reminders. Guest carts without a saved number cannot receive SMS."
 msgstr "زمان هر مرحله بر حسب دقیقه پس از آخرین تغییر ذخیره‌شده سبد است. مقدار صفر آن مرحله را غیرفعال می‌کند. پرداخت، لغو، انقضا یا انصراف مشتری، یادآوری‌ها را متوقف می‌کند. سبد مهمان بدون شماره ثبت‌شده پیامکی دریافت نمی‌کند."
 
@@ -2211,6 +2664,12 @@ msgstr "شروع / ادامهٔ درون‌ریزی تاریخچه"
 
 msgid "Start button text"
 msgstr "متن دکمهٔ شروع"
+
+msgid "Start the reels"
+msgstr "شروع بازی میوه‌ها"
+
+msgid "Start the reels and see your result"
+msgstr "قرقره‌ها را به حرکت درآورید"
 
 msgid "Started"
 msgstr "شروع‌شده"
@@ -2224,6 +2683,9 @@ msgstr "وضعیت"
 msgid "Stock notification request"
 msgstr "درخواست اطلاع موجودی"
 
+msgid "Stock request verification"
+msgstr "تأیید درخواست اطلاع از موجودی"
+
 msgid "Stock subscriptions"
 msgstr "درخواست‌های اطلاع موجودی"
 
@@ -2235,6 +2697,9 @@ msgstr "توقف یادآوری‌های بعدی"
 
 msgid "Stop marketing messages?"
 msgstr "پیام‌های بازاریابی متوقف شوند؟"
+
+msgid "Stop new games"
+msgstr "توقف شرکت در بازی"
 
 msgid "Stop purchase reminders"
 msgstr "لغو یادآوری خرید"
@@ -2248,8 +2713,17 @@ msgstr "نشانی فروشگاه"
 msgid "Store communication"
 msgstr "ارتباط با مشتریان"
 
+msgid "Store currency"
+msgstr "واحد پول فروشگاه"
+
+msgid "Store discount"
+msgstr "تخفیف فروشگاه"
+
 msgid "Store display name"
 msgstr "نام نمایشی فروشگاه"
+
+msgid "Store name"
+msgstr "نام فروشگاه"
 
 msgid "Store overview"
 msgstr "گزارش فروشگاه"
@@ -2265,6 +2739,9 @@ msgstr "شناسهٔ مالیاتی / ثبتی فروشگاه"
 
 msgid "Store tax / registration ID:"
 msgstr "شناسهٔ مالیاتی / ثبتی فروشگاه:"
+
+msgid "Store value or variable"
+msgstr "مقدار یا متغیر فروشگاه"
 
 msgid "Storefront shortcodes"
 msgstr "کدهای کوتاه فروشگاه"
@@ -2284,14 +2761,23 @@ msgstr "نمای کلی"
 msgid "Technical error log"
 msgstr "گزارش خطای فنی"
 
+msgid "Template"
+msgstr "الگو"
+
 msgid "Template ID"
 msgstr "شناسه قالب"
 
 msgid "Template body ID"
 msgstr "Body ID الگو"
 
+msgid "Template preview uses your reference text; provider approval and handset delivery are not verified here."
+msgstr "این نمونه بر اساس متن مرجع شما ساخته می‌شود. تأیید الگو در پنل و دریافت پیام روی گوشی از این بخش مشخص نمی‌شود."
+
 msgid "Template providers only use {code}; this message is available to developers and text-message providers."
 msgstr "درگاه‌های الگویی فقط از مقدار {code} استفاده می‌کنند؛ این متن برای توسعه‌دهندگان و درگاه‌های متنی آماده است."
+
+msgid "Test accepted by the provider. Check the recipient phone."
+msgstr "پنل، ارسال آزمایشی را پذیرفت. دریافت پیام را روی گوشی بررسی کنید."
 
 msgid "Tests the provider and details currently entered above, even before saving. The provider’s exact response is shown if delivery fails."
 msgstr "درگاه و اطلاعاتی که همین الان در بالا وارد کرده‌اید آزمایش می‌شود، حتی پیش از ذخیره. در صورت خطا، پاسخ دقیق سرویس پیامک نمایش داده می‌شود."
@@ -2356,23 +2842,44 @@ msgstr "کد، آدرس صفحه بازیابی و لینک لغو دریافت 
 msgid "The custom gateway JSON parameters are not valid JSON."
 msgstr "پارامترهای JSON درگاه سفارشی معتبر نیستند."
 
+msgid "The custom gateway must include {code} or {message} for verification messages."
+msgstr "در تنظیمات درگاه سفارشی، متغیر {code} یا {message} را برای ارسال پیام تأیید قرار دهید."
+
 msgid "The custom gateway must use the {message} placeholder for commerce messages."
 msgstr "درگاه سفارشی باید برای پیام فروشگاه از جای‌نگهدار {message} استفاده کند."
+
+msgid "The custom gateway uses the message text."
+msgstr "درگاه سفارشی از متن پیام استفاده می‌کند."
 
 msgid "The email could not be sent. Please check the site email settings."
 msgstr "ارسال ایمیل ناموفق بود. تنظیمات ایمیل سایت را بررسی کنید."
 
+msgid "The game discount is no longer valid for this order. Recheck the coupon before payment."
+msgstr "تخفیف بازی برای این سفارش معتبر نیست. لطفاً پیش از پرداخت، کد تخفیف را دوباره بررسی کنید."
+
 msgid "The heading displayed above this game on your site."
 msgstr "این عنوان در بالای همین بازی در سایت نمایش داده می‌شود."
 
+msgid "The label on wheel segments without a prize. The chance of winning is configured above."
+msgstr "عنوان بخش‌های بدون جایزهٔ گردونه است. احتمال برد را در تنظیمات بالای صفحه تعیین کنید."
+
 msgid "The last balance check failed."
 msgstr "بررسی موجودی ناموفق بود"
+
+msgid "The last test was not confirmed by the provider."
+msgstr "پذیرش آخرین ارسال آزمایشی از سوی پنل تأیید نشده است."
 
 msgid "The login code could not be created."
 msgstr "امکان ساخت کد ورود وجود ندارد."
 
 msgid "The login code could not be sent. Please try again later."
 msgstr "ارسال کد ورود ناموفق بود. لطفاً کمی بعد دوباره تلاش کنید."
+
+msgid "The maximum total saving, including the tax reduction, in the store currency. Required for every prize when a monetary budget is enabled. The original percentage still applies up to this ceiling. Zero leaves the prize uncapped when no monetary budget is set."
+msgstr "حداکثر مبلغ تخفیف با احتساب کاهش مالیات، بر اساس واحد پول فروشگاه است. با فعال بودن بودجهٔ پولی، برای هر جایزه این سقف را تعیین کنید. درصد جایزه تا همین مبلغ اعمال می‌شود. اگر بودجهٔ پولی ندارید، صفر یعنی بدون سقف مبلغ."
+
+msgid "The message changed in another session. Reload before saving."
+msgstr "تنظیمات این پیام هم‌زمان تغییر کرده است. صفحه را دوباره بارگذاری کنید و پس از بررسی، ذخیره کنید."
 
 msgid "The page that contains the [anar_account] shortcode."
 msgstr "صفحه‌ای که شورت‌کد [anar_account] در آن قرار دارد."
@@ -2391,6 +2898,9 @@ msgstr "رنگ اصلی فرم ورود و پنل کاربری."
 
 msgid "The product you requested is back in stock."
 msgstr "کالایی که منتظرش بودید دوباره موجود شده است."
+
+msgid "The provider account changed. Review and save this message again."
+msgstr "اطلاعات حساب درگاه تغییر کرده است. الگوی این پیام را بررسی و دوباره ذخیره کنید."
 
 msgid "The provider balance unit changed. Save the alert threshold again to confirm the new unit."
 msgstr "واحد موجودی این حساب تغییر کرده است. حد هشدار را مطابق واحد جدید تنظیم و دوباره ذخیره کنید."
@@ -2431,6 +2941,9 @@ msgstr "نشانی درخواست ورود تغییر کرده است."
 msgid "The store quiz is not configured yet."
 msgstr "مسابقهٔ فروشگاه هنوز تنظیم نشده است."
 
+msgid "The store quiz will be available soon."
+msgstr "مسابقهٔ فروشگاه به‌زودی آماده می‌شود."
+
 msgid "The verification code could not be created. Please try again."
 msgstr "ایجاد کد تأیید انجام نشد. لطفاً دوباره تلاش کنید."
 
@@ -2445,6 +2958,15 @@ msgstr "کد تأیید ارسال شد. آن را در کادر زیر وارد
 
 msgid "The verification step expired. Please sign in again."
 msgstr "مهلت مرحلهٔ تأیید تمام شد. لطفاً دوباره وارد شوید."
+
+msgid "The wheel shows possible prizes. Segment size does not indicate the chance of winning."
+msgstr "بخش‌های گردونه، نتیجه‌های ممکن را نشان می‌دهند. اندازهٔ هر بخش بیانگر احتمال برد آن نیست."
+
+msgid "These settings affect all customer campaigns, including birthday and repeat-purchase messages."
+msgstr "این تنظیمات روی همهٔ کمپین‌های ارتباط با مشتری، از جمله تولد و یادآوری خرید مجدد، اثر می‌گذارند."
+
+msgid "These two fields apply only when no named prize rows are configured. A win issues one personal, single-use coupon valid for 48 hours."
+msgstr "اگر هیچ ردیفی در مخزن جایزه تعریف نشده باشد، این دو مقدار استفاده می‌شوند. جایزه یک کد تخفیف اختصاصی و یک‌بارمصرف با اعتبار ۴۸ ساعت است."
 
 msgid "Third inactivity reminder"
 msgstr "یادآوری سوم عدم خرید"
@@ -2464,6 +2986,9 @@ msgstr "این کمپین قبلاً در صف قرار گرفته است."
 msgid "This document reflects the current order and payment status. Use your browser print dialog to print it or save it as PDF."
 msgstr "این سند وضعیت فعلی سفارش و پرداخت را نشان می‌دهد. از پنجرهٔ چاپ مرورگر برای چاپ یا ذخیره به صورت PDF استفاده کنید."
 
+msgid "This game could not be found. Reload the page."
+msgstr "نوبت بازی پیدا نشد. لطفاً صفحه را دوباره بارگذاری کنید."
+
 msgid "This game expired. Try again when your next play is available."
 msgstr "این بازی منقضی شده است. در نوبت مجاز بعدی دوباره امتحان کنید."
 
@@ -2473,6 +2998,9 @@ msgstr "این بازی در دسترس نیست."
 msgid "This gateway has no standard balance endpoint."
 msgstr "این درگاه مسیر استاندارد دریافت موجودی ندارد."
 
+msgid "This gift cannot be used in a new order. Check its expiry or continue the order where it was applied."
+msgstr "امکان استفاده از این هدیه در سفارش جدید وجود ندارد. اعتبار آن را بررسی کنید یا سفارش قبلیِ دارای این کد را ادامه دهید."
+
 msgid "This invoice link is invalid, expired or does not belong to you."
 msgstr "پیوند این صورتحساب نامعتبر، منقضی یا متعلق به شما نیست."
 
@@ -2481,6 +3009,12 @@ msgstr "این عدد، مجموع دفعات مجاز بازی برای هر م
 
 msgid "This link is invalid or expired."
 msgstr "این پیوند نامعتبر یا منقضی است."
+
+msgid "This message does not provide %s."
+msgstr "متغیر %s برای این پیام در دسترس نیست."
+
+msgid "This message is unavailable."
+msgstr "این پیام در دسترس نیست."
 
 msgid "This number cannot be linked to this account. Contact the store for assistance."
 msgstr "امکان اتصال این شماره به حساب شما وجود ندارد. لطفاً با پشتیبانی فروشگاه تماس بگیرید."
@@ -2494,6 +3028,12 @@ msgstr "این نوبت بازی قبلاً رزرو شده است. پیش از 
 msgid "This preview supports up to 10,000 contacts. Narrow the audience before launching a larger campaign."
 msgstr "این پیش‌نمایش حداکثر ۱۰٬۰۰۰ مخاطب را پشتیبانی می‌کند. برای کمپین بزرگ‌تر، گروه مخاطبان را محدودتر کنید."
 
+msgid "This promotion is not currently available."
+msgstr "در حال حاضر امکان شرکت در این برنامه وجود ندارد."
+
+msgid "This provider does not support plain-text delivery here."
+msgstr "این درگاه در این مسیر از ارسال متنی پشتیبانی نمی‌کند."
+
 msgid "This purchase no longer needs a reminder, or its link has expired."
 msgstr "این خرید دیگر به یادآوری نیاز ندارد یا لینک آن منقضی شده است."
 
@@ -2503,6 +3043,9 @@ msgstr "این تخفیف فقط برای شمارهٔ همراه دریافت�
 msgid "This reminder link is invalid or has expired."
 msgstr "لینک یادآوری نامعتبر یا منقضی شده است."
 
+msgid "This reserved gift has expired. Start again when another attempt is available."
+msgstr "اعتبار جایزهٔ رزروشده به پایان رسیده است. پس از در دسترس بودن نوبت بعدی، دوباره شرکت کنید."
+
 msgid "This stops future campaign and abandoned-cart reminders for your number. Payment and shipment service notices are separate."
 msgstr "این کار کمپین‌ها و یادآوری سبد رهاشده را برای شمارهٔ شما متوقف می‌کند. اعلان‌های خدماتی پرداخت و مرسوله مستقل هستند."
 
@@ -2511,6 +3054,9 @@ msgstr "ثبت این درخواست در دسترس نیست."
 
 msgid "This survey is no longer available."
 msgstr "این نظرسنجی دیگر در دسترس نیست."
+
+msgid "Today is another opportunity"
+msgstr "امروز هم فرصتی برای دریافت هدیه است"
 
 msgid "Too many incorrect attempts. Please request a new code."
 msgstr "تعداد تلاش‌های نادرست زیاد بود. لطفاً کد جدید دریافت کنید."
@@ -2529,6 +3075,15 @@ msgstr "تعداد درخواست‌ها بیش از حد مجاز است. کم�
 
 msgid "Top recorded products"
 msgstr "کالاهای برتر ثبت‌شده"
+
+msgid "Total daily attempts in combined mode"
+msgstr "سقف مجموع نوبت‌ها در حالت ترکیبی"
+
+msgid "Total percentage points per pool"
+msgstr "سقف مجموع واحد درصد در هر مخزن"
+
+msgid "Tracking URL"
+msgstr "نشانی رهگیری"
 
 msgid "Tracking number"
 msgstr "کد رهگیری"
@@ -2554,6 +3109,12 @@ msgstr "دو شورت‌کد سبک، سازگار با ویرایشگر کلا�
 msgid "Two-step verification"
 msgstr "ورود دومرحله‌ای"
 
+msgid "Unsubscribe URL"
+msgstr "پیوند لغو دریافت"
+
+msgid "Use a generic verification template approved for these purposes. Changing the shared sign-in template affects the messages that use it."
+msgstr "از الگوی عمومی تأیید کد که برای این کاربردها در پنل تأیید شده است استفاده کنید. تغییر الگوی مشترک ورود روی پیام‌هایی که از آن استفاده می‌کنند نیز اثر دارد."
+
 msgid "Use a password between 12 and 4096 bytes long."
 msgstr "رمز عبوری با طول ۱۲ تا ۴۰۹۶ بایت انتخاب کنید."
 
@@ -2563,11 +3124,32 @@ msgstr "استفاده از سرویس فروشگاه"
 msgid "Use on your site"
 msgstr "استفاده در سایت"
 
+msgid "Use the exact panel variable names. For Meli Payamak, row order must match the approved template."
+msgstr "نام متغیرها باید دقیقاً مطابق پنل باشد. در ملی‌پیامک، ترتیب ردیف‌ها را مطابق ترتیب متغیرهای الگوی تأییدشده تنظیم کنید."
+
 msgid "Use the exact variable names from the approved provider template, one name={placeholder} per line. Include {unsubscribe_url}; surveys also require {action_url}."
 msgstr "نام دقیق متغیرهای الگوی تأییدشدهٔ پنل را وارد کنید؛ هر name={placeholder} در یک خط. {unsubscribe_url} الزامی است و نظرسنجی به {action_url} نیز نیاز دارد."
 
+msgid "Use the sign-in template for this verification message"
+msgstr "استفاده از الگوی ورود برای این پیام تأیید"
+
+msgid "Used for messages whose delivery method is plain text. Approved-template messages use the panel service line."
+msgstr "این شماره برای پیام‌هایی استفاده می‌شود که روش ارسالشان «پیامک متنی» است. پیام‌های الگویی از خط خدماتی پنل ارسال می‌شوند."
+
+msgid "Used in separate and combined modes. A value of 1 lets each customer play this game once a day."
+msgstr "در حالت مستقل و ترکیبی استفاده می‌شود. عدد ۱ یعنی هر مشتری می‌تواند روزانه یک بار در این بازی شرکت کند."
+
+msgid "Used only after a winning result. Weights 6, 3 and 1 give available prizes relative chances of 60%, 30% and 10%. Sold-out prizes are removed before drawing."
+msgstr "پس از مشخص شدن برد، جایزه با این وزن‌ها انتخاب می‌شود. برای مثال، وزن‌های ۶، ۳ و ۱ به‌ترتیب سهم ۶۰، ۳۰ و ۱۰ درصدی دارند. جایزه‌ای که موجودی‌اش تمام شده باشد، پیش از انتخاب کنار گذاشته می‌شود."
+
+msgid "Used only in shared mode. Separate limits are set inside each game below."
+msgstr "این عدد فقط در حالت سهمیهٔ مشترک استفاده می‌شود. سهمیهٔ مستقل را در بخش هر بازی تنظیم کنید."
+
 msgid "Username"
 msgstr "نام کاربری"
+
+msgid "Uses the sign-in template"
+msgstr "از الگوی ورود استفاده می‌کند"
 
 msgid "VIP customers"
 msgstr "مشتریان ویژه"
@@ -2638,14 +3220,26 @@ msgstr "عنوان بخش بدون جایزهٔ گردونه"
 msgid "When enabled by this store, Anar saves checkout/account mobile numbers and cart contents for reminders without a separate checkbox. A notice is shown at cart/checkout; every marketing message includes an unsubscribe link. Optional campaigns keep customer contact details, paid-order/product facts, stock requests, honest purchase feedback, birthday month/day and calendar, referral relationships, game attempts and personal coupon references locally. No birth year is requested. Coupon gifts are single-use and phone-bound; survey gifts do not depend on a positive rating. Provider credentials and plaintext login/reset codes are never written to campaign reports. The selected SMS provider receives recipient numbers and configured message variables. Optional traffic analytics use a first-party random browser identifier lasting up to 30 days, daily keyed hashes and referring hostnames, excluding checkout/account pages and administrator visits; no raw IP or full referrer URL is retained in traffic reports. Configure and disclose the selected modules, provider, purposes and retention period here. WordPress personal-data tools and administrator phone erasure remove local marketing records and revoke unused personal gifts without deleting WooCommerce orders. Minimal suppression hashes may remain to remember stopped messages."
 msgstr "در صورت فعال‌سازی فروشگاه، انار شمارهٔ همراه حساب یا تسویه‌حساب و محتوای سبد را بدون تیک جداگانه برای یادآوری ذخیره می‌کند. اطلاعیه در سبد و تسویه‌حساب نمایش داده می‌شود و هر پیام بازاریابی لینک لغو دریافت دارد. کمپین‌های اختیاری اطلاعات تماس، سوابق سفارش پرداخت‌شده و کالا، درخواست موجودی، بازخورد خرید، ماه و روز تولد و تقویم، روابط معرفی دوستان، دفعات بازی و ارجاع کوپن‌های اختصاصی را محلی نگه می‌دارند. سال تولد درخواست نمی‌شود. کوپن‌های هدیهٔ تولیدشده یک‌بارمصرف و محدود به شمارهٔ همراه هستند؛ هدیهٔ نظرسنجی به امتیاز مثبت وابسته نیست. اطلاعات دسترسی سرویس‌دهنده و کدهای ورود و بازنشانیِ خوانا در گزارش کمپین ذخیره نمی‌شوند. سرویس پیامک انتخاب‌شده شمارهٔ گیرنده و متغیرهای تنظیم‌شده را دریافت می‌کند. آمار اختیاری بازدید از شناسهٔ تصادفی مرورگر همان سایت با عمر حداکثر ۳۰ روز، هش کلیددار روزانه و نام میزبان ارجاع‌دهنده استفاده می‌کند؛ صفحات تسویه‌حساب، حساب کاربری و بازدید مدیران مستثنا هستند. IP خام و نشانی کامل ارجاع‌دهنده در گزارش بازدید نگهداری نمی‌شود. ماژول‌ها، سرویس‌دهنده، هدف‌ها و دورهٔ نگهداری انتخاب‌شده را اینجا اعلام کنید. ابزارهای دادهٔ شخصی وردپرس و حذف بر اساس شماره توسط مدیر، سوابق محلی بازاریابی را پاک و هدیه‌های اختصاصیِ استفاده‌نشده را باطل می‌کنند، بدون حذف سفارش ووکامرس. ممکن است حداقل هش لازم برای به‌خاطر سپردن لغو پیام باقی بماند."
 
+msgid "When no prizes remain"
+msgstr "پس از تمام شدن جوایز"
+
 msgid "When purchase reminders are enabled, automatic capture saves your account/checkout phone and cart without a separate checkbox and shows a notice. An optional explicit preference form is also available. We store your mobile number, optional email, consent text and timestamp, cart products, amount, currency and related order ID locally. We send your number and the configured reminder variables (which may include purchase links and order details) to our selected SMS provider. Each reminder includes a link to stop future cart and unpaid-order reminders. Payment notifications are separate service messages. Phone-bound, single-use recovery codes restore products or open WooCommerce payment; they do not log you in. Recovery code hashes, attempts, expiry and consumption timestamps are stored separately from login challenges. Unsubscribe links stop purchase reminders and optional marketing campaigns; service notices are separate. A keyed suppression identifier is retained after erasure. The store configures a 7–90 day retention period and SMS provider. Add the selected provider, its terms and privacy links, your actual retention period and the purposes of your messages to this policy before enabling the modules."
 msgstr "با فعال شدن یادآوری خرید، حالت خودکار شمارهٔ حساب یا تسویه‌حساب و سبد را بدون تیک جداگانه و با نمایش اطلاعیه ذخیره می‌کند. حالت اختیاری فرم جداگانه نیز وجود دارد. شمارهٔ همراه، ایمیل اختیاری، متن و زمان انتخاب صریح، کالاهای سبد، مبلغ، ارز و شناسهٔ سفارش مربوط محلی نگهداری می‌شوند. شماره و متغیرهای پیام، شامل پیوند خرید و اطلاعات سفارش، به سرویس‌دهندهٔ انتخاب‌شده فرستاده می‌شوند. هر یادآوری پیوند توقف پیام‌های بعدی دارد. اعلان‌های پرداخت پیام خدماتی مستقل‌اند. کد بازیابی یک‌بارمصرف و محدود به شماره، فقط کالاها یا پرداخت ووکامرس را بازیابی می‌کند و ورود به حساب نیست. هش کد، تلاش‌ها، انقضا و زمان مصرف از کدهای ورود جدا نگهداری می‌شوند. لغو دریافت، یادآوری خرید و کمپین‌های اختیاری بازاریابی را متوقف می‌کند؛ پیام‌های خدماتی مستقل‌اند. پس از حذف هویت، یک شناسهٔ کلیددار برای حفظ لغو پیام باقی می‌ماند. فروشگاه سرویس‌دهنده و دورهٔ نگهداری ۷ تا ۹۰ روز را تعیین می‌کند. پیش از فعال‌سازی، نام سرویس، پیوند شرایط و حریم خصوصی آن، مدت نگهداری واقعی و اهداف پیام‌ها را به این سیاست اضافه کنید."
+
+msgid "Winning chance and single-reward fallback"
+msgstr "احتمال برد و جایزهٔ ثابت"
 
 msgid "Winning issues one personal, single-use WooCommerce coupon valid for 48 hours. Choose a percentage discount or a fixed discount in the store currency. The same reward applies to every game."
 msgstr "جایزهٔ برنده، یک کد تخفیف اختصاصی و یک‌بارمصرف ووکامرس با اعتبار ۴۸ ساعت است. تخفیف می‌تواند درصدی یا مبلغ ثابت بر اساس واحد پول فروشگاه باشد. مشخصات جایزه برای همهٔ بازی‌ها یکسان است."
 
+msgid "With a gift"
+msgstr "با هدیه"
+
 msgid "With a separate reminder preference form"
 msgstr "با فرم جداگانهٔ انتخاب یادآوری"
+
+msgid "Without a gift"
+msgstr "بدون هدیه"
 
 msgid "WooCommerce"
 msgstr "ووکامرس"
@@ -2695,8 +3289,14 @@ msgstr "سهمیهٔ بازی روزانهٔ شما تمام شده است. فر
 msgid "Your data stays in this WordPress installation. Reports cover the configured retention period; currencies are never added together. No sample revenue is displayed."
 msgstr "داده‌ها در همین نصب وردپرس می‌مانند. گزارش‌ها محدود به دورهٔ نگهداری تنظیم‌شده هستند و ارزهای مختلف با هم جمع نمی‌شوند. هیچ درآمد نمونه‌ای نمایش داده نمی‌شود."
 
+msgid "Your discount is being checked. Please try payment again."
+msgstr "تخفیف سفارش در حال بررسی است. لطفاً کمی بعد پرداخت را ادامه دهید."
+
 msgid "Your feedback can be positive or negative. Any configured thank-you gift is independent of your rating. Product reviews require store moderation."
 msgstr "بازخورد شما می‌تواند مثبت یا منفی باشد. هدیهٔ تشکر مستقل از امتیاز شماست. دیدگاه کالا به تأیید فروشگاه نیاز دارد."
+
+msgid "Your game is being processed. Please try again."
+msgstr "بازی شما در حال پردازش است. لطفاً کمی بعد ادامه دهید."
 
 msgid "Your invitation link"
 msgstr "پیوند دعوت شما"
@@ -2737,8 +3337,17 @@ msgstr "رمز عبور تغییر کرد. با رمز جدید یا کد ورو
 msgid "Your personal coupon"
 msgstr "کد تخفیف شما"
 
+msgid "Your prize could not be reserved. Please try again."
+msgstr "رزرو جایزه انجام نشد. لطفاً دوباره تلاش کنید."
+
+msgid "Your prize is reserved. Retry to receive the same coupon."
+msgstr "جایزهٔ شما رزرو شده است. برای دریافت همان کد تخفیف، دوباره ادامه دهید."
+
 msgid "Your profile picture"
 msgstr "تصویر حساب شما"
+
+msgid "Your purchases bring you closer"
+msgstr "با هر خرید، به هدیه نزدیک‌تر شوید"
 
 msgid "Your rating"
 msgstr "امتیاز شما"
@@ -2755,11 +3364,23 @@ msgstr "تنظیمات شما امن ذخیره می‌شود"
 msgid "Your stock-notification verification code is %s."
 msgstr "کد تأیید درخواست اطلاع موجودی شما %s است."
 
+msgid "Your surprise awaits"
+msgstr "جایزهٔ شما چه خواهد بود؟"
+
 msgid "Your thank-you coupon:"
 msgstr "کوپن تشکر شما:"
 
 msgid "Your {site} login code is: {code}"
 msgstr "کد ورود شما به {site}: {code}"
+
+msgid "Zero means unlimited. Issued and reserved coupons both count. Shared games draw from one pool; a dedicated game has its own counters. Deleting customer records does not replenish stock."
+msgstr "صفر یعنی بدون محدودیت. کدهای صادرشده و رزروشده هر دو محاسبه می‌شوند. بازی‌های مشترک یک مخزن دارند؛ بازی با مخزن اختصاصی، شمارش جداگانه دارد. حذف اطلاعات مشتری، موجودی جایزه را افزایش نمی‌دهد."
+
+msgid "Zero means unlimited. This is the total number of coupons for this row, including those already issued, not extra stock to add."
+msgstr "صفر یعنی بدون محدودیت. این عدد سقف کل این ردیف است و کدهای قبلی را هم شامل می‌شود؛ مقدار موجودیِ اضافه‌شونده نیست."
+
+msgid "Zero means unlimited. This limit applies to this prize across games using the same pool."
+msgstr "صفر یعنی بدون محدودیت. تعداد دریافت این جایزه در تمام بازی‌های متصل به همان مخزن محاسبه می‌شود."
 
 msgid "attempts"
 msgstr "بار"

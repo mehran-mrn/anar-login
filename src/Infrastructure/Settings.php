@@ -208,7 +208,7 @@ final class Settings {
 		$output['max_requests_hour']   = max( 2, min( 30, absint( $input['max_requests_hour'] ?? $defaults['max_requests_hour'] ) ) );
 		$output['max_verify_attempts'] = max( 3, min( 10, absint( $input['max_verify_attempts'] ?? $defaults['max_verify_attempts'] ) ) );
 		$output['sms_provider']        = sanitize_key( $input['sms_provider'] ?? $defaults['sms_provider'] );
-		$output['sms_message']         = sanitize_textarea_field( $input['sms_message'] ?? $defaults['sms_message'] );
+		$output['sms_message']         = sanitize_textarea_field( $input['sms_message'] ?? $current['sms_message'] );
 		$output['email_subject']       = sanitize_text_field( $input['email_subject'] ?? $defaults['email_subject'] );
 		$output['email_message']       = sanitize_textarea_field( $input['email_message'] ?? $defaults['email_message'] );
 		$output['google_client_id']    = sanitize_text_field( $input['google_client_id'] ?? '' );
@@ -240,6 +240,10 @@ final class Settings {
 
 			foreach ( $fields as $field => $definition ) {
 				$field = sanitize_key( $field );
+				if ( in_array( $field, array( 'template_id', 'code_parameter' ), true ) && ! array_key_exists( $field, $raw ) ) {
+					$sanitized[ $field ] = (string) ( $old[ $field ] ?? '' );
+					continue;
+				}
 				if ( in_array( $field, $secret_fields, true ) && empty( $raw[ $field ] ) ) {
 					$sanitized[ $field ] = (string) ( $old[ $field ] ?? '' );
 				} else {

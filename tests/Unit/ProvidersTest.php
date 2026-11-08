@@ -55,6 +55,24 @@ final class ProvidersTest extends TestCase {
 		);
 	}
 
+	public function test_explicit_meli_text_mode_does_not_use_the_otp_template() {
+		$GLOBALS['anar_test_options'][ Settings::OPTION_KEY ]['provider_melipayamak'] = array( 'username' => 'QA-ONLY', 'password' => 'QA-ONLY', 'from' => '3000', 'template_id' => 'OLD-OTP' );
+		$this->respond( array( 'RetStatus' => 1, 'Value' => '12345678901234567' ) );
+		$sender = new NotificationSender( new Settings(), new HttpClient() );
+		$result = $sender->send( 'melipayamak', '+989123456789', array( 'mode' => 'text', 'message' => 'Order {order_id}', 'template' => 'ORDER-PATTERN', 'params' => 'order={order_id}' ), array( 'order_id' => '42' ) );
+		$this->assertTrue( $result );
+		$request = $GLOBALS['anar_test_http_requests'][0];
+		$this->assertSame( 'https://rest.payamak-panel.com/api/SendSMS/SendSMS', $request['url'] );
+		$this->assertSame( 'Order 42', $request['args']['body']['text'] );
+		$this->assertArrayNotHasKey( 'bodyId', $request['args']['body'] );
+	}
+
+	public function test_unsupported_text_mode_fails_without_template_fallback() {
+		$result = ( new NotificationSender( new Settings(), new HttpClient() ) )->send( 'panelchi', '+989123456789', array( 'mode' => 'text', 'message' => 'Hello', 'template' => 'approved', 'params' => 'code={code}' ), array( 'code' => '123456' ) );
+		$this->assertTrue( is_wp_error( $result ) );
+		$this->assertSame( array(), $GLOBALS['anar_test_http_requests'] );
+	}
+
 	public function test_commerce_uses_separate_pattern_and_all_recovery_variables() {
 		$sender = new NotificationSender( new Settings(), new HttpClient() );
 		$vars   = array( 'code' => '012345', 'recovery_page' => 'https://example.org/recover', 'unsubscribe_url' => 'https://example.org/unsubscribe' );

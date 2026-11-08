@@ -87,6 +87,8 @@ final class Privacy {
 		}
 		if ( ! ( new Rewards() )->revoke( $profile->id ) ) {
 			return false; }
+		// Keep anonymous issuance totals so erasure cannot replenish a campaign's budget.
+		$wpdb->query( $wpdb->prepare( "UPDATE %i SET profile_id = 0, coupon_id = 0, order_id = 0, money_state = CASE WHEN money_reserved > 0 THEN 'retained' ELSE money_state END WHERE profile_id = %d", $repo->table( 'game_awards' ), $profile->id ) );
 		foreach ( array( 'stock', 'feedback', 'plays', 'jobs', 'orders', 'purchases' ) as $table ) {
 			$wpdb->delete( $repo->table( $table ), array( 'profile_id' => $profile->id ) ); }
 		$wpdb->query( $wpdb->prepare( 'DELETE FROM %i WHERE referrer = %d OR referred = %d', $repo->table( 'referrals' ), $profile->id, $profile->id ) );

@@ -183,15 +183,8 @@ final class Admin {
 						if ( isset( $event['minutes'] ) ) {
 							$this->input( 'events][' . $key . '][minutes', __( 'Minutes after the last cart change (0 = disabled)', 'anar-toolkit' ), $event['minutes'], 'number' );
 						}
-						$this->input( 'events][' . $key . '][message', __( 'Message text for a custom gateway / template reference', 'anar-toolkit' ), $event['message'], 'textarea', __( 'Built-in providers send the approved provider template, not this text. Keep its wording in sync with the approved template.', 'anar-toolkit' ) );
-						$this->input( 'events][' . $key . '][template', __( 'Approved provider template ID or name', 'anar-toolkit' ), $event['template'] );
-						$this->input( 'events][' . $key . '][params', __( 'Provider variables — one name={placeholder} per line', 'anar-toolkit' ), $event['params'], 'textarea', __( 'Kavenegar: token, token2, token3, token10, token20. IPPanel/Panelchi/MaxSMS/Faraz/SMS.ir: exact approved variable names. Meli Payamak: variables in template order. Custom gateway: uses the message text and its {message} transport placeholder.', 'anar-toolkit' ) );
+						\Anar\Login\Admin\MessageCenter::summary( $key, isset( $event['minutes'] ) ? 'recovery' : 'orders' );
 						?>
-						<p><code>{site} {name} {order_id} {total} {currency} {status} {tracking_number} {carrier} {tracking_url} <?php echo isset( $event['minutes'] ) ? '{code} {minutes} {recovery_page} {unsubscribe_url} {coupon_code} {coupon_amount} {coupon_expires}' : ''; ?></code></p>
-						<?php if ( isset( $event['minutes'] ) ) : ?>
-							<p><?php esc_html_e( 'The code, recovery page and unsubscribe link must be included in the recovery parameter mapping (or custom message). Use templates approved for purchase reminders.', 'anar-toolkit' ); ?></p>
-						<?php endif; ?>
-						<p><?php esc_html_e( 'Conservative Unicode SMS segment estimate before replacing placeholders; actual billing depends on the provider:', 'anar-toolkit' ); ?> <strong><?php echo esc_html( Templates::segments( $event['message'] ) ); ?></strong></p>
 					</div>
 				<?php endforeach; ?>
 				</div></section><div class="anar-suite-savebar"><?php submit_button(); ?></div>

@@ -4,7 +4,7 @@ Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.1
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -216,7 +216,19 @@ Uninstall preserves data unless deletion was explicitly enabled beforehand. It d
 3. SMS provider configuration and administrator-only sending test.
 4. English login form with LTR layout.
 
+= Can game discounts have a monetary budget? =
+Yes. Set a budget per pool and a maximum money discount for each prize. Amounts use the current store currency and include the tax reduction. The maximum cost is reserved at issuance; a paid order consumes its actual saving and releases the remainder. Unused expired gifts release their reservation. Saved unpaid orders retain it to cover late payments. Refunds do not reactivate consumed gifts or replenish spent money. Earlier uncapped coupons remain unchanged and outside this budget. Capped calculations require WooCommerce 8.8 or later.
+
 == Changelog ==
+
+= 1.2.1 =
+* Add a central message catalog and editor with contextual module links and independent security-message templates.
+* Add explicit delivery modes, named/ordered variable mapping, sample previews, per-message tests and gift/no-gift bindings.
+* Preserve legacy settings, protect concurrent message edits and require review after a provider account changes.
+* Redesign all ten games with three palettes, actual wheel/reel/card/box animations and scratch coverage.
+* Add independent game quotas, weighted prize tiers, shared inventory, winner/percentage-point caps and safe request recovery.
+* Add real monetary budgets and per-coupon ceilings, including tax savings, for classic and block checkout; settle payments and unused expiry safely.
+* Keep one visible Features menu entry while retaining older bookmarked catalog URLs.
 
 = 1.1.1 =
 * Let signed-in existing customers verify and link their phone directly from a game.
