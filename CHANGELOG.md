@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.4.0 — 2026-11-09
 
 - Send OTP, commerce and marketing SMS through one transport per provider (`send_template` / `send_text`); remove the duplicated endpoint switch from the notification sender.
 - Issue and verify every one-time code (login, second step, password reset, number linking, stock alerts) through one `CodeChallenge` service.

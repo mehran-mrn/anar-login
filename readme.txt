@@ -4,7 +4,7 @@ Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.0
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -223,6 +223,14 @@ Yes. Set a budget per pool and a maximum money discount for each prize. Amounts 
 
 == Changelog ==
 
+= 1.4.0 =
+* Send sign-in, order and campaign SMS through one transport per provider and every one-time code through one shared service.
+* Add an invisible, self-hosted bot check for public code requests, adaptive by default, to stop SMS floods.
+* Read the real visitor address behind ArvanCloud, Cloudflare or a load balancer, and share one hourly code allowance per mobile number.
+* Let customers change their mobile number with verification and sign out other devices from account security.
+* Add optional per-role sign-in destinations, an optional name step after sign-up, and block editor blocks for the sign-in form, button and SMS password reset.
+* Load the popup loader as a deferred cached file and record traffic insights through a lightweight REST beacon.
+
 = 1.3.0 =
 * Add optional authenticator enrollment with a local QR code, recovery codes and account security management.
 * Add optional passkey registration, sign-in and management; load its verifier and browser adapter only when used.
@@ -295,6 +303,9 @@ Yes. Set a budget per pool and a maximum money discount for each prize. Amounts 
 Full history: https://github.com/mehran-mrn/anar-login/blob/main/CHANGELOG.md
 
 == Upgrade Notice ==
+
+= 1.4.0 =
+Existing settings are retained. The invisible bot check starts in adaptive mode. Sites behind a CDN should choose the visitor address header in Settings, Security. Clear the page cache after updating.
 
 = 1.3.0 =
 Existing sign-in settings are retained. Passkeys are off by default. Advanced account factors currently support single-site WordPress over HTTPS; passkeys additionally require PHP 8.0+. Customers without an enrolled authenticator keep their usual sign-in flow.
