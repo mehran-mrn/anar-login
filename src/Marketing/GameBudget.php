@@ -17,7 +17,12 @@ final class GameBudget {
 	}
 
 	public function register() {
+		add_action( 'init', array( self::class, 'migrate_storage' ), 25 );
 		add_filter( 'woocommerce_coupon_discount_types', array( $this, 'types' ) );
+		add_filter( 'woocommerce_coupon_get_discount_type', array( $this, 'effective_type' ), 10, 2 );
+		add_filter( 'woocommerce_coupon_get_amount', array( $this, 'effective_amount' ), 10, 2 );
+		add_action( 'woocommerce_before_coupon_object_save', array( $this, 'protect_storage' ) );
+		add_action( 'woocommerce_coupon_options', array( $this, 'edit_fields' ), 20, 2 );
 		add_filter( 'woocommerce_coupon_get_items_to_apply', array( $this, 'prepare' ), 999, 3 );
 		add_filter( 'woocommerce_coupon_get_discount_amount', array( $this, 'amount' ), 999, 5 );
 		add_filter( 'woocommerce_coupon_custom_discounts_array', array( $this, 'limit' ), 999, 2 );
@@ -55,8 +60,70 @@ final class GameBudget {
 	}
 
 	public function types( $types ) {
-		$types['anar_game_capped'] = __( 'Capped game discount', 'anar-toolkit' );
+		$types['anar_game_budget'] = __( 'Capped game discount', 'anar-toolkit' );
 		return $types;
+	}
+
+	public function effective_type( $type, $coupon ) {
+		if ( 'anar_game_budget' === $type && ! $this->contexts->offsetExists( $coupon ) && (float) $coupon->get_meta( '_anar_game_money_cap' ) > 0 ) {
+			$base = $coupon->get_meta( '_anar_game_kind' );
+			return in_array( $base, array( 'percent', 'fixed_cart' ), true ) ? $base : $type;
+		}
+		return $type;
+	}
+
+	public function effective_amount( $amount, $coupon ) {
+		return 'anar_game_budget' === $coupon->get_discount_type( 'edit' ) && (float) $coupon->get_meta( '_anar_game_money_cap' ) > 0 ? (string) $coupon->get_meta( '_anar_game_value' ) : $amount;
+	}
+
+	public function protect_storage( $coupon ) {
+		if ( (float) $coupon->get_meta( '_anar_game_money_cap' ) > 0 && in_array( $coupon->get_meta( '_anar_game_kind' ), array( 'percent', 'fixed_cart' ), true ) && '' !== $coupon->get_meta( '_anar_game_value' ) ) {
+			$coupon->set_discount_type( 'anar_game_budget' );
+			$coupon->set_amount( 0 );
+		}
+	}
+
+	public function edit_fields( $coupon_id, $coupon ) {
+		if ( 'anar_game_budget' !== $coupon->get_discount_type( 'edit' ) ) {
+			return;
+		}
+		$value = 'percent' === $coupon->get_discount_type() ? $coupon->get_amount() . '%' : self::money_number( $coupon->get_amount() ) . ' ' . get_woocommerce_currency_symbol();
+		woocommerce_wp_text_input( array( 'id' => '_anar_game_display_value', 'label' => __( 'Game gift value', 'anar-toolkit' ), 'value' => $value, 'custom_attributes' => array( 'readonly' => 'readonly' ), 'description' => __( 'The gift value and ceiling were fixed when this coupon was issued. Configure future prizes in Anar game settings.', 'anar-toolkit' ) ) );
+		echo '<style>.coupon_amount_field,.discount_type_field{display:none}</style><p class="form-field">' . esc_html( self::terms( array( 'game_money_cap' => $coupon->get_meta( '_anar_game_money_cap' ), 'game_currency' => $coupon->get_meta( '_anar_game_currency' ) ) ) ) . '</p>';
+	}
+
+	/** Persist a non-native type, so removing the plugin cannot turn a capped gift into an uncapped coupon. */
+	public static function migrate_storage() {
+		global $wpdb;
+		if ( get_option( 'anar_game_coupon_storage' ) ) {
+			return;
+		}
+		$lock = GameCampaign::lock( 'prizes' );
+		if ( ! $lock ) {
+			return;
+		}
+		try {
+			$inserted = $wpdb->query( $wpdb->prepare( "INSERT INTO %i (post_id, meta_key, meta_value) SELECT DISTINCT d.post_id, '_anar_game_kind', d.meta_value FROM %i d INNER JOIN %i c ON c.post_id = d.post_id AND c.meta_key = '_anar_game_money_cap' LEFT JOIN %i k ON k.post_id = d.post_id AND k.meta_key = '_anar_game_kind' WHERE d.meta_key = 'discount_type' AND d.meta_value IN ('percent','fixed_cart') AND CAST(c.meta_value AS DECIMAL(26,8)) > 0 AND k.meta_id IS NULL", $wpdb->postmeta, $wpdb->postmeta, $wpdb->postmeta, $wpdb->postmeta ) );
+			if ( false === $inserted ) {
+				return;
+			}
+			$values = $wpdb->query( $wpdb->prepare( "INSERT INTO %i (post_id, meta_key, meta_value) SELECT DISTINCT a.post_id, '_anar_game_value', a.meta_value FROM %i a INNER JOIN %i k ON k.post_id = a.post_id AND k.meta_key = '_anar_game_kind' LEFT JOIN %i v ON v.post_id = a.post_id AND v.meta_key = '_anar_game_value' WHERE a.meta_key = 'coupon_amount' AND v.meta_id IS NULL", $wpdb->postmeta, $wpdb->postmeta, $wpdb->postmeta, $wpdb->postmeta ) );
+			if ( false === $values ) {
+				return;
+			}
+			// DISTINCT materializes the derived table on MySQL, avoiding an update/target-table conflict.
+			$updated = $wpdb->query( $wpdb->prepare( "UPDATE %i SET meta_value = CASE WHEN meta_key = 'discount_type' THEN 'anar_game_budget' ELSE '0' END WHERE meta_key IN ('discount_type','coupon_amount') AND post_id IN (SELECT post_id FROM (SELECT DISTINCT post_id FROM %i WHERE meta_key = '_anar_game_value') AS capped_gifts)", $wpdb->postmeta, $wpdb->postmeta ) );
+			if ( false === $updated ) {
+				return;
+			}
+			$ids = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT post_id FROM %i WHERE meta_key = '_anar_game_kind'", $wpdb->postmeta ) );
+			foreach ( $ids as $coupon_id ) {
+				wp_cache_delete( $coupon_id, 'post_meta' );
+			}
+			update_option( 'anar_game_coupon_storage', 1, true );
+		} finally {
+			GameCampaign::unlock( $lock );
+		}
 	}
 
 	public function prepare( $items, $coupon, $discounts ) {
@@ -64,7 +131,7 @@ final class GameBudget {
 			return $items;
 		}
 		$object = $discounts->get_object();
-		$context = array( 'type' => $coupon->get_discount_type(), 'total' => array_sum( wp_list_pluck( $items, 'price' ) ), 'tax' => array() );
+		$context = array( 'type' => $coupon->get_discount_type(), 'restore' => $coupon->get_discount_type( 'edit' ), 'total' => array_sum( wp_list_pluck( $items, 'price' ) ), 'tax' => array() );
 		foreach ( $items as $item ) {
 			$included = $item->price_includes_tax ?? ( is_a( $object, 'WC_Order' ) ? $object->get_prices_include_tax() : wc_prices_include_tax() );
 			$exempt = is_a( $object, 'WC_Order' ) ? wc_string_to_bool( $object->get_meta( 'is_vat_exempt' ) ) : ( WC()->customer && WC()->customer->get_is_vat_exempt() );
@@ -76,12 +143,12 @@ final class GameBudget {
 		}
 		$this->contexts[ $coupon ] = $context;
 		// Eligibility was checked with the original type. Restore it after this calculation, before serialization.
-		$coupon->set_discount_type( 'anar_game_capped' );
+		$coupon->set_discount_type( 'anar_game_budget' );
 		return $items;
 	}
 
 	public function amount( $discount, $price, $item, $single, $coupon ) {
-		if ( ! $this->contexts->contains( $coupon ) ) {
+		if ( ! $this->contexts->offsetExists( $coupon ) ) {
 			return $discount;
 		}
 		$context = $this->contexts[ $coupon ];
@@ -100,7 +167,7 @@ final class GameBudget {
 	}
 
 	public function limit( $values, $coupon ) {
-		if ( ! $this->contexts->contains( $coupon ) ) {
+		if ( ! $this->contexts->offsetExists( $coupon ) ) {
 			return $values;
 		}
 		$context = $this->contexts[ $coupon ];
@@ -120,8 +187,8 @@ final class GameBudget {
 			}
 			return $values;
 		} finally {
-			$coupon->set_discount_type( $context['type'] );
-			$this->contexts->detach( $coupon );
+			$coupon->set_discount_type( $context['restore'] );
+			$this->contexts->offsetUnset( $coupon );
 		}
 	}
 

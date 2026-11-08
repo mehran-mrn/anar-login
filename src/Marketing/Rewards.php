@@ -51,6 +51,10 @@ final class Rewards {
 						$coupon->update_meta_data( '_anar_game_money_cap', $rule['game_money_cap'] );
 						$coupon->update_meta_data( '_anar_game_currency', $rule['game_currency'] );
 						$coupon->update_meta_data( '_anar_game_play_id', $rule['game_play_id'] );
+						$coupon->update_meta_data( '_anar_game_kind', $rule['discount_type'] );
+						$coupon->update_meta_data( '_anar_game_value', $rule['discount_amount'] );
+						$coupon->set_discount_type( 'anar_game_budget' );
+						$coupon->set_amount( 0 );
 					}
 					$coupon->set_description( __( 'Anar customer gift', 'anar-toolkit' ) );
 					$coupon->update_meta_data( '_anar_phone_hash', CommerceRepository::phone_hash( $profile->phone ) );

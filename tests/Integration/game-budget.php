@@ -78,6 +78,20 @@ try {
 		WP_CLI::log( $result->get_error_code() . ': ' . $result->get_error_message() . ' DB: ' . $wpdb->last_error ); }
 	$assert( ! is_wp_error( $result ) && $result['won'], 'A capped prize reserves its maximum monetary cost' );
 	$code = $result['coupon'];
+	$persisted = new WC_Coupon( $code );
+	$assert( 'anar_game_budget' === $persisted->get_discount_type( 'edit' ) && 'percent' === $persisted->get_discount_type(), 'A capped coupon stores a fail-closed type while exposing its normal active percentage type' );
+	$persisted->set_discount_type( 'percent' );
+	$persisted->set_amount( 20 );
+	$persisted->delete_meta_data( '_anar_game_value' );
+	$persisted->delete_meta_data( '_anar_game_kind' );
+	$persisted->save();
+	delete_option( 'anar_game_coupon_storage' );
+	GameBudget::migrate_storage();
+	$migrated = new WC_Coupon( $code );
+	$assert( 'anar_game_budget' === $migrated->get_discount_type( 'edit' ) && 'percent' === $migrated->get_meta( '_anar_game_kind' ) && 0.0 === (float) $migrated->get_amount( 'edit' ) && 20.0 === (float) $migrated->get_amount(), 'Existing 1.2.1 monetary coupons migrate without changing their percentage' );
+	GameBudget::migrate_storage();
+	$assert( 1 === count( get_post_meta( $migrated->get_id(), '_anar_game_kind', false ) ), 'Storage migration is idempotent and does not duplicate base-type metadata' );
+
 	$balance = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM %i WHERE play_id = %d', $repo->table( 'game_awards' ), $result['play_id'] ) );
 	$assert( 40.0 === (float) $balance->money_reserved && get_woocommerce_currency() === $balance->currency, 'Reservation records the amount and store currency' );
 	update_option( 'woocommerce_calc_taxes', 'no' );
@@ -89,6 +103,29 @@ try {
 	WC()->cart->calculate_totals();
 	$assert( abs( WC()->cart->get_discount_total() - 40 ) < 0.01, 'Repeated total calculation does not accumulate another cap' );
 	$assert( 'percent' === ( new WC_Coupon( $code ) )->get_discount_type(), 'Coupon retains its ordinary percentage type outside calculation' );
+	$removed_hooks = array();
+	foreach ( $GLOBALS['wp_filter'] as $hook_name => $hook_object ) {
+		foreach ( $hook_object->callbacks as $priority => $callbacks ) {
+			foreach ( $callbacks as $callback ) {
+				$fn = $callback['function'];
+				if ( is_array( $fn ) && ( ( is_object( $fn[0] ) && $fn[0] instanceof GameBudget ) || GameBudget::class === $fn[0] ) ) {
+					$removed_hooks[] = array( $hook_name, $fn, $priority, $callback['accepted_args'] );
+					remove_filter( $hook_name, $fn, $priority );
+				}
+			}
+		}
+	}
+	try {
+		$disabled = new WC_Discounts( WC()->cart );
+		$inactive_coupon = new WC_Coupon( $code );
+		$disabled->apply_coupon( $inactive_coupon, false );
+		$assert( 0.0 === (float) array_sum( $disabled->get_discounts_by_coupon() ), 'Without Anar budget hooks, even validation bypass grants zero discount instead of an uncapped percentage' );
+	} finally {
+		foreach ( $removed_hooks as $removed ) {
+			add_filter( $removed[0], $removed[1], $removed[2], $removed[3] );
+		}
+	}
+
 	$test_order = wc_create_order();
 	$orders[] = $test_order->get_id();
 	$test_order->set_billing_phone( $profile->phone );

@@ -1,6 +1,6 @@
 <?php
 return array(
-'project-id-version' => 'Anar Toolkit 1.2.1',
+'project-id-version' => 'Anar Toolkit 1.2.2',
 'language' => 'fa_IR',
 'plural-forms' => 'nplurals=2; plural=(n > 1);',
 'messages' => array(
@@ -391,6 +391,7 @@ return array(
 'Game display and text' => 'نمایش و متن هر بازی',
 'Game gift amount' => 'مقدار هدیهٔ بازی',
 'Game gift probability (%)' => 'احتمال دریافت هدیهٔ بازی (درصد)',
+'Game gift value' => 'مقدار جایزهٔ بازی',
 'Game phone verification' => 'تأیید شماره برای بازی',
 'Game records are being updated. Please try again shortly.' => 'سوابق بازی‌ها در حال به‌روزرسانی است. لطفاً کمی بعد دوباره تلاش کنید.',
 'Game reward type' => 'نوع تخفیف جایزه',
@@ -956,6 +957,7 @@ return array(
 'The custom gateway uses the message text.' => 'درگاه سفارشی از متن پیام استفاده می‌کند.',
 'The email could not be sent. Please check the site email settings.' => 'ارسال ایمیل ناموفق بود. تنظیمات ایمیل سایت را بررسی کنید.',
 'The game discount is no longer valid for this order. Recheck the coupon before payment.' => 'تخفیف بازی برای این سفارش معتبر نیست. لطفاً پیش از پرداخت، کد تخفیف را دوباره بررسی کنید.',
+'The gift value and ceiling were fixed when this coupon was issued. Configure future prizes in Anar game settings.' => 'مقدار و سقف این جایزه هنگام صدور کد ثبت شده‌اند. جایزه‌های بعدی را در تنظیمات بازی‌های انار تعیین کنید.',
 'The heading displayed above this game on your site.' => 'این عنوان در بالای همین بازی در سایت نمایش داده می‌شود.',
 'The label on wheel segments without a prize. The chance of winning is configured above.' => 'عنوان بخش‌های بدون جایزهٔ گردونه است. احتمال برد را در تنظیمات بالای صفحه تعیین کنید.',
 'The last balance check failed.' => 'بررسی موجودی ناموفق بود',
