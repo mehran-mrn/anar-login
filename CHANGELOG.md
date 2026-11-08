@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.1 — 2026-11-08
+
+* Add in-page SMS phone verification for existing signed-in accounts without creating or switching accounts.
+* Bind verification codes to the current account and session, enforce expiry and limits, and preserve existing phone ownership.
+* Separate shared reward settings from per-game text and quiz-only question fields.
+* Add editable gift names and result messages, label wheel outcomes and align the pointer with the issued reward.
+* Show contextual info on hover, keyboard focus or touch, with Escape dismissal.
+
 ## 1.1.0 — 2026-11-08
 
 * Add optional account credit monitoring with native provider units, cached status and administrator-only balance pages.

@@ -1,5 +1,13 @@
 # Authentication and public registration in 0.6.1
 
+## Existing-account phone verification in 1.1.1
+
+The games module lets a signed-in customer prove ownership of a phone and link it to their current account. The AJAX endpoint requires the current WordPress session and an `anar_game_phone` nonce. Billing details alone never establish verification. Each six-digit SMS challenge is stored through `OtpRepository` with a separate `game_phone` channel and an identity containing the normalized phone, user ID and hashed session token. It expires after five minutes, is consumed once and permits at most five attempts; shared phone/IP rate limits also apply. Login, password-reset, other-account and other-session challenges cannot authorize linking.
+
+After successful proof, account links are serialized using an expiring database reservation and existing ownership is checked again. A number belonging to another account through `_anar_phone`, `digits_phone` or the configured identity-meta keys is refused. An already verified account cannot replace its phone through this endpoint. Linking does not create a user, switch the current account or create a new session. Disabling games also disables this verification path. The games form and play endpoint both require a normalized SMS phone identity.
+
+`tests/Integration/games.php` exercises the old-account flow, billing-only identities, incorrect and expired codes, resend limits, delivery failures, account/session isolation, login-code isolation, conflicting Anar/Digits ownership, replay and disabled-module behavior. Its SMS provider is simulated and it must only run in a disposable local WooCommerce installation.
+
 `UserService` is only called after OTP verification or the server-to-server Google OAuth callback. The site owner can disable creation of new accounts independently of existing-account sign-in. This feature creates accounts only on the WordPress site where the owner enabled Anar, using `wp_insert_user`; it does not create external service accounts.
 
 ## Public registration role policy

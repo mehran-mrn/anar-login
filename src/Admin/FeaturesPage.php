@@ -52,6 +52,7 @@ final class FeaturesPage {
 
 	public function assets( $hook ) {
 		if ( false !== strpos( $hook, 'anar-' ) ) {
+			wp_enqueue_script( 'anar-help', ANAR_LOGIN_URL . 'assets/js/help.js', array(), ANAR_LOGIN_VERSION, true );
 			wp_enqueue_style( 'anar-features', ANAR_LOGIN_URL . 'assets/css/features.css', array(), ANAR_LOGIN_VERSION ); }
 	}
 

@@ -40,8 +40,9 @@ final class Help {
 	public static function button( $text ) {
 		if ( ! $text ) {
 			return; }
+		$id = wp_unique_id( 'anar-help-' );
 		?>
-		<details class="anar-help"><summary aria-label="<?php esc_attr_e( 'Help', 'anar-toolkit' ); ?>"><span aria-hidden="true">i</span></summary><div role="note"><?php echo esc_html( $text ); ?></div></details>
+		<span class="anar-help"><button type="button" aria-label="<?php esc_attr_e( 'Help', 'anar-toolkit' ); ?>" aria-describedby="<?php echo esc_attr( $id ); ?>"><span aria-hidden="true">i</span></button><span class="anar-help__text" id="<?php echo esc_attr( $id ); ?>" role="tooltip"><?php echo esc_html( $text ); ?></span></span>
 		<?php
 	}
 

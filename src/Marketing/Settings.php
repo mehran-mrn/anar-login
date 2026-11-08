@@ -23,7 +23,7 @@ final class Settings {
 		foreach ( array( 'welcome' => 1, 'return_1' => 30, 'return_2' => 60, 'return_3' => 90, 'vip' => 0, 'prediction_before' => -3, 'prediction_on' => 0, 'prediction_after' => 4, 'smart' => 14, 'survey' => 7, 'next_discount' => 1, 'invoice' => 0, 'birthday' => 0, 'stock' => 0, 'bulk' => 0 ) as $key => $days ) {
 			$rules[ $key ] = array( 'enabled' => 'invoice' === $key ? 0 : 1, 'days' => $days, 'message' => __( '{site}: Hello {name}. {message} {product_url} {coupon_code} {action_url} Stop messages: {unsubscribe_url}', 'anar-toolkit' ), 'template' => '', 'params' => '', 'discount_type' => 'none', 'discount_amount' => '0', 'discount_hours' => 72, 'static_coupon' => '' );
 		}
-		return array( 'modules' => array_fill_keys( array_keys( self::modules() ), 0 ), 'provider' => '', 'daily_limit' => 3, 'gap_hours' => 24, 'vip_amount' => '10000000', 'minimum_orders' => 1, 'minimum_spent' => '0', 'maximum_spent' => '0', 'products' => '', 'exclude_products' => '', 'categories' => '', 'prediction_mode' => 'hybrid', 'prediction_minimum' => 3, 'prediction_confidence' => 60, 'retention' => 90, 'survey_reviews' => 0, 'store_name' => '', 'store_address' => '', 'store_tax_id' => '', 'invoice_prefix' => 'INV-', 'games_limit' => 1, 'game_reward_amount' => '5', 'game_reward_type' => 'percent', 'game_reward_chance' => 25, 'game_quiz_question' => '', 'game_quiz_options' => '', 'game_quiz_answer' => 1, 'game_milestone_orders' => 3, 'referral_wait_days' => 7, 'referral_amount' => '5', 'referral_minimum' => '0', 'rules' => $rules );
+		return array( 'modules' => array_fill_keys( array_keys( self::modules() ), 0 ), 'provider' => '', 'daily_limit' => 3, 'gap_hours' => 24, 'vip_amount' => '10000000', 'minimum_orders' => 1, 'minimum_spent' => '0', 'maximum_spent' => '0', 'products' => '', 'exclude_products' => '', 'categories' => '', 'prediction_mode' => 'hybrid', 'prediction_minimum' => 3, 'prediction_confidence' => 60, 'retention' => 90, 'survey_reviews' => 0, 'store_name' => '', 'store_address' => '', 'store_tax_id' => '', 'invoice_prefix' => 'INV-', 'game_texts' => array(), 'games_limit' => 1, 'game_reward_amount' => '5', 'game_reward_type' => 'percent', 'game_reward_chance' => 25, 'game_quiz_question' => '', 'game_quiz_options' => '', 'game_quiz_answer' => 1, 'game_milestone_orders' => 3, 'referral_wait_days' => 7, 'referral_amount' => '5', 'referral_minimum' => '0', 'rules' => $rules );
 	}
 
 	public function all() {
@@ -39,6 +39,7 @@ final class Settings {
 			}
 			unset( $saved[ $section ] );
 		}
+		$defaults['game_texts'] = array();
 		$this->resolved = wp_parse_args( $saved, $defaults );
 		return $this->resolved;
 	}
@@ -67,6 +68,13 @@ final class Settings {
 		foreach ( array( 'provider', 'store_name', 'store_address', 'store_tax_id', 'invoice_prefix', 'game_quiz_question', 'game_quiz_options' ) as $key ) {
 			$out[ $key ] = sanitize_textarea_field( is_scalar( $raw[ $key ] ?? '' ) ? $raw[ $key ] ?? '' : '' ); }
 		$out['provider'] = sanitize_key( $out['provider'] );
+		$out['game_texts'] = array();
+		foreach ( array( 'wheel', 'scratch', 'boxes', 'cards', 'slots', 'treasure', 'daily', 'quiz', 'memory', 'milestone' ) as $type ) {
+			foreach ( array( 'title', 'intro', 'reward_label', 'win_message', 'lose_message', 'button_label', 'wheel_miss_label' ) as $field ) {
+				$value = $raw['game_texts'][ $type ][ $field ] ?? '';
+				$out['game_texts'][ $type ][ $field ] = is_scalar( $value ) ? sanitize_textarea_field( (string) $value ) : '';
+			}
+		}
 		$out['prediction_mode'] = in_array( $raw['prediction_mode'] ?? '', array( 'personal', 'product', 'hybrid' ), true ) ? $raw['prediction_mode'] : 'hybrid';
 		$out['game_reward_type'] = 'fixed_cart' === ( $raw['game_reward_type'] ?? '' ) ? 'fixed_cart' : 'percent';
 		if ( 'percent' === $out['game_reward_type'] ) {
