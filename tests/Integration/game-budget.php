@@ -40,6 +40,9 @@ add_filter(
 add_filter( 'pre_wp_mail', '__return_true' );
 try {
 	\Anar\Login\Infrastructure\Activator::activate();
+	delete_option( 'anar_game_money_schema' );
+	\Anar\Login\Plugin::instance()->init();
+	$assert( '1' === get_option( 'anar_game_money_schema' ), 'Earlier 1.2.0 test packages upgrade their money schema even when the plugin version matches' );
 	update_option( 'woocommerce_enable_coupons', 'yes' );
 	WC()->customer = new WC_Customer( 0, true );
 	WC()->customer->set_billing_country( 'US' );
