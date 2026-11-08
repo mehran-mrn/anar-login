@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.2.0 — 2026-11-08
+## 1.2.1 — 2026-11-08
 
 * Centralize SMS configuration in Messages and templates while retaining module timing, audiences and rewards.
 * Support per-purpose authentication templates, explicit text/template delivery, ordered variable mapping, sample previews and exact-message tests.
@@ -10,6 +10,7 @@
 * Add shared/per-game/combined quotas, named weighted prize tiers, shared or dedicated inventory, winner/percentage-point caps and campaign dates.
 * Preserve earlier issuance totals; serialize reservations and recover interrupted requests without spending another attempt or issuing another coupon.
 
+* Upgrade the monetary schema for earlier 1.2.0 test packages independently of the plugin version.
 * Add monetary prize budgets, gross coupon ceilings, payment settlement and safe expiry reconciliation for classic and block checkout.
 * Show the feature catalog once in the admin menu; retain alternate bookmarked routes without another visible entry.
 

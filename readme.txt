@@ -4,7 +4,7 @@ Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -221,7 +221,7 @@ Yes. Set a budget per pool and a maximum money discount for each prize. Amounts 
 
 == Changelog ==
 
-= 1.2.0 =
+= 1.2.1 =
 * Add a central message catalog and editor with contextual module links and independent security-message templates.
 * Add explicit delivery modes, named/ordered variable mapping, sample previews, per-message tests and gift/no-gift bindings.
 * Preserve legacy settings, protect concurrent message edits and require review after a provider account changes.
