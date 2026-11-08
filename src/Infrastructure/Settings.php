@@ -54,8 +54,10 @@ final class Settings {
 			'replace_theme_login' => 1,
 			'replace_wp_login'    => 0,
 			'form_logo'           => 'site',
+			'form_preset'         => 'card',
 			'form_logo_url'       => '',
 			'two_factor'          => 'off',
+			'passkeys_enabled'    => 0,
 			'password_reset_enabled' => 1,
 			'wc_account_mode'     => 'replace',
 			'wc_checkout_login'   => 1,
@@ -178,11 +180,13 @@ final class Settings {
 		$defaults = $this->defaults();
 		$output   = array();
 
-		$checkboxes = array( 'allow_registration', 'google_enabled', 'delete_data', 'debug_log', 'popup_enabled', 'replace_theme_login', 'replace_wp_login', 'password_reset_enabled' );
+		$checkboxes = array( 'allow_registration', 'google_enabled', 'delete_data', 'debug_log', 'popup_enabled', 'replace_theme_login', 'replace_wp_login', 'password_reset_enabled', 'passkeys_enabled' );
 		foreach ( $checkboxes as $key ) {
 			$output[ $key ] = empty( $input[ $key ] ) ? 0 : 1;
 		}
 
+		$preset = sanitize_key( $input['form_preset'] ?? $current['form_preset'] );
+		$output['form_preset'] = in_array( $preset, array( 'card', 'minimal', 'bold' ), true ) ? $preset : 'card';
 		$form_logo               = sanitize_key( $input['form_logo'] ?? $defaults['form_logo'] );
 		$output['form_logo']     = in_array( $form_logo, array( 'site', 'custom', 'icon', 'none' ), true ) ? $form_logo : 'site';
 		$output['form_logo_url'] = esc_url_raw( (string) ( $input['form_logo_url'] ?? '' ) );

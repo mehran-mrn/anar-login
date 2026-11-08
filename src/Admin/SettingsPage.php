@@ -41,6 +41,7 @@ final class SettingsPage {
 		add_action( 'admin_menu', array( $this, 'menu' ) );
 		add_action( 'admin_init', array( $this, 'setting' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'assets' ) );
+		add_action( 'admin_post_anar_login_preview', array( LoginSetup::class, 'preview' ) );
 	}
 
 	/**
@@ -160,12 +161,18 @@ final class SettingsPage {
 
 			<?php settings_errors(); ?>
 			<?php MessageCenter::notice(); ?>
+			<?php if ( \Anar\Login\Infrastructure\Features::enabled( 'login' ) ) : ?>
+				<div class="anar-setup-actions"><button type="button" class="button" data-login-preview><?php esc_html_e( 'Preview saved form', 'anar-toolkit' ); ?></button></div>
+			<?php endif; ?>
 
 			<div class="anar-admin__layout">
 				<aside class="anar-admin__nav"><?php $this->navigation( $value ); ?></aside>
 <div class="anar-admin__content">
 <form class="anar-connection-form" method="post" action="options.php">
 					<?php settings_fields( 'anar_login' ); ?>
+					<?php if ( \Anar\Login\Infrastructure\Features::enabled( 'login' ) ) : ?>
+						<section class="anar-tab" data-panel="setup" hidden><?php LoginSetup::render( $value ); ?></section>
+					<?php endif; ?>
 
 					<section class="anar-tab is-active" data-panel="general">
 						<?php $this->section_header( __( 'General settings', 'anar-toolkit' ), __( 'Configure sign-in, registration, and the appearance of the form.', 'anar-toolkit' ), '⚙' ); ?>
@@ -225,6 +232,14 @@ final class SettingsPage {
 							<div class="anar-field-row">
 								<label for="anar-color"><strong><?php esc_html_e( 'Brand color', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'The primary color of the sign-in form and account dashboard.', 'anar-toolkit' ); ?></small></label>
 								<div class="anar-color"><input id="anar-color" type="color" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[brand_color]" value="<?php echo esc_attr( $value['brand_color'] ); ?>"><code><?php echo esc_html( $value['brand_color'] ); ?></code></div>
+							</div>
+							<div class="anar-field-row">
+								<label for="anar-form-preset"><strong><?php esc_html_e( 'Sign-in form style', 'anar-toolkit' ); ?></strong></label>
+								<select id="anar-form-preset" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[form_preset]">
+									<?php foreach ( array( 'card' => __( 'Card', 'anar-toolkit' ), 'minimal' => __( 'Simple', 'anar-toolkit' ), 'bold' => __( 'Accent', 'anar-toolkit' ) ) as $preset => $label ) : ?>
+									<option value="<?php echo esc_attr( $preset ); ?>" <?php selected( $value['form_preset'], $preset ); ?>><?php echo esc_html( $label ); ?></option>
+									<?php endforeach; ?>
+								</select>
 							</div>
 							<div class="anar-field-row">
 								<label for="anar-form-logo"><strong><?php esc_html_e( 'Form logo', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'Shown at the top of the sign-in form. The site logo falls back to the site icon, then to a lock icon.', 'anar-toolkit' ); ?></small></label>
@@ -366,9 +381,12 @@ final class SettingsPage {
 					</section>
 
 					<section class="anar-tab" data-panel="security" hidden>
-							<?php $this->toggle( 'password_reset_enabled', __( 'SMS password recovery', 'anar-toolkit' ), __( 'Allow linked mobile numbers to reset an existing account password using a separate single-use SMS code.', 'anar-toolkit' ), $value ); ?>
 						<?php $this->section_header( __( 'Security and rate limits', 'anar-toolkit' ), __( 'Configure code lifetime and request limits for your site.', 'anar-toolkit' ), '⌾' ); ?>
 						<div class="anar-card">
+							<?php if ( ! is_multisite() ) : ?>
+								<?php $this->toggle( 'passkeys_enabled', __( 'Passkey sign-in', 'anar-toolkit' ), __( 'Let customers register a passkey from account security. Passkeys require HTTPS and PHP 8.0 or later; the current sign-in methods remain available.', 'anar-toolkit' ), $value ); ?>
+							<?php endif; ?>
+							<?php $this->toggle( 'password_reset_enabled', __( 'SMS password recovery', 'anar-toolkit' ), __( 'Allow linked mobile numbers to reset an existing account password using a separate single-use SMS code.', 'anar-toolkit' ), $value ); ?>
 							<div class="anar-field-row">
 								<label for="anar-two-factor"><strong><?php esc_html_e( 'Two-step verification', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'After a correct password, a code is sent to the account’s mobile, or its email when no mobile is linked. Code and Google sign-ins skip this step, as they already prove ownership.', 'anar-toolkit' ); ?></small></label>
 								<select id="anar-two-factor" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[two_factor]">
@@ -460,6 +478,7 @@ final class SettingsPage {
 					<?php ( new MessageCenter() )->shared(); ?>
 				</section>
 				</div>
+			<?php LoginSetup::dialog(); ?>
 				<?php
 				if ( isset( $providers['melipayamak'] ) ) {
 					MeliOffer::dialog(); }
@@ -477,8 +496,8 @@ final class SettingsPage {
 	 */
 	private function navigation( $value ) {
 		$flags = \Anar\Login\Infrastructure\Features::all();
-		$labels = array( 'general' => __( 'General', 'anar-toolkit' ), 'sms' => __( 'SMS', 'anar-toolkit' ), 'email' => __( 'Email', 'anar-toolkit' ), 'google' => __( 'Google sign-in', 'anar-toolkit' ), 'security' => __( 'Security', 'anar-toolkit' ), 'woocommerce' => __( 'WooCommerce', 'anar-toolkit' ), 'install' => __( 'Add to pages', 'anar-toolkit' ) );
-		$primary = array( 'general' => $flags['login'], 'sms' => ( $flags['login'] && 'email' !== $value['identity_mode'] ) || $flags['two_factor'] || $flags['reset'] || \Anar\Login\Infrastructure\Features::queue_needed(), 'email' => $flags['login'] && 'phone' !== $value['identity_mode'], 'google' => $flags['login'] && ! empty( $value['google_enabled'] ), 'security' => $flags['login'] || $flags['reset'] || $flags['two_factor'], 'woocommerce' => $flags['login'] && WooCommerce::active(), 'install' => $flags['login'] );
+		$labels = array( 'general' => __( 'General', 'anar-toolkit' ), 'setup' => __( 'Sign-in setup guide', 'anar-toolkit' ), 'sms' => __( 'SMS', 'anar-toolkit' ), 'email' => __( 'Email', 'anar-toolkit' ), 'google' => __( 'Google sign-in', 'anar-toolkit' ), 'security' => __( 'Security', 'anar-toolkit' ), 'woocommerce' => __( 'WooCommerce', 'anar-toolkit' ), 'install' => __( 'Add to pages', 'anar-toolkit' ) );
+		$primary = array( 'general' => $flags['login'], 'setup' => $flags['login'], 'sms' => ( $flags['login'] && 'email' !== $value['identity_mode'] ) || $flags['two_factor'] || $flags['reset'] || \Anar\Login\Infrastructure\Features::queue_needed(), 'email' => $flags['login'] && 'phone' !== $value['identity_mode'], 'google' => $flags['login'] && ! empty( $value['google_enabled'] ), 'security' => $flags['login'] || $flags['reset'] || $flags['two_factor'], 'woocommerce' => $flags['login'] && WooCommerce::active(), 'install' => $flags['login'] );
 		$first = true;
 		?>
 		<div class="anar-admin__nav-label"><?php esc_html_e( 'Shared settings', 'anar-toolkit' ); ?></div>
@@ -490,7 +509,7 @@ final class SettingsPage {
 			<div class="anar-admin__nav-label"><?php echo esc_html( $heading ); ?></div>
 			<?php
 			foreach ( $labels as $key => $label ) {
-				if ( (bool) $primary[ $key ] !== (bool) $enabled || ( 'woocommerce' === $key && ! WooCommerce::active() ) ) {
+				if ( (bool) $primary[ $key ] !== (bool) $enabled || ( 'woocommerce' === $key && ! WooCommerce::active() ) || ( 'setup' === $key && ! $flags['login'] ) ) {
 					continue; }
 				?>
 				<button type="button" <?php echo $first ? 'class="is-active"' : ''; ?> data-tab="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $label ); ?></button>

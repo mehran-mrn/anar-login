@@ -45,7 +45,7 @@ final class PhoneVerification {
 	}
 
 	private function available( $phone, $user_id ) {
-		$keys = (array) apply_filters( 'anar_login_phone_meta_keys', array( '_anar_phone', 'digits_phone' ) );
+		$keys = (array) apply_filters( 'anar_login_phone_meta_keys', array( '_anar_phone', \Anar\Login\Support\PhoneKeys::legacy() ) );
 		foreach ( $keys as $key ) {
 			foreach ( array_unique( array( $phone, ltrim( $phone, '+' ), Identity::local_phone( $phone ) ) ) as $value ) {
 				if ( get_users( array( 'meta_key' => sanitize_key( $key ), 'meta_value' => $value, 'exclude' => array( $user_id ), 'number' => 1, 'fields' => 'ID', 'count_total' => false ) ) ) {

@@ -6,8 +6,15 @@ See LICENSE for the complete GPL version 2 text.
 
 The plugin contains its own PHP autoloader and readable JavaScript and CSS.
 Composer packages are used only for development and are not bundled.
+The optional passkey module includes the MIT-licensed lbuchs/WebAuthn 2.2.0
+library (Lukas Buchs; CBOR/ByteBuffer by Thomas Bleeker). Its namespace is
+isolated. Source, pinned commit and license are in src/Vendor/WebAuthn.
+The library is loaded only for passkey operations, never for ordinary pages.
+Authenticator enrollment uses Project Nayuki's MIT-licensed QR Code generator
+v1.8.0, isolated as AnarQr. Its full license and source/build reference are in
+assets/js/lib. QR generation stays in the browser and uses no external service.
 
-WordPress, WooCommerce, WoodMart, Google, Digits and the listed SMS service
+WordPress, WooCommerce, WoodMart, Google and the listed SMS service
 names identify their respective platforms and integrations. Their names do
 not imply endorsement, affiliation or bundled third-party service rights.
 No third-party SMS SDK, Google SDK, theme code is included.

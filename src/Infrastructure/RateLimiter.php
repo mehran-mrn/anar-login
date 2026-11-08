@@ -95,6 +95,23 @@ final class RateLimiter {
 		return true;
 	}
 
+	public function guard_passkey() {
+		return $this->claim( $this->key( 'passkey', $this->client_ip() ), 300, 30 ) ? true : new WP_Error( 'anar_rate_limited', __( 'Too many requests. Please try again later.', 'anar-toolkit' ), array( 'status' => 429 ) );
+	}
+
+	/** Bound authenticator guesses across freshly issued flows. */
+	public function guard_factor( $user_id ) {
+		if ( ! $this->claim( $this->key( 'factor_user', $user_id ), 300, 10 ) || ! $this->claim( $this->key( 'factor_ip', $this->client_ip() ), 900, 100 ) ) {
+			return new WP_Error( 'anar_rate_limited', __( 'Too many requests. Please try again later.', 'anar-toolkit' ), array( 'status' => 429 ) );
+		}
+		return true;
+	}
+
+	public function clear_factor( $user_id ) {
+		global $wpdb;
+		$wpdb->delete( $wpdb->prefix . 'anar_login_limits', array( 'limit_key' => $this->key( 'factor_user', $user_id ) ), array( '%s' ) );
+	}
+
 	/**
 	 * Client address, filterable for trusted proxy setups.
 	 *

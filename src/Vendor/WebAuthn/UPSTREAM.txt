@@ -1,0 +1,6 @@
+lbuchs/WebAuthn 2.2.0
+Source: https://github.com/lbuchs/WebAuthn
+Commit: 20adb4a240c3997bd8cac7dc4dde38ab0bea0ed1
+License: MIT; see LICENSE.
+Modification: namespace isolated as Anar\Login\Vendor\WebAuthn.
+Loaded only by the optional passkey handler on PHP 8.0 or later.

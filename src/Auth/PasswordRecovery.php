@@ -55,7 +55,7 @@ final class PasswordRecovery {
 	/** Resolve exactly one linked account; billing phone alone is never reset authority. */
 	private function user( $phone ) {
 		$ids = array();
-		foreach ( array( '_anar_phone', 'digits_phone' ) as $key ) {
+		foreach ( array( '_anar_phone', \Anar\Login\Support\PhoneKeys::legacy() ) as $key ) {
 			foreach ( array( $phone, ltrim( $phone, '+' ), Identity::local_phone( $phone ) ) as $value ) {
 				foreach ( get_users( array( 'meta_key' => $key, 'meta_value' => $value, 'number' => 2, 'fields' => 'ID', 'count_total' => false ) ) as $id ) {
 					$ids[ (int) $id ] = true;

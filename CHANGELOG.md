@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.3.0 — 2026-11-09
+
+- Add a shared, browser-bound authenticator verification flow and separate account-security challenges from login codes.
+- Add encrypted authenticator enrollment and single-use recovery codes for optional account protection.
+- Add optional passkey enrollment, sign-in, naming and revocation with a bundled, isolated WebAuthn verifier; require HTTPS and PHP 8 for this module.
+- Share one branded frame and three visual presets across sign-in and account-security steps.
+- Require fresh identity proof for security changes and recovery-code regeneration; reject passkey replay and invalid origins, signatures or device counters.
+- Add an optional four-step setup guide within Settings, reusing existing controls and the shared message dialog.
+- Preview the saved sign-in form in an administrator-only, nonce-protected inert dialog without sending codes or creating sessions.
+- Generate authenticator setup QR codes locally, retaining the manual setup key when QR rendering is unavailable.
+- Keep account-security engines and assets unloaded on unrelated public requests; add regression checks for the load budget.
+
+
 ## 1.2.4 — 2026-11-08
 
 * Remove the redundant commerce template tab and resolve older template URLs to automation settings.

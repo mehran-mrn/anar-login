@@ -44,7 +44,7 @@ final class UserService {
 
 		$meta_keys = (array) apply_filters(
 			'anar_login_phone_meta_keys',
-			array( '_anar_phone', 'digits_phone' )
+			array( '_anar_phone', \Anar\Login\Support\PhoneKeys::legacy() )
 		);
 		$values    = array_unique(
 			array(
@@ -307,7 +307,7 @@ final class UserService {
 	 * @param bool    $remember Remember.
 	 * @return WP_User|WP_Error
 	 */
-	private function login( WP_User $user, $remember ) {
+	public function login( WP_User $user, $remember ) {
 		if ( is_multisite() && is_user_spammy( $user ) ) {
 			return new WP_Error( 'anar_account_blocked', __( 'This account cannot sign in.', 'anar-toolkit' ), array( 'status' => 403 ) );
 		}
@@ -333,7 +333,7 @@ final class UserService {
 		 * @param true|WP_Error $allowed Whether sign-in may continue.
 		 * @param WP_User       $user    Verified user.
 		 */
-		$allowed = apply_filters( 'anar_login_can_authenticate', true, $user );
+		$allowed = apply_filters( 'anar_login_can_authenticate', true, $user, $remember );
 		if ( is_wp_error( $allowed ) ) {
 			return $allowed;
 		}

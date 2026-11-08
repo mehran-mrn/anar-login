@@ -13,7 +13,6 @@ use Anar\Login\Api\AuthController;
 use Anar\Login\Api\ProfileController;
 use Anar\Login\Auth\GoogleAuth;
 use Anar\Login\Auth\OtpService;
-use Anar\Login\Auth\TwoFactor;
 use Anar\Login\Auth\UserService;
 use Anar\Login\Frontend\Popup;
 use Anar\Login\Frontend\Shortcodes;
@@ -67,6 +66,13 @@ final class Plugin {
 			2
 		);
 		add_action( 'anar_login_daily_cleanup', array( $this, 'cleanup' ) );
+		add_action(
+			'deleted_user',
+			static function ( $user_id ) {
+				( new \Anar\Login\Auth\CredentialService() )->remove( $user_id );
+				( new \Anar\Login\Auth\PasskeyRepository() )->remove_user( $user_id );
+			}
+		);
 		// Diagnostics are built only for an authenticated administrator's REST request.
 		add_action(
 			'rest_api_init',
@@ -102,7 +108,7 @@ final class Plugin {
 
 	public function runtime() {
 		$flags = \Anar\Login\Infrastructure\Features::all();
-		foreach ( array( 'login' => array( 'anar_login', 'anar_account', 'anar_login_button' ), 'reset' => array( 'anar_reset_password' ), 'recovery' => array( 'anar_cart_reminders', 'anar_recover_cart' ), 'games' => array( 'anar_game', 'anar_games' ), 'birthday' => array( 'anar_customer_preferences' ), 'referral' => array( 'anar_referrals' ) ) as $key => $shortcodes ) {
+		foreach ( array( 'login' => array( 'anar_login', 'anar_account', 'anar_login_button', 'anar_account_security' ), 'reset' => array( 'anar_reset_password' ), 'recovery' => array( 'anar_cart_reminders', 'anar_recover_cart' ), 'games' => array( 'anar_game', 'anar_games' ), 'birthday' => array( 'anar_customer_preferences' ), 'referral' => array( 'anar_referrals' ) ) as $key => $shortcodes ) {
 			if ( ! $flags[ $key ] ) {
 				foreach ( $shortcodes as $shortcode ) {
 					add_shortcode( $shortcode, '__return_empty_string' ); }
@@ -139,8 +145,7 @@ final class Plugin {
 			if ( $flags['login'] || $flags['two_factor'] ) {
 				$users = new UserService( $settings );
 				$otp = new OtpService( $settings, $codes, $limiter, $providers, $users );
-				if ( $flags['two_factor'] ) {
-					( new TwoFactor( $settings, $otp, $users ) )->register(); }
+				self::security_hooks( $otp, $users );
 			}
 			if ( $flags['login'] ) {
 				$google = $settings->get( 'google_enabled', 0 ) ? new GoogleAuth( $settings, $users, $limiter ) : null;
@@ -218,8 +223,115 @@ final class Plugin {
 			( new \Anar\Login\Marketing\Insights() )->register(); }
 	}
 
+	/** Register lazy security callbacks without loading account security on public pages. */
+	public static function security_hooks( $otp, $users ) {
+		static $registered = false;
+		if ( $registered ) {
+			return;
+		}
+		$registered = true;
+		$service = static function () use ( $otp, $users ) {
+			static $instance;
+			if ( ! $instance ) {
+				$instance = new \Anar\Login\Auth\AccountSecurity( $otp, $users );
+			}
+			return $instance;
+		};
+
+		add_action(
+			'rest_api_init',
+			static function () use ( $service ) {
+				foreach ( array( 'options', 'register', 'verify' ) as $operation ) {
+					register_rest_route(
+						'anar-login/v1',
+						'/passkey/' . $operation,
+						array(
+							'methods' => 'POST',
+							'permission_callback' => '__return_true',
+							'callback' => static function ( $request ) use ( $service, $operation ) {
+								return ( new \Anar\Login\Api\PasskeyController( $service() ) )->handle( $operation, $request );
+							},
+						)
+					);
+				}
+			}
+		);
+		add_filter(
+			'anar_login_can_authenticate',
+			function ( $allowed, $user, $remember = false ) use ( $service ) {
+				return $service()->gate( $allowed, $user, $remember );
+			},
+			100,
+			3
+		);
+		add_action(
+			'anar_login_verified_session',
+			function ( $user ) use ( $service ) {
+				$service()->verified_session( $user );
+			}
+		);
+		add_action(
+			'login_form_anar_authenticator',
+			function () use ( $service ) {
+				$service()->screen();
+			}
+		);
+		add_action(
+			'login_form_anar_security',
+			function () use ( $service ) {
+				$service()->manage();
+			}
+		);
+		add_action(
+			'set_logged_in_cookie',
+			function ( ...$args ) use ( $service ) {
+				$service()->remember( ...$args );
+			},
+			9,
+			6
+		);
+		add_action(
+			'wp_login',
+			function ( $login, $user ) use ( $service ) {
+				$service()->intercept( $login, $user );
+			},
+			0,
+			2
+		);
+		add_filter(
+			'authenticate',
+			function ( $user ) use ( $service ) {
+				return defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST ? $service()->block_xmlrpc( $user ) : $user;
+			},
+			101
+		);
+		add_filter(
+			'wp_is_application_passwords_available_for_user',
+			function ( $available, $user ) use ( $service ) {
+				return $service()->application_passwords( $available, $user );
+			},
+			100,
+			2
+		);
+		foreach ( array( 'show_user_profile', 'woocommerce_edit_account_form' ) as $hook ) {
+			add_action(
+				$hook,
+				static function () {
+					echo Shortcodes::security_link(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Renderer escapes the link.
+				}
+			);
+		}
+		add_shortcode(
+			'anar_account_security',
+			static function () {
+				return Shortcodes::security_link();
+			}
+		);
+	}
+
 	public function cleanup() {
 		( new OtpRepository() )->cleanup();
+		\Anar\Login\Auth\LoginFlowService::cleanup();
 		RateLimiter::cleanup();
 		( new \Anar\Login\Commerce\Repository() )->cleanup( (int) ( new \Anar\Login\Commerce\Settings() )->get( 'retention' ) );
 		( new \Anar\Login\Marketing\Engine( new \Anar\Login\Marketing\Settings(), new \Anar\Login\Marketing\Repository() ) )->cleanup();

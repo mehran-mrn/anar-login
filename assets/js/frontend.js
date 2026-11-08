@@ -331,4 +331,21 @@
 			});
 		}
 	});
+
+	let passkeyAdapter;
+	document.addEventListener('click', async (event) => {
+		const button = event.target.closest('[data-passkey="login"]');
+		if (!button) return;
+		if (!passkeyAdapter) {
+			passkeyAdapter = new Promise((resolve, reject) => {
+				const script = document.createElement('script');
+				script.src = button.dataset.passkeyScript;
+				script.onload = resolve;
+				script.onerror = reject;
+				document.head.appendChild(script);
+			});
+		}
+		try { await passkeyAdapter; await window.AnarPasskeys.run(button); }
+		catch (error) { passkeyAdapter = null; const status = button.parentElement.querySelector('[data-passkey-status]'); if (status) status.textContent = button.dataset.passkeyError; }
+	});
 })();

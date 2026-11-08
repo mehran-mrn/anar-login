@@ -93,10 +93,10 @@ final class OtpService {
 	 * @param array{identity:string,channel:string} $identity Identity.
 	 * @return true|WP_Error
 	 */
-	public function challenge( $identity, $context = 'login_otp' ) {
+	public function challenge( $identity, $context = 'login_otp', $purpose = 'login' ) {
 		$guard = $this->limiter->guard_request( $identity['identity'] );
 
-		return is_wp_error( $guard ) ? $guard : $this->send_code( $identity, $context );
+		return is_wp_error( $guard ) ? $guard : $this->send_code( $identity, $context, $purpose );
 	}
 
 	/**
@@ -106,13 +106,14 @@ final class OtpService {
 	 * @param string                                $raw_code Submitted code.
 	 * @return true|WP_Error
 	 */
-	public function check( $identity, $raw_code ) {
+	public function check( $identity, $raw_code, $purpose = 'login' ) {
 		$code = preg_replace( '/\D/', '', Identity::latin_digits( (string) $raw_code ) );
 		if ( ! $code ) {
 			return $this->invalid_code();
 		}
 
-		$challenge = $this->repository->latest( $identity['identity'], $identity['channel'] );
+		$storage_identity = 'login' === $purpose ? $identity['identity'] : $purpose . '|' . $identity['identity'];
+		$challenge = $this->repository->latest( $storage_identity, $identity['channel'] );
 		if ( ! $challenge || strtotime( $challenge->expires_at . ' UTC' ) < time() ) {
 			return $this->invalid_code();
 		}
@@ -121,7 +122,7 @@ final class OtpService {
 			return new WP_Error( 'anar_too_many_attempts', __( 'Too many incorrect attempts. Please request a new code.', 'anar-toolkit' ), array( 'status' => 429 ) );
 		}
 
-		if ( ! $this->repository->matches( $challenge, $identity['identity'], $code ) || ! $this->repository->consume( $challenge->id ) ) {
+		if ( ! $this->repository->matches( $challenge, $storage_identity, $code ) || ! $this->repository->consume( $challenge->id ) ) {
 			return $this->invalid_code();
 		}
 
@@ -134,18 +135,19 @@ final class OtpService {
 	 * @param array{identity:string,channel:string} $identity Identity.
 	 * @return true|WP_Error
 	 */
-	private function send_code( $identity, $context = 'login_otp' ) {
+	private function send_code( $identity, $context = 'login_otp', $purpose = 'login' ) {
 		$ttl  = absint( $this->settings->get( 'otp_ttl', 120 ) );
 		$code = $this->generate_code();
 
-		if ( ! $this->repository->create( $identity['identity'], $identity['channel'], $code, $ttl ) ) {
+		if ( ! $this->repository->create( 'login' === $purpose ? $identity['identity'] : $purpose . '|' . $identity['identity'], $identity['channel'], $code, $ttl ) ) {
 			return new WP_Error( 'anar_otp_storage', __( 'The login code could not be created.', 'anar-toolkit' ), array( 'status' => 500 ) );
 		}
 
 		$sent = $this->dispatch( $identity, $code, $ttl, $context );
 
 		if ( is_wp_error( $sent ) ) {
-			$challenge = $this->repository->latest( $identity['identity'], $identity['channel'] );
+			$storage_identity = 'login' === $purpose ? $identity['identity'] : $purpose . '|' . $identity['identity'];
+			$challenge = $this->repository->latest( $storage_identity, $identity['channel'] );
 			if ( $challenge ) {
 				$this->repository->consume( $challenge->id );
 			}
@@ -186,6 +188,10 @@ final class OtpService {
 
 		$user = $this->users->login_or_create( $identity, (bool) $remember );
 		if ( is_wp_error( $user ) ) {
+			if ( 'anar_factor_required' === $user->get_error_code() ) {
+				$data = $user->get_error_data();
+				return array( 'redirect' => add_query_arg( 'redirect_to', rawurlencode( wp_validate_redirect( $redirect_to, '' ) ), $data['redirect'] ), 'next_step' => 'authenticator' );
+			}
 			return $user;
 		}
 
