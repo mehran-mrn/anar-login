@@ -7,6 +7,8 @@
 - Add optional passkey enrollment, sign-in, naming and revocation with a bundled, isolated WebAuthn verifier; require HTTPS and PHP 8 for this module.
 - Share one branded frame and three visual presets across sign-in and account-security steps.
 - Require fresh identity proof for security changes and recovery-code regeneration; reject passkey replay and invalid origins, signatures or device counters.
+- Add an optional four-step setup guide within Settings, reusing existing controls and the shared message dialog.
+- Preview the saved sign-in form in an administrator-only, nonce-protected inert dialog without sending codes or creating sessions.
 - Keep account-security engines and assets unloaded on unrelated public requests; add regression checks for the load budget.
 
 

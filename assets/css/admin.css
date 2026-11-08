@@ -938,3 +938,13 @@
 }
 
 .anar-admin__title .anar-admin__free{display:inline-block;margin:8px 0 0;padding:5px 12px;border-radius:999px;background:#fff0f3;color:#9c1535;font-size:13px;font-weight:700;line-height:1.7}
+/* Setup reuses the existing settings; the live form is rendered in an inert preview. */
+.anar-setup-actions{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+.anar-admin__save[hidden]{display:none}
+.anar-setup-steps{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:20px 0;padding:0}
+.anar-setup-steps .button[aria-current="step"]{border-color:var(--red);color:var(--red);background:var(--anar-admin-soft,#fff5f8)}
+.anar-login-preview{width:min(720px,calc(100% - 24px));max-width:none;max-height:calc(100dvh - 32px);padding:20px;border:1px solid #e7dfe3;border-radius:14px;box-sizing:border-box}
+.anar-login-preview::backdrop{background:#20151a88}
+.anar-login-preview header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.anar-login-preview h2{margin:0}
+.anar-login-preview iframe{display:block;width:100%;height:65dvh;border:1px solid #eee7e9;border-radius:10px;background:#f8f6f7}

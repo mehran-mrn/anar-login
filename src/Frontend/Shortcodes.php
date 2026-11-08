@@ -86,6 +86,11 @@ final class Shortcodes {
 	 * @return string
 	 */
 	public function login( $atts = array() ) {
+		return $this->render_login( $atts );
+	}
+
+	/** Render the same form for sign-in and the administrator's inert preview. */
+	public function render_login( $atts = array(), $preview = false ) {
 		$atts = shortcode_atts(
 			array(
 				'redirect'      => '',
@@ -94,10 +99,12 @@ final class Shortcodes {
 			is_array( $atts ) ? $atts : array(),
 			'anar_login'
 		);
-		$this->assets();
+		if ( ! $preview ) {
+			$this->assets();
+		}
 		$direction = is_rtl() ? 'rtl' : 'ltr';
 
-		if ( is_user_logged_in() ) {
+		if ( ! $preview && is_user_logged_in() ) {
 			$panel_id  = absint( $this->settings->get( 'panel_page_id', 0 ) );
 			$panel_url = $panel_id ? get_permalink( $panel_id ) : home_url( '/' );
 

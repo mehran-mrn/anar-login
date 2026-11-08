@@ -61,6 +61,9 @@ msgstr "کد جدید ارسال شد."
 msgid "A new recommendation for your next visit."
 msgstr "پیشنهادی تازه برای بازدید بعدی شما."
 
+msgid "A provider acceptance response does not confirm receipt on the phone. Check the received code before enabling the form for customers."
+msgstr "پذیرش درخواست توسط پنل، دریافت پیام روی گوشی را تأیید نمی‌کند. پیش از فعال‌کردن فرم برای مشتریان، دریافت کد را بررسی کنید."
+
 msgid "A saved product is no longer available. Your current cart has been kept."
 msgstr "یکی از محصولات ذخیره‌شده دیگر قابل خرید نیست. سبد فعلی شما حفظ شد."
 
@@ -496,6 +499,9 @@ msgstr "تغییر تنظیمات امنیت حساب به تأیید هویت �
 msgid "Check balance"
 msgstr "دریافت موجودی"
 
+msgid "Check delivery and complete a test sign-in"
+msgstr "دریافت پیام و ورود را آزمایش کنید"
+
 msgid "Check the registration fields and try again."
 msgstr "اطلاعات فرم ثبت‌نام را بررسی و اصلاح کنید."
 
@@ -529,11 +535,17 @@ msgstr "یک نقطه از نقشهٔ گنج را انتخاب کنید"
 msgid "Choose an unmatched card."
 msgstr "کارتی را انتخاب کنید که هنوز جفت نشده است."
 
+msgid "Choose how customers sign in"
+msgstr "روش ورود مشتریان را انتخاب کنید"
+
 msgid "Choose image"
 msgstr "انتخاب تصویر"
 
 msgid "Choose item %d"
 msgstr "انتخاب مورد %d"
+
+msgid "Choose mobile number, email or both. Existing customers keep their accounts."
+msgstr "شمارهٔ موبایل، ایمیل یا هر دو را انتخاب کنید. حساب مشتریان قبلی حفظ می‌شود."
 
 msgid "Choose one answer"
 msgstr "پاسخ خود را انتخاب کنید"
@@ -652,6 +664,9 @@ msgstr "سرویس ارسال و اطلاعات الگوی OTP را تنظیم �
 msgid "Configure the reminder templates and sending times first. Automatic mode saves the account or checkout number with the cart; no separate checkbox is required. Add a discount if needed, then test recovery with your own number."
 msgstr "ابتدا الگوهای یادآوری و زمان ارسال را تنظیم کنید. حالت خودکار، شمارهٔ حساب یا تسویه‌حساب را همراه سبد ذخیره می‌کند و به تیک جداگانه نیاز ندارد. در صورت نیاز تخفیف تعریف و بازیابی را با شمارهٔ خود آزمایش کنید."
 
+msgid "Configure the service and save it. SMS templates open in the same message editor used throughout Anar; there is no separate template in this guide."
+msgstr "اتصال سرویس را تنظیم و ذخیره کنید. الگوی پیامک در همان ویرایشگر مشترک انار باز می‌شود و نیازی به تعریف دوبارهٔ آن نیست."
+
 msgid "Confirm and queue this campaign"
 msgstr "تأیید و افزودن این کمپین به صف"
 
@@ -664,6 +679,9 @@ msgstr "تأیید موفق کد بازیابی:"
 msgid "Confirmed recovery visits:"
 msgstr "بازدید تأییدشده بازیابی:"
 
+msgid "Connect the selected service"
+msgstr "سرویس انتخاب‌شده را متصل کنید"
+
 msgid "Connect to %s"
 msgstr "اتصال به %s"
 
@@ -672,6 +690,9 @@ msgstr "اطلاعات اتصال سرویس پیامکی را در این بخ�
 
 msgid "Connected and verified"
 msgstr "متصل و تأییدشده"
+
+msgid "Connection and message"
+msgstr "اتصال و پیام"
 
 msgid "Connection interrupted. Retry to continue the same game."
 msgstr "ارتباط قطع شد. با زدن «ادامهٔ همین بازی»، همان نوبت را دنبال کنید."
@@ -918,6 +939,9 @@ msgstr "نام نمایشی"
 
 msgid "Display name cannot be empty."
 msgstr "نام نمایشی نمی‌تواند خالی باشد."
+
+msgid "Display on the site"
+msgstr "نمایش در سایت"
 
 msgid "Do not combine with other coupons"
 msgstr "با کوپن‌های دیگر ترکیب نشود"
@@ -1753,6 +1777,9 @@ msgstr "نقش کاربران جدید"
 msgid "Next"
 msgstr "بعدی"
 
+msgid "Next step"
+msgstr "مرحلهٔ بعد"
+
 msgid "Next time"
 msgstr "فرصت بعدی"
 
@@ -1876,6 +1903,9 @@ msgstr "فقط وقتی کد الگو خالی باشد استفاده می‌ش
 msgid "Open"
 msgstr "باز"
 
+msgid "Open SMS connection"
+msgstr "تنظیمات اتصال پیامک"
+
 msgid "Open SMS panel"
 msgstr "ورود به سامانهٔ پیامکی"
 
@@ -1884,6 +1914,15 @@ msgstr "بخش هر بازی را باز کنید، متن‌های آن را ت
 
 msgid "Open abandoned carts"
 msgstr "سبدهای رهاشدهٔ باز"
+
+msgid "Open display options"
+msgstr "تنظیمات محل نمایش"
+
+msgid "Open email settings"
+msgstr "تنظیمات ایمیل"
+
+msgid "Open sign-in settings"
+msgstr "تنظیمات ورود"
 
 msgid "Open the secure HTTPS address of this site to manage or verify account security."
 msgstr "برای تنظیم یا تأیید امنیت حساب، نشانی امن سایت را با HTTPS باز کنید."
@@ -2161,8 +2200,17 @@ msgstr "نتیجهٔ بازی در حال آماده شدن است…"
 msgid "Preview eligible audience"
 msgstr "پیش‌نمایش مخاطبان واجد شرایط"
 
+msgid "Preview saved form"
+msgstr "پیش‌نمایش فرم ذخیره‌شده"
+
+msgid "Preview the form and choose where it appears"
+msgstr "فرم را ببینید و محل نمایش آن را انتخاب کنید"
+
 msgid "Previous"
 msgstr "قبلی"
+
+msgid "Previous step"
+msgstr "مرحلهٔ قبل"
 
 msgid "Print / save as PDF"
 msgstr "چاپ / ذخیره به صورت PDF"
@@ -2644,6 +2692,9 @@ msgstr "ارسال کد بازیابی جدید"
 msgid "Send a test SMS"
 msgstr "ارسال پیامک آزمایشی"
 
+msgid "Send a test from the message editor, then sign in from a private browser window using your own contact. Test sending uses your provider credit."
+msgstr "از ویرایشگر پیام یک ارسال آزمایشی انجام دهید، سپس در پنجرهٔ خصوصی مرورگر با شماره یا ایمیل خود وارد شوید. ارسال آزمایشی از اعتبار پنل پیامکی مصرف می‌کند."
+
 msgid "Send login code"
 msgstr "دریافت کد ورود"
 
@@ -2703,6 +2754,9 @@ msgstr "راه‌اندازی برنامهٔ رمزساز"
 
 msgid "Settings"
 msgstr "تنظیمات"
+
+msgid "Setup steps"
+msgstr "مراحل راه‌اندازی"
 
 msgid "Share your link. An eligible first purchase can earn a personal coupon after completion and the store refund waiting period. Self-referrals and refunded orders do not qualify."
 msgstr "پیوندتان را به اشتراک بگذارید. اولین خرید واجد شرایط می‌تواند پس از تکمیل و پایان مهلت بازگشت وجه، برای شما کوپن اختصاصی داشته باشد. معرفی خود و سفارش مستردشده مشمول نیستند."
@@ -2803,14 +2857,23 @@ msgstr "ورود در صفحهٔ تسویه‌حساب"
 msgid "Sign-in code"
 msgstr "کد ورود"
 
+msgid "Sign-in form preview"
+msgstr "پیش‌نمایش فرم ورود"
+
 msgid "Sign-in form style"
 msgstr "ظاهر فرم ورود"
 
 msgid "Sign-in icon only"
 msgstr "فقط آیکون ورود"
 
+msgid "Sign-in method"
+msgstr "روش ورود"
+
 msgid "Sign-in methods"
 msgstr "روش‌های ورود"
+
+msgid "Sign-in setup guide"
+msgstr "راهنمای راه‌اندازی ورود"
 
 msgid "Signing you in…"
 msgstr "در حال ورود…"
@@ -2962,6 +3025,9 @@ msgstr "درگاه‌های الگویی فقط از مقدار {code} استف�
 msgid "Test accepted by the provider. Check the recipient phone."
 msgstr "پنل، ارسال آزمایشی را پذیرفت. دریافت پیام را روی گوشی بررسی کنید."
 
+msgid "Test sign-in"
+msgstr "آزمون ورود"
+
 msgid "Tests the provider and details currently entered above, even before saving. The provider’s exact response is shown if delivery fails."
 msgstr "درگاه و اطلاعاتی که همین الان در بالا وارد کرده‌اید آزمایش می‌شود، حتی پیش از ذخیره. در صورت خطا، پاسخ دقیق سرویس پیامک نمایش داده می‌شود."
 
@@ -3099,6 +3165,9 @@ msgstr "رمزهای عبور یکسان نیستند."
 
 msgid "The preview expired or bulk messages are disabled. Preview again before launching."
 msgstr "پیش‌نمایش منقضی شده یا ارسال گروهی غیرفعال است. پیش از اجرا دوباره پیش‌نمایش بگیرید."
+
+msgid "The preview shows the saved form without sending codes or signing anyone in."
+msgstr "پیش‌نمایش، فرم ذخیره‌شده را نشان می‌دهد. در این حالت کدی ارسال نمی‌شود و ورود انجام نمی‌گیرد."
 
 msgid "The primary color of the sign-in form and account dashboard."
 msgstr "رنگ اصلی فرم ورود و پنل کاربری."
@@ -3346,6 +3415,12 @@ msgstr "نام متغیرها باید دقیقاً مطابق پنل باشد. 
 msgid "Use the exact variable names from the approved provider template, one name={placeholder} per line. Include {unsubscribe_url}; surveys also require {action_url}."
 msgstr "نام دقیق متغیرهای الگوی تأییدشدهٔ پنل را وارد کنید؛ هر name={placeholder} در یک خط. {unsubscribe_url} الزامی است و نظرسنجی به {action_url} نیز نیاز دارد."
 
+msgid "Use the existing settings in four steps. This guide does not change your live sign-in form."
+msgstr "ورود را در چهار مرحله راه‌اندازی کنید. این راهنما فرم فعلی سایت را تغییر نمی‌دهد."
+
+msgid "Use the existing shortcode, popup or WooCommerce integration. Changing where the form appears does not change its verification rules. Save appearance changes before previewing."
+msgstr "از کد کوتاه، پاپ‌آپ یا اتصال ووکامرس استفاده کنید. محل نمایش فرم، قواعد تأیید هویت را تغییر نمی‌دهد. پیش از دیدن پیش‌نمایش، تغییرات ظاهر را ذخیره کنید."
+
 msgid "Use the sign-in template for this verification message"
 msgstr "استفاده از الگوی ورود برای این پیام تأیید"
 
@@ -3576,6 +3651,9 @@ msgstr "ترجیح دریافت یادآوری ذخیره شد."
 
 msgid "Your review"
 msgstr "دیدگاه شما"
+
+msgid "Your saved values remain in their usual sections. Return to this guide at any time. Test the new form before replacing your current sign-in page."
+msgstr "تنظیمات در بخش‌های همیشگی خود باقی می‌مانند و هر زمان می‌توانید به راهنما برگردید. پیش از جایگزینی صفحهٔ ورود فعلی، فرم جدید را آزمایش کنید."
 
 msgid "Your settings are stored securely"
 msgstr "تنظیمات شما امن ذخیره می‌شود"

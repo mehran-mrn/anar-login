@@ -41,6 +41,7 @@ final class SettingsPage {
 		add_action( 'admin_menu', array( $this, 'menu' ) );
 		add_action( 'admin_init', array( $this, 'setting' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'assets' ) );
+		add_action( 'admin_post_anar_login_preview', array( LoginSetup::class, 'preview' ) );
 	}
 
 	/**
@@ -160,12 +161,18 @@ final class SettingsPage {
 
 			<?php settings_errors(); ?>
 			<?php MessageCenter::notice(); ?>
+			<?php if ( \Anar\Login\Infrastructure\Features::enabled( 'login' ) ) : ?>
+				<div class="anar-setup-actions"><button type="button" class="button" data-login-preview><?php esc_html_e( 'Preview saved form', 'anar-toolkit' ); ?></button></div>
+			<?php endif; ?>
 
 			<div class="anar-admin__layout">
 				<aside class="anar-admin__nav"><?php $this->navigation( $value ); ?></aside>
 <div class="anar-admin__content">
 <form class="anar-connection-form" method="post" action="options.php">
 					<?php settings_fields( 'anar_login' ); ?>
+					<?php if ( \Anar\Login\Infrastructure\Features::enabled( 'login' ) ) : ?>
+						<section class="anar-tab" data-panel="setup" hidden><?php LoginSetup::render( $value ); ?></section>
+					<?php endif; ?>
 
 					<section class="anar-tab is-active" data-panel="general">
 						<?php $this->section_header( __( 'General settings', 'anar-toolkit' ), __( 'Configure sign-in, registration, and the appearance of the form.', 'anar-toolkit' ), '⚙' ); ?>
@@ -469,6 +476,7 @@ final class SettingsPage {
 					<?php ( new MessageCenter() )->shared(); ?>
 				</section>
 				</div>
+			<?php LoginSetup::dialog(); ?>
 				<?php
 				if ( isset( $providers['melipayamak'] ) ) {
 					MeliOffer::dialog(); }
@@ -486,8 +494,8 @@ final class SettingsPage {
 	 */
 	private function navigation( $value ) {
 		$flags = \Anar\Login\Infrastructure\Features::all();
-		$labels = array( 'general' => __( 'General', 'anar-toolkit' ), 'sms' => __( 'SMS', 'anar-toolkit' ), 'email' => __( 'Email', 'anar-toolkit' ), 'google' => __( 'Google sign-in', 'anar-toolkit' ), 'security' => __( 'Security', 'anar-toolkit' ), 'woocommerce' => __( 'WooCommerce', 'anar-toolkit' ), 'install' => __( 'Add to pages', 'anar-toolkit' ) );
-		$primary = array( 'general' => $flags['login'], 'sms' => ( $flags['login'] && 'email' !== $value['identity_mode'] ) || $flags['two_factor'] || $flags['reset'] || \Anar\Login\Infrastructure\Features::queue_needed(), 'email' => $flags['login'] && 'phone' !== $value['identity_mode'], 'google' => $flags['login'] && ! empty( $value['google_enabled'] ), 'security' => $flags['login'] || $flags['reset'] || $flags['two_factor'], 'woocommerce' => $flags['login'] && WooCommerce::active(), 'install' => $flags['login'] );
+		$labels = array( 'general' => __( 'General', 'anar-toolkit' ), 'setup' => __( 'Sign-in setup guide', 'anar-toolkit' ), 'sms' => __( 'SMS', 'anar-toolkit' ), 'email' => __( 'Email', 'anar-toolkit' ), 'google' => __( 'Google sign-in', 'anar-toolkit' ), 'security' => __( 'Security', 'anar-toolkit' ), 'woocommerce' => __( 'WooCommerce', 'anar-toolkit' ), 'install' => __( 'Add to pages', 'anar-toolkit' ) );
+		$primary = array( 'general' => $flags['login'], 'setup' => $flags['login'], 'sms' => ( $flags['login'] && 'email' !== $value['identity_mode'] ) || $flags['two_factor'] || $flags['reset'] || \Anar\Login\Infrastructure\Features::queue_needed(), 'email' => $flags['login'] && 'phone' !== $value['identity_mode'], 'google' => $flags['login'] && ! empty( $value['google_enabled'] ), 'security' => $flags['login'] || $flags['reset'] || $flags['two_factor'], 'woocommerce' => $flags['login'] && WooCommerce::active(), 'install' => $flags['login'] );
 		$first = true;
 		?>
 		<div class="anar-admin__nav-label"><?php esc_html_e( 'Shared settings', 'anar-toolkit' ); ?></div>
@@ -499,7 +507,7 @@ final class SettingsPage {
 			<div class="anar-admin__nav-label"><?php echo esc_html( $heading ); ?></div>
 			<?php
 			foreach ( $labels as $key => $label ) {
-				if ( (bool) $primary[ $key ] !== (bool) $enabled || ( 'woocommerce' === $key && ! WooCommerce::active() ) ) {
+				if ( (bool) $primary[ $key ] !== (bool) $enabled || ( 'woocommerce' === $key && ! WooCommerce::active() ) || ( 'setup' === $key && ! $flags['login'] ) ) {
 					continue; }
 				?>
 				<button type="button" <?php echo $first ? 'class="is-active"' : ''; ?> data-tab="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $label ); ?></button>
