@@ -1,23 +1,40 @@
 (function () {
 	'use strict';
-	document.querySelectorAll('.anar-help').forEach(function (help) {
+	let active = null;
+	function position(help) {
 		const text = help.querySelector('[role="tooltip"]');
-		function position() {
-			const anchor = help.getBoundingClientRect();
-			const bounds = text.getBoundingClientRect();
-			const left = Math.max(12, Math.min(anchor.left, document.documentElement.clientWidth - bounds.width - 12));
-			const top = anchor.bottom + bounds.height + 12 <= window.innerHeight ? anchor.bottom + 6 : Math.max(12, anchor.top - bounds.height - 6);
-			text.style.left = left + 'px'; text.style.right = 'auto'; text.style.top = top + 'px';
-		}
-		help.addEventListener('mouseenter', position);
-		help.addEventListener('focusin', position);
-		window.addEventListener('resize', function () { if (help.matches(':hover, :focus-within')) position(); });
-		window.addEventListener('scroll', function () { if (help.matches(':hover, :focus-within')) position(); }, true);
-		help.addEventListener('keydown', function (event) {
-			if (event.key === 'Escape') { help.classList.add('is-dismissed'); event.stopPropagation(); }
+		if (!text) return;
+		const anchor = help.getBoundingClientRect();
+		const bounds = text.getBoundingClientRect();
+		text.style.left = Math.max(12, Math.min(anchor.left, document.documentElement.clientWidth - bounds.width - 12)) + 'px';
+		text.style.right = 'auto';
+		text.style.top = (anchor.bottom + bounds.height + 12 <= window.innerHeight ? anchor.bottom + 6 : Math.max(12, anchor.top - bounds.height - 6)) + 'px';
+	}
+	// Delegation also covers editors loaded into the shared message dialog.
+	['mouseover', 'focusin', 'click'].forEach(function (name) {
+		document.addEventListener(name, function (event) {
+			const help = event.target.closest('.anar-help');
+			if (!help) return;
+			active = help;
+			if (name === 'click') help.classList.remove('is-dismissed');
+			position(help);
 		});
-		help.addEventListener('mouseleave', function () { if (!help.matches(':focus-within')) help.classList.remove('is-dismissed'); });
-		help.addEventListener('focusout', function () { help.classList.remove('is-dismissed'); });
-		help.querySelector('button').addEventListener('click', function () { help.classList.remove('is-dismissed'); position(); });
 	});
+	document.addEventListener('mouseout', function (event) {
+		const help = event.target.closest('.anar-help');
+		if (help && !help.contains(event.relatedTarget) && !help.matches(':focus-within')) help.classList.remove('is-dismissed');
+	});
+	document.addEventListener('focusout', function (event) {
+		const help = event.target.closest('.anar-help');
+		if (help) help.classList.remove('is-dismissed');
+	});
+	document.addEventListener('keydown', function (event) {
+		const help = event.target.closest('.anar-help');
+		if (event.key === 'Escape' && help && !help.classList.contains('is-dismissed')) {
+			help.classList.add('is-dismissed'); event.preventDefault(); event.stopPropagation();
+		}
+	});
+	function update() { if (active && active.isConnected && active.matches(':hover, :focus-within')) position(active); }
+	window.addEventListener('resize', update);
+	window.addEventListener('scroll', update, true);
 })();

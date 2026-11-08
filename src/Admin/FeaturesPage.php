@@ -51,7 +51,7 @@ final class FeaturesPage {
 			if ( $flags[ $key ] && class_exists( 'WooCommerce' ) ) {
 				add_submenu_page( 'anar-login', self::labels()[ $key ], self::labels()[ $key ], 'manage_options', 'anar-toolkit-' . $key, array( $commerce, 'render' ) ); }
 		}
-		add_submenu_page( 'anar-login', __( 'Connection settings', 'anar-toolkit' ), __( 'Connection settings', 'anar-toolkit' ), 'manage_options', 'anar-login-settings', array( new SettingsPage( new Settings(), new \Anar\Login\Messaging\ProviderRegistry( new Settings() ) ), 'render' ) );
+		add_submenu_page( 'anar-login', __( 'Settings', 'anar-toolkit' ), __( 'Settings', 'anar-toolkit' ), 'manage_options', 'anar-login-settings', array( new SettingsPage( new Settings(), new \Anar\Login\Messaging\ProviderRegistry( new Settings() ) ), 'render' ) );
 		add_submenu_page( $flags['balance'] ? 'anar-login' : null, __( 'SMS credit', 'anar-toolkit' ), __( 'SMS credit', 'anar-toolkit' ), 'manage_options', 'anar-toolkit-balance', array( BalancePage::class, 'render' ) );
 		// Keep older bookmarked URLs working without a second copy of the catalog in the menu.
 		add_submenu_page( null, __( 'Other features', 'anar-toolkit' ), __( 'Other features', 'anar-toolkit' ), 'manage_options', 'anar-features-other', array( $this, 'render' ) );

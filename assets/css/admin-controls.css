@@ -1,0 +1,19 @@
+/* One control style for settings, feature selection and commerce workspaces. */
+.anar-admin,.anar-commerce,.anar-features{
+	--anar-admin-accent:#ae2750;--anar-admin-accent-dark:#851b3b;
+	--anar-admin-ink:#282331;--anar-admin-muted:#766b70;
+	--anar-admin-line:#ebe6ee;--anar-admin-soft:#fff5f8;
+	--red:var(--anar-admin-accent);--ink:var(--anar-admin-ink);--muted:var(--anar-admin-muted);--line:var(--anar-admin-line);
+}
+:is(.anar-admin,.anar-commerce,.anar-features) :is(input:not([type]),input[type=text],input[type=search],input[type=number],input[type=tel],input[type=email],input[type=url],input[type=password],select,textarea){
+	min-height:38px;padding:8px 11px;border:1px solid #ddd5df;border-radius:8px;background:#fff;color:var(--anar-admin-ink);font:inherit;font-size:13px;font-weight:400;line-height:1.6;box-shadow:none;max-width:100%;box-sizing:border-box;
+}
+:is(.anar-admin,.anar-commerce,.anar-features) :is(input,select,textarea):focus-visible{outline:2px solid var(--anar-admin-accent);outline-offset:2px;border-color:var(--anar-admin-accent);box-shadow:none}
+:is(.anar-admin,.anar-commerce,.anar-features) .button{
+	min-height:38px;padding:6px 14px;border:1px solid #ddd5df;border-radius:8px;background:#fff;color:var(--anar-admin-ink);font:inherit;font-size:12px;font-weight:600;line-height:24px;box-shadow:none;text-decoration:none;white-space:nowrap;
+}
+:is(.anar-admin,.anar-commerce,.anar-features) .button.button-primary{background:var(--anar-admin-accent);border-color:var(--anar-admin-accent);color:#fff;box-shadow:none}
+:is(.anar-admin,.anar-commerce,.anar-features) .button:hover{border-color:var(--anar-admin-accent);color:var(--anar-admin-accent);background:var(--anar-admin-soft)}
+:is(.anar-admin,.anar-commerce,.anar-features) .button.button-primary:hover{background:var(--anar-admin-accent-dark);color:#fff}
+:is(.anar-admin,.anar-commerce,.anar-features) .button:focus-visible{outline:2px solid var(--anar-admin-accent);outline-offset:3px;box-shadow:none}
+:is(.anar-admin,.anar-commerce,.anar-features) .button:disabled{opacity:.6;cursor:wait}
