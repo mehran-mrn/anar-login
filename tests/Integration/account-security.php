@@ -10,11 +10,13 @@ use Anar\Login\Auth\CredentialService;
 use Anar\Login\Auth\LoginFlowService;
 use Anar\Login\Auth\Totp;
 use Anar\Login\Auth\OtpService;
+use Anar\Login\Auth\PasswordRecovery;
 use Anar\Login\Auth\UserService;
 use Anar\Login\Infrastructure\Settings;
 use Anar\Login\Infrastructure\OtpRepository;
 use Anar\Login\Infrastructure\RateLimiter;
 use Anar\Login\Messaging\ProviderRegistry;
+use Anar\Login\Support\PhoneDirectory;
 
 if ( ! defined( 'WP_CLI' ) || ! WP_CLI || 'local' !== wp_get_environment_type() || ! WP_DEBUG ) {
 	throw new RuntimeException( 'Use a disposable local installation with WP_DEBUG enabled.' );
@@ -101,6 +103,21 @@ try {
 	$assert( true === $otp->check( $identity, '654321', 'security_manage_' . $user_id ), 'Dedicated management code accepted' );
 	$assert( is_wp_error( $otp->check( $identity, '654321' ) ), 'Management code cannot authorize login' );
 	$assert( true === $otp->check( $identity, '123456' ), 'Login challenge remains independent' );
+	$old_phone = '+989130007141';
+	$new_phone = '+989130008141';
+	$old_login = array( 'identity' => $old_phone, 'channel' => 'sms' );
+	$new_login = array( 'identity' => $new_phone, 'channel' => 'sms' );
+	update_user_meta( $user_id, 'digits_phone', '09130007141' );
+	$assert( $user_id === $users->find_by_identity( $old_login )->ID, 'A Digits-only account can still be found' );
+	$assert( '' === get_user_meta( $user_id, PhoneDirectory::META_KEY, true ), 'Looking up an unverified phone does not migrate it' );
+	$assert( $user_id === $users->find_by_identity( $old_login, true )->ID, 'A verified legacy phone can still be migrated' );
+	$assert( true === PhoneDirectory::claim( $user_id, $new_phone, 'account_change' ), 'Verified new number replaces the canonical phone' );
+	$assert( $user_id === $users->find_by_identity( $new_login )->ID, 'The new number finds the account' );
+	$assert( false === $users->find_by_identity( $old_login, true ), 'The retained Digits value cannot authenticate or overwrite the new number' );
+	$assert( is_wp_error( PhoneDirectory::claim( $user_id, $old_phone, 'digits_phone', false ) ), 'A stale migration cannot replace the new number' );
+	$recovery = new PasswordRecovery( $settings, $repo, new RateLimiter( $settings ), new ProviderRegistry( $settings ) );
+	$repo->create( 'password|' . $user_id . '|' . $old_phone . '|' . hash( 'sha256', $user->user_pass ), 'reset', '123456', 120 );
+	$assert( is_wp_error( $recovery->reset( $old_phone, '123456', 'not-a-valid-reset-after-change' ) ), 'A previously issued reset code for the old number is rejected' );
 	$credentials->remove( $user_id );
 	$assert( true === $security->gate( true, $user ), 'Unenrolled user keeps current login behavior' );
 } finally {

@@ -4,7 +4,7 @@ Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,6 +18,8 @@ Anar Toolkit brings sign-in, purchase recovery and customer communication into o
 * Iranian mobile-number registration and SMS login, email verification codes and Google sign-in.
 * SMS password reset for a previously linked phone and optional two-step verification.
 * Optional authenticator apps, recovery codes and passkeys; one shared form with three visual presets.
+* Verified mobile-number changes, sign-out from other devices and adaptive bot checks on public code requests.
+* Block editor blocks for sign-in, the sign-in button and SMS password reset.
 * Four-step setup guidance and a saved-form preview in the existing Settings page.
 * On-demand login popup, My Account and classic checkout integration.
 
@@ -223,6 +225,10 @@ Yes. Set a budget per pool and a maximum money discount for each prize. Amounts 
 
 == Changelog ==
 
+= 1.4.1 =
+* Keep the verified Anar number authoritative for sign-in and password reset after a mobile-number change. Digits metadata remains a migration fallback for accounts without a linked Anar number.
+* Refresh the plugin description and the Persian setup guide.
+
 = 1.4.0 =
 * Send sign-in, order and campaign SMS through one transport per provider and every one-time code through one shared service.
 * Add an invisible, self-hosted bot check for public code requests, adaptive by default, to stop SMS floods.
@@ -303,6 +309,9 @@ Yes. Set a budget per pool and a maximum money discount for each prize. Amounts 
 Full history: https://github.com/mehran-mrn/anar-login/blob/main/CHANGELOG.md
 
 == Upgrade Notice ==
+
+= 1.4.1 =
+Update if you migrated from Digits and use mobile-number changes. Anar now uses the current linked number for sign-in and password reset.
 
 = 1.4.0 =
 Existing settings are retained. The invisible bot check starts in adaptive mode. Sites behind a CDN should choose the visitor address header in Settings, Security. Clear the page cache after updating.

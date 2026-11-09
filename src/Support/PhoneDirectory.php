@@ -19,7 +19,7 @@ final class PhoneDirectory {
 	 * Meta keys that may hold a verified phone, in priority order.
 	 *
 	 * Billing phones are customer-entered and never prove ownership, so they are
-	 * deliberately absent. digits_phone is read for sites migrating from Digits.
+	 * deliberately absent. digits_phone is a fallback for sites migrating from Digits.
 	 *
 	 * @return string[]
 	 */
@@ -58,11 +58,17 @@ final class PhoneDirectory {
 		$key_list   = implode( ',', array_fill( 0, count( $keys ), '%s' ) );
 		$value_list = implode( ',', array_fill( 0, count( $values ), '%s' ) );
 		// One indexed (meta_key) query instead of a get_users() round trip per key and spelling.
+		// A canonical phone supersedes stale migration metadata, including after a number change.
 		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber -- Placeholder lists are generated above.
 		$rows = $wpdb->get_results(
 			$wpdb->prepare(
-				"SELECT user_id, meta_key FROM %i WHERE meta_key IN ($key_list) AND meta_value IN ($value_list) AND user_id <> %d ORDER BY FIELD(meta_key, $key_list), umeta_id LIMIT %d",
-				array_merge( array( $wpdb->usermeta ), $keys, $values, array( absint( $exclude ) ), $keys, array( max( 1, absint( $limit ) ) * count( $keys ) ) )
+				"SELECT candidate.user_id, candidate.meta_key FROM %i AS candidate
+				WHERE candidate.meta_key IN ($key_list) AND candidate.meta_value IN ($value_list) AND candidate.user_id <> %d
+				AND (candidate.meta_key = %s OR NOT EXISTS (
+					SELECT 1 FROM %i AS canonical WHERE canonical.user_id = candidate.user_id AND canonical.meta_key = %s AND canonical.meta_value <> ''
+				))
+				ORDER BY FIELD(candidate.meta_key, $key_list), candidate.umeta_id LIMIT %d",
+				array_merge( array( $wpdb->usermeta ), $keys, $values, array( absint( $exclude ), self::META_KEY, $wpdb->usermeta, self::META_KEY ), $keys, array( max( 1, absint( $limit ) ) * count( $keys ) ) )
 			)
 		);
 		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
@@ -100,9 +106,10 @@ final class PhoneDirectory {
 	 * @param int    $user_id User.
 	 * @param string $phone   Canonical number.
 	 * @param string $source  Why it was linked.
+	 * @param bool   $replace Whether an existing canonical number may be replaced.
 	 * @return true|\WP_Error
 	 */
-	public static function claim( $user_id, $phone, $source ) {
+	public static function claim( $user_id, $phone, $source, $replace = true ) {
 		global $wpdb;
 
 		$locks = $wpdb->prefix . 'anar_login_limits';
@@ -114,7 +121,8 @@ final class PhoneDirectory {
 		}
 		try {
 			clean_user_cache( $user_id );
-			if ( ! self::available( $phone, $user_id ) ) {
+			$current = (string) get_user_meta( $user_id, self::META_KEY, true );
+			if ( ( ! $replace && '' !== $current && ! in_array( $current, self::spellings( $phone ), true ) ) || ! self::available( $phone, $user_id ) ) {
 				return new \WP_Error( 'anar_phone_unavailable', __( 'This number cannot be linked to this account. Contact the store for assistance.', 'anar-toolkit' ) );
 			}
 			if ( ! self::link( $user_id, $phone, $source ) ) {

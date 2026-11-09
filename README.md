@@ -1,12 +1,10 @@
-# Anar Toolkit 1.2.2
+# Anar Toolkit
 
 Optional WooCommerce order notifications, automatic cart recovery, customer campaigns and promotional tools, alongside SMS/email/Google login and SMS password recovery. See [commerce documentation](docs/commerce.md), [provider support messages](docs/support-messages-fa.md), and [review reply draft](docs/reviewer-response.md).
 
 Build the public release with `python tools/package.py --output dist/anar-toolkit.zip`. All seven built-in providers, including IPPanel, Panelchi and MaxSMS, are included. Development dependencies and editable translation sources are excluded. Compiled Persian MO/PHP catalogs are included so installation does not require a separate language pack.
 
-Stable GitHub releases publish automatically to [WordPress.org](https://wordpress.org/plugins/anar-toolkit/) after the release checks pass. Configure repository Actions secrets `SVN_USERNAME=mrnwp` and `SVN_PASSWORD` with the WordPress.org SVN password, then publish a release tagged with the plugin version (for example `0.8.0`). Ordinary commits run checks. See [publishing instructions](docs/publishing.md).
-
-# Anar Toolkit
+See the [latest release and version notes](https://github.com/mehran-mrn/anar-login/releases/latest). Publishing a stable GitHub release tagged with the plugin version runs the checks and deploys it to [WordPress.org](https://wordpress.org/plugins/anar-toolkit/). Pushing a commit runs checks only. See [publishing instructions](docs/publishing.md).
 
 Fast, secure passwordless authentication for WordPress with Iranian SMS providers, email OTP, and Google OAuth.
 

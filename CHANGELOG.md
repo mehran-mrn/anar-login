@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.1 — 2026-11-09
+
+- Use the current Anar number for sign-in and password recovery. Treat Digits and other legacy phone metadata as migration fallbacks only, and migrate it only after verification.
+- Update the directory description and Persian setup guides. Link to the latest release so the docs do not display stale version numbers.
+
 ## 1.4.0 — 2026-11-09
 
 - Send OTP, commerce and marketing SMS through one transport per provider (`send_template` / `send_text`); remove the duplicated endpoint switch from the notification sender.

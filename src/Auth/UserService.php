@@ -39,9 +39,10 @@ final class UserService {
 	 * Find a user by normalized identity.
 	 *
 	 * @param array{identity:string,channel:string} $identity Identity.
-	 * @return WP_User|false
+	 * @param bool                                  $adopt_legacy Whether the caller has verified the identity.
+	 * @return WP_User|WP_Error|false
 	 */
-	public function find_by_identity( $identity ) {
+	public function find_by_identity( $identity, $adopt_legacy = false ) {
 		if ( 'email' === $identity['channel'] ) {
 			return get_user_by( 'email', $identity['identity'] );
 		}
@@ -51,12 +52,20 @@ final class UserService {
 			return false;
 		}
 		$user = get_user_by( 'id', (int) key( $found ) );
-		if ( $user && PhoneDirectory::META_KEY !== current( $found ) ) {
-			// Adopt numbers verified by a previous login plugin as canonical phones.
-			PhoneDirectory::link( $user->ID, $identity['identity'], current( $found ) );
+		if ( $user && $adopt_legacy && PhoneDirectory::META_KEY !== current( $found ) ) {
+			// Migrate a legacy phone without replacing a canonical phone set after the lookup.
+			$linked = PhoneDirectory::claim( $user->ID, $identity['identity'], current( $found ), false );
+			if ( is_wp_error( $linked ) ) {
+				return $linked;
+			}
 		}
 
 		return $user ? $user : false;
+	}
+
+	/** Whether the last login_or_create() call registered a new account. */
+	public function created() {
+		return $this->created;
 	}
 
 	/**
@@ -66,14 +75,12 @@ final class UserService {
 	 * @param bool                                  $remember Remember login.
 	 * @return WP_User|WP_Error
 	 */
-	/** Whether the last login_or_create() call registered a new account. */
-	public function created() {
-		return $this->created;
-	}
-
 	public function login_or_create( $identity, $remember ) {
 		$this->created = false;
-		$user = $this->find_by_identity( $identity );
+		$user = $this->find_by_identity( $identity, true );
+		if ( is_wp_error( $user ) ) {
+			return $user;
+		}
 
 		if ( ! $user ) {
 			if ( ! $this->settings->get( 'allow_registration', 1 ) ) {
