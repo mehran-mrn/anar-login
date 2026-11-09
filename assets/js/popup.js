@@ -5,8 +5,11 @@
 	var manual = 'a[href$="#anar-login"], .anar-login-trigger';
 	var loading = null;
 	var dialog = null;
+	var status = null;
+	var content = null;
 	var loaded = false;
-	var opening = false;
+	var destination = '';
+	var fallback = '';
 
 	var path = function (url) {
 		return url.pathname.replace(/\/+$/, '');
@@ -29,7 +32,7 @@
 
 		var target = path(url);
 		var action = url.searchParams.get('action') || '';
-		if (config.loginPath && target === config.loginPath && (!action || action === 'login' || action === 'register')) {
+		if (config.loginPath && target === config.loginPath && !url.searchParams.has('anar_password') && (!action || action === 'login' || action === 'register')) {
 			return { redirect: url.searchParams.get('redirect_to') || '' };
 		}
 		if (config.accountPath && (target === config.accountPath || target.indexOf(config.accountPath + '/') === 0) && target.indexOf('lost-password') < 0) {
@@ -46,6 +49,66 @@
 		var trigger = element.closest(manual);
 		if (trigger) return { redirect: '', manual: true };
 		return automatic(element);
+	};
+
+	var closeDialog = function () {
+		if (typeof dialog.close === 'function') dialog.close();
+		else dialog.removeAttribute('open');
+	};
+
+	var prepareDialog = function () {
+		if (dialog) return;
+
+		dialog = document.createElement('dialog');
+		dialog.className = 'anar-modal';
+		dialog.setAttribute('aria-label', config.title || '');
+		dialog.dir = document.documentElement.dir || 'ltr';
+		// The loading shell is ready even before the deferred form stylesheet arrives.
+		Object.assign(dialog.style, {
+			width: 'min(calc(100% - 24px), 490px)', maxWidth: 'none', padding: '0', border: '0',
+			margin: 'auto', borderRadius: '28px', background: '#fff', boxShadow: '0 18px 55px #0003'
+		});
+
+		var close = document.createElement('button');
+		close.type = 'button';
+		close.className = 'anar-modal__close';
+		close.setAttribute('aria-label', config.close || 'Close');
+		close.textContent = '×';
+		Object.assign(close.style, {
+			position: 'absolute', top: '14px', insetInlineEnd: '14px', display: 'grid', placeItems: 'center',
+			width: '34px', height: '34px', padding: '0', border: '0', borderRadius: '50%',
+			color: '#5c4f55', background: '#f5f3f4', font: '400 22px/1 Arial, sans-serif', cursor: 'pointer'
+		});
+		close.addEventListener('click', closeDialog);
+		dialog.addEventListener('click', function (event) {
+			if (event.target === dialog) closeDialog();
+		});
+
+		status = document.createElement('div');
+		status.id = 'anar-popup-loading';
+		status.setAttribute('role', 'status');
+		dialog.setAttribute('aria-describedby', status.id);
+		Object.assign(status.style, {
+			display: 'grid', placeItems: 'center', gap: '12px', padding: '54px 22px',
+			color: '#20151a', font: 'inherit', textAlign: 'center'
+		});
+		var progress = document.createElement('progress');
+		progress.setAttribute('aria-hidden', 'true');
+		progress.style.width = '64px';
+		progress.style.accentColor = config.brandColor || '#d81b3f';
+		status.append(progress, config.loading || 'Loading…');
+
+		content = document.createElement('div');
+		content.style.display = 'none';
+		dialog.append(close, status, content);
+		document.body.appendChild(dialog);
+	};
+
+	var focusForm = function () {
+		var card = content.querySelector('.anar-login-card');
+		if (card) card.dataset.redirect = destination || window.location.href.split('#')[0];
+		var input = content.querySelector('input[name="identity"]');
+		if (input) input.focus({ preventScroll: true });
 	};
 
 	var load = function () {
@@ -69,16 +132,8 @@
 			})
 			.then(function (data) {
 				window.AnarLogin = data.config;
-				dialog = document.createElement('dialog');
-				dialog.className = 'anar-modal';
-				dialog.setAttribute('aria-label', config.title || '');
-				dialog.innerHTML = '<button type="button" class="anar-modal__close" aria-label="' + (config.close || 'Close') + '">&times;</button>' + data.html;
-				dialog.querySelector('.anar-modal__close').addEventListener('click', function () { dialog.close(); });
-				// A click on the backdrop lands on the dialog element itself.
-				dialog.addEventListener('click', function (event) {
-					if (event.target === dialog) dialog.close();
-				});
-				document.body.appendChild(dialog);
+				prepareDialog();
+				content.innerHTML = data.html;
 
 				var ready = [];
 				if (dialog.querySelector('[data-anar-password]')) {
@@ -89,11 +144,15 @@
 					else ready.push(new Promise(function (resolve, reject) { var resetScript = document.createElement('script'); resetScript.src = data.resetJs; resetScript.onload = resolve; resetScript.onerror = reject; document.body.appendChild(resetScript); }));
 				}
 				if (!document.querySelector('link[rel="stylesheet"][href^="' + data.css.split('?')[0] + '"]')) {
-					ready.push(new Promise(function (resolve) {
+					ready.push(new Promise(function (resolve, reject) {
 						var link = document.createElement('link');
 						link.rel = 'stylesheet';
 						link.href = data.css;
-						link.onload = link.onerror = resolve;
+						link.onload = resolve;
+						link.onerror = function (error) {
+							link.remove();
+							reject(error);
+						};
 						document.head.appendChild(link);
 					}));
 				}
@@ -108,11 +167,19 @@
 			})
 			.then(function () {
 				loaded = true;
+				status.remove();
+				dialog.removeAttribute('aria-describedby');
+				dialog.removeAttribute('style');
+				dialog.querySelector('.anar-modal__close').removeAttribute('style');
+				content.removeAttribute('style');
+				if (dialog.open) focusForm();
 			})
 			.catch(function (error) {
+				var wasOpen = dialog && dialog.open;
 				if (dialog) dialog.remove();
 				dialog = null;
 				loading = null;
+				if (wasOpen) window.location.href = fallback || config.accountUrl;
 				throw error;
 			})
 			.finally(function () {
@@ -121,61 +188,20 @@
 		return loading;
 	};
 
-	var open = function (redirect) {
-		if (!dialog || dialog.open) return;
-		var card = dialog.querySelector('.anar-login-card');
-		// Return to the page that was asked for, otherwise stay on this one.
-		if (card) card.dataset.redirect = redirect || window.location.href.split('#')[0];
-		if (typeof dialog.showModal === 'function') dialog.showModal();
-		else dialog.setAttribute('open', '');
-		var input = dialog.querySelector('input[name="identity"]');
-		if (input) input.focus();
-	};
-
-	var showLoading = function (source) {
-		var status = document.createElement('div');
-		status.setAttribute('role', 'status');
-		status.setAttribute('dir', document.documentElement.dir || 'ltr');
-		Object.assign(status.style, {
-			position: 'fixed', bottom: '24px',
-			transform: 'translateX(-50%)', left: '50%', zIndex: '2147483647',
-			display: 'flex', alignItems: 'center', gap: '10px', padding: '12px 16px',
-			maxWidth: 'calc(100% - 32px)', width: 'max-content', borderRadius: '12px',
-			background: '#2b1721', color: '#fff', boxShadow: '0 6px 24px #0003',
-			font: '500 14px/1.5 system-ui, sans-serif'
-		});
-		var progress = document.createElement('progress');
-		progress.setAttribute('aria-hidden', 'true');
-		progress.style.width = '32px';
-		progress.style.accentColor = '#f2a5b7';
-		status.appendChild(progress);
-		document.body.appendChild(status);
-		status.appendChild(document.createTextNode(config.loading || 'Loading…'));
-		if (source) source.setAttribute('aria-busy', 'true');
-		return function () {
-			status.remove();
-			if (source) source.removeAttribute('aria-busy');
-		};
-	};
-
-	var trigger = function (found, fallback, source) {
+	var trigger = function (found, fallbackUrl) {
 		if (config.loggedIn) {
 			window.location.href = config.accountUrl;
 			return;
 		}
-		if (loaded) {
-			open(found.redirect);
-			return;
-		}
-		if (opening) return;
-		opening = true;
-		var done = showLoading(source);
-		load().then(function () { open(found.redirect); }).catch(function () {
-			window.location.href = fallback || config.accountUrl;
-		}).finally(function () {
-			opening = false;
-			done();
-		});
+		prepareDialog();
+		if (dialog.open) return;
+		destination = found.redirect;
+		fallback = fallbackUrl;
+		dialog.classList.toggle('anar-modal--loading-open', !loaded);
+		if (typeof dialog.showModal === 'function') dialog.showModal();
+		else dialog.setAttribute('open', '');
+		if (loaded) focusForm();
+		else load().catch(function () {});
 	};
 
 	// Capture phase, so theme scripts (dropdowns, side panels) never see the click.
@@ -186,7 +212,7 @@
 		event.preventDefault();
 		event.stopImmediatePropagation();
 		var link = event.target.closest('a[href]');
-		trigger(found, link && !found.manual ? link.href : '', link || event.target.closest(manual + ', .login-side-opener'));
+		trigger(found, link && !found.manual ? link.href : '');
 	}, true);
 
 	// Warm up on hover or keyboard focus so the popup opens instantly.

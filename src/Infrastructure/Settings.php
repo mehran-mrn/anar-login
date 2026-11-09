@@ -57,6 +57,7 @@ final class Settings {
 			'delete_data'         => 0,
 			'debug_log'           => 0,
 			'popup_enabled'       => 0,
+			'popup_password_link' => 0,
 			'replace_theme_login' => 1,
 			'replace_wp_login'    => 0,
 			'form_logo'           => 'site',
@@ -186,7 +187,7 @@ final class Settings {
 		$defaults = $this->defaults();
 		$output   = array();
 
-		$checkboxes = array( 'allow_registration', 'google_enabled', 'delete_data', 'debug_log', 'popup_enabled', 'replace_theme_login', 'replace_wp_login', 'password_reset_enabled', 'passkeys_enabled' );
+		$checkboxes = array( 'allow_registration', 'google_enabled', 'delete_data', 'debug_log', 'popup_enabled', 'popup_password_link', 'replace_theme_login', 'replace_wp_login', 'password_reset_enabled', 'passkeys_enabled' );
 		foreach ( $checkboxes as $key ) {
 			$output[ $key ] = empty( $input[ $key ] ) ? 0 : 1;
 		}

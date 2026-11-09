@@ -4,7 +4,7 @@ Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.5.0
+Stable tag: 1.5.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -226,6 +226,11 @@ Yes. Set a budget per pool and a maximum money discount for each prize. Amounts 
 
 == Changelog ==
 
+= 1.5.1 =
+* Show the loading indicator inside the sign-in popup in the configured brand color.
+* Fix the phone and email input styling, including icon spacing in RTL.
+* Show password recovery when the popup offers password sign-in and SMS password recovery is enabled.
+
 = 1.5.0 =
 * Add registration with custom fields from MRN Forms and reuse Anar’s SMS verification service for regular forms.
 * Show loading feedback on login popup clicks and download the popup assets alongside the form.
@@ -318,6 +323,9 @@ Yes. Set a budget per pool and a maximum money discount for each prize. Amounts 
 Full history: https://github.com/mehran-mrn/anar-login/blob/main/CHANGELOG.md
 
 == Upgrade Notice ==
+
+= 1.5.1 =
+Enable “Password sign-in in the popup” in Anar settings if you want to offer password sign-in alongside one-time codes.
 
 = 1.5.0 =
 To use custom registration or SMS verification for forms, update MRN Forms to 1.5.0 or later.

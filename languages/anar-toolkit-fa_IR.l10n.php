@@ -1,6 +1,6 @@
 <?php
 return array(
-'project-id-version' => 'Anar Toolkit 1.5.0',
+'project-id-version' => 'Anar Toolkit 1.5.1',
 'language' => 'fa_IR',
 'plural-forms' => 'nplurals=2; plural=(n > 1);',
 'messages' => array(
@@ -735,6 +735,7 @@ return array(
 'Passkey sign-in was cancelled. You can try again or use a verification code.' => 'ورود با کلید عبور لغو شد. می‌توانید دوباره تلاش کنید یا با کد تأیید وارد شوید.',
 'Password recovery' => 'بازیابی رمز عبور',
 'Password reset code' => 'کد بازنشانی رمز عبور',
+'Password sign-in in the popup' => 'ورود با رمز در پنجرهٔ ورود',
 'Passwordless sign-in and sign-up with a mobile or email code.' => 'ورود و ثبت‌نام بدون رمز با کد موبایل یا ایمیل.',
 'Passwordless sign-in on My Account and checkout.' => 'ورود بدون رمز در حساب کاربری و صفحهٔ تسویه‌حساب.',
 'Passwordless sign-in that is simple for users and secure for you' => 'ورود یک‌بارمصرف، ساده برای کاربر و مطمئن برای شما',
@@ -989,6 +990,7 @@ return array(
 'Ship to' => 'ارسال به',
 'Shipment tracking' => 'رهگیری مرسوله',
 'Shipping carrier' => 'شرکت حمل‌ونقل',
+'Show a link to sign in with a password. Password recovery also appears here when SMS password recovery is enabled.' => 'پیوند ورود با رمز عبور را نشان می‌دهد. اگر بازیابی پیامکی رمز فعال باشد، گزینهٔ بازیابی هم در پنجره نمایش داده می‌شود.',
 'Show above the WooCommerce forms' => 'نمایش بالای فرم‌های ووکامرس',
 'Show low-credit warnings to site administrators' => 'هشدار کمبود اعتبار به مدیران سایت نمایش داده شود',
 'Show the Google sign-in button on the login form.' => 'دکمه ورود گوگل در فرم ورود نمایش داده شود.',

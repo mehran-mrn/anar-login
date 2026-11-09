@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.5.1 — 2026-11-09
+
+- Open the sign-in popup immediately and show loading inside it using the configured brand color.
+- Apply the sign-in field style to phone and email inputs, with room for the icon in either text direction.
+- Offer password recovery in the popup when password sign-in and SMS password recovery are enabled.
+
 ## 1.5.0 — 2026-11-09
 
 - Use a published MRN Forms registration form to collect custom fields, verify the mobile number and create the WordPress account.

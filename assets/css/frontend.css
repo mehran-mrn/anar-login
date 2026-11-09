@@ -235,6 +235,7 @@ body.anar-wp-login .anar-registration .mrnf-form {
 	pointer-events: none;
 }
 
+.anar-form .anar-input-wrap > input,
 .anar-form input[type="text"],
 .anar-fields input {
 	width: 100%;
@@ -253,6 +254,12 @@ body.anar-wp-login .anar-registration .mrnf-form {
 	transition: border-color .2s, box-shadow .2s;
 }
 
+/* The input uses LTR digits, while the icon follows the form's direction. */
+.anar-auth[dir="rtl"] .anar-input-wrap > input {
+	padding-inline: 15px 44px;
+}
+
+.anar-form .anar-input-wrap > input:focus,
 .anar-form input[type="text"]:focus,
 .anar-fields input:focus {
 	border-color: var(--anar-accent);
@@ -562,7 +569,7 @@ body.anar-wp-login .anar-registration .mrnf-form {
 	color: inherit;
 }
 
-.anar-modal[open] {
+.anar-modal[open]:not(.anar-modal--loading-open) {
 	animation: anar-modal-in .26s cubic-bezier(.2, .8, .2, 1) both;
 }
 

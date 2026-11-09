@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
 do_action( 'woocommerce_before_customer_login_form' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WooCommerce hook.
 ?>
 <div class="anar-wc-account">
-	<?php echo do_shortcode( '[anar_login redirect="' . esc_url( wc_get_page_permalink( 'myaccount' ) ) . '"]' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Shortcode output is escaped where it is built. ?>
+	<?php echo do_shortcode( '[anar_login redirect="' . esc_url( wc_get_page_permalink( 'myaccount' ) ) . '" password_form="1"]' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Shortcode output is escaped where it is built. ?>
 
 	<details class="anar-wc-password">
 		<summary><?php esc_html_e( 'Sign in with a password instead', 'anar-toolkit' ); ?></summary>

@@ -121,7 +121,7 @@ final class Popup {
 			'html'   => $this->shortcodes->login(
 				array(
 					'redirect'      => $redirect,
-					'password_link' => '1',
+					'password_link' => (bool) $this->settings->get( 'popup_password_link', 0 ),
 				)
 			),
 			'config' => $this->shortcodes->script_config(),
@@ -162,6 +162,7 @@ final class Popup {
 			'close'       => __( 'Close', 'anar-toolkit' ),
 			'title'       => __( 'Sign in', 'anar-toolkit' ),
 			'loading'     => __( 'Loading the sign-in form…', 'anar-toolkit' ),
+			'brandColor'  => $this->settings->get( 'brand_color', '#d81b3f' ),
 			'css'         => add_query_arg( 'ver', ANAR_LOGIN_VERSION, ANAR_LOGIN_URL . 'assets/css/frontend.css' ),
 			'js'          => add_query_arg( 'ver', ANAR_LOGIN_VERSION, ANAR_LOGIN_URL . 'assets/js/frontend.js' ),
 		);

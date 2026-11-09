@@ -81,7 +81,8 @@ final class LoginSetup {
 		nocache_headers();
 		header( "Content-Security-Policy: script-src 'none'; form-action 'none'; base-uri 'none'; frame-ancestors 'self'" );
 		header( 'Referrer-Policy: no-referrer' );
-		$html = ( new Shortcodes( new Settings() ) )->render_login( array(), true );
+		$settings = new Settings();
+		$html = ( new Shortcodes( $settings ) )->render_login( array( 'password_link' => $settings->get( 'popup_password_link', 0 ) ), true );
 		wp_enqueue_style( 'anar-login-preview', ANAR_LOGIN_URL . 'assets/css/frontend.css', array(), ANAR_LOGIN_VERSION );
 		wp_add_inline_style( 'anar-login-preview', 'body{margin:0;padding:12px;background:#f8f6f7}main{pointer-events:none}' );
 		?>

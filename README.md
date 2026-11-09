@@ -87,6 +87,8 @@ Enable **Login popup** in General settings, then link to `#anar-login` anywhere 
 [anar_login_button label="Sign in / Register"]
 ```
 
+Enable **Password sign-in in the popup** under General to offer a password link alongside one-time codes. The popup also shows password recovery when **SMS password recovery** is enabled.
+
 Signed-in visitors are sent to their account instead. A small deferred script is cached across pages; the form is fetched on first click and preloaded on hover.
 
 ## Registration with MRN Forms

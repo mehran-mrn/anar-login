@@ -105,7 +105,7 @@ final class WooCommerce {
 	 */
 	public function above_account_forms() {
 		if ( 'above' === $this->settings->get( 'wc_account_mode', 'replace' ) ) {
-			echo '<div class="anar-wc-account">' . do_shortcode( '[anar_login redirect="' . esc_url( wc_get_page_permalink( 'myaccount' ) ) . '"]' ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Shortcode output is escaped where it is built.
+			echo '<div class="anar-wc-account">' . do_shortcode( '[anar_login redirect="' . esc_url( wc_get_page_permalink( 'myaccount' ) ) . '" password_form="1"]' ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Shortcode output is escaped where it is built.
 		}
 	}
 

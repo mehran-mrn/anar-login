@@ -64,5 +64,7 @@
   "Create your account": "ایجاد حساب کاربری",
   "Complete the form and verify your mobile number to register.": "برای ثبت‌نام، فرم را تکمیل و شمارهٔ همراه خود را تأیید کنید.",
   "Already have an account? Sign in": "حساب دارید؟ وارد شوید",
-  "Loading the sign-in form…": "در حال بارگذاری فرم ورود…"
+  "Loading the sign-in form…": "در حال بارگذاری فرم ورود…",
+  "Password sign-in in the popup": "ورود با رمز در پنجرهٔ ورود",
+  "Show a link to sign in with a password. Password recovery also appears here when SMS password recovery is enabled.": "پیوند ورود با رمز عبور را نشان می‌دهد. اگر بازیابی پیامکی رمز فعال باشد، گزینهٔ بازیابی هم در پنجره نمایش داده می‌شود."
 }

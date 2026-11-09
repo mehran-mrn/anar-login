@@ -281,6 +281,7 @@ final class SettingsPage {
 							<?php $this->toggle( 'replace_theme_login', __( 'Replace the theme’s login', 'anar-toolkit' ), __( 'For signed-out visitors, every WooCommerce login form and the theme’s login links (header account, side panels, WoodMart dropdowns) use the passwordless form.', 'anar-toolkit' ), $value ); ?>
 							<?php $this->toggle( 'replace_wp_login', __( 'Also replace wp-login.php', 'anar-toolkit' ), __( 'Off by default. When on, the WordPress login page shows the passwordless form with a “Sign in with a password” link, so staff can always use their password.', 'anar-toolkit' ), $value ); ?>
 							<?php $this->toggle( 'popup_enabled', __( 'Login popup', 'anar-toolkit' ), __( 'Open the sign-in form in a popup from any link to #anar-login, such as a menu item. The form loads only when it is first opened, so page speed is unaffected.', 'anar-toolkit' ), $value ); ?>
+							<?php $this->toggle( 'popup_password_link', __( 'Password sign-in in the popup', 'anar-toolkit' ), __( 'Show a link to sign in with a password. Password recovery also appears here when SMS password recovery is enabled.', 'anar-toolkit' ), $value ); ?>
 						</div>
 					</section>
 

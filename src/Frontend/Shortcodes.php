@@ -96,6 +96,7 @@ final class Shortcodes {
 			array(
 				'redirect'      => '',
 				'password_link' => '',
+				'password_form' => '',
 			),
 			is_array( $atts ) ? $atts : array(),
 			'anar_login'
@@ -178,7 +179,9 @@ final class Shortcodes {
 					</a>
 				<?php endif; ?>
 
-				<?php echo \Anar\Login\Auth\PasswordRecovery::form(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Form escapes all dynamic values. ?>
+				<?php if ( $atts['password_link'] || $atts['password_form'] ) : ?>
+					<?php echo \Anar\Login\Auth\PasswordRecovery::form(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Form escapes all dynamic values. ?>
+				<?php endif; ?>
 				<div class="anar-notice<?php echo $error ? ' is-error' : ''; ?>" role="status" aria-live="polite"<?php echo $error ? '' : ' hidden'; ?>><?php echo esc_html( $error ); ?></div>
 
 				<?php if ( $register ) : ?>
