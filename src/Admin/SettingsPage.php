@@ -122,6 +122,8 @@ final class SettingsPage {
 					'failed' => __( 'Registration could not be confirmed. Check with Meli Payamak before submitting again.', 'anar-toolkit' ),
 					'irr' => __( 'rial', 'anar-toolkit' ),
 					'irt' => __( 'toman', 'anar-toolkit' ),
+					/* translators: %s: Formatted rate with currency. */
+					'smsRate' => __( '%s per SMS', 'anar-toolkit' ),
 				),
 			)
 		);

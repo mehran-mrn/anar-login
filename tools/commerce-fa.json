@@ -571,6 +571,8 @@
   "toman": "تومان",
   "Please agree to sending your registration details to MRNWP and Meli Payamak.": "برای ادامه، ارسال اطلاعات ثبت‌نام به MRNWP و ملی‌پیامک را تأیید کنید.",
   "Check the registration fields and try again.": "اطلاعات فرم ثبت‌نام را بررسی و اصلاح کنید.",
+  "First and last names must not contain digits.": "نام و نام خانوادگی نباید عدد داشته باشند.",
+  "%s per SMS": "%s برای هر پیامک",
   "Enter a last name, a valid Iranian mobile number and a plan.": "نام خانوادگی، شماره همراه معتبر ایران و طرح موردنظر را وارد کنید.",
   "Your invoice is ready. Continue on Meli Payamak to review the amount and pay. SMS setup is completed separately.": "فاکتور آماده است. برای بررسی مبلغ و پرداخت، وارد سایت ملی‌پیامک شوید. تنظیم اتصال پیامکی جداگانه انجام می‌شود.",
   "Too many registration requests. Please try again later.": "تعداد درخواست‌های ثبت‌نام بیش از حد مجاز است. بعداً دوباره تلاش کنید.",

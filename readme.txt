@@ -4,7 +4,7 @@ Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.4.1
+Stable tag: 1.4.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -225,6 +225,10 @@ Yes. Set a budget per pool and a maximum money discount for each prize. Amounts 
 
 == Changelog ==
 
+= 1.4.2 =
+* Display Meli Payamak signup plans as selectable cards with the current price and rate per SMS when the currency is confirmed.
+* Filter digits from first and last name fields and reject invalid names before forwarding a registration request.
+
 = 1.4.1 =
 * Keep the verified Anar number authoritative for sign-in and password reset after a mobile-number change. Digits metadata remains a migration fallback for accounts without a linked Anar number.
 * Refresh the plugin description and the Persian setup guide.
@@ -309,6 +313,9 @@ Yes. Set a budget per pool and a maximum money discount for each prize. Amounts 
 Full history: https://github.com/mehran-mrn/anar-login/blob/main/CHANGELOG.md
 
 == Upgrade Notice ==
+
+= 1.4.2 =
+Meli Payamak quick signup displays plan cards and validates names before registration.
 
 = 1.4.1 =
 Update if you migrated from Digits and use mobile-number changes. Anar now uses the current linked number for sign-in and password reset.

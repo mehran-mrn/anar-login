@@ -70,6 +70,12 @@ try {
 	$before = count( $requests );
 	$verify( is_wp_error( ( new MeliSignup() )->register( array_replace( $input, array( 'consent' => false ) ) ) ), 'Personal data cannot be submitted without explicit consent' );
 	$verify( count( $requests ) === $before, 'Invalid consent makes no relay request' );
+	$invalid_name = new WP_REST_Request( 'POST' );
+	$invalid_name->set_header( 'Content-Type', 'application/json' );
+	$invalid_name->set_body( wp_json_encode( array_replace( $input, array( 'last_name' => 'انار۱' ) ) ) );
+	$rejected = Meli_Partner::register( $invalid_name );
+	$verify( is_wp_error( $rejected ) && 400 === $rejected->get_error_data()['status'], 'Direct relay requests with digits in a name are rejected' );
+	$verify( count( $requests ) === $before, 'Invalid names make no provider request' );
 	$result = ( new MeliSignup() )->register( $input );
 	$verify( ! is_wp_error( $result ) && 'https://sign.melipayamak.com/invoice/1782042000' === $result['invoice_url'], 'Opt-in signup returns the official invoice link' . ( is_wp_error( $result ) ? ': ' . $result->get_error_code() : '' ) );
 	$provider_requests = array_values(

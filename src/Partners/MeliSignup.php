@@ -55,6 +55,9 @@ final class MeliSignup {
 				return new WP_Error( 'anar_meli_fields', __( 'Check the registration fields and try again.', 'anar-toolkit' ), array( 'status' => 400 ) );
 			}
 		}
+		if ( 0 !== preg_match( '/\p{Nd}/u', $input['first_name'] . $input['last_name'] ) ) {
+			return new WP_Error( 'anar_meli_fields', __( 'First and last names must not contain digits.', 'anar-toolkit' ), array( 'status' => 400 ) );
+		}
 		$phone = Identity::normalize( $input['mobile_number'] );
 		$last = sanitize_text_field( $input['last_name'] );
 		$code = $input['product_code'] ?? null;

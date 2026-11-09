@@ -30,8 +30,14 @@ final class MeliOffer {
 			<div class="anar-meli-dialog__head"><div><span class="anar-meli-badge"><?php esc_html_e( 'Anar user discount', 'anar-toolkit' ); ?></span><h2 id="anar-meli-title"><?php esc_html_e( 'Meli Payamak quick signup', 'anar-toolkit' ); ?></h2></div><button type="button" class="anar-meli-close" data-meli-close aria-label="<?php esc_attr_e( 'Close signup', 'anar-toolkit' ); ?>">×</button></div>
 				<p id="anar-meli-description"><?php esc_html_e( 'Choose a plan and enter the account holder details. Submitting this form sends these details through Anar to Meli Payamak to create your account.', 'anar-toolkit' ); ?></p>
 			<form data-meli-form>
-				<label class="anar-meli-label" for="anar-meli-plan"><?php esc_html_e( 'Account plan', 'anar-toolkit' ); ?></label><select id="anar-meli-plan" name="product_code" required></select>
-				<div class="anar-meli-fields"><label><?php esc_html_e( 'First name (optional)', 'anar-toolkit' ); ?><input type="text" name="first_name" autocomplete="given-name" maxlength="80"></label><label><?php esc_html_e( 'Last name', 'anar-toolkit' ); ?><input type="text" name="last_name" autocomplete="family-name" maxlength="80" required></label></div>
+				<fieldset class="anar-meli-plans">
+					<legend><?php esc_html_e( 'Account plan', 'anar-toolkit' ); ?></legend>
+					<div class="anar-meli-plans__list" data-meli-plans></div>
+				</fieldset>
+				<div class="anar-meli-fields">
+					<label><?php esc_html_e( 'First name (optional)', 'anar-toolkit' ); ?><input type="text" name="first_name" autocomplete="given-name" maxlength="80" pattern="[^\p{Nd}]*"></label>
+					<label><?php esc_html_e( 'Last name', 'anar-toolkit' ); ?><input type="text" name="last_name" autocomplete="family-name" maxlength="80" pattern="[^\p{Nd}]*" required></label>
+				</div>
 				<label class="anar-meli-label"><?php esc_html_e( 'Mobile number', 'anar-toolkit' ); ?><input type="tel" name="mobile_number" dir="ltr" inputmode="tel" autocomplete="tel" placeholder="09121234567" maxlength="20" required></label>
 				<div class="anar-meli-trap" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
 					<div class="anar-meli-topup"><span><?php esc_html_e( 'Account top-up discount code', 'anar-toolkit' ); ?></span><div class="anar-meli-coupon"><code dir="ltr"><?php echo esc_html( MeliSignup::COUPON ); ?></code><button type="button" class="button" data-copy="<?php echo esc_attr( MeliSignup::COUPON ); ?>"><?php esc_html_e( 'Copy discount code', 'anar-toolkit' ); ?></button></div></div>

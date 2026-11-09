@@ -1,12 +1,13 @@
 <?php
 return array(
-'project-id-version' => 'Anar Toolkit 1.4.1',
+'project-id-version' => 'Anar Toolkit 1.4.2',
 'language' => 'fa_IR',
 'plural-forms' => 'nplurals=2; plural=(n > 1);',
 'messages' => array(
 '%1$d paid orders. A gift at every %2$d orders.' => '%1$d سفارش پرداخت‌شده؛ یک هدیه پس از هر %2$d سفارش.',
 '%1$s: Your password reset code is %2$s. It expires in 5 minutes. Do not share this code.' => '%1$s: کد بازنشانی رمز عبور شما %2$s است و تا ۵ دقیقه اعتبار دارد. این کد را در اختیار دیگران نگذارید.',
 '%d attempts left today' => '%d نوبت باقی‌مانده برای امروز',
+'%s per SMS' => '%s برای هر پیامک',
 '09121234567 or name@example.com' => '09121234567 یا name@example.com',
 '100% free, forever — all features included.' => '۱۰۰٪ رایگان، برای همیشه — با تمام امکانات.',
 'A Kavenegar token exceeds 100 characters or its whitespace limit. Shorten its value or use another approved transport.' => 'یکی از متغیرهای کاوه‌نگار از محدودیت ۱۰۰ کاراکتر یا تعداد فاصله مجاز عبور کرده است. مقدار را کوتاه کنید یا از روش ارسال تأییدشده دیگری استفاده کنید.',
@@ -418,6 +419,7 @@ return array(
 'Filter' => 'فیلتر',
 'Find a message and edit it here. The same editor is available in each feature.' => 'پیام موردنظر را پیدا و ویرایش کنید. همین پنجره از تنظیمات هر قابلیت نیز در دسترس است.',
 'Find four pairs in 24 moves' => 'چهار جفت را در ۲۴ حرکت پیدا کنید',
+'First and last names must not contain digits.' => 'نام و نام خانوادگی نباید عدد داشته باشند.',
 'First inactivity reminder' => 'یادآوری اول عدم خرید',
 'First name' => 'نام',
 'First name (optional)' => 'نام (اختیاری)',

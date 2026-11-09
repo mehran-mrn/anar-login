@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.2 — 2026-11-09
+
+- Display Meli Payamak plans as selectable cards with the current plan price and rate per SMS when the API currency is confirmed.
+- Filter digits from signup name fields and reject invalid names before forwarding registration requests.
+
 ## 1.4.1 — 2026-11-09
 
 - Use the current Anar number for sign-in and password recovery. Treat Digits and other legacy phone metadata as migration fallbacks only, and migrate it only after verification.

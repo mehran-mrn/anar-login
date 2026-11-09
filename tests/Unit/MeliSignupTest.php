@@ -48,8 +48,16 @@ final class MeliSignupTest extends TestCase {
 		$input = $this->input();
 		$valid = MeliSignup::payload( $input );
 		$this->assertSame( '09121234567', $valid['mobile_number'] );
+		$this->assertSame( '', MeliSignup::payload( array_replace( $input, array( 'first_name' => '' ) ) )['first_name'] );
 		foreach ( array( array( 'consent' => false ), array( 'consent' => 'true' ), array( 'mobile_number' => 'name@example.test' ), array( 'last_name' => '' ), array( 'first_name' => array() ), array( 'product_code' => '2' ), array( 'ticket' => 'bad' ), array( 'website' => 'spam' ) ) as $change ) {
 			$this->assertInstanceOf( WP_Error::class, ( new MeliSignup() )->register( array_replace( $input, $change ) ) );
+		}
+		foreach ( array( 'first_name', 'last_name' ) as $field ) {
+			foreach ( array( '1', '۱', '١' ) as $digit ) {
+				$result = ( new MeliSignup() )->register( array_replace( $input, array( $field => $input[ $field ] . $digit ) ) );
+				$this->assertInstanceOf( WP_Error::class, $result );
+				$this->assertSame( 'anar_meli_fields', $result->get_error_code() );
+			}
 		}
 		$this->assertCount( 0, $GLOBALS['anar_test_http_requests'] );
 	}

@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: Anar Toolkit 1.4.1\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
+msgstr "Project-Id-Version: Anar Toolkit 1.4.2\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
 
 msgid "%1$d paid orders. A gift at every %2$d orders."
 msgstr "%1$d سفارش پرداخت‌شده؛ یک هدیه پس از هر %2$d سفارش."
@@ -9,6 +9,9 @@ msgstr "%1$s: کد بازنشانی رمز عبور شما %2$s است و تا �
 
 msgid "%d attempts left today"
 msgstr "%d نوبت باقی‌مانده برای امروز"
+
+msgid "%s per SMS"
+msgstr "%s برای هر پیامک"
 
 msgid "09121234567 or name@example.com"
 msgstr "09121234567 یا name@example.com"
@@ -1242,6 +1245,9 @@ msgstr "پیام موردنظر را پیدا و ویرایش کنید. همین
 
 msgid "Find four pairs in 24 moves"
 msgstr "چهار جفت را در ۲۴ حرکت پیدا کنید"
+
+msgid "First and last names must not contain digits."
+msgstr "نام و نام خانوادگی نباید عدد داشته باشند."
 
 msgid "First inactivity reminder"
 msgstr "یادآوری اول عدم خرید"
