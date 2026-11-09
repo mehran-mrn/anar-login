@@ -67,5 +67,6 @@
   "Loading the sign-in form…": "در حال بارگذاری فرم ورود…",
   "Password sign-in in the popup": "ورود با رمز در پنجرهٔ ورود",
   "Show a link to sign in with a password. Password recovery also appears here when SMS password recovery is enabled.": "پیوند ورود با رمز عبور را نشان می‌دهد. اگر بازیابی پیامکی رمز فعال باشد، گزینهٔ بازیابی هم در پنجره نمایش داده می‌شود.",
-  "Register with IPPanel (referral link)": "ثبت‌نام در IPPanel (پیوند ارجاع)"
+  "Register with IPPanel (referral link)": "ثبت‌نام در IPPanel (پیوند ارجاع)",
+  "Register with SMS.ir (referral link)": "ثبت‌نام در SMS.ir (پیوند ارجاع)"
 }
