@@ -87,7 +87,7 @@ Enable **Login popup** in General settings, then link to `#anar-login` anywhere 
 [anar_login_button label="Sign in / Register"]
 ```
 
-Signed-in visitors are sent to their account instead. Each page only carries a ~1.7 KB (gzip) inline loader; the form is fetched on first click and preloaded on hover.
+Signed-in visitors are sent to their account instead. A small deferred script is cached across pages; the form is fetched on first click and preloaded on hover.
 
 ## Replacing theme and WordPress logins
 
@@ -113,7 +113,7 @@ Anar Login is built to stay out of the way of your page speed:
 
 - Nothing is loaded on pages without `[anar_login]` or `[anar_account]`: no CSS, no JavaScript, no inline data
 - On form pages: about 4.5 KB CSS and 3.6 KB JavaScript (gzip), deferred, with no jQuery and no external CDN
-- With the popup or theme login replacement on, other pages carry only a ~1.7 KB (gzip) inline loader and make no extra requests until it is opened
+- With the popup or theme login replacement on, the browser can reuse the cached loader across pages. The form and its assets load on demand.
 - No database queries on ordinary page views; SMS providers are only built when a code is sent
 
 SSL verification remains enabled for every provider. Fix the server CA chain rather than disabling TLS verification.
