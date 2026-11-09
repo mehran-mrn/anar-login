@@ -314,6 +314,9 @@ final class SettingsPage {
 									echo esc_html( sprintf( __( 'Connect to %s', 'anar-toolkit' ), $provider->title() ) );
 									?>
 								</strong><small><?php esc_html_e( 'Get these credentials from your SMS provider dashboard.', 'anar-toolkit' ); ?></small></div><span><?php esc_html_e( 'Secure HTTPS', 'anar-toolkit' ); ?></span></div>
+								<?php if ( 'ippanel' === $key ) : ?>
+									<p><a class="button" href="https://ippanel.co/?ref=75" target="_blank" rel="sponsored noopener noreferrer"><?php esc_html_e( 'Register with IPPanel (referral link)', 'anar-toolkit' ); ?></a></p>
+								<?php endif; ?>
 								<div class="anar-fields-grid">
 									<?php foreach ( $provider->fields() as $field => $definition ) : ?>
 										<?php

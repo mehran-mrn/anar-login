@@ -1,6 +1,6 @@
 <?php
 return array(
-'project-id-version' => 'Anar Toolkit 1.5.1',
+'project-id-version' => 'Anar Toolkit 1.5.2',
 'language' => 'fa_IR',
 'plural-forms' => 'nplurals=2; plural=(n > 1);',
 'messages' => array(
@@ -855,6 +855,7 @@ return array(
 'Referral reward percentage' => 'درصد پاداش معرفی دوستان',
 'Register as customers' => 'ثبت‌نام به‌عنوان مشتری',
 'Register passkey' => 'ثبت کلید عبور',
+'Register with IPPanel (referral link)' => 'ثبت‌نام در IPPanel (پیوند ارجاع)',
 'Register with Meli Payamak' => 'ثبت‌نام در ملی‌پیامک',
 'Registration could not be confirmed. Check with Meli Payamak before submitting again.' => 'وضعیت ثبت‌نام تأیید نشد. پیش از ثبت دوباره، وضعیت درخواست را با ملی‌پیامک بررسی کنید.',
 'Registration for new users is disabled.' => 'ثبت‌نام کاربران جدید غیرفعال است.',

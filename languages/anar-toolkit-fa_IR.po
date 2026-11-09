@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: Anar Toolkit 1.5.1\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
+msgstr "Project-Id-Version: Anar Toolkit 1.5.2\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
 
 msgid "%1$d paid orders. A gift at every %2$d orders."
 msgstr "%1$d سفارش پرداخت‌شده؛ یک هدیه پس از هر %2$d سفارش."
@@ -2553,6 +2553,9 @@ msgstr "ثبت‌نام به‌عنوان مشتری"
 
 msgid "Register passkey"
 msgstr "ثبت کلید عبور"
+
+msgid "Register with IPPanel (referral link)"
+msgstr "ثبت‌نام در IPPanel (پیوند ارجاع)"
 
 msgid "Register with Meli Payamak"
 msgstr "ثبت‌نام در ملی‌پیامک"

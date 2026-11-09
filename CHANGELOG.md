@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.2 — 2026-11-09
+
+- Add a labeled registration link for IPPanel in its SMS provider settings.
+
 ## 1.5.1 — 2026-11-09
 
 - Open the sign-in popup immediately and show loading inside it using the configured brand color.
