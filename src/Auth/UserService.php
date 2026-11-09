@@ -86,6 +86,9 @@ final class UserService {
 			if ( ! $this->settings->get( 'allow_registration', 1 ) ) {
 				return new WP_Error( 'anar_registration_disabled', __( 'No account was found for these details and registration is disabled.', 'anar-toolkit' ), array( 'status' => 403 ) );
 			}
+			if ( $this->settings->get( 'mrn_registration_form', 0 ) ) {
+				return $this->registration_form_required();
+			}
 
 			$user = $this->create_from_identity( $identity );
 			if ( is_wp_error( $user ) ) {
@@ -125,6 +128,9 @@ final class UserService {
 		if ( ! $user ) {
 			if ( ! $this->settings->get( 'allow_registration', 1 ) ) {
 				return new WP_Error( 'anar_registration_disabled', __( 'Registration for new users is disabled.', 'anar-toolkit' ) );
+			}
+			if ( $this->settings->get( 'mrn_registration_form', 0 ) ) {
+				return $this->registration_form_required();
 			}
 
 			$email_base = strtok( $email, '@' );
@@ -263,7 +269,7 @@ final class UserService {
 	 * @param array{identity:string,channel:string} $identity Identity.
 	 * @return WP_User|WP_Error
 	 */
-	private function create_from_identity( $identity ) {
+	private function create_from_identity( $identity, $form_id = 0, $entry_id = 0 ) {
 		$role = $this->role();
 		if ( is_wp_error( $role ) ) {
 			return $role;
@@ -293,13 +299,41 @@ final class UserService {
 			return $user_id;
 		}
 
-		if ( ! $is_email ) {
+		if ( $form_id ) {
+			$linked = PhoneDirectory::claim( $user_id, $identity['identity'], 'mrn_forms', false );
+			if ( is_wp_error( $linked ) ) {
+				if ( is_multisite() ) {
+					require_once ABSPATH . 'wp-admin/includes/ms.php';
+					wpmu_delete_user( $user_id );
+				} else {
+					require_once ABSPATH . 'wp-admin/includes/user.php';
+					wp_delete_user( $user_id );
+				}
+				return $linked;
+			}
+			update_user_meta( $user_id, '_anar_mrn_form_entry', array( 'form_id' => $form_id, 'entry_id' => $entry_id ) );
+		} elseif ( ! $is_email ) {
 			update_user_meta( $user_id, '_anar_phone', $identity['identity'] );
 		}
 
 		do_action( 'anar_login_user_registered', $user_id, $identity['channel'], $identity );
 
 		return get_user_by( 'id', $user_id );
+	}
+
+	/** Create a new account after the selected form's mobile challenge was consumed. */
+	public function register_verified_form( array $identity, $form_id, $entry_id ) {
+		if ( ! $this->settings->get( 'allow_registration', 1 ) || ! $entry_id || absint( $this->settings->get( 'mrn_registration_form', 0 ) ) !== $form_id || 'sms' !== $identity['channel'] ) {
+			return $this->registration_form_required();
+		}
+		if ( $this->find_by_identity( $identity ) ) {
+			return new WP_Error( 'anar_mrn_existing_account', __( 'This mobile number already has an account. Sign in to continue.', 'anar-toolkit' ), array( 'status' => 409 ) );
+		}
+		return $this->create_from_identity( $identity, $form_id, $entry_id );
+	}
+
+	private function registration_form_required() {
+		return new WP_Error( 'anar_mrn_registration_required', __( 'To create an account, use the registration form.', 'anar-toolkit' ), array( 'status' => 403 ) );
 	}
 
 	/**

@@ -5,6 +5,8 @@
 	var manual = 'a[href$="#anar-login"], .anar-login-trigger';
 	var loading = null;
 	var dialog = null;
+	var loaded = false;
+	var opening = false;
 
 	var path = function (url) {
 		return url.pathname.replace(/\/+$/, '');
@@ -48,6 +50,17 @@
 
 	var load = function () {
 		if (loading) return loading;
+		// Start the downloads while the server renders the HTML. Execute after insertion.
+		var preloads = [];
+		[[config.css, 'style'], [config.js, 'script']].forEach(function (asset) {
+			if (!asset[0]) return;
+			var link = document.createElement('link');
+			link.rel = 'preload';
+			link.href = asset[0];
+			link.as = asset[1];
+			document.head.appendChild(link);
+			preloads.push(link);
+		});
 		var url = config.formUrl + (config.formUrl.indexOf('?') < 0 ? '?' : '&') + 'redirect=' + encodeURIComponent(window.location.href.split('#')[0]);
 		loading = fetch(url, { credentials: 'same-origin' })
 			.then(function (response) {
@@ -69,13 +82,13 @@
 
 				var ready = [];
 				if (dialog.querySelector('[data-anar-password]')) {
-					if (!document.querySelector('link[href^="' + data.resetCss.split('?')[0] + '"]')) {
+					if (!document.querySelector('link[rel="stylesheet"][href^="' + data.resetCss.split('?')[0] + '"]')) {
 						var resetStyle = document.createElement('link'); resetStyle.rel = 'stylesheet'; resetStyle.href = data.resetCss; document.head.appendChild(resetStyle);
 					}
 					if (window.AnarPasswordInit) window.AnarPasswordInit();
 					else ready.push(new Promise(function (resolve, reject) { var resetScript = document.createElement('script'); resetScript.src = data.resetJs; resetScript.onload = resolve; resetScript.onerror = reject; document.body.appendChild(resetScript); }));
 				}
-				if (!document.querySelector('link[href^="' + data.css.split('?')[0] + '"]')) {
+				if (!document.querySelector('link[rel="stylesheet"][href^="' + data.css.split('?')[0] + '"]')) {
 					ready.push(new Promise(function (resolve) {
 						var link = document.createElement('link');
 						link.rel = 'stylesheet';
@@ -93,15 +106,23 @@
 				}));
 				return Promise.all(ready);
 			})
+			.then(function () {
+				loaded = true;
+			})
 			.catch(function (error) {
+				if (dialog) dialog.remove();
+				dialog = null;
 				loading = null;
 				throw error;
+			})
+			.finally(function () {
+				preloads.forEach(function (link) { link.remove(); });
 			});
 		return loading;
 	};
 
 	var open = function (redirect) {
-		if (!dialog) return;
+		if (!dialog || dialog.open) return;
 		var card = dialog.querySelector('.anar-login-card');
 		// Return to the page that was asked for, otherwise stay on this one.
 		if (card) card.dataset.redirect = redirect || window.location.href.split('#')[0];
@@ -111,13 +132,49 @@
 		if (input) input.focus();
 	};
 
-	var trigger = function (found, fallback) {
+	var showLoading = function (source) {
+		var status = document.createElement('div');
+		status.setAttribute('role', 'status');
+		status.setAttribute('dir', document.documentElement.dir || 'ltr');
+		Object.assign(status.style, {
+			position: 'fixed', bottom: '24px',
+			transform: 'translateX(-50%)', left: '50%', zIndex: '2147483647',
+			display: 'flex', alignItems: 'center', gap: '10px', padding: '12px 16px',
+			maxWidth: 'calc(100% - 32px)', width: 'max-content', borderRadius: '12px',
+			background: '#2b1721', color: '#fff', boxShadow: '0 6px 24px #0003',
+			font: '500 14px/1.5 system-ui, sans-serif'
+		});
+		var progress = document.createElement('progress');
+		progress.setAttribute('aria-hidden', 'true');
+		progress.style.width = '32px';
+		progress.style.accentColor = '#f2a5b7';
+		status.appendChild(progress);
+		document.body.appendChild(status);
+		status.appendChild(document.createTextNode(config.loading || 'Loading…'));
+		if (source) source.setAttribute('aria-busy', 'true');
+		return function () {
+			status.remove();
+			if (source) source.removeAttribute('aria-busy');
+		};
+	};
+
+	var trigger = function (found, fallback, source) {
 		if (config.loggedIn) {
 			window.location.href = config.accountUrl;
 			return;
 		}
+		if (loaded) {
+			open(found.redirect);
+			return;
+		}
+		if (opening) return;
+		opening = true;
+		var done = showLoading(source);
 		load().then(function () { open(found.redirect); }).catch(function () {
 			window.location.href = fallback || config.accountUrl;
+		}).finally(function () {
+			opening = false;
+			done();
 		});
 	};
 
@@ -129,7 +186,7 @@
 		event.preventDefault();
 		event.stopImmediatePropagation();
 		var link = event.target.closest('a[href]');
-		trigger(found, link && !found.manual ? link.href : '');
+		trigger(found, link && !found.manual ? link.href : '', link || event.target.closest(manual + ', .login-side-opener'));
 	}, true);
 
 	// Warm up on hover or keyboard focus so the popup opens instantly.

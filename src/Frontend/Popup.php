@@ -161,6 +161,9 @@ final class Popup {
 			'accountPath' => $account ? untrailingslashit( (string) wp_parse_url( $account, PHP_URL_PATH ) ) : '',
 			'close'       => __( 'Close', 'anar-toolkit' ),
 			'title'       => __( 'Sign in', 'anar-toolkit' ),
+			'loading'     => __( 'Loading the sign-in form…', 'anar-toolkit' ),
+			'css'         => add_query_arg( 'ver', ANAR_LOGIN_VERSION, ANAR_LOGIN_URL . 'assets/css/frontend.css' ),
+			'js'          => add_query_arg( 'ver', ANAR_LOGIN_VERSION, ANAR_LOGIN_URL . 'assets/js/frontend.js' ),
 		);
 
 		wp_enqueue_script(

@@ -89,6 +89,14 @@ Enable **Login popup** in General settings, then link to `#anar-login` anywhere 
 
 Signed-in visitors are sent to their account instead. A small deferred script is cached across pages; the form is fetched on first click and preloaded on hover.
 
+## Registration with MRN Forms
+
+1. In MRN Forms, add your custom fields and a required, always visible phone field. Under **Appearance and behavior**, choose **Anar registration**, select the phone field and publish the form.
+2. In **Anar → Settings → General**, enable registration and mobile sign-in, then select the published form under **Anar and MRN Forms**. Configure the sign-in verification SMS service in Anar.
+3. The Anar sign-in form now links to **Create your account**. After mobile verification, Anar creates the account and MRN Forms saves the answers in the form inbox.
+
+Choose **SMS verification before submission** in MRN Forms for a form that verifies a mobile number without creating an account. Both modes use the provider and template configured for Anar’s sign-in codes.
+
 ## Replacing theme and WordPress logins
 
 **Replace the theme's login** (General, on by default) makes the passwordless form the only login visitors see:

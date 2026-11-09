@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: Anar Toolkit 1.4.2\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
+msgstr "Project-Id-Version: Anar Toolkit 1.5.0\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
 
 msgid "%1$d paid orders. A gift at every %2$d orders."
 msgstr "%1$d سفارش پرداخت‌شده؛ یک هدیه پس از هر %2$d سفارش."
@@ -250,6 +250,12 @@ msgstr "همهٔ کاربران"
 msgid "Allow linked mobile numbers to reset an existing account password using a separate single-use SMS code."
 msgstr "اجازه دهید شمارهٔ همراهِ متصل به حساب، با کد پیامکی یک‌بارمصرف و جداگانه رمز عبور همان حساب را بازنشانی کند."
 
+msgid "Allow new account registration"
+msgstr "اجازهٔ ثبت‌نام حساب جدید"
+
+msgid "Already have an account? Sign in"
+msgstr "حساب دارید؟ وارد شوید"
+
 msgid "Also replace wp-login.php"
 msgstr "جایگزینی صفحهٔ wp-login.php هم انجام شود"
 
@@ -276,6 +282,9 @@ msgstr "جعبه‌ابزار انار — ورود پیامکی، بازیاب�
 
 msgid "Anar Toolkit — WooCommerce SMS"
 msgstr "جعبه‌ابزار انار — پیامک ووکامرس"
+
+msgid "Anar and MRN Forms"
+msgstr "انار و MRN Forms"
 
 msgid "Anar customer campaigns"
 msgstr "کمپین‌های مشتریان انار"
@@ -447,6 +456,9 @@ msgstr "هر دو لینک بازیابی و لغو دریافت باید در �
 
 msgid "Brand color"
 msgstr "رنگ برند"
+
+msgid "Build a registration form with your own fields in MRN Forms. Anar verifies the mobile number and creates the WordPress account. Other forms can use the same SMS service to verify a number before submission."
+msgstr "فرم ثبت‌نام را با فیلدهای دلخواه در MRN Forms بسازید. انار شمارهٔ همراه را تأیید و حساب وردپرس را ایجاد می‌کند. فرم‌های دیگر هم می‌توانند پیش از ارسال، شمارهٔ همراه را با همین سرویس پیامکی تأیید کنند."
 
 msgid "Built-in providers send the approved provider template, not this text. Keep its wording in sync with the approved template."
 msgstr "پنل‌های آماده، قالب تأییدشده سرویس را ارسال می‌کنند. این متن را با متن قالب تأییدشده هماهنگ نگه دارید."
@@ -649,6 +661,9 @@ msgstr "سرویس پیامک فروشگاه"
 msgid "Commerce toolkit"
 msgstr "ابزارهای فروشگاه"
 
+msgid "Compatible MRN Forms required"
+msgstr "نیاز به نسخهٔ سازگار MRN Forms"
+
 msgid "Complete account details"
 msgstr "تکمیل اطلاعات حساب"
 
@@ -663,6 +678,9 @@ msgstr "اطلاعات اتصال سرویس پیامک را در تنظیمات
 
 msgid "Complete the configured purchase milestone before claiming this gift."
 msgstr "برای دریافت این هدیه، تعداد خرید تعیین‌شده را تکمیل کنید."
+
+msgid "Complete the form and verify your mobile number to register."
+msgstr "برای ثبت‌نام، فرم را تکمیل و شمارهٔ همراه خود را تأیید کنید."
 
 msgid "Complete the provider connection settings first."
 msgstr "ابتدا اطلاعات اتصال درگاه را کامل کنید."
@@ -874,6 +892,9 @@ msgstr "ثبت اطلاعات و دریافت فاکتور"
 msgid "Create accounts automatically"
 msgstr "ساخت خودکار حساب"
 
+msgid "Create your account"
+msgstr "ایجاد حساب کاربری"
+
 msgid "Creating your invoice…"
 msgstr "در حال دریافت فاکتور…"
 
@@ -948,6 +969,9 @@ msgstr "روز پس از رویداد (برای پیش‌بینی می‌توا�
 
 msgid "Dedicated stock for this game"
 msgstr "موجودی اختصاصی این بازی"
+
+msgid "Default Anar registration"
+msgstr "ثبت‌نام پیش‌فرض انار"
 
 msgid "Default WooCommerce cart page"
 msgstr "صفحه پیش‌فرض سبد خرید ووکامرس"
@@ -1597,6 +1621,9 @@ msgstr "کاربران می‌توانند از بخش امنیت حساب، ک�
 msgid "Let me know when it is back."
 msgstr "وقتی موجود شد خبرم کنید."
 
+msgid "Let new users create an account after verification."
+msgstr "کاربران جدید می‌توانند پس از تأیید حساب بسازند."
+
 msgid "Lets customers reset their password with a code sent to their linked mobile."
 msgstr "مشتری می‌تواند با کدی که به موبایل متصل حسابش ارسال می‌شود، رمز عبور را بازنشانی کند."
 
@@ -1611,6 +1638,9 @@ msgstr "شمارهٔ متصل: %s"
 
 msgid "Loading message…"
 msgstr "در حال دریافت پیام…"
+
+msgid "Loading the sign-in form…"
+msgstr "در حال بارگذاری فرم ورود…"
 
 msgid "Local data retention, days (7–90)"
 msgstr "مدت نگهداری داده‌های محلی، به روز (۷ تا ۹۰)"
@@ -1635,6 +1665,9 @@ msgstr "اعتبار کم است"
 
 msgid "Lucky wheel"
 msgstr "گردونهٔ شانس"
+
+msgid "MRN Forms available"
+msgstr "MRN Forms در دسترس است"
 
 msgid "MRNWP privacy"
 msgstr "حریم خصوصی MRNWP"
@@ -2011,6 +2044,9 @@ msgstr "تنظیمات ایمیل"
 msgid "Open sign-in settings"
 msgstr "تنظیمات ورود"
 
+msgid "Open the MRN Forms builder"
+msgstr "باز کردن فرم‌ساز MRN Forms"
+
 msgid "Open the secure HTTPS address of this site to manage or verify account security."
 msgstr "برای تنظیم یا تأیید امنیت حساب، نشانی امن سایت را با HTTPS باز کنید."
 
@@ -2266,6 +2302,9 @@ msgstr "برای بررسی دوبارهٔ این حساب، یک دقیقه ص�
 msgid "Please wait…"
 msgstr "چند لحظه…"
 
+msgid "Plugin integration"
+msgstr "اتصال افزونه‌ها"
+
 msgid "Popup button"
 msgstr "دکمهٔ پاپ‌آپ"
 
@@ -2358,6 +2397,9 @@ msgstr "نگاشت پارامترهای سرویس‌دهنده"
 
 msgid "Provider variables — one name={placeholder} per line"
 msgstr "متغیرهای سرویس — هر name={placeholder} در یک خط"
+
+msgid "Publish a form in MRN Forms with “Anar registration” enabled. Allow registration and mobile sign-in here, then configure the SMS verification service."
+msgstr "فرمی با حالت «ثبت‌نام در انار» در MRN Forms منتشر کنید. در این صفحه ثبت‌نام و ورود با موبایل را فعال کنید و سرویس پیامکی کد تأیید را تنظیم کنید."
 
 msgid "Purchase feedback"
 msgstr "بازخورد خرید"
@@ -2518,6 +2560,9 @@ msgstr "وضعیت ثبت‌نام تأیید نشد. پیش از ثبت دوب�
 msgid "Registration for new users is disabled."
 msgstr "ثبت‌نام کاربران جدید غیرفعال است."
 
+msgid "Registration form"
+msgstr "فرم ثبت‌نام"
+
 msgid "Registration is unavailable because no safe new-user role is configured. Please contact the site administrator."
 msgstr "ثبت‌نام به دلیل نبود نقش امن برای کاربر جدید در دسترس نیست. لطفاً با مدیر سایت تماس بگیرید."
 
@@ -2550,6 +2595,9 @@ msgstr "به‌جای «قبلاً خرید کرده‌اید؟ برای ورو�
 
 msgid "Reporting period"
 msgstr "بازهٔ گزارش"
+
+msgid "Request and enter the SMS verification code."
+msgstr "کد تأیید پیامکی را دریافت و وارد کنید."
 
 msgid "Request responses do not reveal whether an account exists."
 msgstr "پاسخ درخواست، وجود حساب را افشا نمی‌کند."
@@ -2796,6 +2844,9 @@ msgstr "رویدادهای مورد نیاز سفارش را انتخاب و ب�
 
 msgid "Select which accounts require a code after password sign-in. Confirm SMS or email delivery before enabling this option. This protection can remain active independently of the Anar login form."
 msgstr "حساب‌های نیازمند کد پس از ورود با رمز عبور را انتخاب کنید. پیش از فعال‌سازی، ارسال پیامک یا ایمیل را بررسی کنید. این حفاظت مستقل از فرم ورود انار نیز فعال می‌ماند."
+
+msgid "Selected form is unavailable"
+msgstr "فرم انتخاب‌شده در دسترس نیست"
 
 msgid "Send a new recovery code"
 msgstr "ارسال کد بازیابی جدید"
@@ -3316,6 +3367,9 @@ msgstr "کد بازیابی و لینک لغو دریافت باید در نگا
 msgid "The recovery discount does not match the order billing phone."
 msgstr "تخفیف بازیابی با شمارهٔ همراه صورتحساب سفارش مطابقت ندارد."
 
+msgid "The registration form is currently unavailable."
+msgstr "فرم ثبت‌نام در حال حاضر در دسترس نیست."
+
 msgid "The request form appears on out-of-stock product pages. The customer verifies their mobile number and selects a product or variation. One notification is queued when that item becomes available."
 msgstr "فرم درخواست در صفحهٔ کالای ناموجود نمایش داده می‌شود. مشتری شمارهٔ همراه خود را تأیید و کالا یا متغیر مورد نظر را انتخاب می‌کند. پس از تأمین موجودی، یک اعلان در صف قرار می‌گیرد."
 
@@ -3421,6 +3475,9 @@ msgstr "تغییرات این پیام هنوز ذخیره نشده است."
 msgid "This message is unavailable."
 msgstr "این پیام در دسترس نیست."
 
+msgid "This mobile number already has an account. Sign in to continue."
+msgstr "برای این شمارهٔ همراه حسابی وجود دارد. برای ادامه وارد شوید."
+
 msgid "This number cannot be linked to this account. Contact the store for assistance."
 msgstr "امکان اتصال این شماره به حساب شما وجود ندارد. لطفاً با پشتیبانی فروشگاه تماس بگیرید."
 
@@ -3471,6 +3528,9 @@ msgstr "مهلت تأیید تمام شده است. لطفاً دوباره وا
 
 msgid "To change it, first enter the verification or authenticator code above, then the new number."
 msgstr "برای تغییر، ابتدا کد تأیید یا کد برنامهٔ رمزساز را در کادر بالا وارد کنید و سپس شمارهٔ جدید را بنویسید."
+
+msgid "To create an account, use the registration form."
+msgstr "برای ایجاد حساب، از فرم ثبت‌نام استفاده کنید."
 
 msgid "Today is another opportunity"
 msgstr "امروز هم فرصتی برای دریافت هدیه است"
@@ -3703,6 +3763,9 @@ msgstr "اجازه مدیریت این تنظیمات را ندارید."
 msgid "You have signed in successfully."
 msgstr "با موفقیت وارد شدید."
 
+msgid "Your account could not be created. Request a new code and try again."
+msgstr "ایجاد حساب انجام نشد. کد جدید بگیرید و دوباره تلاش کنید."
+
 msgid "Your account information has been saved."
 msgstr "اطلاعات حساب ذخیره شد."
 
@@ -3714,6 +3777,9 @@ msgstr "کد تأیید شمارهٔ همراه حساب شما: %s. این کد
 
 msgid "Your account or checkout mobile number and cart may be saved for purchase reminders. Each reminder includes a link to stop future messages."
 msgstr "شمارهٔ همراه حساب یا تسویه‌حساب و سبد شما ممکن است برای یادآوری خرید ذخیره شود. هر یادآوری لینک توقف پیام‌های بعدی دارد."
+
+msgid "Your account was created. Continue to sign in."
+msgstr "حساب شما ایجاد شد. برای ادامه وارد شوید."
 
 msgid "Your coupon is ready. Use it with your verified billing phone."
 msgstr "کد تخفیف شما آماده است. برای استفاده از آن، خرید را با شمارهٔ همراه تأییدشدهٔ خود ثبت کنید."

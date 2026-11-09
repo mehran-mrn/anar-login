@@ -10,6 +10,7 @@ namespace Anar\Login\Frontend;
 use Anar\Login\Auth\GoogleAuth;
 use Anar\Login\Auth\UserService;
 use Anar\Login\Infrastructure\Settings;
+use Anar\Login\Integrations\MrnForm;
 use Anar\Login\Support\Identity;
 
 defined( 'ABSPATH' ) || exit;
@@ -123,6 +124,7 @@ final class Shortcodes {
 		$code_id     = wp_unique_id( 'anar-code-' );
 		$field       = $this->identity_field();
 		$error       = $this->query_error();
+		$register    = $preview || ! $this->settings->get( 'mrn_registration_form', 0 ) ? '' : MrnForm::registration_url( $this->settings );
 
 		ob_start();
 		?>
@@ -178,6 +180,10 @@ final class Shortcodes {
 
 				<?php echo \Anar\Login\Auth\PasswordRecovery::form(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Form escapes all dynamic values. ?>
 				<div class="anar-notice<?php echo $error ? ' is-error' : ''; ?>" role="status" aria-live="polite"<?php echo $error ? '' : ' hidden'; ?>><?php echo esc_html( $error ); ?></div>
+
+				<?php if ( $register ) : ?>
+					<a class="anar-btn anar-btn--soft anar-register-link" href="<?php echo esc_url( $register ); ?>"><?php esc_html_e( 'Create your account', 'anar-toolkit' ); ?><span aria-hidden="true">↗</span></a>
+				<?php endif; ?>
 
 				<?php if ( $atts['password_link'] ) : ?>
 					<p class="anar-password-link"><a href="<?php echo esc_url( add_query_arg( array( 'anar_password' => 1, 'redirect_to' => rawurlencode( $atts['redirect'] ) ), wp_login_url() ) ); ?>"><?php esc_html_e( 'Sign in with a password instead', 'anar-toolkit' ); ?></a></p>

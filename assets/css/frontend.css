@@ -126,6 +126,30 @@ body.anar-wp-login .anar-auth {
 	margin: 0 auto 20px;
 }
 
+body.anar-wp-login #login:has(.anar-registration) {
+	width: min(100% - 32px, 760px);
+}
+
+.anar-registration {
+	width: 100%;
+}
+
+.anar-registration .anar-registration__signin {
+	margin-block-start: 16px;
+	text-align: center;
+}
+
+body.anar-wp-login .anar-registration .mrnf-form {
+	margin: 0;
+	box-shadow: none;
+}
+
+.anar-register-link {
+	display: flex;
+	justify-content: space-between;
+	margin-block-start: 14px;
+}
+
 .anar-auth__brand div {
 	display: grid;
 	gap: 2px;

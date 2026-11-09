@@ -4,7 +4,7 @@ Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.4.2
+Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,6 +22,7 @@ Anar Toolkit brings sign-in, purchase recovery and customer communication into o
 * Block editor blocks for sign-in, the sign-in button and SMS password reset.
 * Four-step setup guidance and a saved-form preview in the existing Settings page.
 * On-demand login popup, My Account and classic checkout integration.
+* Optional registration with custom fields in [MRN Forms](https://wordpress.org/plugins/mrn-forms/) 1.5.0 or later. Anar also provides SMS verification for regular MRN Forms submissions.
 
 = Recover purchases and follow up with customers =
 * Automatic abandoned-cart capture, three reminder stages and personal single-use discounts.
@@ -105,7 +106,7 @@ Customers print/save invoices as PDF from My Account or an expiring scoped link.
 
 All integrations use accounts configured by the site administrator. The plugin makes no telemetry, licensing or analytics requests to MRNWP or its author. Provider service fees and contracts are independent of the free plugin.
 
-SMS services are contacted when a visitor requests/resends a code, a password sign-in requires a second step, an administrator explicitly sends a test SMS, or an enabled module processes a queued order notification, purchase reminder or customer campaign. Commerce requests can run in the background. No delivery-status polling occurs. The selected provider receives the destination mobile number, the code or message, sender/template identifiers and the provider credentials needed for the request. For commerce, the provider receives configured template values which can include first name, order number, amount, currency, site name, recovery code, code validity, recovery entry-page URL and unsubscribe URL. An administrator notification contains the order variables and the administrator recipient number. The provider also sees the server IP address and standard HTTP metadata. The plugin User-Agent contains its name/version, not the site URL. A configured message may contain the site name or domain.
+SMS services are contacted when a visitor requests or resends a code for sign-in or a connected MRN Forms form, a password sign-in requires a second step, an administrator explicitly sends a test SMS, or an enabled module processes a queued order notification, purchase reminder or customer campaign. Commerce requests can run in the background. No delivery-status polling occurs. The selected provider receives the destination mobile number, the code or message, sender/template identifiers and the provider credentials needed for the request. For commerce, the provider receives configured template values which can include first name, order number, amount, currency, site name, recovery code, code validity, recovery entry-page URL and unsubscribe URL. An administrator notification contains the order variables and the administrator recipient number. The provider also sees the server IP address and standard HTTP metadata. The plugin User-Agent contains its name/version, not the site URL. A configured message may contain the site name or domain.
 
 = Kavenegar =
 
@@ -225,6 +226,10 @@ Yes. Set a budget per pool and a maximum money discount for each prize. Amounts 
 
 == Changelog ==
 
+= 1.5.0 =
+* Add registration with custom fields from MRN Forms and reuse Anar’s SMS verification service for regular forms.
+* Show loading feedback on login popup clicks and download the popup assets alongside the form.
+
 = 1.4.2 =
 * Display Meli Payamak signup plans as selectable cards with the current price and rate per SMS when the currency is confirmed.
 * Filter digits from first and last name fields and reject invalid names before forwarding a registration request.
@@ -313,6 +318,9 @@ Yes. Set a budget per pool and a maximum money discount for each prize. Amounts 
 Full history: https://github.com/mehran-mrn/anar-login/blob/main/CHANGELOG.md
 
 == Upgrade Notice ==
+
+= 1.5.0 =
+To use custom registration or SMS verification for forms, update MRN Forms to 1.5.0 or later.
 
 = 1.4.2 =
 Meli Payamak quick signup displays plan cards and validates names before registration.

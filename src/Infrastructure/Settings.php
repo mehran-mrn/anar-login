@@ -31,6 +31,7 @@ final class Settings {
 
 		$this->defaults = array(
 			'allow_registration'  => 1,
+			'mrn_registration_form' => 0,
 			'identity_mode'       => 'both',
 			'default_role'        => 'subscriber',
 			'login_redirect'      => '',
@@ -189,6 +190,7 @@ final class Settings {
 		foreach ( $checkboxes as $key ) {
 			$output[ $key ] = empty( $input[ $key ] ) ? 0 : 1;
 		}
+		$output['mrn_registration_form'] = absint( $input['mrn_registration_form'] ?? $current['mrn_registration_form'] );
 
 		$preset = sanitize_key( $input['form_preset'] ?? $current['form_preset'] );
 		$output['form_preset'] = in_array( $preset, array( 'card', 'minimal', 'bold' ), true ) ? $preset : 'card';

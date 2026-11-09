@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.5.0 — 2026-11-09
+
+- Use a published MRN Forms registration form to collect custom fields, verify the mobile number and create the WordPress account.
+- Let MRN Forms verify mobile numbers through Anar’s configured SMS service before accepting a submission.
+- Show immediate loading feedback when the sign-in popup is requested, and start downloading its assets alongside the form.
+
 ## 1.4.2 — 2026-11-09
 
 - Display Meli Payamak plans as selectable cards with the current plan price and rate per SMS when the API currency is confirmed.

@@ -12,6 +12,7 @@
 namespace Anar\Login\Frontend;
 
 use Anar\Login\Infrastructure\Settings;
+use Anar\Login\Integrations\MrnForm;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -39,12 +40,23 @@ final class WpLogin {
 	 * @return void
 	 */
 	public function register() {
+		if ( $this->settings->get( 'mrn_registration_form', 0 ) ) {
+			add_action( 'login_form_anar_register', array( MrnForm::class, 'page' ) );
+			add_action( 'login_form_anar_signin', array( $this, 'render' ) );
+		}
 		if ( ! $this->settings->get( 'replace_wp_login', 0 ) ) {
 			return;
 		}
 
 		add_action( 'login_form_login', array( $this, 'render' ) );
-		add_action( 'login_form_register', array( $this, 'render' ) );
+		add_action( 'login_form_register', array( $this, 'register_page' ) );
+	}
+
+	public function register_page() {
+		if ( $this->settings->get( 'mrn_registration_form', 0 ) && MrnForm::registration_url( $this->settings ) ) {
+			MrnForm::page();
+		}
+		$this->render();
 	}
 
 	/**

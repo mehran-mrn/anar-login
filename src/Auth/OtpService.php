@@ -108,10 +108,10 @@ final class OtpService {
 	 * @param array{identity:string,channel:string} $identity Identity.
 	 * @return true|WP_Error
 	 */
-	public function challenge( $identity, $context = 'login_otp', $purpose = 'login' ) {
-		$guard = $this->limiter->guard_request( $identity['identity'] );
+	public function challenge( $identity, $context = 'login_otp', $purpose = 'login', $scope = '' ) {
+		$guard = $this->limiter->guard_request( $identity['identity'], $scope );
 
-		return is_wp_error( $guard ) ? $guard : $this->send_code( $identity, $context, $purpose );
+		return is_wp_error( $guard ) ? $guard : $this->send_code( $identity, $context, $purpose, $scope );
 	}
 
 	/**
@@ -138,7 +138,7 @@ final class OtpService {
 	 * @param array{identity:string,channel:string} $identity Identity.
 	 * @return true|WP_Error
 	 */
-	private function send_code( $identity, $context = 'login_otp', $purpose = 'login' ) {
+	private function send_code( $identity, $context = 'login_otp', $purpose = 'login', $scope = '' ) {
 		$sent = $this->codes->issue(
 			$identity,
 			$this->storage_key( $identity, $purpose ),
@@ -149,6 +149,7 @@ final class OtpService {
 				'ttl'     => absint( $this->settings->get( 'otp_ttl', 120 ) ),
 				'length'  => absint( $this->settings->get( 'otp_length', 5 ) ),
 				'context' => $context,
+				'scope'   => $scope,
 				'limit'   => false,
 			)
 		);

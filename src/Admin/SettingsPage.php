@@ -188,7 +188,8 @@ final class SettingsPage {
 									<option value="email" <?php selected( $value['identity_mode'], 'email' ); ?>><?php esc_html_e( 'Email only', 'anar-toolkit' ); ?></option>
 								</select>
 							</div>
-							<?php $this->toggle( 'allow_registration', __( 'Create accounts automatically', 'anar-toolkit' ), __( 'Create a new account when a verified user does not already have one.', 'anar-toolkit' ), $value ); ?>
+							<?php $this->toggle( 'allow_registration', __( 'Allow new account registration', 'anar-toolkit' ), __( 'Let new users create an account after verification.', 'anar-toolkit' ), $value ); ?>
+							<?php $this->mrn_forms( $value ); ?>
 							<div class="anar-field-row">
 								<label for="anar-profile-step"><strong><?php esc_html_e( 'Name after sign-up', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'Ask new customers for their first and last name right after the code is verified, never before. Existing customers are not asked.', 'anar-toolkit' ); ?></small></label>
 								<select id="anar-profile-step" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[profile_step]">
@@ -563,6 +564,36 @@ final class SettingsPage {
 				$first = false;
 			}
 		}
+	}
+
+	private function mrn_forms( array $value ) {
+		$connected = class_exists( \MRN\Form\Anar_Integration::class );
+		$forms     = \Anar\Login\Integrations\MrnForm::registration_forms();
+		$selected  = absint( $value['mrn_registration_form'] );
+		$available = in_array( $selected, array_column( $forms, 'id' ), true );
+		?>
+		<div id="anar-mrn-forms" class="anar-mrn-card">
+			<div class="anar-mrn-card__heading">
+				<div><small><?php esc_html_e( 'Plugin integration', 'anar-toolkit' ); ?></small><h3><?php esc_html_e( 'Anar and MRN Forms', 'anar-toolkit' ); ?></h3></div>
+				<strong><?php echo esc_html( $connected ? __( 'MRN Forms available', 'anar-toolkit' ) : __( 'Compatible MRN Forms required', 'anar-toolkit' ) ); ?></strong>
+			</div>
+			<p><?php esc_html_e( 'Build a registration form with your own fields in MRN Forms. Anar verifies the mobile number and creates the WordPress account. Other forms can use the same SMS service to verify a number before submission.', 'anar-toolkit' ); ?></p>
+			<label for="anar-mrn-registration"><strong><?php esc_html_e( 'Registration form', 'anar-toolkit' ); ?></strong></label>
+			<select id="anar-mrn-registration" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[mrn_registration_form]" aria-describedby="anar-mrn-help">
+				<option value="0"><?php esc_html_e( 'Default Anar registration', 'anar-toolkit' ); ?></option>
+				<?php if ( $selected && ! $available ) : ?>
+					<option value="<?php echo esc_attr( (string) $selected ); ?>" selected><?php esc_html_e( 'Selected form is unavailable', 'anar-toolkit' ); ?></option>
+				<?php endif; ?>
+				<?php foreach ( $forms as $form ) : ?>
+					<option value="<?php echo esc_attr( (string) $form['id'] ); ?>" <?php selected( $selected, $form['id'] ); ?>><?php echo esc_html( $form['title'] . ' (#' . $form['id'] . ')' ); ?></option>
+				<?php endforeach; ?>
+			</select>
+			<p id="anar-mrn-help"><?php esc_html_e( 'Publish a form in MRN Forms with “Anar registration” enabled. Allow registration and mobile sign-in here, then configure the SMS verification service.', 'anar-toolkit' ); ?></p>
+			<?php if ( $connected ) : ?>
+				<a href="<?php echo esc_url( admin_url( 'admin.php?page=mrn-form-builder' ) ); ?>"><?php esc_html_e( 'Open the MRN Forms builder', 'anar-toolkit' ); ?> <span aria-hidden="true">↗</span></a>
+			<?php endif; ?>
+		</div>
+		<?php
 	}
 
 	private function section_header( $title, $description, $icon ) {
