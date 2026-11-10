@@ -1,14 +1,14 @@
-=== Anar Toolkit – SMS Login, Recovery & Marketing for WooCommerce ===
+=== Anar Toolkit (انار) – SMS Login, Recovery & Marketing for WooCommerce ===
 Contributors: mrnwp
 Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.5.3
+Stable tag: 1.5.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-SMS login, password reset, cart recovery, order updates and customer campaigns for WooCommerce. Includes Persian RTL and English LTR.
+انار برای ووکامرس با ورود پیامکی، بازیابی رمز و سبد خرید، اعلان سفارش و کمپین. SMS login, password reset, cart recovery, order alerts and campaigns.
 
 == Description ==
 
@@ -43,6 +43,19 @@ Built-in SMS providers: Kavenegar, Meli Payamak, IPPanel, Panelchi, MaxSMS, Fara
 
 [Persian feature and setup guide](https://github.com/mehran-mrn/anar-login/blob/main/docs/plugin-page-fa.md) | [Source and support](https://github.com/mehran-mrn/anar-login) | [Product website and Persian guide](https://mrnwp.ir/anar/) | [English product page](https://mrnwp.ir/anar/en/)
 
+= معرفی فارسی انار =
+
+انار جعبه‌ابزار ورود و ثبت‌نام پیامکی، بازیابی سبد خرید رهاشده و بازاریابی پیامکی برای وردپرس و ووکامرس است. پنل تنظیمات و فرم‌ها به فارسی راست‌چین و انگلیسی چپ‌چین در دسترس‌اند. هر قابلیت را می‌توان جداگانه فعال کرد.
+
+= امکانات انار =
+
+* ورود و ثبت‌نام با شمارهٔ موبایل ایرانی و رمز یک‌بارمصرف پیامکی، کد تأیید ایمیل یا حساب گوگل. فرم ورود به‌صورت پاپ‌آپ، بلوک و کد کوتاه هم در دسترس است.
+* بازیابی رمز عبور با پیامک، تأیید دومرحله‌ای و پشتیبانی از کلید عبور (Passkey). اتصال به MRN Forms برای ثبت‌نام با فیلدهای سفارشی و تأیید پیامکی فرم‌ها.
+* بازیابی سبد خرید رهاشده و سفارش پرداخت‌نشده با یادآوری پیامکی و امکان ارائهٔ تخفیف یک‌بارمصرف.
+* ارسال پیامک وضعیت سفارش ووکامرس، تأیید پرداخت، کد رهگیری مرسوله و اعلان خرید یا پرداخت ناموفق برای مدیر فروشگاه.
+* کمپین‌های پیامکی خرید اول، بازگشت مشتری، تولد و مشتریان ویژه. ارسال انبوه زمان‌بندی‌شده، پیشنهاد محصول و اطلاع‌رسانی موجودی.
+* نظرسنجی پس از خرید، معرفی دوستان، فاکتور قابل چاپ، بازی‌های تبلیغاتی و گزارش سبدهای خرید، پیامک‌ها و کمپین‌ها.
+
 == Installation ==
 
 1. Install and activate Anar Toolkit. If replacing a pre-release copy in an anar-login folder, deactivate that copy first.
@@ -62,7 +75,7 @@ Built-in SMS providers: Kavenegar, Meli Payamak, IPPanel, Panelchi, MaxSMS, Fara
 
 Yes. Compiled Persian translations are included. Forms, settings, interface messages and contextual guides follow the WordPress site or user language and support RTL. Provider names, shortcodes and technical identifiers stay unchanged. English is also available. Official/custom language packs in WordPress's global languages folder keep their normal priority.
 
-The directory's language badge reports approved translations on translate.wordpress.org. It is separate from the bundled translation. The directory requires an English source readme; the linked Persian guide covers setup and features in Persian.
+The directory's language badge reports approved translations on translate.wordpress.org. It is separate from the bundled translation. The Persian setup guide covers configuration and features in more detail.
 
 = Is every feature free? =
 
@@ -225,6 +238,9 @@ Uninstall preserves data unless deletion was explicitly enabled beforehand. It d
 Yes. Set a budget per pool and a maximum money discount for each prize. Amounts use the current store currency and include the tax reduction. The maximum cost is reserved at issuance; a paid order consumes its actual saving and releases the remainder. Unused expired gifts release their reservation. Saved unpaid orders retain it to cover late payments. Refunds do not reactivate consumed gifts or replenish spent money. Earlier uncapped coupons remain unchanged and outside this budget. Capped calculations require WooCommerce 8.8 or later.
 
 == Changelog ==
+
+= 1.5.4 =
+* Add the Persian name, a bilingual summary, and a Persian feature overview to the WordPress.org listing.
 
 = 1.5.3 =
 * Add a labeled registration link for SMS.ir in its SMS provider settings.

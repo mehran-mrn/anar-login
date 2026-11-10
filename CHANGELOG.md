@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.4 — 2026-11-10
+
+- Add the Persian name, a bilingual summary, and a Persian feature overview to the WordPress.org listing.
+
 ## 1.5.3 — 2026-11-09
 
 - Add a labeled registration link for SMS.ir in its SMS provider settings.
