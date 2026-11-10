@@ -71,8 +71,9 @@ final class MessageCatalog {
 		if ( 'auth' === $item['source'] ) {
 			$provider = $login->get( 'sms_provider' );
 			$config = $login->provider( $provider );
-			$name = 'kavenegar' === $provider ? 'token' : ( $config['code_parameter'] ?? 'code' );
-			return array( 'provider' => $provider, 'mode' => 'custom' === $provider || ( 'melipayamak' === $provider && empty( $config['template_id'] ) ) ? 'text' : 'template', 'template' => $config['template_id'] ?? '', 'params' => $name . '={code}', 'message' => $login->get( 'sms_message' ), 'inherit' => 'login_otp' !== $id );
+			$name = 'kavenegar' === $provider ? 'token' : ( ( $config['code_parameter'] ?? '' ) ?: 'code' );
+			$text = 'custom' === $provider || ( 'melipayamak' === $provider && empty( $config['template_id'] ) && ! empty( $config['from'] ) );
+			return array( 'provider' => $provider, 'mode' => $text ? 'text' : 'template', 'template' => $config['template_id'] ?? '', 'params' => $name . '={code}', 'message' => $login->get( 'sms_message' ), 'inherit' => 'login_otp' !== $id );
 		}
 		if ( 'commerce' === $item['source'] ) {
 			$settings = ( new CommerceSettings() )->all();

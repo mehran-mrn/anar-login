@@ -42,6 +42,18 @@ final class MessageSettingsTest extends TestCase {
 		$this->assertSame( MessageSettings::fingerprint( MessageSettings::get( 'login_otp' ) ), MessageSettings::fingerprint( MessageSettings::get( 'login_otp' ) ) );
 	}
 
+	public function test_fresh_sign_in_requires_a_provider_and_defaults_to_meli_template_without_a_sender() {
+		unset( $GLOBALS['anar_test_options'][ Settings::OPTION_KEY ] );
+		$this->assertSame( '', MessageSettings::get( 'login_otp' )['provider'] );
+		$GLOBALS['anar_test_options'][ Settings::OPTION_KEY ] = array(
+			'sms_provider' => 'melipayamak',
+			'provider_melipayamak' => array( 'username' => 'demo', 'password' => 'test' ),
+		);
+		$this->assertSame( 'template', MessageSettings::get( 'login_otp' )['mode'] );
+		$GLOBALS['anar_test_options'][ Settings::OPTION_KEY ]['provider_melipayamak']['from'] = '30001234';
+		$this->assertSame( 'text', MessageSettings::get( 'login_otp' )['mode'] );
+	}
+
 	public function test_security_messages_can_override_or_inherit_the_login_pattern() {
 		$value = array( 'provider' => 'panelchi', 'mode' => 'template', 'template' => 'new-login', 'params' => 'code={code}', 'message' => '{code}', 'inherit' => false );
 		$GLOBALS['anar_test_options'][ MessageSettings::OPTION . '_login_otp' ] = $value;
@@ -61,6 +73,17 @@ final class MessageSettingsTest extends TestCase {
 		$this->assertNotEmpty( MessageSettings::errors( 'login_otp', $value ) );
 		$value['params'] = 'code={code}';
 		$value['mode'] = 'text';
+		$this->assertNotEmpty( MessageSettings::errors( 'login_otp', $value ) );
+	}
+
+	public function test_custom_verification_can_send_a_code_without_message_text() {
+		$config = array( 'url' => 'https://sms.example.test/api', 'params' => 'token={code}' );
+		$GLOBALS['anar_test_options'][ Settings::OPTION_KEY ] = array( 'sms_provider' => 'custom', 'provider_custom' => $config );
+		$value = MessageSettings::get( 'login_otp' );
+		$value['message'] = '';
+		$this->assertSame( array(), MessageSettings::errors( 'login_otp', $value ) );
+		$this->assertNotEmpty( MessageSettings::errors( 'paid_customer', $value ) );
+		$GLOBALS['anar_test_options'][ Settings::OPTION_KEY ]['provider_custom']['params'] = 'text={message}';
 		$this->assertNotEmpty( MessageSettings::errors( 'login_otp', $value ) );
 	}
 

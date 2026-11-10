@@ -75,6 +75,12 @@ try {
 	$assert( ! empty( $result['success'] ) && false !== strpos( $result['data']['html'], 'data-message-editor' ), 'An administrator loads the same editor used by every module' );
 	$assert( false !== strpos( MessageCenter::url( 'login_otp' ), 'page=anar-login-settings' ) && false !== strpos( MessageCenter::url( 'login_otp' ), 'edit_message=login_otp' ) && false !== strpos( MessageCenter::url( 'shared' ), 'section=sending' ), 'Canonical links point to shared settings without the reserved WordPress notice parameter' );
 	$assert( false !== strpos( $result['data']['html'], __( 'Save and close', 'anar-toolkit' ) ), 'Editor includes an explicit save-and-close action' );
+	$html = $result['data']['html'];
+	$assert( false !== strpos( $html, 'data-default-provider="panelchi"' ) && preg_match( '/<option value="panelchi"\s+selected=/', $html ), 'The sign-in editor preselects the provider saved in SMS settings' );
+	foreach ( array( 'code', 'site', 'domain', 'minutes' ) as $variable ) {
+		$assert( false !== strpos( $html, '<code dir="ltr">{' . $variable . '}</code>' ), 'The verification editor lists the available variable {' . $variable . '}' );
+	}
+	$assert( false !== strpos( $html, '<small>' . __( 'Required', 'anar-toolkit' ) . '</small>' ) && false === strpos( $html, 'QA-ONLY' ), 'The editor marks required variables and keeps provider credentials out of the markup' );
 	$get['id'] = 'unknown';
 	$result = $call( 'load_editor', $get );
 	$assert( empty( $result['success'] ), 'Unknown purposes cannot load an editor' );

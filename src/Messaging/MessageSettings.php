@@ -96,6 +96,11 @@ final class MessageSettings {
 		return $config;
 	}
 
+	public static function uses_custom_code_only( $config ) {
+		$fields = ( $config['params'] ?? '' ) . ( $config['url'] ?? '' );
+		return false !== strpos( $fields, '{code}' ) && false === strpos( $fields . ( $config['headers'] ?? '' ), '{message}' );
+	}
+
 	public static function errors( $id, $value ) {
 		$errors = array();
 		$item = MessageCatalog::all()[ $id ] ?? null;
@@ -137,6 +142,9 @@ final class MessageSettings {
 		}
 		if ( 'custom' === $value['provider'] && 'template' === $value['mode'] ) {
 			$errors[] = __( 'The custom gateway uses the message text.', 'anar-toolkit' );
+		}
+		if ( 'auth' === $item['source'] && 'custom' === $value['provider'] && 'text' === $value['mode'] && self::uses_custom_code_only( $config ) ) {
+			return array_unique( $errors );
 		}
 		$text = 'text' === ( $value['mode'] ?? '' ) ? ( $value['message'] ?? '' ) : ( $value['params'] ?? '' );
 		foreach ( MessageCatalog::required( $id, $value['_variant'] ?? null ) as $required ) {

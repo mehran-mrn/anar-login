@@ -288,6 +288,7 @@ final class SettingsPage {
 
 					<section class="anar-tab" data-panel="sms" hidden>
 						<?php $this->section_header( __( 'SMS provider', 'anar-toolkit' ), __( 'Connect your SMS service here. Message content and approved templates are available in Messages and templates.', 'anar-toolkit' ), '◈' ); ?>
+						<p class="description"><?php esc_html_e( 'Choose and save the default provider for verification messages. Then edit the messages below to set their delivery method and content.', 'anar-toolkit' ); ?></p>
 						<div class="anar-provider-grid">
 							<?php foreach ( $providers as $key => $provider ) : ?>
 								<label class="anar-provider <?php echo $key === $value['sms_provider'] ? 'is-selected' : ''; ?>">
@@ -355,10 +356,11 @@ final class SettingsPage {
 							</div>
 						<?php endforeach; ?>
 
-						<div class="anar-card">
+						<div class="anar-card" data-verification-messages data-saved-provider="<?php echo esc_attr( $value['sms_provider'] ); ?>">
+						<p class="description" role="status" data-save-provider-first hidden><?php esc_html_e( 'Save the selected provider before editing verification messages.', 'anar-toolkit' ); ?></p>
 						<?php
 						foreach ( array( 'login_otp', 'two_factor', 'password_reset', 'game_phone', 'stock_verification' ) as $message_id ) {
-							\Anar\Login\Admin\MessageCenter::summary( $message_id, 'login' ); }
+							MessageCenter::summary( $message_id, 'sms' ); }
 						?>
 						</div>
 <div class="anar-card anar-tip">
@@ -371,7 +373,6 @@ final class SettingsPage {
 							</div>
 						</div>
 
-						<p><a class="button" href="<?php echo esc_url( \Anar\Login\Admin\MessageCenter::url( 'login_otp', 'login' ) ); ?>"><?php esc_html_e( 'Configure and test the sign-in message', 'anar-toolkit' ); ?></a></p>
 					</section>
 
 					<section class="anar-tab" data-panel="google" hidden>

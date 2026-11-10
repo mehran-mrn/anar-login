@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.5.7 — 2026-11-11
+
+- Open the SMS editor with the saved provider selected and preserve existing message-specific providers.
+- Show only the delivery methods and fields supported by the selected provider.
+- List all available variables for each message and mark required values.
+
 ## 1.5.6 — 2026-11-10
 
 - Refresh the WordPress.org banners and search icon, and use a transparent Anar mark in the WordPress admin.

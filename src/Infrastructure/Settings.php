@@ -45,7 +45,7 @@ final class Settings {
 			'client_ip_header'    => '',
 			'bot_challenge'       => 'adaptive',
 			'challenge_threshold' => 200,
-			'sms_provider'        => 'kavenegar',
+			'sms_provider'        => '',
 			'sms_message'         => __( 'Your {site} login code is: {code}', 'anar-toolkit' ),
 			'email_subject'       => __( 'Your login code for {site}', 'anar-toolkit' ),
 			'email_message'       => __( "Your login code is: {code}\nThis code is valid for {minutes} minutes.", 'anar-toolkit' ),
@@ -226,7 +226,7 @@ final class Settings {
 		$bot_challenge                 = sanitize_key( $input['bot_challenge'] ?? $current['bot_challenge'] );
 		$output['bot_challenge']       = in_array( $bot_challenge, array( 'off', 'adaptive', 'always' ), true ) ? $bot_challenge : 'adaptive';
 		$output['challenge_threshold'] = max( 20, min( 100000, absint( $input['challenge_threshold'] ?? $current['challenge_threshold'] ) ) );
-		$output['sms_provider']        = sanitize_key( $input['sms_provider'] ?? $defaults['sms_provider'] );
+		$output['sms_provider']        = sanitize_key( $input['sms_provider'] ?? $current['sms_provider'] );
 		$output['sms_message']         = sanitize_textarea_field( $input['sms_message'] ?? $current['sms_message'] );
 		$output['email_subject']       = sanitize_text_field( $input['email_subject'] ?? $defaults['email_subject'] );
 		$output['email_message']       = sanitize_textarea_field( $input['email_message'] ?? $defaults['email_message'] );

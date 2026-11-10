@@ -159,6 +159,8 @@
 		});
 	}
 
+	const verificationMessages = root.querySelector('[data-verification-messages]');
+	const saveProviderFirst = verificationMessages?.querySelector('[data-save-provider-first]');
 	root.querySelectorAll('.anar-provider input[type="radio"]').forEach((radio) => {
 		radio.addEventListener('change', () => {
 			root.querySelectorAll('.anar-provider').forEach((item) => item.classList.remove('is-selected'));
@@ -166,7 +168,14 @@
 			root.querySelectorAll('.anar-provider-settings').forEach((panel) => {
 				panel.hidden = panel.dataset.provider !== radio.value;
 			});
+			if (saveProviderFirst) saveProviderFirst.hidden = radio.value === verificationMessages.dataset.savedProvider;
 		});
+	});
+	verificationMessages?.addEventListener('click', (event) => {
+		if (saveProviderFirst.hidden || !event.target.closest('[data-message-open]')) return;
+		event.preventDefault();
+		event.stopPropagation();
+		saveProviderFirst.scrollIntoView({ block: 'nearest' });
 	});
 
 	root.querySelectorAll('[data-copy]').forEach((button) => {

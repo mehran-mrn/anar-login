@@ -4,7 +4,7 @@ Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.5.6
+Stable tag: 1.5.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -240,6 +240,12 @@ Uninstall preserves data unless deletion was explicitly enabled beforehand. It d
 Yes. Set a budget per pool and a maximum money discount for each prize. Amounts use the current store currency and include the tax reduction. The maximum cost is reserved at issuance; a paid order consumes its actual saving and releases the remainder. Unused expired gifts release their reservation. Saved unpaid orders retain it to cover late payments. Refunds do not reactivate consumed gifts or replenish spent money. Earlier uncapped coupons remain unchanged and outside this budget. Capped calculations require WooCommerce 8.8 or later.
 
 == Changelog ==
+
+= 1.5.7 =
+
+* Open the SMS editor with the saved provider selected and preserve existing message-specific providers.
+* Show only the delivery methods and fields supported by the selected provider.
+* List all available variables for each message and mark required values.
 
 = 1.5.6 =
 

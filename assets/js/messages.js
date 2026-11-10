@@ -107,15 +107,30 @@
 		const template = form.querySelector('[data-mapping-template]');
 		const provider = form.querySelector('[data-message-provider]');
 		const mode = form.querySelector('[data-message-mode]');
+		const templateId = form.elements.namedItem('value[template]');
 		const inherit = form.querySelector('[name="value[inherit]"]');
 		const message = form.querySelector('[data-message-text]');
 		const samples = JSON.parse(form.dataset.samples);
+		const providers = new Map(Object.entries(JSON.parse(form.dataset.providerFields)));
+		const modeOptions = Array.from(mode.options);
+		const panelVariables = form.querySelector('[data-panel-variables]');
+		const useDefaultProvider = form.querySelector('[data-use-default-provider]');
+		const drafts = new Map();
+		let currentProvider = provider.value;
 		let baseline;
 		function serialize() {
-			source.value = Array.from(rows.children).map(function (row) {
-				const inputs = row.querySelectorAll('input');
-				return inputs[0].value.trim() + '=' + inputs[1].value.trim();
-			}).filter(function (line) { return line !== '='; }).join('\n');
+			const ordered = !!providers.get(provider.value)?.ordered;
+			const entries = Array.from(rows.children, function (row) {
+				return Array.from(row.querySelectorAll('input'), function (input) { return input.value.trim(); });
+			});
+			const names = new Set(entries.map(function (entry) { return entry[0]; }));
+			let index = 1;
+			source.value = entries.filter(function (entry) { return entry[0] || entry[1]; }).map(function ([name, value]) {
+				if (ordered && !name) {
+					do { name = 'value_' + index++; } while (names.has(name));
+				}
+				return name + '=' + value;
+			}).join('\n');
 		}
 		function add(name, value) {
 			const row = template.content.firstElementChild.cloneNode(true);
@@ -123,7 +138,7 @@
 			row.querySelector('[data-remove]').addEventListener('click', function () {
 				const next = row.nextElementSibling || row.previousElementSibling;
 				row.remove(); serialize();
-				(next ? next.querySelector('input') : form.querySelector('[data-add-mapping]')).focus();
+				(next ? next.querySelector('input:not([hidden])') : form.querySelector('[data-add-mapping]')).focus();
 			});
 			row.querySelector('[data-up]').addEventListener('click', function () { if (row.previousElementSibling) rows.insertBefore(row, row.previousElementSibling); serialize(); });
 			row.querySelector('[data-down]').addEventListener('click', function () { if (row.nextElementSibling) rows.insertBefore(row.nextElementSibling, row); serialize(); });
@@ -135,20 +150,83 @@
 			if (!rows.children.length) add();
 		}
 		function render() {
-			const textAllowed = ['custom', 'melipayamak'].includes(provider.value);
-			if (!textAllowed && mode.value === 'text') mode.value = 'template';
-			if (provider.value === 'custom') mode.value = 'text';
-			mode.querySelector('[value="text"]').disabled = !textAllowed;
-			form.querySelectorAll('[data-template-field]').forEach(function (field) { field.hidden = mode.value === 'text'; });
-			form.querySelectorAll('[data-message-fields] input, [data-message-fields] textarea, [data-message-fields] select, [data-message-fields] button').forEach(function (field) { field.disabled = !!(inherit && inherit.checked && !field.closest('.anar-help')); });
-			const label = form.querySelector('[data-message-text-label]');
-			label.textContent = mode.value === 'text' ? label.dataset.textLabel : label.dataset.templateLabel;
+			const inherited = !!inherit?.checked;
+			const effectiveKey = inherited ? form.dataset.inheritedProvider : provider.value;
+			const effective = providers.get(effectiveKey);
+			const fields = providers.get(provider.value) || {};
+			const methods = modeOptions.filter(function (option) { return fields[option.value]; });
+			if (methods.length && !methods.some(function (option) { return option.value === mode.value; })) mode.value = methods[0].value;
+			form.querySelector('[data-current-provider]').textContent = effective?.title || effectiveKey || provider.options[0].textContent;
+			const inheritedEditor = form.querySelector('[data-inherited-editor]');
+			if (inheritedEditor) inheritedEditor.hidden = !inherited;
+			form.querySelector('[data-provider-picker]').hidden = inherited;
+			form.querySelector('[data-provider-missing]').hidden = !!effectiveKey;
+			const auth = form.hasAttribute('data-auth-message');
+			const usesDefault = effectiveKey === form.dataset.defaultProvider;
+			form.querySelector('[data-provider-default]').hidden = !auth || inherited || !effectiveKey || !usesDefault;
+			form.querySelector('[data-provider-override]').hidden = !auth || inherited || !effectiveKey || usesDefault;
+			if (useDefaultProvider) useDefaultProvider.hidden = inherited || usesDefault || !effectiveKey;
+			const available = !!(effective?.template || effective?.text);
+			form.querySelector('[data-unsupported-provider]').hidden = !effectiveKey || available;
+			form.querySelector('[data-message-fields]').hidden = inherited || !available;
+			form.querySelector('[data-message-test]').hidden = !available;
+			form.querySelector('.anar-message-actions').hidden = !available;
+			form.querySelector('[data-mode-picker]').hidden = methods.length < 2;
+			const fixedMode = form.querySelector('[data-fixed-mode]');
+			const codeOnly = auth && fields.codeOnly;
+			fixedMode.hidden = methods.length !== 1 || codeOnly;
+			fixedMode.textContent = methods[0]?.textContent || '';
+			const textMode = mode.value === 'text';
+			form.querySelectorAll('[data-template-field]').forEach(function (field) { field.hidden = textMode; });
+			form.querySelectorAll('[data-text-field]').forEach(function (field) { field.hidden = !textMode || codeOnly; });
+			form.querySelectorAll('[data-code-only]').forEach(function (field) { field.hidden = !codeOnly; });
+			form.querySelectorAll('[data-text-variable]').forEach(function (field) { field.hidden = !!codeOnly; });
+			form.querySelector('[data-sender-needed]').hidden = !textMode || !fields.needsSender;
+			form.querySelector('[data-template-label]').textContent = fields.templateLabel || '';
+			form.querySelector('[data-named-mapping]').hidden = !!fields.ordered;
+			form.querySelector('[data-ordered-mapping]').hidden = !fields.ordered;
+			rows.classList.toggle('is-ordered', !!fields.ordered);
+			rows.querySelectorAll('[data-panel-name], [data-up], [data-down]').forEach(function (field) {
+				field.hidden = field.hasAttribute('data-panel-name') ? !!fields.ordered : !fields.ordered;
+			});
 			form.querySelector('[data-message-preview]').textContent = message.value.replace(/\{([a-zA-Z0-9_]+)\}/g, function (match, name) { return Object.prototype.hasOwnProperty.call(samples, name) ? samples[name] : match; });
 		}
-		build(); render(); baseline = snapshot(form);
-		form.querySelector('[data-add-mapping]').addEventListener('click', function () { add(); render(); rows.lastElementChild.querySelector('input').focus(); });
-		source.addEventListener('change', function () { build(); render(); });
-		form.addEventListener('input', render); form.addEventListener('change', render);
+		function refreshMapping() {
+			const names = providers.get(provider.value)?.names || [];
+			panelVariables.replaceChildren(...names.map(function (name) { return new Option(name, name); }));
+			const allowedNames = form.querySelector('[data-allowed-panel-names]');
+			allowedNames.hidden = !names.length;
+			allowedNames.querySelector('code').textContent = names.join(', ');
+			build();
+			render();
+		}
+		refreshMapping(); baseline = snapshot(form);
+		form.querySelector('[data-add-mapping]').addEventListener('click', function () {
+			add(); render(); rows.lastElementChild.querySelector('input:not([hidden])').focus();
+		});
+		provider.addEventListener('change', function () {
+			if (provider.value === currentProvider) return;
+			drafts.set(currentProvider, { template: templateId.value, params: source.value, mode: mode.value });
+			currentProvider = provider.value;
+			const fields = providers.get(currentProvider);
+			const defaults = {
+				template: '',
+				params: fields?.template && form.hasAttribute('data-auth-message') ? fields.codeName + '={code}' : '',
+				mode: fields?.template ? 'template' : 'text'
+			};
+			const draft = drafts.get(currentProvider) || defaults;
+			templateId.value = draft.template;
+			source.value = draft.params;
+			mode.value = draft.mode;
+			refreshMapping();
+		});
+		useDefaultProvider?.addEventListener('click', function () {
+			provider.value = form.dataset.defaultProvider;
+			provider.dispatchEvent(new Event('change', { bubbles: true }));
+			form.querySelector('[data-provider-picker] summary').focus();
+		});
+		form.addEventListener('input', function (event) { if (event.target !== provider) render(); });
+		form.addEventListener('change', render);
 		form.addEventListener('submit', async function (event) {
 			event.preventDefault();
 			if (busy) return;
@@ -156,8 +234,6 @@
 			if (operation === 'test' && snapshot(form) !== baseline) { report(config.saveFirst, false); return; }
 			unsaved.hidden = true; pendingLeave = null;
 			const data = new FormData(form);
-			// Disabled inherited fields retain their effective values when submitted.
-			Array.from(form.elements).filter(function (field) { return field.disabled && field.name; }).forEach(function (field) { data.set(field.name, field.value); });
 			data.set('action', 'anar_message_save'); data.set('operation', operation);
 			busy = true; form.inert = true; form.setAttribute('aria-busy', 'true');
 			const buttons = Array.from(form.querySelectorAll('[type="submit"]'));
@@ -175,7 +251,8 @@
 					if (!field) return;
 					if (field.type === 'checkbox') field.checked = !!entry[1]; else field.value = entry[1];
 				});
-				build(); render();
+				currentProvider = provider.value;
+				refreshMapping();
 				baseline = snapshot(form); updateSummary(result.data);
 				if (operation === 'return') { busy = false; requestClose(); }
 			} catch (error) { report(error.message || config.network, false); }

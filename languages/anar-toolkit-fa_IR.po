@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: Anar Toolkit 1.5.6\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
+msgstr "Project-Id-Version: Anar Toolkit 1.5.7\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
 
 msgid "%1$d paid orders. A gift at every %2$d orders."
 msgstr "%1$d سفارش پرداخت‌شده؛ یک هدیه پس از هر %2$d سفارش."
@@ -9,6 +9,9 @@ msgstr "%1$s: کد بازنشانی رمز عبور شما %2$s است و تا �
 
 msgid "%d attempts left today"
 msgstr "%d نوبت باقی‌مانده برای امروز"
+
+msgid "%s (default in SMS settings)"
+msgstr "%s (پیش‌فرض تنظیمات پیامک)"
 
 msgid "%s per SMS"
 msgstr "%s برای هر پیامک"
@@ -187,6 +190,9 @@ msgstr "در صفحه دلخواه، [anar_recover_cart] را قرار دهید.
 msgid "Add a passkey"
 msgstr "افزودن کلید عبور"
 
+msgid "Add one value for each variable in the template, in the same order as in your SMS panel."
+msgstr "به ازای هر متغیر الگو یک مقدار اضافه کنید. ترتیب مقادیر باید با ترتیب متغیرها در الگوی پنل پیامک یکسان باشد."
+
 msgid "Add this exact URL to your Google OAuth settings."
 msgstr "این آدرس را دقیقاً در تنظیمات OAuth گوگل ثبت کنید."
 
@@ -307,6 +313,9 @@ msgstr "یادآوری خرید انار"
 msgid "Anar receives a commission from purchases and usage of referred accounts."
 msgstr "انار از خرید و مصرف حساب‌های معرفی‌شده سهم دریافت می‌کند."
 
+msgid "Anar sends the text you enter here and fills in the variables when sending."
+msgstr "انار متن این کادر را ارسال می‌کند و هنگام ارسال، مقدار واقعی را جای متغیرها می‌گذارد."
+
 msgid "Anar shipment tracking"
 msgstr "رهگیری مرسولهٔ انار"
 
@@ -348,6 +357,9 @@ msgstr "الگوی تأییدشدهٔ پنل"
 
 msgid "Approved template ID / slug"
 msgstr "شناسه / نامک الگوی تأییدشده"
+
+msgid "Approved template ID or name"
+msgstr "شناسه یا نام الگوی تأییدشده"
 
 msgid "Ask new customers for their first and last name right after the code is verified, never before. Existing customers are not asked."
 msgstr "نام و نام خانوادگی مشتری تازه، بلافاصله پس از تأیید کد پرسیده می‌شود، نه پیش از آن. از مشتریان قبلی پرسیده نمی‌شود."
@@ -405,6 +417,12 @@ msgstr "تنظیمات ارسال خودکار"
 
 msgid "Automations & discounts"
 msgstr "ارسال خودکار و تخفیف‌ها"
+
+msgid "Available panel names"
+msgstr "نام‌های مجاز در پنل"
+
+msgid "Available variables for this message"
+msgstr "متغیرهای قابل استفاده در این پیام"
 
 msgid "Average rating out of 5"
 msgstr "میانگین امتیاز از ۵"
@@ -550,6 +568,9 @@ msgstr "احتمال دریافت جایزه (درصد)"
 msgid "Change details"
 msgstr "ویرایش مشخصات"
 
+msgid "Change provider for this message"
+msgstr "تغییر سرویس‌دهندهٔ این پیام"
+
 msgid "Changes to account security require verification."
 msgstr "تغییر تنظیمات امنیت حساب به تأیید هویت نیاز دارد."
 
@@ -595,6 +616,9 @@ msgstr "یک نقطه از نقشهٔ گنج را انتخاب کنید"
 msgid "Choose an unmatched card."
 msgstr "کارتی را انتخاب کنید که هنوز جفت نشده است."
 
+msgid "Choose and save the default provider for verification messages. Then edit the messages below to set their delivery method and content."
+msgstr "سرویس‌دهندهٔ پیش‌فرض پیامک‌های تأیید را انتخاب و ذخیره کنید. سپس روش ارسال و محتوای هر پیام را از فهرست زیر تنظیم کنید."
+
 msgid "Choose how customers sign in"
 msgstr "روش ورود مشتریان را انتخاب کنید"
 
@@ -609,6 +633,9 @@ msgstr "شمارهٔ موبایل، ایمیل یا هر دو را انتخاب 
 
 msgid "Choose one answer"
 msgstr "پاسخ خود را انتخاب کنید"
+
+msgid "Choose one delivery method for this message."
+msgstr "برای هر پیام یکی از این دو روش ارسال را انتخاب کنید."
 
 msgid "Choose separate limits to let a customer play each game once a day. Existing installations keep their shared limit until you change this setting. Attempts already used today still count."
 msgstr "برای اینکه مشتری بتواند روزانه یک بار در هر بازی شرکت کند، سهمیهٔ مستقل را انتخاب کنید. تنظیم قبلی تا زمان تغییر شما حفظ می‌شود. نوبت‌های استفاده‌شدهٔ امروز همچنان محاسبه می‌شوند."
@@ -648,6 +675,9 @@ msgstr "اعتبار کد"
 
 msgid "Code parameter name"
 msgstr "نام پارامتر کد"
+
+msgid "Code sent through the custom connection"
+msgstr "ارسال کد از طریق اتصال سفارشی"
 
 msgid "Code validity in minutes"
 msgstr "اعتبار کد به دقیقه"
@@ -895,6 +925,9 @@ msgstr "ثبت اطلاعات و دریافت فاکتور"
 msgid "Create accounts automatically"
 msgstr "ساخت خودکار حساب"
 
+msgid "Create and approve the SMS text in your provider panel. Enter its identifier here and choose what goes into each variable."
+msgstr "متن پیامک را در پنل سرویس‌دهنده ثبت کنید و تأیید بگیرید. سپس شناسهٔ الگو و مقدار متغیرهای آن را اینجا وارد کنید."
+
 msgid "Create your account"
 msgstr "ایجاد حساب کاربری"
 
@@ -1051,6 +1084,9 @@ msgstr "ویرایش"
 msgid "Edit message"
 msgstr "ویرایش پیام"
 
+msgid "Edit sign-in message"
+msgstr "ویرایش پیامک کد ورود"
+
 msgid "Eligible contacts: %1$d · Invalid rows: %2$d"
 msgstr "مخاطبان واجد شرایط: %1$d · سطرهای نامعتبر: %2$d"
 
@@ -1137,6 +1173,9 @@ msgstr "عنوان و متن پیام را وارد و گروهی با دست‌
 
 msgid "Enter a valid schedule."
 msgstr "زمان‌بندی معتبری وارد کنید."
+
+msgid "Enter each variable name exactly as it appears in the SMS panel, then enter a value or a variable from the list above."
+msgstr "نام هر متغیر را دقیقاً مطابق الگو در پنل پیامک وارد کنید. در کادر روبه‌رو، یکی از متغیرهای بالا یا یک مقدار ثابت بگذارید."
 
 msgid "Enter shipment details in the Anar box on the WooCommerce order. Standard WooCommerce Shipment Tracking metadata is also supported. For another shipping plugin, enter its tracking-number meta key."
 msgstr "اطلاعات مرسوله را در جعبهٔ انار در سفارش ووکامرس وارد کنید. داده‌های استاندارد افزونهٔ WooCommerce Shipment Tracking هم پشتیبانی می‌شوند. برای افزونهٔ حمل‌ونقل دیگر، کلید متای کد رهگیری آن را وارد کنید."
@@ -1263,6 +1302,9 @@ msgstr "مدیریت قابلیت‌ها"
 
 msgid "Feedback received"
 msgstr "بازخورد دریافت شد"
+
+msgid "Fill in the template variables"
+msgstr "مقدار متغیرهای الگو"
 
 msgid "Fill the billing phone"
 msgstr "پرکردن تلفن صورتحساب"
@@ -1918,6 +1960,9 @@ msgstr "هدیهٔ خرید بعدی"
 msgid "Next-purchase prediction"
 msgstr "پیش‌بینی خرید بعدی"
 
+msgid "No SMS provider selected"
+msgstr "سرویس‌دهندهٔ پیامک انتخاب نشده"
+
 msgid "No account was found for these details and registration is disabled."
 msgstr "برای این مشخصات حسابی پیدا نشد و ثبت‌نام غیرفعال است."
 
@@ -2036,6 +2081,9 @@ msgid "Open"
 msgstr "باز"
 
 msgid "Open SMS connection"
+msgstr "تنظیمات اتصال پیامک"
+
+msgid "Open SMS connection settings"
 msgstr "تنظیمات اتصال پیامک"
 
 msgid "Open SMS panel"
@@ -2629,6 +2677,9 @@ msgstr "پاسخ درخواست، وجود حساب را افشا نمی‌کن�
 msgid "Requested recovery code"
 msgstr "کد بازیابی درخواستی"
 
+msgid "Required"
+msgstr "ضروری"
+
 msgid "Required variables"
 msgstr "متغیرهای ضروری"
 
@@ -2788,6 +2839,9 @@ msgstr "پیش از ارسال آزمایشی، تنظیمات پیام را ذ�
 msgid "Save the order to queue a shipment SMS when this event is enabled and its template is configured."
 msgstr "اگر این رویداد فعال و الگوی آن تنظیم باشد، با ذخیرهٔ سفارش پیامک مرسوله در صف قرار می‌گیرد."
 
+msgid "Save the selected provider before editing verification messages."
+msgstr "پیش از ویرایش پیامک‌های تأیید، سرویس‌دهندهٔ انتخاب‌شده را ذخیره کنید."
+
 msgid "Save these recovery codes now. Each code works once."
 msgstr "این کدهای بازیابی را اکنون در جای امنی نگه دارید. هر کد فقط یک بار قابل استفاده است."
 
@@ -2863,6 +2917,9 @@ msgstr "در تنظیمات اتصال، پیامک، ایمیل یا گوگل �
 msgid "Select a history model, minimum purchases and confidence threshold. Configure the before/on/after stages. Customers without sufficient repeat-purchase history receive no prediction."
 msgstr "مدل سابقه، حداقل خرید و آستانهٔ اطمینان را انتخاب کنید. مراحل پیش از خرید، روز خرید و پس از آن را تنظیم کنید. برای مشتری فاقد سابقهٔ کافی، پیش‌بینی ایجاد نمی‌شود."
 
+msgid "Select and save a provider in SMS settings, then return here to set up this message."
+msgstr "ابتدا سرویس‌دهنده را در تنظیمات پیامک انتخاب و ذخیره کنید. سپس برای تنظیم این پیام به اینجا برگردید."
+
 msgid "Select the eligible customers and products. Configure the message template and optional gift. The offer uses an available product outside the customer’s recent purchase history."
 msgstr "مشتریان و کالاهای مشمول را انتخاب کنید. الگوی پیام و هدیهٔ اختیاری را تنظیم کنید. پیشنهاد از میان کالاهای موجود و خارج از خریدهای اخیر مشتری انتخاب می‌شود."
 
@@ -2874,6 +2931,9 @@ msgstr "حساب‌های نیازمند کد پس از ورود با رمز ع�
 
 msgid "Selected form is unavailable"
 msgstr "فرم انتخاب‌شده در دسترس نیست"
+
+msgid "Selected in SMS settings."
+msgstr "از تنظیمات پیامک انتخاب شده است."
 
 msgid "Send a new recovery code"
 msgstr "ارسال کد بازیابی جدید"
@@ -3310,6 +3370,9 @@ msgstr "کد معتبر نیست. راه‌اندازی را دوباره شرو
 msgid "The code, recovery page and unsubscribe link must be included in the recovery parameter mapping (or custom message). Use templates approved for purchase reminders."
 msgstr "کد، آدرس صفحه بازیابی و لینک لغو دریافت باید در نگاشت متغیرها یا متن درگاه سفارشی قرار بگیرند. از قالب تأییدشده یادآوری خرید استفاده کنید."
 
+msgid "The connection sends {code} directly. To send text written here, add {message} to the custom connection URL or request parameters."
+msgstr "این اتصال مقدار {code} را مستقیم می‌فرستد. برای ارسال متن نوشته‌شده در این فرم، {message} را به نشانی یا پارامترهای درخواست در تنظیمات اتصال اضافه کنید."
+
 msgid "The custom gateway JSON parameters are not valid JSON."
 msgstr "پارامترهای JSON درگاه سفارشی معتبر نیستند."
 
@@ -3508,6 +3571,9 @@ msgstr "تغییرات این پیام هنوز ذخیره نشده است."
 msgid "This message is unavailable."
 msgstr "این پیام در دسترس نیست."
 
+msgid "This message uses its own provider."
+msgstr "این پیام سرویس‌دهندهٔ جداگانه دارد."
+
 msgid "This mobile number already has an account. Sign in to continue."
 msgstr "برای این شمارهٔ همراه حسابی وجود دارد. برای ادامه وارد شوید."
 
@@ -3531,6 +3597,9 @@ msgstr "این درگاه از ارسال با الگوی تأییدشده پش�
 
 msgid "This provider does not support plain-text delivery here."
 msgstr "این درگاه در این مسیر از ارسال متنی پشتیبانی نمی‌کند."
+
+msgid "This provider has no editable delivery method in this message editor."
+msgstr "روش ارسال این سرویس‌دهنده در این فرم قابل ویرایش نیست."
 
 msgid "This purchase no longer needs a reminder, or its link has expired."
 msgstr "این خرید دیگر به یادآوری نیاز ندارد یا لینک آن منقضی شده است."
@@ -3564,6 +3633,9 @@ msgstr "برای تغییر، ابتدا کد تأیید یا کد برنامه�
 
 msgid "To create an account, use the registration form."
 msgstr "برای ایجاد حساب، از فرم ثبت‌نام استفاده کنید."
+
+msgid "To send plain text, save your sender number in SMS connection settings."
+msgstr "برای ارسال متنی، شمارهٔ فرستنده را در تنظیمات اتصال پیامک ذخیره کنید."
 
 msgid "Today"
 msgstr "امروز"
@@ -3625,6 +3697,9 @@ msgstr "ورود دومرحله‌ای"
 msgid "Unsubscribe URL"
 msgstr "پیوند لغو دریافت"
 
+msgid "Use %s from SMS settings"
+msgstr "استفاده از %s، پیش‌فرض تنظیمات پیامک"
+
 msgid "Use a generic verification template approved for these purposes. Changing the shared sign-in template affects the messages that use it."
 msgstr "از الگوی عمومی تأیید کد که برای این کاربردها در پنل تأیید شده است استفاده کنید. تغییر الگوی مشترک ورود روی پیام‌هایی که از آن استفاده می‌کنند نیز اثر دارد."
 
@@ -3651,6 +3726,9 @@ msgstr "ورود را در چهار مرحله راه‌اندازی کنید. �
 
 msgid "Use the existing shortcode, popup or WooCommerce integration. Changing where the form appears does not change its verification rules. Save appearance changes before previewing."
 msgstr "از کد کوتاه، پاپ‌آپ یا اتصال ووکامرس استفاده کنید. محل نمایش فرم، قواعد تأیید هویت را تغییر نمی‌دهد. پیش از دیدن پیش‌نمایش، تغییرات ظاهر را ذخیره کنید."
+
+msgid "Use the same SMS settings as the sign-in code"
+msgstr "استفاده از تنظیمات ارسال پیامک کد ورود"
 
 msgid "Use the sign-in template for this verification message"
 msgstr "استفاده از الگوی ورود برای این پیام تأیید"
@@ -3684,6 +3762,9 @@ msgstr "رسیدن به سطح مشتری ویژه"
 
 msgid "Value / order"
 msgstr "مبلغ / سفارش"
+
+msgid "Value to send"
+msgstr "مقدار ارسالی"
 
 msgid "Verification code"
 msgstr "کد تأیید"
