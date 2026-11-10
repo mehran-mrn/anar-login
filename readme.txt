@@ -4,7 +4,7 @@ Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.5.5
+Stable tag: 1.5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,7 +35,7 @@ Anar Toolkit brings sign-in, purchase recovery and customer communication into o
 = Persian included; enable only what you need =
 The complete Persian (fa_IR) translation is bundled with the plugin. Set your WordPress site or user language to Persian for RTL forms, settings and contextual guides. No separate language ZIP is required. English LTR remains available.
 
-Active features appear first. Inactive capabilities stay below with their guides and activation switches; their storefront services and files are not loaded. Administrator reports query only the selected section. New store and campaign modules start disabled.
+Anar keeps storefront pages light by loading the login popup on demand and loading storefront assets only for active features. The feature screen groups the active tools first and keeps the other tools available with setup guides and switches. Administrator reports query only the selected section. New store and campaign modules start disabled.
 
 Built-in SMS providers: Kavenegar, Meli Payamak, IPPanel, Panelchi, MaxSMS, Faraz SMS and SMS.ir, plus a custom HTTPS gateway. Use your own account and approved templates. Provider acceptance does not confirm handset delivery.
 
@@ -45,7 +45,9 @@ Built-in SMS providers: Kavenegar, Meli Payamak, IPPanel, Panelchi, MaxSMS, Fara
 
 = معرفی فارسی انار =
 
-انار جعبه‌ابزار ورود و ثبت‌نام پیامکی، بازیابی سبد خرید رهاشده و بازاریابی پیامکی برای وردپرس و ووکامرس است. پنل تنظیمات و فرم‌ها به فارسی راست‌چین و انگلیسی چپ‌چین در دسترس‌اند. هر قابلیت را می‌توان جداگانه فعال کرد.
+انار جعبه‌ابزار ورود و ثبت‌نام پیامکی، بازیابی سبد خرید رهاشده، بازاریابی پیامکی و بازی‌های آنلاین فروشگاهی برای وردپرس و ووکامرس است. پنل تنظیمات و فرم‌ها به فارسی راست‌چین و انگلیسی چپ‌چین در دسترس‌اند. هر قابلیت را می‌توان جداگانه فعال کرد.
+
+انار برای بارگذاری سبک و سریع طراحی شده است. فرم پاپ‌آپ هنگام نیاز بارگیری می‌شود و فایل‌های فروشگاه فقط برای قابلیت‌های فعال بارگذاری می‌شوند.
 
 = امکانات انار =
 
@@ -238,6 +240,10 @@ Uninstall preserves data unless deletion was explicitly enabled beforehand. It d
 Yes. Set a budget per pool and a maximum money discount for each prize. Amounts use the current store currency and include the tax reduction. The maximum cost is reserved at issuance; a paid order consumes its actual saving and releases the remainder. Unused expired gifts release their reservation. Saved unpaid orders retain it to cover late payments. Refunds do not reactivate consumed gifts or replenish spent money. Earlier uncapped coupons remain unchanged and outside this budget. Capped calculations require WooCommerce 8.8 or later.
 
 == Changelog ==
+
+= 1.5.6 =
+
+* Refresh the WordPress.org banners and search icon, and use a transparent Anar mark in the WordPress admin.
 
 = 1.5.5 =
 * Add an administrator dashboard widget with feature status and recorded SMS outcomes for today and the last seven days.

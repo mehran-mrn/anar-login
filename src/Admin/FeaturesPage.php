@@ -72,7 +72,7 @@ final class FeaturesPage {
 		$other_first = isset( $_GET['page'] ) && 'anar-features-other' === $_GET['page'];
 		$groups = $other_first ? array( false => __( 'Other features', 'anar-toolkit' ), true => __( 'Active features', 'anar-toolkit' ) ) : array( true => __( 'Active features', 'anar-toolkit' ), false => __( 'Other features', 'anar-toolkit' ) );
 		?>
-		<div class="wrap anar-features" dir="<?php echo is_rtl() ? 'rtl' : 'ltr'; ?>"><header><img src="<?php echo esc_url( ANAR_LOGIN_URL . 'assets/images/anar-logo.png' ); ?>" alt=""><div><h1><?php esc_html_e( 'Anar Toolkit', 'anar-toolkit' ); ?></h1><p><?php esc_html_e( 'Enable the features your store needs.', 'anar-toolkit' ); ?></p></div></header><hr class="wp-header-end">
+		<div class="wrap anar-features" dir="<?php echo is_rtl() ? 'rtl' : 'ltr'; ?>"><header><img src="<?php echo esc_url( ANAR_LOGIN_URL . 'assets/images/anar-logo.png?ver=' . ANAR_LOGIN_VERSION ); ?>" alt=""><div><h1><?php esc_html_e( 'Anar Toolkit', 'anar-toolkit' ); ?></h1><p><?php esc_html_e( 'Enable the features your store needs.', 'anar-toolkit' ); ?></p></div></header><hr class="wp-header-end">
 		<?php StatusPanel::credit(); ?>
 		<p class="anar-features-intro"><?php esc_html_e( 'Active features appear first. Other features remain below with their instructions and activation switch. Turning a feature off keeps its settings and stored records.', 'anar-toolkit' ); ?></p>
 		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>"><?php wp_nonce_field( 'anar_features' ); ?><input type="hidden" name="action" value="anar_features">

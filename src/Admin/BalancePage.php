@@ -124,7 +124,7 @@ final class BalancePage {
 		}
 		?>
 		<div class="wrap anar-admin anar-balance" dir="<?php echo is_rtl() ? 'rtl' : 'ltr'; ?>">
-			<header class="anar-admin__header"><div class="anar-admin__title"><img src="<?php echo esc_url( ANAR_LOGIN_URL . 'assets/images/anar-logo.png' ); ?>" alt=""><div><div><h1><?php esc_html_e( 'SMS credit', 'anar-toolkit' ); ?></h1><span>v<?php echo esc_html( ANAR_LOGIN_VERSION ); ?></span></div><p><?php esc_html_e( 'Keep track of your messaging credit before it runs out.', 'anar-toolkit' ); ?></p></div></div></header><hr class="wp-header-end">
+			<header class="anar-admin__header"><div class="anar-admin__title"><img src="<?php echo esc_url( ANAR_LOGIN_URL . 'assets/images/anar-logo.png?ver=' . ANAR_LOGIN_VERSION ); ?>" alt=""><div><div><h1><?php esc_html_e( 'SMS credit', 'anar-toolkit' ); ?></h1><span>v<?php echo esc_html( ANAR_LOGIN_VERSION ); ?></span></div><p><?php esc_html_e( 'Keep track of your messaging credit before it runs out.', 'anar-toolkit' ); ?></p></div></div></header><hr class="wp-header-end">
 			<?php self::result_notice(); ?>
 			<form id="anar-balance-settings" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 				<input type="hidden" name="action" value="anar_balance_save"><?php wp_nonce_field( 'anar_balance_save' ); ?>

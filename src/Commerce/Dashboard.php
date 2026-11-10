@@ -93,7 +93,7 @@ final class Dashboard {
 		$pending = (int) ( $data['queue']['pending']->count ?? 0 );
 		$failed = (int) ( $data['queue']['failed']->count ?? 0 ) + (int) ( $data['queue']['uncertain']->count ?? 0 );
 		?>
-		<header class="anar-suite-header"><div class="anar-suite-brand"><img src="<?php echo esc_url( ANAR_LOGIN_URL . 'assets/images/anar-logo.png' ); ?>" alt=""><div><p>ANAR TOOLKIT <span>v<?php echo esc_html( ANAR_LOGIN_VERSION ); ?></span></p><h1><?php esc_html_e( 'Store communication', 'anar-toolkit' ); ?></h1><p class="anar-suite-subtitle"><?php esc_html_e( 'Manage messages, carts and enabled customer campaigns.', 'anar-toolkit' ); ?></p></div></div><a class="anar-suite-link" href="<?php echo esc_url( admin_url( 'admin.php?page=anar-login-settings' ) ); ?>"><span class="dashicons dashicons-admin-settings"></span><?php esc_html_e( 'Settings', 'anar-toolkit' ); ?></a></header>
+		<header class="anar-suite-header"><div class="anar-suite-brand"><img src="<?php echo esc_url( ANAR_LOGIN_URL . 'assets/images/anar-logo.png?ver=' . ANAR_LOGIN_VERSION ); ?>" alt=""><div><p>ANAR TOOLKIT <span>v<?php echo esc_html( ANAR_LOGIN_VERSION ); ?></span></p><h1><?php esc_html_e( 'Store communication', 'anar-toolkit' ); ?></h1><p class="anar-suite-subtitle"><?php esc_html_e( 'Manage messages, carts and enabled customer campaigns.', 'anar-toolkit' ); ?></p></div></div><a class="anar-suite-link" href="<?php echo esc_url( admin_url( 'admin.php?page=anar-login-settings' ) ); ?>"><span class="dashicons dashicons-admin-settings"></span><?php esc_html_e( 'Settings', 'anar-toolkit' ); ?></a></header>
 		<hr class="wp-header-end">
 		<?php if ( in_array( $tab, array( 'campaigns', 'messages' ), true ) ) : ?>
 			<?php \Anar\Login\Admin\StatusPanel::credit(); ?>

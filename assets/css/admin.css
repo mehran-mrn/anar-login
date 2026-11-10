@@ -38,8 +38,6 @@
 .anar-admin__title img {
 	width: 56px;
 	height: 56px;
-	border-radius: 17px;
-	box-shadow: 0 8px 22px rgba(183, 21, 58, .16);
 }
 
 .anar-admin__title > div > div {

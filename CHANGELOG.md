@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.6 — 2026-11-10
+
+- Refresh the WordPress.org banners and search icon, and use a transparent Anar mark in the WordPress admin.
+
 ## 1.5.5 — 2026-11-10
 
 - Add an administrator dashboard widget with feature status and recorded SMS outcomes for today and the last seven days.

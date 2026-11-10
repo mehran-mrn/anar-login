@@ -49,7 +49,7 @@ final class StatusPanel {
 		?>
 		<div class="anar-status-widget">
 			<div class="anar-status-widget__brand">
-				<img src="<?php echo esc_url( ANAR_LOGIN_URL . 'assets/images/anar-logo.png' ); ?>" alt="" width="32" height="32">
+				<img src="<?php echo esc_url( ANAR_LOGIN_URL . 'assets/images/anar-logo.png?ver=' . ANAR_LOGIN_VERSION ); ?>" alt="" width="32" height="32">
 				<strong><?php esc_html_e( 'Anar Toolkit', 'anar-toolkit' ); ?></strong>
 				<bdi class="anar-status-widget__version">v<?php echo esc_html( ANAR_LOGIN_VERSION ); ?></bdi>
 			</div>

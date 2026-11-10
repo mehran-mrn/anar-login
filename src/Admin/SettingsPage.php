@@ -57,7 +57,7 @@ final class SettingsPage {
 			'manage_options',
 			'anar-login',
 			array( FeaturesPage::class, 'render' ),
-			'dashicons-shield-alt',
+			ANAR_LOGIN_URL . 'assets/images/anar-menu-icon.png?ver=' . ANAR_LOGIN_VERSION,
 			58
 		);
 	}
@@ -149,7 +149,7 @@ final class SettingsPage {
 		<div class="wrap anar-admin" dir="<?php echo esc_attr( $direction ); ?>">
 			<header class="anar-admin__header">
 				<div class="anar-admin__title">
-					<img src="<?php echo esc_url( ANAR_LOGIN_URL . 'assets/images/anar-logo.png' ); ?>" alt="">
+					<img src="<?php echo esc_url( ANAR_LOGIN_URL . 'assets/images/anar-logo.png?ver=' . ANAR_LOGIN_VERSION ); ?>" alt="">
 					<div>
 						<div><h1>Anar Toolkit</h1><span>v<?php echo esc_html( ANAR_LOGIN_VERSION ); ?></span></div>
 						<p><?php esc_html_e( 'SMS sign-in and customer communication tools', 'anar-toolkit' ); ?></p>
