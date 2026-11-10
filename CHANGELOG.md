@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.5 — 2026-11-10
+
+- Add an administrator dashboard widget with feature status and recorded SMS outcomes for today and the last seven days.
+- Show saved SMS balances in compact rows with low-credit warnings on the dashboard and relevant Anar screens.
+
 ## 1.5.4 — 2026-11-10
 
 - Add the Persian name, a bilingual summary, and a Persian feature overview to the WordPress.org listing.

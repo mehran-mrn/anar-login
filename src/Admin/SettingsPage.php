@@ -164,6 +164,7 @@ final class SettingsPage {
 
 			<?php settings_errors(); ?>
 			<?php MessageCenter::notice(); ?>
+			<?php StatusPanel::credit(); ?>
 			<?php if ( \Anar\Login\Infrastructure\Features::enabled( 'login' ) ) : ?>
 				<div class="anar-setup-actions"><button type="button" class="button" data-login-preview><?php esc_html_e( 'Preview saved form', 'anar-toolkit' ); ?></button></div>
 			<?php endif; ?>

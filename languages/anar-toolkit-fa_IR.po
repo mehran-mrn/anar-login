@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: Anar Toolkit 1.5.3\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
+msgstr "Project-Id-Version: Anar Toolkit 1.5.5\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
 
 msgid "%1$d paid orders. A gift at every %2$d orders."
 msgstr "%1$d سفارش پرداخت‌شده؛ یک هدیه پس از هر %2$d سفارش."
@@ -276,6 +276,9 @@ msgstr "بازیابی رمز پیامکی انار"
 
 msgid "Anar Toolkit"
 msgstr "جعبه‌ابزار انار"
+
+msgid "Anar Toolkit overview"
+msgstr "وضعیت کلی انار"
 
 msgid "Anar Toolkit – SMS Login, Recovery & Marketing for WooCommerce"
 msgstr "جعبه‌ابزار انار — ورود پیامکی، بازیابی خرید و بازاریابی ووکامرس"
@@ -1096,6 +1099,9 @@ msgstr "OAuth استاندارد گوگل را بدون کتابخانه سنگ�
 msgid "Enable the features your store needs."
 msgstr "قابلیت‌های مورد نیاز فروشگاه را فعال کنید."
 
+msgid "Enable the login SMS report to count future login and verification messages."
+msgstr "برای ثبت آمار پیامک‌های ورود و تأیید از این به بعد، گزارش پیامک ورود را فعال کنید."
+
 msgid "Enable this feature, check an account, then set its alert threshold. Periodic checks contact only the accounts you select, about every 30 minutes."
 msgstr "این قابلیت را فعال کنید، موجودی حساب را دریافت کنید و حد هشدار را تعیین کنید. فقط حساب‌های انتخاب‌شده، تقریباً هر ۳۰ دقیقه به‌صورت خودکار بررسی می‌شوند."
 
@@ -1591,6 +1597,9 @@ msgstr "نقاط توسعه مهم"
 msgid "Last %d days"
 msgstr "%d روز گذشته"
 
+msgid "Last 7 days"
+msgstr "۷ روز اخیر"
+
 msgid "Last activity"
 msgstr "آخرین فعالیت"
 
@@ -1605,6 +1614,9 @@ msgstr "آخرین خرید"
 
 msgid "Last successful check: %s"
 msgstr "آخرین بررسی موفق: %s"
+
+msgid "Last successful check: %s ago"
+msgstr "آخرین بررسی موفق %s پیش"
 
 msgid "Last test accepted by the provider; handset delivery is not confirmed."
 msgstr "پنل، آخرین ارسال آزمایشی را پذیرفته است؛ دریافت پیام روی گوشی هنوز تأیید نشده است."
@@ -2473,6 +2485,9 @@ msgstr "قالب شمارهٔ گیرنده"
 msgid "Recommended: sends through the shared service line, so the code is delivered even to numbers that block advertising."
 msgstr "توصیه‌شده: ارسال از خط خدماتی اشتراکی، تا کد حتی به شماره‌هایی که پیامک تبلیغاتی را مسدود کرده‌اند هم برسد."
 
+msgid "Recorded SMS outcomes"
+msgstr "آمار پیامک‌های ثبت‌شده"
+
 msgid "Recorded and imported orders"
 msgstr "سفارش‌های ثبت‌شده و درون‌ریزی‌شده"
 
@@ -2679,6 +2694,9 @@ msgstr "کد پیامکی در ساعت"
 
 msgid "SMS credit"
 msgstr "اعتبار پیامک"
+
+msgid "SMS credit monitoring is off."
+msgstr "پایش اعتبار پیامکی خاموش است."
 
 msgid "SMS fallback message"
 msgstr "متن جایگزین پیامک"
@@ -2895,6 +2913,9 @@ msgstr "در حال ارسال"
 
 msgid "Sending report"
 msgstr "گزارش ارسال"
+
+msgid "Sending totals are unavailable."
+msgstr "آمار ارسال فعلاً در دسترس نیست."
 
 msgid "Sending…"
 msgstr "در حال ارسال…"
@@ -3543,6 +3564,9 @@ msgstr "برای تغییر، ابتدا کد تأیید یا کد برنامه�
 
 msgid "To create an account, use the registration form."
 msgstr "برای ایجاد حساب، از فرم ثبت‌نام استفاده کنید."
+
+msgid "Today"
+msgstr "امروز"
 
 msgid "Today is another opportunity"
 msgstr "امروز هم فرصتی برای دریافت هدیه است"

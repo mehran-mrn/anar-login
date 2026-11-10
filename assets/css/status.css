@@ -1,0 +1,217 @@
+.anar-credit-summary {
+	margin-block: 16px;
+	padding: 11px 14px;
+	border: 1px solid #eadce3;
+	border-radius: 14px;
+	background: linear-gradient(120deg, #fff6f9, #fff 70%);
+	color: #34242e;
+	line-height: 1.6;
+}
+
+.anar-credit-summary__header,
+.anar-credit-summary__account,
+.anar-credit-summary__identity,
+.anar-credit-summary__meta,
+.anar-status-widget__brand,
+.anar-status-widget__links {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 8px 12px;
+}
+
+.anar-credit-summary__header {
+	justify-content: space-between;
+}
+
+.anar-credit-summary__header strong {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.anar-credit-summary__header .dashicons {
+	box-sizing: content-box;
+	padding: 5px;
+	border-radius: 8px;
+	background: #f8e3ed;
+	color: #8c2447;
+}
+
+.anar-credit-summary__header a,
+.anar-status-widget__links a {
+	color: #8c2447;
+	font-size: 12px;
+}
+
+.anar-credit-summary__accounts {
+	margin: 8px 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.anar-credit-summary__account {
+	justify-content: space-between;
+	gap: 3px 16px;
+	margin: 0;
+	padding-block: 8px;
+	border-block-start: 1px solid #eee1e7;
+	overflow-wrap: anywhere;
+}
+
+.anar-credit-summary__account:last-child {
+	padding-block-end: 0;
+}
+
+.anar-credit-summary__identity {
+	gap: 2px 14px;
+}
+
+.anar-credit-summary__meta {
+	justify-content: flex-end;
+	gap: 2px 12px;
+	margin-inline-start: auto;
+}
+
+.anar-credit-summary__provider,
+.anar-credit-summary__meta,
+.anar-credit-summary > p {
+	color: #62515e;
+	font-size: 12px;
+}
+
+.anar-credit-summary > p {
+	margin: 8px 0 0;
+}
+
+.anar-credit-summary__amount {
+	color: #832042;
+	font-size: 17px;
+	font-weight: 700;
+	font-variant-numeric: tabular-nums;
+}
+
+.anar-credit-summary__amount span {
+	font-size: 11px;
+	font-weight: 500;
+}
+
+.anar-credit-summary__note {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	color: #804700;
+	font-weight: 600;
+}
+
+.anar-credit-summary__note::before {
+	flex: 0 0 5px;
+	height: 5px;
+	border-radius: 50%;
+	background: currentColor;
+	content: "";
+}
+
+.anar-credit-summary__note.is-low {
+	padding: 2px 8px;
+	border-radius: 20px;
+	background: #fce8ed;
+	color: #9a2344;
+}
+
+.anar-status-widget .anar-credit-summary {
+	padding: 11px 0 0;
+	border: 0;
+	border-block-start: 1px solid #eee1e7;
+	border-radius: 0;
+	background: none;
+}
+
+.anar-status-widget__activity {
+	margin-block: 12px;
+	padding-block-start: 10px;
+	border-block-start: 1px solid #eee1e7;
+}
+
+.anar-status-widget__activity h3 {
+	margin: 0 0 6px;
+	font-size: 13px;
+}
+
+.anar-status-widget__activity p {
+	margin: 6px 0 0;
+	font-size: 12px;
+}
+
+.anar-status-widget__totals {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.anar-status-widget__totals th,
+.anar-status-widget__totals td {
+	padding: 5px 3px;
+	text-align: center;
+	overflow-wrap: anywhere;
+}
+
+.anar-status-widget__totals th:first-child {
+	text-align: start;
+}
+
+.anar-status-widget__totals thead th {
+	color: #62515e;
+	font-size: 11px;
+	font-weight: 500;
+}
+
+.anar-status-widget__totals tbody tr {
+	border-block-start: 1px solid #eee1e7;
+}
+
+.anar-status-widget__totals td {
+	font-weight: 600;
+	font-variant-numeric: tabular-nums;
+}
+
+.anar-status-widget__version,
+.anar-status-widget__badge {
+	padding: 2px 7px;
+	border-radius: 20px;
+	background: #f3eef1;
+	color: #62515e;
+	font-size: 11px;
+}
+
+.anar-status-widget__areas {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 8px;
+	margin: 10px 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.anar-status-widget__areas li {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 6px;
+	min-width: 0;
+	margin: 0;
+	padding: 8px 10px;
+	border: 1px solid #eee1e7;
+	border-radius: 9px;
+	background: #fcf9fb;
+	font-size: 12px;
+	overflow-wrap: anywhere;
+}
+
+.anar-status-widget__badge {
+	flex-shrink: 0;
+}
+
+.anar-status-widget__badge.is-enabled {
+	background: #e8f6ed;
+	color: #165a36;
+}

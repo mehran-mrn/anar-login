@@ -94,6 +94,7 @@ final class Plugin {
 			( new SettingsPage( $settings, $providers ) )->register();
 			( new \Anar\Login\Admin\FeaturesPage() )->register();
 			( new \Anar\Login\Admin\BalancePage() )->register();
+			( new \Anar\Login\Admin\StatusPanel() )->register();
 			( new \Anar\Login\Admin\MessageCenter() )->register();
 			( new \Anar\Login\Commerce\Admin( new \Anar\Login\Commerce\Settings(), new \Anar\Login\Commerce\Repository(), $providers ) )->register();
 			( new \Anar\Login\Commerce\Privacy( new \Anar\Login\Commerce\Repository(), new \Anar\Login\Commerce\Settings() ) )->register();

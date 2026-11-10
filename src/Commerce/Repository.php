@@ -67,6 +67,7 @@ final class Repository {
 				PRIMARY KEY  (id),
 				UNIQUE KEY dedupe (dedupe),
 				KEY status_schedule (status, scheduled_at),
+				KEY status_updated (status, updated_at),
 				KEY recipient_updated (recipient, updated_at)",
 		);
 		foreach ( $tables as $name => $columns ) {
@@ -278,6 +279,40 @@ final class Repository {
 			'recovered' => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM %i WHERE status = 'converted' AND recovered_order > 0", $this->table( 'carts' ) ) ),
 			'messages' => $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM %i ORDER BY id DESC LIMIT 50', $this->table( 'messages' ) ) ),
 		);
+	}
+
+	/** Count recorded message outcomes today and over seven local calendar days. */
+	public function recent_sms_totals() {
+		global $wpdb;
+		$now       = current_datetime();
+		$today     = $now->setTime( 0, 0 );
+		$midnight  = $today->getTimestamp();
+		$cache_key = 'anar_toolkit_recent_sms_totals';
+		$cached    = get_transient( $cache_key );
+		if ( is_array( $cached ) && isset( $cached['midnight'], $cached['totals'] ) && $cached['midnight'] === $midnight ) {
+			return $cached['totals'];
+		}
+		$rows = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT status, COUNT(*) AS week_total, SUM(CASE WHEN updated_at >= %d THEN 1 ELSE 0 END) AS today_total
+				FROM %i WHERE status IN ('accepted', 'failed', 'uncertain') AND updated_at BETWEEN %d AND %d GROUP BY status",
+				$midnight,
+				$this->table( 'messages' ),
+				$today->modify( '-6 days' )->getTimestamp(),
+				$now->getTimestamp()
+			),
+			OBJECT_K
+		);
+		if ( $wpdb->last_error ) {
+			return null;
+		}
+		$totals = array( 'today' => array(), 'week' => array() );
+		foreach ( $rows as $status => $row ) {
+			$totals['today'][ $status ] = (int) $row->today_total;
+			$totals['week'][ $status ]  = (int) $row->week_total;
+		}
+		set_transient( $cache_key, array( 'midnight' => $midnight, 'totals' => $totals ), MINUTE_IN_SECONDS );
+		return $totals;
 	}
 
 	public function cleanup( $days ) {
