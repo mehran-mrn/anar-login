@@ -45,7 +45,8 @@ final class Settings {
 			'client_ip_header'    => '',
 			'bot_challenge'       => 'adaptive',
 			'challenge_threshold' => 200,
-			'sms_provider'        => '',
+			'sms_provider'        => 'melipayamak',
+			'sms_provider_confirmed' => 0,
 			'sms_message'         => __( 'Your {site} login code is: {code}', 'anar-toolkit' ),
 			'email_subject'       => __( 'Your login code for {site}', 'anar-toolkit' ),
 			'email_message'       => __( "Your login code is: {code}\nThis code is valid for {minutes} minutes.", 'anar-toolkit' ),
@@ -100,9 +101,17 @@ final class Settings {
 	 * @return array<string,mixed>
 	 */
 	public function all() {
-		$value = get_option( self::OPTION_KEY, array() );
+		$value    = get_option( self::OPTION_KEY, array() );
+		$defaults = $this->defaults();
+		$settings = wp_parse_args( is_array( $value ) ? $value : array(), $defaults );
 
-		return wp_parse_args( is_array( $value ) ? $value : array(), $this->defaults() );
+		// Older installs could inherit Kavenegar without choosing or connecting it.
+		$legacy_default = 'kavenegar' === $settings['sms_provider'] && empty( $settings['sms_provider_confirmed'] )
+			&& empty( $settings['provider_kavenegar']['api_key'] ) && empty( $settings['provider_kavenegar']['template_id'] );
+		if ( empty( $settings['sms_provider'] ) || $legacy_default ) {
+			$settings['sms_provider'] = $defaults['sms_provider'];
+		}
+		return $settings;
 	}
 
 	/**
@@ -227,6 +236,7 @@ final class Settings {
 		$output['bot_challenge']       = in_array( $bot_challenge, array( 'off', 'adaptive', 'always' ), true ) ? $bot_challenge : 'adaptive';
 		$output['challenge_threshold'] = max( 20, min( 100000, absint( $input['challenge_threshold'] ?? $current['challenge_threshold'] ) ) );
 		$output['sms_provider']        = sanitize_key( $input['sms_provider'] ?? $current['sms_provider'] );
+		$output['sms_provider_confirmed'] = isset( $input['sms_provider'] ) ? (int) ( '' !== $output['sms_provider'] ) : (int) $current['sms_provider_confirmed'];
 		$output['sms_message']         = sanitize_textarea_field( $input['sms_message'] ?? $current['sms_message'] );
 		$output['email_subject']       = sanitize_text_field( $input['email_subject'] ?? $defaults['email_subject'] );
 		$output['email_message']       = sanitize_textarea_field( $input['email_message'] ?? $defaults['email_message'] );

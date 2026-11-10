@@ -216,7 +216,7 @@
   "Available variables for this message": "متغیرهای قابل استفاده در این پیام",
   "Required": "ضروری",
   "Fill in the template variables": "مقدار متغیرهای الگو",
-  "Enter each variable name exactly as it appears in the SMS panel, then enter a value or a variable from the list above.": "نام هر متغیر را دقیقاً مطابق الگو در پنل پیامک وارد کنید. در کادر روبه‌رو، یکی از متغیرهای بالا یا یک مقدار ثابت بگذارید.",
+  "Enter each variable name exactly as it appears in the SMS panel, then enter a value or choose from the variable list.": "نام هر متغیر را دقیقاً مطابق الگو در پنل پیامک وارد کنید. در کادر روبه‌رو، از فهرست متغیرها انتخاب کنید یا یک مقدار ثابت بگذارید.",
   "Add one value for each variable in the template, in the same order as in your SMS panel.": "به ازای هر متغیر الگو یک مقدار اضافه کنید. ترتیب مقادیر باید با ترتیب متغیرها در الگوی پنل پیامک یکسان باشد.",
   "Value to send": "مقدار ارسالی",
   "Choose and save the default provider for verification messages. Then edit the messages below to set their delivery method and content.": "سرویس‌دهندهٔ پیش‌فرض پیامک‌های تأیید را انتخاب و ذخیره کنید. سپس روش ارسال و محتوای هر پیام را از فهرست زیر تنظیم کنید.",
@@ -226,5 +226,13 @@
   "Edit sign-in message": "ویرایش پیامک کد ورود",
   "Available panel names": "نام‌های مجاز در پنل",
   "Code sent through the custom connection": "ارسال کد از طریق اتصال سفارشی",
-  "The connection sends {code} directly. To send text written here, add {message} to the custom connection URL or request parameters.": "این اتصال مقدار {code} را مستقیم می‌فرستد. برای ارسال متن نوشته‌شده در این فرم، {message} را به نشانی یا پارامترهای درخواست در تنظیمات اتصال اضافه کنید."
+  "The connection sends {code} directly. To send text written here, add {message} to the custom connection URL or request parameters.": "این اتصال مقدار {code} را مستقیم می‌فرستد. برای ارسال متن نوشته‌شده در این فرم، {message} را به نشانی یا پارامترهای درخواست در تنظیمات اتصال اضافه کنید.",
+  "Default": "پیش‌فرض",
+  "Per message": "اختصاصی",
+  "Change provider": "تغییر سرویس‌دهنده",
+  "Change": "تغییر",
+  "Your new SMS provider selection is unsaved.": "انتخاب جدید سرویس‌دهنده ذخیره نشده است.",
+  "This editor uses the saved provider. To use your new selection, close the editor and save SMS settings first.": "ویرایشگر با سرویس‌دهندهٔ ذخیره‌شده باز شده است. برای استفاده از انتخاب جدید، پنجره را ببندید و ابتدا تنظیمات پیامک را ذخیره کنید.",
+  "Unsaved message changes": "تغییرات ذخیره‌نشده",
+  "If you leave now, the changes you made to this message will be lost.": "با خروج از ویرایشگر، تغییرات این پیام از دست می‌رود."
 }

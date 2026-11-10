@@ -161,11 +161,28 @@ final class MessageCenter {
 		}
 		?>
 		<dialog class="anar-admin anar-message-dialog" data-message-dialog aria-labelledby="anar-message-dialog-title" dir="<?php echo is_rtl() ? 'rtl' : 'ltr'; ?>">
-			<header class="anar-message-dialog__header"><h2 id="anar-message-dialog-title" tabindex="-1"><?php esc_html_e( 'Edit message', 'anar-toolkit' ); ?></h2><button type="button" class="button" data-message-close aria-label="<?php esc_attr_e( 'Close', 'anar-toolkit' ); ?>"><span class="dashicons dashicons-no-alt" aria-hidden="true"></span></button></header>
+			<header class="anar-message-dialog__header">
+				<h2 id="anar-message-dialog-title" tabindex="-1"><?php esc_html_e( 'Edit message', 'anar-toolkit' ); ?></h2>
+				<button type="button" class="button" data-message-close aria-label="<?php esc_attr_e( 'Close', 'anar-toolkit' ); ?>">
+					<svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"/></svg>
+				</button>
+			</header>
+			<div class="anar-message-warning" data-message-provider-draft role="status" hidden>
+				<strong><?php esc_html_e( 'Your new SMS provider selection is unsaved.', 'anar-toolkit' ); ?></strong>
+				<p><?php esc_html_e( 'This editor uses the saved provider. To use your new selection, close the editor and save SMS settings first.', 'anar-toolkit' ); ?></p>
+			</div>
 			<div class="anar-message-feedback" data-message-feedback role="status" aria-live="polite" hidden></div>
 			<button type="button" class="button anar-message-reload" data-message-reload hidden><?php esc_html_e( 'Reload saved message', 'anar-toolkit' ); ?></button>
-			<div class="anar-message-unsaved" data-message-unsaved role="alert" hidden><p><?php esc_html_e( 'This message has unsaved changes.', 'anar-toolkit' ); ?></p><div><button type="button" class="button" data-message-keep><?php esc_html_e( 'Continue editing', 'anar-toolkit' ); ?></button><button type="button" class="button" data-message-discard><?php esc_html_e( 'Discard changes', 'anar-toolkit' ); ?></button></div></div>
 			<div class="anar-message-dialog__body" data-message-body></div>
+			<dialog class="anar-admin anar-message-unsaved" data-message-unsaved role="alertdialog" aria-labelledby="anar-message-unsaved-title" aria-describedby="anar-message-unsaved-text">
+				<span class="anar-message-unsaved__mark" aria-hidden="true">!</span>
+				<h3 id="anar-message-unsaved-title"><?php esc_html_e( 'Unsaved message changes', 'anar-toolkit' ); ?></h3>
+				<p id="anar-message-unsaved-text"><?php esc_html_e( 'If you leave now, the changes you made to this message will be lost.', 'anar-toolkit' ); ?></p>
+				<div class="anar-message-unsaved__actions">
+					<button type="button" class="button button-primary" data-message-keep autofocus><?php esc_html_e( 'Continue editing', 'anar-toolkit' ); ?></button>
+					<button type="button" class="button" data-message-discard><?php esc_html_e( 'Discard changes', 'anar-toolkit' ); ?></button>
+				</div>
+			</dialog>
 		</dialog>
 		<?php
 	}
@@ -264,20 +281,20 @@ final class MessageCenter {
 			<label class="anar-message-inherit"><input type="checkbox" name="value[inherit]" value="1" <?php checked( ! empty( $value['inherit'] ) ); ?>> <?php esc_html_e( 'Use the same SMS settings as the sign-in code', 'anar-toolkit' ); ?></label>
 		<?php } ?>
 		<div class="anar-message-provider">
-			<div><strong><?php esc_html_e( 'SMS provider', 'anar-toolkit' ); ?></strong> <span data-current-provider></span></div>
-			<p class="description" data-provider-default hidden><?php esc_html_e( 'Selected in SMS settings.', 'anar-toolkit' ); ?></p>
-			<p class="description" data-provider-override hidden><?php esc_html_e( 'This message uses its own provider.', 'anar-toolkit' ); ?></p>
-			<p class="description" data-provider-missing hidden><?php esc_html_e( 'Select and save a provider in SMS settings, then return here to set up this message.', 'anar-toolkit' ); ?></p>
-			<?php if ( $is_auth && isset( $providers[ $default_provider ] ) ) : ?>
-				<button type="button" class="button" data-use-default-provider hidden>
-					<?php
-					/* translators: %s: SMS provider name. */
-					echo esc_html( sprintf( __( 'Use %s from SMS settings', 'anar-toolkit' ), $providers[ $default_provider ]->title() ) );
-					?>
-				</button>
+			<div class="anar-message-provider__current">
+				<span><?php esc_html_e( 'SMS provider', 'anar-toolkit' ); ?></span>
+				<strong data-current-provider></strong>
+				<small data-provider-default hidden><?php esc_html_e( 'Default', 'anar-toolkit' ); ?></small>
+				<small data-provider-override hidden><?php esc_html_e( 'Per message', 'anar-toolkit' ); ?></small>
+			</div>
+			<button type="button" class="button anar-message-provider__toggle" data-provider-toggle aria-expanded="false" aria-controls="anar-message-provider-options" aria-label="<?php esc_attr_e( 'Change provider', 'anar-toolkit' ); ?>">
+				<?php esc_html_e( 'Change', 'anar-toolkit' ); ?>
+				<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg>
+			</button>
+			<?php if ( $is_auth && 'login_otp' !== $id ) : ?>
+				<a data-message-open data-inherited-editor href="<?php echo esc_url( self::url( 'login_otp' ) ); ?>" hidden><?php esc_html_e( 'Edit sign-in message', 'anar-toolkit' ); ?></a>
 			<?php endif; ?>
-			<details data-provider-picker>
-				<summary><?php esc_html_e( 'Change provider for this message', 'anar-toolkit' ); ?></summary>
+			<div id="anar-message-provider-options" class="anar-message-provider__options" data-provider-picker hidden>
 				<select name="value[provider]" data-message-provider aria-label="<?php esc_attr_e( 'SMS provider', 'anar-toolkit' ); ?>">
 					<option value=""><?php esc_html_e( 'No SMS provider selected', 'anar-toolkit' ); ?></option>
 					<?php if ( $value['provider'] && ! isset( $providers[ $value['provider'] ] ) ) : ?>
@@ -292,22 +309,37 @@ final class MessageCenter {
 						</option>
 					<?php endforeach; ?>
 				</select>
-			</details>
-			<a href="<?php echo esc_url( self::provider_url() ); ?>"><?php esc_html_e( 'Open SMS connection settings', 'anar-toolkit' ); ?></a>
-			<?php if ( $is_auth && 'login_otp' !== $id ) : ?>
-				<a data-message-open data-inherited-editor href="<?php echo esc_url( self::url( 'login_otp' ) ); ?>" hidden><?php esc_html_e( 'Edit sign-in message', 'anar-toolkit' ); ?></a>
-			<?php endif; ?>
+				<?php if ( $is_auth && isset( $providers[ $default_provider ] ) ) : ?>
+					<button type="button" class="button" data-use-default-provider hidden>
+						<?php
+						/* translators: %s: SMS provider name. */
+						echo esc_html( sprintf( __( 'Use %s from SMS settings', 'anar-toolkit' ), $providers[ $default_provider ]->title() ) );
+						?>
+					</button>
+				<?php endif; ?>
+				<a href="<?php echo esc_url( self::provider_url() ); ?>"><?php esc_html_e( 'Open SMS connection settings', 'anar-toolkit' ); ?></a>
+			</div>
+			<p class="description" data-provider-missing hidden>
+				<?php esc_html_e( 'Select and save a provider in SMS settings, then return here to set up this message.', 'anar-toolkit' ); ?>
+				<a href="<?php echo esc_url( self::provider_url() ); ?>"><?php esc_html_e( 'Open SMS connection settings', 'anar-toolkit' ); ?></a>
+			</p>
 		</div>
 		<p class="description" data-unsupported-provider hidden><?php esc_html_e( 'This provider has no editable delivery method in this message editor.', 'anar-toolkit' ); ?></p>
 		<div class="anar-message-fields" data-message-fields>
 			<div class="anar-message-delivery">
-				<label data-mode-picker><?php esc_html_e( 'Delivery method', 'anar-toolkit' ); ?>
-					<select name="value[mode]" data-message-mode>
-						<option value="template" <?php selected( $value['mode'], 'template' ); ?>><?php esc_html_e( 'Approved template', 'anar-toolkit' ); ?></option>
-						<option value="text" <?php selected( $value['mode'], 'text' ); ?>><?php esc_html_e( 'Plain text', 'anar-toolkit' ); ?></option>
-					</select>
-					<small class="description"><?php esc_html_e( 'Choose one delivery method for this message.', 'anar-toolkit' ); ?></small>
-				</label>
+				<fieldset class="anar-message-methods" data-mode-picker>
+					<legend class="screen-reader-text"><?php esc_html_e( 'Delivery method', 'anar-toolkit' ); ?></legend>
+					<div class="anar-message-methods__tabs">
+						<label>
+							<input type="radio" name="value[mode]" value="template" <?php checked( $value['mode'], 'template' ); ?>>
+							<span><?php esc_html_e( 'Approved template', 'anar-toolkit' ); ?></span>
+						</label>
+						<label>
+							<input type="radio" name="value[mode]" value="text" <?php checked( $value['mode'], 'text' ); ?>>
+							<span><?php esc_html_e( 'Plain text', 'anar-toolkit' ); ?></span>
+						</label>
+					</div>
+				</fieldset>
 				<strong data-fixed-mode></strong>
 				<strong data-code-only hidden><?php esc_html_e( 'Code sent through the custom connection', 'anar-toolkit' ); ?></strong>
 				<p class="description" data-code-only hidden><?php esc_html_e( 'The connection sends {code} directly. To send text written here, add {message} to the custom connection URL or request parameters.', 'anar-toolkit' ); ?></p>
@@ -315,10 +347,8 @@ final class MessageCenter {
 				<p class="description" data-text-field><?php esc_html_e( 'Anar sends the text you enter here and fills in the variables when sending.', 'anar-toolkit' ); ?></p>
 				<p class="description" data-sender-needed hidden><?php esc_html_e( 'To send plain text, save your sender number in SMS connection settings.', 'anar-toolkit' ); ?></p>
 			</div>
-			<label data-template-field><span data-template-label><?php esc_html_e( 'Approved template ID or name', 'anar-toolkit' ); ?></span><input name="value[template]" value="<?php echo esc_attr( $value['template'] ); ?>" dir="ltr"></label>
-			<label class="anar-message-text" data-text-field><?php esc_html_e( 'Message text', 'anar-toolkit' ); ?><textarea name="value[message]" rows="4" data-message-text><?php echo esc_textarea( $value['message'] ); ?></textarea></label>
-			<fieldset class="anar-message-variables">
-				<legend><?php esc_html_e( 'Available variables for this message', 'anar-toolkit' ); ?></legend>
+			<aside class="anar-message-variables" aria-labelledby="anar-message-variable-title">
+				<h3 id="anar-message-variable-title"><?php esc_html_e( 'Available variables for this message', 'anar-toolkit' ); ?></h3>
 				<ul>
 					<?php foreach ( array_unique( $item['variables'] ) as $variable ) : ?>
 						<li <?php echo 'code' === $variable ? '' : 'data-text-variable'; ?>><code dir="ltr"><?php echo esc_html( '{' . $variable . '}' ); ?></code> <span><?php echo esc_html( $labels[ $variable ] ?? $variable ); ?></span>
@@ -328,19 +358,23 @@ final class MessageCenter {
 						</li>
 					<?php endforeach; ?>
 				</ul>
-			</fieldset>
-			<fieldset data-template-field>
-				<legend><?php esc_html_e( 'Fill in the template variables', 'anar-toolkit' ); ?></legend>
-				<p class="description" data-named-mapping><?php esc_html_e( 'Enter each variable name exactly as it appears in the SMS panel, then enter a value or a variable from the list above.', 'anar-toolkit' ); ?></p>
-				<p class="description" data-ordered-mapping hidden><?php esc_html_e( 'Add one value for each variable in the template, in the same order as in your SMS panel.', 'anar-toolkit' ); ?></p>
-				<p class="description" data-allowed-panel-names hidden><?php esc_html_e( 'Available panel names', 'anar-toolkit' ); ?> <code dir="ltr"></code></p>
-				<div data-mapping-rows></div>
-				<button type="button" class="button" data-add-mapping><?php esc_html_e( 'Add variable', 'anar-toolkit' ); ?></button>
-				<textarea name="value[params]" rows="4" dir="ltr" data-mapping-source hidden><?php echo esc_textarea( $value['params'] ); ?></textarea>
-			</fieldset>
-			<div class="anar-message-preview" data-text-field>
-				<h3><?php esc_html_e( 'Sample preview', 'anar-toolkit' ); ?></h3>
-				<pre data-message-preview><?php echo esc_html( $sample['text'] ); ?></pre>
+			</aside>
+			<div class="anar-message-content">
+				<label data-template-field><span data-template-label><?php esc_html_e( 'Approved template ID or name', 'anar-toolkit' ); ?></span><input name="value[template]" value="<?php echo esc_attr( $value['template'] ); ?>" dir="ltr"></label>
+				<label class="anar-message-text" data-text-field><?php esc_html_e( 'Message text', 'anar-toolkit' ); ?><textarea name="value[message]" rows="4" data-message-text><?php echo esc_textarea( $value['message'] ); ?></textarea></label>
+				<fieldset class="anar-message-mapping" data-template-field>
+					<legend><?php esc_html_e( 'Fill in the template variables', 'anar-toolkit' ); ?></legend>
+					<p class="description" data-named-mapping><?php esc_html_e( 'Enter each variable name exactly as it appears in the SMS panel, then enter a value or choose from the variable list.', 'anar-toolkit' ); ?></p>
+					<p class="description" data-ordered-mapping hidden><?php esc_html_e( 'Add one value for each variable in the template, in the same order as in your SMS panel.', 'anar-toolkit' ); ?></p>
+					<p class="description" data-allowed-panel-names hidden><?php esc_html_e( 'Available panel names', 'anar-toolkit' ); ?> <code dir="ltr"></code></p>
+					<div data-mapping-rows></div>
+					<button type="button" class="button" data-add-mapping><?php esc_html_e( 'Add variable', 'anar-toolkit' ); ?></button>
+					<textarea name="value[params]" rows="4" dir="ltr" data-mapping-source hidden><?php echo esc_textarea( $value['params'] ); ?></textarea>
+				</fieldset>
+				<div class="anar-message-preview" data-text-field>
+					<h3><?php esc_html_e( 'Sample preview', 'anar-toolkit' ); ?></h3>
+					<pre data-message-preview><?php echo esc_html( $sample['text'] ); ?></pre>
+				</div>
 			</div>
 		</div>
 		<datalist id="anar-message-variables">

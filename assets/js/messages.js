@@ -6,6 +6,7 @@
 	const body = dialog.querySelector('[data-message-body]');
 	const title = dialog.querySelector('h2');
 	const feedback = dialog.querySelector('[data-message-feedback]');
+	const providerDraft = dialog.querySelector('[data-message-provider-draft]');
 	const closeButton = dialog.querySelector('[data-message-close]');
 	const unsaved = dialog.querySelector('[data-message-unsaved]');
 	const reloadButton = dialog.querySelector('[data-message-reload]');
@@ -31,9 +32,10 @@
 		element.hidden = !text;
 	}
 	function canLeave(action) {
-		if (busy) return false;
+		if (busy || unsaved.open) return false;
 		if (editor && editor.dirty()) {
-			pendingLeave = action; unsaved.hidden = false;
+			pendingLeave = action;
+			unsaved.showModal();
 			unsaved.querySelector('[data-message-keep]').focus();
 			return false;
 		}
@@ -41,9 +43,10 @@
 	}
 	function close() {
 		if (controller) controller.abort();
+		if (unsaved.open) unsaved.close();
 		dialog.close();
 		document.documentElement.classList.remove('anar-message-modal-open');
-		body.replaceChildren(); editor = null; unsaved.hidden = true; pendingLeave = null;
+		body.replaceChildren(); editor = null; pendingLeave = null;
 		if (opener && opener.isConnected) opener.focus({ preventScroll: true });
 	}
 	function requestClose() {
@@ -76,7 +79,7 @@
 			dialog.showModal();
 			document.documentElement.classList.add('anar-message-modal-open');
 		}
-		editor = null; unsaved.hidden = true; pendingLeave = null;
+		editor = null; pendingLeave = null; providerDraft.hidden = true;
 		selection = { id: id, variant: variant }; reloadButton.hidden = true;
 		body.replaceChildren(); body.setAttribute('aria-busy', 'true');
 		title.textContent = config.loading;
@@ -93,7 +96,11 @@
 			title.textContent = result.data.title;
 			// Authenticated, same-origin PHP renders and escapes this HTML.
 			body.innerHTML = result.data.html;
-			editor = initialize(body.querySelector('[data-message-editor]'));
+			const form = body.querySelector('[data-message-editor]');
+			editor = initialize(form);
+			const savedProvider = document.querySelector('[data-verification-messages]')?.dataset.savedProvider;
+			const selectedProvider = document.querySelector('[data-panel="sms"] .anar-provider input:checked')?.value;
+			providerDraft.hidden = !form.hasAttribute('data-auth-message') || !selectedProvider || selectedProvider === savedProvider;
 			document.dispatchEvent(new CustomEvent('anar:content-ready', { detail: { root: body } }));
 		} catch (error) {
 			if (error.name !== 'AbortError') { report(error.message || config.network, false); reloadButton.hidden = false; }
@@ -106,13 +113,15 @@
 		const rows = form.querySelector('[data-mapping-rows]');
 		const template = form.querySelector('[data-mapping-template]');
 		const provider = form.querySelector('[data-message-provider]');
-		const mode = form.querySelector('[data-message-mode]');
+		const providerToggle = form.querySelector('[data-provider-toggle]');
+		const providerPicker = form.querySelector('[data-provider-picker]');
+		const mode = form.elements.namedItem('value[mode]');
 		const templateId = form.elements.namedItem('value[template]');
 		const inherit = form.querySelector('[name="value[inherit]"]');
 		const message = form.querySelector('[data-message-text]');
 		const samples = JSON.parse(form.dataset.samples);
 		const providers = new Map(Object.entries(JSON.parse(form.dataset.providerFields)));
-		const modeOptions = Array.from(mode.options);
+		const modeOptions = Array.from(mode);
 		const panelVariables = form.querySelector('[data-panel-variables]');
 		const useDefaultProvider = form.querySelector('[data-use-default-provider]');
 		const drafts = new Map();
@@ -149,6 +158,10 @@
 			source.value.split(/\r?\n/).filter(Boolean).forEach(function (line) { const split = line.indexOf('='); add(split < 0 ? line : line.slice(0, split), split < 0 ? '' : line.slice(split + 1)); });
 			if (!rows.children.length) add();
 		}
+		function showProviderPicker(open) {
+			providerPicker.hidden = !open;
+			providerToggle.setAttribute('aria-expanded', String(open));
+		}
 		function render() {
 			const inherited = !!inherit?.checked;
 			const effectiveKey = inherited ? form.dataset.inheritedProvider : provider.value;
@@ -159,7 +172,8 @@
 			form.querySelector('[data-current-provider]').textContent = effective?.title || effectiveKey || provider.options[0].textContent;
 			const inheritedEditor = form.querySelector('[data-inherited-editor]');
 			if (inheritedEditor) inheritedEditor.hidden = !inherited;
-			form.querySelector('[data-provider-picker]').hidden = inherited;
+			providerToggle.hidden = inherited;
+			if (inherited) showProviderPicker(false);
 			form.querySelector('[data-provider-missing]').hidden = !!effectiveKey;
 			const auth = form.hasAttribute('data-auth-message');
 			const usesDefault = effectiveKey === form.dataset.defaultProvider;
@@ -175,7 +189,8 @@
 			const fixedMode = form.querySelector('[data-fixed-mode]');
 			const codeOnly = auth && fields.codeOnly;
 			fixedMode.hidden = methods.length !== 1 || codeOnly;
-			fixedMode.textContent = methods[0]?.textContent || '';
+			fixedMode.textContent = methods[0]?.labels[0].textContent.trim() || '';
+			form.querySelector('.anar-message-content').hidden = !!codeOnly;
 			const textMode = mode.value === 'text';
 			form.querySelectorAll('[data-template-field]').forEach(function (field) { field.hidden = textMode; });
 			form.querySelectorAll('[data-text-field]').forEach(function (field) { field.hidden = !textMode || codeOnly; });
@@ -204,6 +219,9 @@
 		form.querySelector('[data-add-mapping]').addEventListener('click', function () {
 			add(); render(); rows.lastElementChild.querySelector('input:not([hidden])').focus();
 		});
+		providerToggle.addEventListener('click', function () {
+			showProviderPicker(providerPicker.hidden);
+		});
 		provider.addEventListener('change', function () {
 			if (provider.value === currentProvider) return;
 			drafts.set(currentProvider, { template: templateId.value, params: source.value, mode: mode.value });
@@ -223,7 +241,8 @@
 		useDefaultProvider?.addEventListener('click', function () {
 			provider.value = form.dataset.defaultProvider;
 			provider.dispatchEvent(new Event('change', { bubbles: true }));
-			form.querySelector('[data-provider-picker] summary').focus();
+			showProviderPicker(false);
+			providerToggle.focus();
 		});
 		form.addEventListener('input', function (event) { if (event.target !== provider) render(); });
 		form.addEventListener('change', render);
@@ -232,7 +251,6 @@
 			if (busy) return;
 			const operation = event.submitter && event.submitter.value || 'save';
 			if (operation === 'test' && snapshot(form) !== baseline) { report(config.saveFirst, false); return; }
-			unsaved.hidden = true; pendingLeave = null;
 			const data = new FormData(form);
 			data.set('action', 'anar_message_save'); data.set('operation', operation);
 			busy = true; form.inert = true; form.setAttribute('aria-busy', 'true');
@@ -284,16 +302,17 @@
 	});
 	closeButton.addEventListener('click', requestClose);
 	reloadButton.addEventListener('click', function () { if (selection) open(selection.id, selection.variant, { replace: true }); });
-	function keepEditing() { unsaved.hidden = true; pendingLeave = null; title.focus(); }
+	function keepEditing() { pendingLeave = null; unsaved.close(); }
 	unsaved.querySelector('[data-message-keep]').addEventListener('click', keepEditing);
 	unsaved.querySelector('[data-message-discard]').addEventListener('click', function () {
-		const action = pendingLeave; pendingLeave = null; editor = null; unsaved.hidden = true;
+		const action = pendingLeave; pendingLeave = null; editor = null; unsaved.close();
 		if (action) action();
 	});
-	dialog.addEventListener('cancel', function (event) { event.preventDefault(); if (unsaved.hidden) requestClose(); else keepEditing(); });
+	unsaved.addEventListener('cancel', function (event) { event.preventDefault(); keepEditing(); });
+	dialog.addEventListener('cancel', function (event) { if (event.target === dialog) { event.preventDefault(); requestClose(); } });
 	dialog.addEventListener('keydown', function (event) {
-		if (event.key !== 'Tab') return;
-		const controls = Array.from(dialog.querySelectorAll('a[href], button, input, select, textarea, [tabindex]')).filter(function (field) {
+		if (event.key !== 'Tab' || unsaved.open) return;
+		const controls = Array.from(dialog.querySelectorAll('a[href], button, input, select, textarea, summary, [tabindex]')).filter(function (field) {
 			return field.tabIndex >= 0 && !field.disabled && !field.closest('[inert]') && field.getClientRects().length;
 		});
 		const first = controls[0]; const last = controls[controls.length - 1];

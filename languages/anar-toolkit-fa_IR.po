@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: Anar Toolkit 1.5.7\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
+msgstr "Project-Id-Version: Anar Toolkit 1.5.8\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
 
 msgid "%1$d paid orders. A gift at every %2$d orders."
 msgstr "%1$d سفارش پرداخت‌شده؛ یک هدیه پس از هر %2$d سفارش."
@@ -565,8 +565,14 @@ msgstr "دسته"
 msgid "Chance of receiving a coupon (%)"
 msgstr "احتمال دریافت جایزه (درصد)"
 
+msgid "Change"
+msgstr "تغییر"
+
 msgid "Change details"
 msgstr "ویرایش مشخصات"
+
+msgid "Change provider"
+msgstr "تغییر سرویس‌دهنده"
 
 msgid "Change provider for this message"
 msgstr "تغییر سرویس‌دهندهٔ این پیام"
@@ -1006,6 +1012,9 @@ msgstr "روز پس از رویداد (برای پیش‌بینی می‌توا�
 msgid "Dedicated stock for this game"
 msgstr "موجودی اختصاصی این بازی"
 
+msgid "Default"
+msgstr "پیش‌فرض"
+
 msgid "Default Anar registration"
 msgstr "ثبت‌نام پیش‌فرض انار"
 
@@ -1176,6 +1185,9 @@ msgstr "زمان‌بندی معتبری وارد کنید."
 
 msgid "Enter each variable name exactly as it appears in the SMS panel, then enter a value or a variable from the list above."
 msgstr "نام هر متغیر را دقیقاً مطابق الگو در پنل پیامک وارد کنید. در کادر روبه‌رو، یکی از متغیرهای بالا یا یک مقدار ثابت بگذارید."
+
+msgid "Enter each variable name exactly as it appears in the SMS panel, then enter a value or choose from the variable list."
+msgstr "نام هر متغیر را دقیقاً مطابق الگو در پنل پیامک وارد کنید. در کادر روبه‌رو، از فهرست متغیرها انتخاب کنید یا یک مقدار ثابت بگذارید."
 
 msgid "Enter shipment details in the Anar box on the WooCommerce order. Standard WooCommerce Shipment Tracking metadata is also supported. For another shipping plugin, enter its tracking-number meta key."
 msgstr "اطلاعات مرسوله را در جعبهٔ انار در سفارش ووکامرس وارد کنید. داده‌های استاندارد افزونهٔ WooCommerce Shipment Tracking هم پشتیبانی می‌شوند. برای افزونهٔ حمل‌ونقل دیگر، کلید متای کد رهگیری آن را وارد کنید."
@@ -1536,6 +1548,9 @@ msgstr "اگر امکان ورود وجود داشته باشد، کد به مو
 
 msgid "If this number is linked to an eligible account, a password reset code will be sent. Please wait before requesting another."
 msgstr "اگر این شماره به حساب واجد شرایطی متصل باشد، کد بازنشانی رمز برای آن ارسال می‌شود. پیش از درخواست مجدد کمی صبر کنید."
+
+msgid "If you leave now, the changes you made to this message will be lost."
+msgstr "با خروج از ویرایشگر، تغییرات این پیام از دست می‌رود."
 
 msgid "If you opt into purchase reminders, we store your mobile number, optional email, consent text and timestamp, cart products, amount, currency and related order ID locally. We send your number and the configured reminder variables (which may include purchase links and order details) to our selected SMS provider. Each reminder includes a link to stop future cart and unpaid-order reminders. Payment notifications are separate service messages. Phone-bound, single-use recovery codes restore products or open WooCommerce payment; they do not log you in. Recovery code hashes, attempts, expiry and consumption timestamps are stored separately from login challenges. Unsubscribe links only stop purchase reminders. The store configures a 7–90 day retention period and SMS provider. Add the selected provider, its terms and privacy links, your actual retention period and the purposes of your messages to this policy before enabling the modules."
 msgstr "با انتخاب دریافت یادآوری خرید، شماره موبایل، ایمیل اختیاری، متن و زمان رضایت، محصولات سبد، مبلغ، ارز و شناسه سفارش مرتبط در سایت ذخیره می‌شوند. شماره و متغیرهای پیکربندی‌شده یادآوری، شامل لینک خرید یا جزئیات سفارش، به سرویس پیامکی منتخب ارسال می‌شوند. هر پیام لینک توقف یادآوری سبد و سفارش پرداخت‌نشده دارد. اعلان پرداخت پیام خدماتی جداگانه‌ای است. کد یک‌بارمصرف متصل به شماره، سبد را بازیابی یا پرداخت ووکامرس را باز می‌کند و باعث ورود به حساب نمی‌شود. هش کد، تعداد تلاش، انقضا و زمان مصرف مستقل از کدهای ورود ذخیره می‌شوند. لینک لغو فقط یادآوری خرید را متوقف می‌کند. مدیر فروشگاه مدت نگهداری ۷ تا ۹۰ روز و سرویس پیامکی را تنظیم می‌کند. پیش از فعال‌سازی، نام سرویس، لینک شرایط و حریم خصوصی، مدت واقعی نگهداری و هدف پیام‌ها را به این سیاست اضافه کنید."
@@ -2298,6 +2313,9 @@ msgstr "اعلان پرداخت با تأیید پرداخت ووکامرس اج
 
 msgid "Pending commitments: %1$s. Actual discounts spent: %2$s. Currency: %3$s."
 msgstr "مبلغ رزروشده: %1$s. تخفیف مصرف‌شده: %2$s. واحد پول: %3$s."
+
+msgid "Per message"
+msgstr "اختصاصی"
 
 msgid "Per-game limits and a total daily limit"
 msgstr "سهمیهٔ هر بازی همراه با سقف کل روزانه"
@@ -3538,6 +3556,9 @@ msgstr "این کمپین قبلاً در صف قرار گرفته است."
 msgid "This document reflects the current order and payment status. Use your browser print dialog to print it or save it as PDF."
 msgstr "این سند وضعیت فعلی سفارش و پرداخت را نشان می‌دهد. از پنجرهٔ چاپ مرورگر برای چاپ یا ذخیره به صورت PDF استفاده کنید."
 
+msgid "This editor uses the saved provider. To use your new selection, close the editor and save SMS settings first."
+msgstr "ویرایشگر با سرویس‌دهندهٔ ذخیره‌شده باز شده است. برای استفاده از انتخاب جدید، پنجره را ببندید و ابتدا تنظیمات پیامک را ذخیره کنید."
+
 msgid "This game could not be found. Reload the page."
 msgstr "نوبت بازی پیدا نشد. لطفاً صفحه را دوباره بارگذاری کنید."
 
@@ -3693,6 +3714,9 @@ msgstr "دو شورت‌کد سبک، سازگار با ویرایشگر کلا�
 
 msgid "Two-step verification"
 msgstr "ورود دومرحله‌ای"
+
+msgid "Unsaved message changes"
+msgstr "تغییرات ذخیره‌نشده"
 
 msgid "Unsubscribe URL"
 msgstr "پیوند لغو دریافت"
@@ -3942,6 +3966,9 @@ msgstr "شمارهٔ موبایل شما تغییر کرد و از دستگاه�
 
 msgid "Your mobile number is verified. Loading the game…"
 msgstr "شمارهٔ همراه شما تأیید شد. بازی در حال بارگذاری است…"
+
+msgid "Your new SMS provider selection is unsaved."
+msgstr "انتخاب جدید سرویس‌دهنده ذخیره نشده است."
 
 msgid "Your next chapter starts here."
 msgstr "نخستین فعالیت‌ها از اینجا شروع می‌شوند."

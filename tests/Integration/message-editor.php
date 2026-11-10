@@ -61,6 +61,8 @@ add_filter(
 );
 try {
 	wp_set_current_user( 1 );
+	$chosen = ( new Settings() )->sanitize( array( 'sms_provider' => 'kavenegar' ) );
+	$assert( 'kavenegar' === $chosen['sms_provider'] && 1 === $chosen['sms_provider_confirmed'], 'An explicit provider choice is saved as confirmed' );
 	foreach ( $options as $key ) {
 		if ( 0 === strpos( $key, MessageSettings::OPTION . '_' ) ) {
 			delete_option( $key );
@@ -77,6 +79,7 @@ try {
 	$assert( false !== strpos( $result['data']['html'], __( 'Save and close', 'anar-toolkit' ) ), 'Editor includes an explicit save-and-close action' );
 	$html = $result['data']['html'];
 	$assert( false !== strpos( $html, 'data-default-provider="panelchi"' ) && preg_match( '/<option value="panelchi"\s+selected=/', $html ), 'The sign-in editor preselects the provider saved in SMS settings' );
+	$assert( 2 === substr_count( $html, 'type="radio" name="value[mode]"' ), 'The two delivery methods share an accessible radio group' );
 	foreach ( array( 'code', 'site', 'domain', 'minutes' ) as $variable ) {
 		$assert( false !== strpos( $html, '<code dir="ltr">{' . $variable . '}</code>' ), 'The verification editor lists the available variable {' . $variable . '}' );
 	}

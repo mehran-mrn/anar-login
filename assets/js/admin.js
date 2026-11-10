@@ -171,13 +171,6 @@
 			if (saveProviderFirst) saveProviderFirst.hidden = radio.value === verificationMessages.dataset.savedProvider;
 		});
 	});
-	verificationMessages?.addEventListener('click', (event) => {
-		if (saveProviderFirst.hidden || !event.target.closest('[data-message-open]')) return;
-		event.preventDefault();
-		event.stopPropagation();
-		saveProviderFirst.scrollIntoView({ block: 'nearest' });
-	});
-
 	root.querySelectorAll('[data-copy]').forEach((button) => {
 		button.addEventListener('click', async () => {
 			const original = button.textContent;

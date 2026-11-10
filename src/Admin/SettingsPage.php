@@ -293,13 +293,13 @@ final class SettingsPage {
 							<?php foreach ( $providers as $key => $provider ) : ?>
 								<label class="anar-provider <?php echo $key === $value['sms_provider'] ? 'is-selected' : ''; ?>">
 									<input type="radio" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[sms_provider]" value="<?php echo esc_attr( $key ); ?>" <?php checked( $value['sms_provider'], $key ); ?>>
-									<span class="anar-provider__mark">✦</span>
+									<span class="anar-provider__mark" aria-hidden="true">✦</span>
 									<span><strong><?php echo esc_html( $provider->title() ); ?></strong>
 									<?php
 									if ( 'melipayamak' === $key ) :
 										?>
 										<span class="anar-meli-badge"><?php esc_html_e( 'Anar user discount', 'anar-toolkit' ); ?></span><?php endif; ?><small><?php echo esc_html( method_exists( $provider, 'description' ) ? $provider->description() : __( 'Service template delivery', 'anar-toolkit' ) ); ?></small></span>
-									<i>✓</i>
+									<span class="anar-provider__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 3 3 7-7"/></svg></span>
 								</label>
 							<?php endforeach; ?>
 						</div>
@@ -357,7 +357,7 @@ final class SettingsPage {
 						<?php endforeach; ?>
 
 						<div class="anar-card" data-verification-messages data-saved-provider="<?php echo esc_attr( $value['sms_provider'] ); ?>">
-						<p class="description" role="status" data-save-provider-first hidden><?php esc_html_e( 'Save the selected provider before editing verification messages.', 'anar-toolkit' ); ?></p>
+						<p class="anar-message-warning" role="status" data-save-provider-first hidden><?php esc_html_e( 'Your new SMS provider selection is unsaved.', 'anar-toolkit' ); ?></p>
 						<?php
 						foreach ( array( 'login_otp', 'two_factor', 'password_reset', 'game_phone', 'stock_verification' ) as $message_id ) {
 							MessageCenter::summary( $message_id, 'sms' ); }

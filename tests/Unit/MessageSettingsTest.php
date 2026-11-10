@@ -42,9 +42,9 @@ final class MessageSettingsTest extends TestCase {
 		$this->assertSame( MessageSettings::fingerprint( MessageSettings::get( 'login_otp' ) ), MessageSettings::fingerprint( MessageSettings::get( 'login_otp' ) ) );
 	}
 
-	public function test_fresh_sign_in_requires_a_provider_and_defaults_to_meli_template_without_a_sender() {
+	public function test_fresh_sign_in_uses_meli_and_defaults_to_template_without_a_sender() {
 		unset( $GLOBALS['anar_test_options'][ Settings::OPTION_KEY ] );
-		$this->assertSame( '', MessageSettings::get( 'login_otp' )['provider'] );
+		$this->assertSame( 'melipayamak', MessageSettings::get( 'login_otp' )['provider'] );
 		$GLOBALS['anar_test_options'][ Settings::OPTION_KEY ] = array(
 			'sms_provider' => 'melipayamak',
 			'provider_melipayamak' => array( 'username' => 'demo', 'password' => 'test' ),
@@ -52,6 +52,21 @@ final class MessageSettingsTest extends TestCase {
 		$this->assertSame( 'template', MessageSettings::get( 'login_otp' )['mode'] );
 		$GLOBALS['anar_test_options'][ Settings::OPTION_KEY ]['provider_melipayamak']['from'] = '30001234';
 		$this->assertSame( 'text', MessageSettings::get( 'login_otp' )['mode'] );
+	}
+
+	public function test_old_provider_defaults_change_without_switching_configured_providers() {
+		$options = &$GLOBALS['anar_test_options'][ Settings::OPTION_KEY ];
+		$options = array( 'sms_provider' => '' );
+		$this->assertSame( 'melipayamak', MessageSettings::get( 'login_otp' )['provider'] );
+		$options['sms_provider'] = 'kavenegar';
+		$this->assertSame( 'melipayamak', MessageSettings::get( 'login_otp' )['provider'] );
+		$options['provider_kavenegar'] = array( 'api_key' => 'TEST-ONLY' );
+		$this->assertSame( 'kavenegar', MessageSettings::get( 'login_otp' )['provider'] );
+		unset( $options['provider_kavenegar'] );
+		$options['sms_provider_confirmed'] = 1;
+		$this->assertSame( 'kavenegar', MessageSettings::get( 'login_otp' )['provider'] );
+		$options['sms_provider'] = 'panelchi';
+		$this->assertSame( 'panelchi', MessageSettings::get( 'login_otp' )['provider'] );
 	}
 
 	public function test_security_messages_can_override_or_inherit_the_login_pattern() {

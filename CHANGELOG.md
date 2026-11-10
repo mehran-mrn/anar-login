@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.5.8 — 2026-11-11
+
+- Preselect Meli Payamak on fresh and unconfigured installations and highlight the selected SMS provider.
+- Open the message editor with a visible notice when the SMS provider selection is unsaved.
+- Use a compact editor with segmented delivery choices, an accessible variable list and a prominent confirmation before discarding edits.
+
 ## 1.5.7 — 2026-11-11
 
 - Open the SMS editor with the saved provider selected and preserve existing message-specific providers.
