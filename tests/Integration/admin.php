@@ -31,8 +31,8 @@ ob_start();
 // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- WordPress generates this hook from the existing menu slug.
 do_action( 'toplevel_page_anar-login' );
 $catalog = ob_get_clean();
-if ( 18 !== substr_count( $catalog, 'class="anar-feature-card ' ) || 1 !== substr_count( $catalog, '<form ' ) ) {
-	throw new RuntimeException( 'The feature catalog must contain all 18 switches in one form.' );
+if ( count( FeaturesPage::labels() ) !== substr_count( $catalog, 'role="switch"' ) || 1 !== substr_count( $catalog, '<form ' ) ) {
+	throw new RuntimeException( 'The feature catalog must contain one switch per capability in one form.' );
 }
 if ( strpos( $catalog, 'id="active"' ) >= strpos( $catalog, 'id="other"' ) || strpos( $catalog, 'id="feature-stock"' ) >= strpos( $catalog, 'id="other"' ) ) {
 	throw new RuntimeException( 'The enabled module must precede the other available capabilities.' );
@@ -54,4 +54,4 @@ foreach ( $GLOBALS['anar_qa_feature_queries'] as $query ) {
 		throw new RuntimeException( 'Opening stock settings ran another module report.' );
 	}
 }
-WP_CLI::success( 'Admin isolation: one catalog, 18 visible capabilities, active-first ordering, no unrelated report queries.' );
+WP_CLI::success( 'Admin isolation: one catalog, all capabilities visible, active-first ordering, no unrelated report queries.' );

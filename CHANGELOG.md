@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.9 — 2026-11-11
+
+- Redesign the Features screen with a distinct color and icon for each of its 19 capabilities and a responsive layout.
+- Add complete Persian and English summaries and accessible switches that show each capability’s state.
+
 ## 1.5.8 — 2026-11-11
 
 - Preselect Meli Payamak on fresh and unconfigured installations and highlight the selected SMS provider.

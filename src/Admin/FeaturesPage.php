@@ -60,35 +60,109 @@ final class FeaturesPage {
 	public function assets( $hook ) {
 		if ( false !== strpos( $hook, 'anar-' ) ) {
 			wp_enqueue_script( 'anar-help', ANAR_LOGIN_URL . 'assets/js/help.js', array(), ANAR_LOGIN_VERSION, true );
-			wp_enqueue_style( 'anar-features', ANAR_LOGIN_URL . 'assets/css/features.css', array(), ANAR_LOGIN_VERSION ); }
+			wp_enqueue_style( 'anar-features', ANAR_LOGIN_URL . 'assets/css/features.css', array( 'dashicons' ), ANAR_LOGIN_VERSION ); }
+	}
+
+	/**
+	 * Pair each capability with its icon and a plain-language summary.
+	 *
+	 * @return array<string, array{string, string}>
+	 */
+	private static function cards() {
+		return array(
+			'login'         => array( 'admin-users', __( 'Lets customers sign in with a one-time SMS or email code, or with Google or a passkey when configured.', 'anar-toolkit' ) ),
+			'reset'         => array( 'unlock', __( 'Lets customers set a new password with a verification code sent to the mobile number already linked to their account.', 'anar-toolkit' ) ),
+			'two_factor'    => array( 'shield-alt', __( 'Requires an extra verification step after password sign-in for the configured group of users. Anar can send a one-time code to their linked mobile number or account email.', 'anar-toolkit' ) ),
+			'login_log'     => array( 'list-view', __( 'Shows the time, provider, and result of SMS requests for sign-in, two-step verification, and password reset.', 'anar-toolkit' ) ),
+			'recovery'      => array( 'cart', __( 'Reminds customers by SMS to return to an unfinished WooCommerce cart. Reminders can include a recovery link and an optional discount.', 'anar-toolkit' ) ),
+			'orders'        => array( 'megaphone', __( 'Texts customers or store administrators about selected WooCommerce order events, such as payment, shipping, or a change of status.', 'anar-toolkit' ) ),
+			'balance'       => array( 'money-alt', __( 'Checks the balance of selected SMS accounts on a schedule and can warn administrators when credit falls below the threshold for an account.', 'anar-toolkit' ) ),
+			'lifecycle'     => array( 'groups', __( 'Sends automated messages after a first purchase, after a period without purchases, or when a customer reaches the VIP spending threshold.', 'anar-toolkit' ) ),
+			'prediction'    => array( 'chart-line', __( 'Estimates when a customer may buy a product again from past purchases. SMS reminders can go out before, on, or after that date.', 'anar-toolkit' ) ),
+			'smart'         => array( 'lightbulb', __( 'Recommends an in-stock product the customer has not bought recently and sends the offer by SMS, with an optional discount.', 'anar-toolkit' ) ),
+			'bulk'          => array( 'email-alt', __( 'Schedules bulk SMS for selected groups of store customers or imported contacts. You review the recipient count before sending.', 'anar-toolkit' ) ),
+			'stock'         => array( 'archive', __( 'Lets customers request an SMS for an out-of-stock product or variation and notifies them once when it is available again.', 'anar-toolkit' ) ),
+			'survey'        => array( 'feedback', __( 'Sends a feedback link after an order is completed and accepts one response per paid order. A reward can be offered for submitting feedback.', 'anar-toolkit' ) ),
+			'next_discount' => array( 'tickets-alt', __( 'Sends a single-use discount after a paid order. The coupon is valid for the next purchase with the recipient’s billing phone number.', 'anar-toolkit' ) ),
+			'birthday'      => array( 'calendar-alt', __( 'Sends a birthday SMS to customers who share their birth month and day, with an optional gift coupon.', 'anar-toolkit' ) ),
+			'invoice'       => array( 'media-document', __( 'Gives customers a printable order invoice in My Account. The store can also send an expiring invoice link by SMS.', 'anar-toolkit' ) ),
+			'games'         => array( 'games', __( 'Lets customers with verified mobile numbers play promotional games, such as a prize wheel or quiz, and earn discount coupons.', 'anar-toolkit' ) ),
+			'referral'      => array( 'share', __( 'Gives customers a referral link and rewards them with a coupon after an invited customer completes an eligible first order and the refund waiting period passes.', 'anar-toolkit' ) ),
+			'traffic'       => array( 'chart-area', __( 'Reports store page views and traffic sources alongside WooCommerce sales and products. Counts exclude checkout, account pages, and administrator visits.', 'anar-toolkit' ) ),
+		);
 	}
 
 	public static function render() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			return; }
+			return;
+		}
 		$flags = Features::all();
 		$labels = self::labels();
+		$cards = self::cards();
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only catalog selection.
 		$other_first = isset( $_GET['page'] ) && 'anar-features-other' === $_GET['page'];
 		$groups = $other_first ? array( false => __( 'Other features', 'anar-toolkit' ), true => __( 'Active features', 'anar-toolkit' ) ) : array( true => __( 'Active features', 'anar-toolkit' ), false => __( 'Other features', 'anar-toolkit' ) );
 		?>
-		<div class="wrap anar-features" dir="<?php echo is_rtl() ? 'rtl' : 'ltr'; ?>"><header><img src="<?php echo esc_url( ANAR_LOGIN_URL . 'assets/images/anar-logo.png?ver=' . ANAR_LOGIN_VERSION ); ?>" alt=""><div><h1><?php esc_html_e( 'Anar Toolkit', 'anar-toolkit' ); ?></h1><p><?php esc_html_e( 'Enable the features your store needs.', 'anar-toolkit' ); ?></p></div></header><hr class="wp-header-end">
-		<?php StatusPanel::credit(); ?>
-		<p class="anar-features-intro"><?php esc_html_e( 'Active features appear first. Other features remain below with their instructions and activation switch. Turning a feature off keeps its settings and stored records.', 'anar-toolkit' ); ?></p>
-		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>"><?php wp_nonce_field( 'anar_features' ); ?><input type="hidden" name="action" value="anar_features">
-		<?php foreach ( $groups as $active => $heading ) : ?>
-		<section id="<?php echo $active ? 'active' : 'other'; ?>"><h2><?php echo esc_html( $heading ); ?></h2><div class="anar-feature-grid">
-			<?php
-			foreach ( $labels as $key => $label ) :
-				if ( (bool) $flags[ $key ] !== (bool) $active ) {
-					continue; }
-				?>
-		<article class="anar-feature-card <?php echo $active ? 'is-active' : ''; ?>" id="feature-<?php echo esc_attr( $key ); ?>"><div class="anar-feature-heading"><h3><?php echo esc_html( $label ); ?></h3><?php Help::button( Help::text( $key ) ); ?></div><p><?php echo esc_html( wp_html_excerpt( Help::text( $key ), $active ? 220 : 95, '…' ) ); ?></p><footer><label><input type="checkbox" name="features[<?php echo esc_attr( $key ); ?>]" value="1" <?php checked( $flags[ $key ] ); ?>> <?php esc_html_e( 'Enabled', 'anar-toolkit' ); ?></label>
-				<?php
-				if ( $active ) :
-					?>
-			<a class="button" href="<?php echo esc_url( self::url( $key ) ); ?>"><?php esc_html_e( 'Configure', 'anar-toolkit' ); ?></a><?php endif; ?></footer></article>
-		<?php endforeach; ?></div></section><?php endforeach; ?><div class="anar-feature-save"><?php submit_button( __( 'Save feature selection', 'anar-toolkit' ) ); ?><p><?php esc_html_e( 'Disabled modules do not load storefront assets or run feature queries. Existing personal-coupon restrictions and scheduled data cleanup remain in effect.', 'anar-toolkit' ); ?></p></div></form></div>
+		<div class="wrap anar-features" dir="<?php echo is_rtl() ? 'rtl' : 'ltr'; ?>">
+			<header class="anar-features-banner">
+				<img src="<?php echo esc_url( ANAR_LOGIN_URL . 'assets/images/anar-logo.png?ver=' . ANAR_LOGIN_VERSION ); ?>" alt="" width="64" height="64">
+				<div>
+					<h1><?php esc_html_e( 'Features', 'anar-toolkit' ); ?></h1>
+					<p><?php esc_html_e( 'Enable the features your store needs.', 'anar-toolkit' ); ?></p>
+				</div>
+			</header>
+			<hr class="wp-header-end">
+			<?php StatusPanel::credit(); ?>
+			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+				<?php wp_nonce_field( 'anar_features' ); ?>
+				<input type="hidden" name="action" value="anar_features">
+				<?php foreach ( $groups as $active => $heading ) : ?>
+					<section id="<?php echo $active ? 'active' : 'other'; ?>" class="anar-feature-section">
+						<h2><?php echo esc_html( $heading ); ?></h2>
+						<div class="anar-feature-grid">
+							<?php foreach ( $labels as $key => $label ) : ?>
+								<?php
+								if ( (bool) $flags[ $key ] !== (bool) $active ) {
+									continue;
+								}
+								list( $icon, $description ) = $cards[ $key ];
+								$title_id = 'anar-feature-title-' . $key;
+								?>
+								<article class="anar-feature-card <?php echo $active ? 'is-active' : ''; ?>" id="feature-<?php echo esc_attr( $key ); ?>">
+									<div class="anar-feature-art" aria-hidden="true">
+										<span class="anar-feature-watermark dashicons dashicons-<?php echo esc_attr( $icon ); ?>"></span>
+									</div>
+									<div class="anar-feature-heading">
+										<span class="anar-feature-icon dashicons dashicons-<?php echo esc_attr( $icon ); ?>" aria-hidden="true"></span>
+										<?php Help::button( Help::text( $key ) ); ?>
+									</div>
+									<h3 id="<?php echo esc_attr( $title_id ); ?>"><?php echo esc_html( $label ); ?></h3>
+									<p><?php echo esc_html( $description ); ?></p>
+									<footer>
+										<label class="anar-feature-switch">
+											<input type="checkbox" role="switch" aria-labelledby="<?php echo esc_attr( $title_id ); ?>" name="features[<?php echo esc_attr( $key ); ?>]" value="1" <?php checked( $flags[ $key ] ); ?>>
+											<span class="anar-feature-switch-track" aria-hidden="true"></span>
+											<span class="anar-feature-switch-on" aria-hidden="true"><?php esc_html_e( 'Enabled', 'anar-toolkit' ); ?></span>
+											<span class="anar-feature-switch-off" aria-hidden="true"><?php esc_html_e( 'Disabled', 'anar-toolkit' ); ?></span>
+										</label>
+										<?php if ( $active ) : ?>
+											<a class="button anar-feature-configure" href="<?php echo esc_url( self::url( $key ) ); ?>">
+												<?php esc_html_e( 'Configure', 'anar-toolkit' ); ?>
+												<span class="dashicons <?php echo is_rtl() ? 'dashicons-arrow-left-alt2' : 'dashicons-arrow-right-alt2'; ?>" aria-hidden="true"></span>
+											</a>
+										<?php endif; ?>
+									</footer>
+								</article>
+							<?php endforeach; ?>
+						</div>
+					</section>
+				<?php endforeach; ?>
+				<div class="anar-feature-save">
+					<p><?php esc_html_e( 'Turning a feature off keeps its settings and stored records.', 'anar-toolkit' ); ?></p>
+					<?php submit_button( __( 'Save feature selection', 'anar-toolkit' ) ); ?>
+				</div>
+			</form>
+		</div>
 		<?php
 	}
 

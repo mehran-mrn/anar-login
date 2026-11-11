@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: Anar Toolkit 1.5.8\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
+msgstr "Project-Id-Version: Anar Toolkit 1.5.9\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
 
 msgid "%1$d paid orders. A gift at every %2$d orders."
 msgstr "%1$d سفارش پرداخت‌شده؛ یک هدیه پس از هر %2$d سفارش."
@@ -603,6 +603,9 @@ msgstr "در حال دریافت موجودی…"
 
 msgid "Checking your connection. Please try again."
 msgstr "در حال بررسی اتصال؛ لطفاً دوباره تلاش کنید."
+
+msgid "Checks the balance of selected SMS accounts on a schedule and can warn administrators when credit falls below the threshold for an account."
+msgstr "اعتبار حساب‌های پیامکی انتخاب‌شده را دوره‌ای بررسی می‌کند و می‌تواند در صورت کاهش اعتبار هر حساب به زیر حد تعیین‌شده، به مدیران هشدار دهد."
 
 msgid "Cherry"
 msgstr "گیلاس"
@@ -1261,6 +1264,9 @@ msgstr "حذف داده‌های محلی یادآوری این شماره"
 msgid "Error code"
 msgstr "کد خطا"
 
+msgid "Estimates when a customer may buy a product again from past purchases. SMS reminders can go out before, on, or after that date."
+msgstr "زمان احتمالی خرید دوبارهٔ یک محصول را از روی سابقهٔ خرید تخمین می‌زند. پیامک یادآوری می‌تواند پیش از تاریخ تخمینی، در همان روز یا پس از آن ارسال شود."
+
 msgid "Event"
 msgstr "رویداد"
 
@@ -1461,6 +1467,12 @@ msgstr "اعتبار هدیه به ساعت"
 
 msgid "Give new users the WooCommerce customer role instead of the general new-user role."
 msgstr "به کاربران جدید به‌جای نقش عمومی، نقش «مشتری» ووکامرس داده می‌شود."
+
+msgid "Gives customers a printable order invoice in My Account. The store can also send an expiring invoice link by SMS."
+msgstr "فاکتور قابل چاپ سفارش را در حساب کاربری مشتری نمایش می‌دهد. فروشگاه می‌تواند لینک مدت‌دار فاکتور را هم با پیامک بفرستد."
+
+msgid "Gives customers a referral link and rewards them with a coupon after an invited customer completes an eligible first order and the refund waiting period passes."
+msgstr "به مشتری لینک دعوت می‌دهد. اگر فرد دعوت‌شده اولین سفارش واجد شرایطش را تکمیل کند و مهلت بازپرداخت بگذرد، مشتریِ دعوت‌کننده کوپن می‌گیرد."
 
 msgid "Go to my account"
 msgstr "رفتن به حساب کاربری"
@@ -1693,8 +1705,20 @@ msgstr "وقتی موجود شد خبرم کنید."
 msgid "Let new users create an account after verification."
 msgstr "کاربران جدید می‌توانند پس از تأیید حساب بسازند."
 
+msgid "Lets customers request an SMS for an out-of-stock product or variation and notifies them once when it is available again."
+msgstr "مشتری برای محصول ناموجود یا یکی از مدل‌های آن، مثل رنگ یا اندازهٔ مشخص، درخواست می‌دهد و پس از موجود شدن همان مورد یک‌بار پیامک می‌گیرد."
+
 msgid "Lets customers reset their password with a code sent to their linked mobile."
 msgstr "مشتری می‌تواند با کدی که به موبایل متصل حسابش ارسال می‌شود، رمز عبور را بازنشانی کند."
+
+msgid "Lets customers set a new password with a verification code sent to the mobile number already linked to their account."
+msgstr "مشتری برای تعیین رمز عبور جدید، کد تأیید را روی شمارهٔ همراهی دریافت می‌کند که از قبل به حسابش متصل بوده است."
+
+msgid "Lets customers sign in with a one-time SMS or email code, or with Google or a passkey when configured."
+msgstr "مشتریان می‌توانند با کد یک‌بارمصرف پیامکی یا ایمیلی وارد حسابشان شوند. در صورت پیکربندی، ورود با حساب گوگل یا کلید عبور هم در دسترس است."
+
+msgid "Lets customers with verified mobile numbers play promotional games, such as a prize wheel or quiz, and earn discount coupons."
+msgstr "مشتریانی که شمارهٔ همراهشان تأیید شده می‌توانند در بازی‌هایی مثل گردونهٔ شانس و مسابقهٔ پرسش‌وپاسخ شرکت کنند و کوپن تخفیف ببرند."
 
 msgid "Lightweight shortcodes compatible with the Classic and Block editors."
 msgstr "شورت‌کدهای سبک، سازگار با ویرایشگر کلاسیک و بلوکی."
@@ -2551,6 +2575,9 @@ msgstr "قالب شمارهٔ گیرنده"
 msgid "Recommended: sends through the shared service line, so the code is delivered even to numbers that block advertising."
 msgstr "توصیه‌شده: ارسال از خط خدماتی اشتراکی، تا کد حتی به شماره‌هایی که پیامک تبلیغاتی را مسدود کرده‌اند هم برسد."
 
+msgid "Recommends an in-stock product the customer has not bought recently and sends the offer by SMS, with an optional discount."
+msgstr "از میان کالاهای موجود، محصولی را که مشتری به‌تازگی نخریده انتخاب و با پیامک پیشنهاد می‌کند. می‌توانید به پیشنهاد تخفیف اضافه کنید."
+
 msgid "Recorded SMS outcomes"
 msgstr "آمار پیامک‌های ثبت‌شده"
 
@@ -2665,6 +2692,9 @@ msgstr "زمان‌بندی یادآوری و حریم خصوصی"
 msgid "Reminders stopped"
 msgstr "یادآوری متوقف شد"
 
+msgid "Reminds customers by SMS to return to an unfinished WooCommerce cart. Reminders can include a recovery link and an optional discount."
+msgstr "به مشتریانی که خرید ووکامرس را نیمه‌کاره گذاشته‌اند پیامک یادآوری می‌فرستد. پیام می‌تواند حاوی لینک بازگشت به سبد و تخفیف باشد."
+
 msgid "Remove"
 msgstr "حذف"
 
@@ -2686,6 +2716,9 @@ msgstr "به‌جای «قبلاً خرید کرده‌اید؟ برای ورو�
 msgid "Reporting period"
 msgstr "بازهٔ گزارش"
 
+msgid "Reports store page views and traffic sources alongside WooCommerce sales and products. Counts exclude checkout, account pages, and administrator visits."
+msgstr "بازدید صفحات فروشگاه و منابع ورودی را کنار آمار فروش و محصولات ووکامرس نشان می‌دهد. صفحات تسویه‌حساب و حساب کاربری و بازدیدهای مدیران از شمارش مستثنا هستند."
+
 msgid "Request and enter the SMS verification code."
 msgstr "کد تأیید پیامکی را دریافت و وارد کنید."
 
@@ -2703,6 +2736,9 @@ msgstr "متغیرهای ضروری"
 
 msgid "Required when a monetary budget is enabled and no named prizes are configured. This is the maximum saving from one coupon, including tax, in the store currency. Zero leaves the old reward uncapped when no monetary budget is set."
 msgstr "اگر بودجهٔ پولی فعال است و مخزن جایزه تعریف نشده، این سقف را تعیین کنید. مبلغ، حداکثر تخفیف هر کد با احتساب مالیات و بر اساس واحد پول فروشگاه است. وقتی بودجهٔ پولی ندارید، صفر یعنی ادامهٔ جایزهٔ قبلی بدون سقف مبلغ."
+
+msgid "Requires an extra verification step after password sign-in for the configured group of users. Anar can send a one-time code to their linked mobile number or account email."
+msgstr "برای گروه تعیین‌شدهٔ کاربران، پس از ورود با رمز عبور یک مرحلهٔ تأیید اضافه می‌کند. انار می‌تواند کد یک‌بارمصرف را به شمارهٔ همراه متصل یا ایمیل حساب بفرستد."
 
 msgid "Resend code"
 msgstr "ارسال دوباره"
@@ -2893,6 +2929,9 @@ msgstr "زمان‌بندی (منطقهٔ زمانی سایت؛ خالی یعن�
 msgid "Scheduled"
 msgstr "زمان برنامه‌ریزی‌شده"
 
+msgid "Schedules bulk SMS for selected groups of store customers or imported contacts. You review the recipient count before sending."
+msgstr "ارسال پیامک انبوه را برای گروه‌های انتخاب‌شده از مشتریان فروشگاه یا مخاطبان درون‌ریزی‌شده زمان‌بندی می‌کند. تعداد گیرندگان را پیش از ارسال بررسی می‌کنید."
+
 msgid "Scratch a surprise"
 msgstr "کارت خراشیدنی"
 
@@ -2998,6 +3037,18 @@ msgstr "آمار ارسال فعلاً در دسترس نیست."
 msgid "Sending…"
 msgstr "در حال ارسال…"
 
+msgid "Sends a birthday SMS to customers who share their birth month and day, with an optional gift coupon."
+msgstr "برای مشتریانی که روز و ماه تولدشان را ثبت کرده‌اند پیامک تبریک می‌فرستد. می‌توانید کوپن هدیه هم به پیام اضافه کنید."
+
+msgid "Sends a feedback link after an order is completed and accepts one response per paid order. A reward can be offered for submitting feedback."
+msgstr "پس از تکمیل سفارش، لینک نظرسنجی را می‌فرستد و برای هر سفارش پرداخت‌شده یک پاسخ می‌پذیرد. می‌توانید برای ثبت پاسخ هدیه در نظر بگیرید."
+
+msgid "Sends a single-use discount after a paid order. The coupon is valid for the next purchase with the recipient’s billing phone number."
+msgstr "پس از پرداخت سفارش، کوپن تخفیف یک‌بارمصرف می‌فرستد که در خرید بعدی با شمارهٔ همراه ثبت‌شده در صورتحساب همان مشتری قابل استفاده است."
+
+msgid "Sends automated messages after a first purchase, after a period without purchases, or when a customer reaches the VIP spending threshold."
+msgstr "پس از اولین خرید، پس از مدتی بدون خرید یا وقتی مجموع خرید مشتری به حد تعیین‌شده برای مشتری ویژه برسد، خودکار پیامک می‌فرستد."
+
 msgid "Service template delivery"
 msgstr "ارسال الگوی خدماتی"
 
@@ -3087,6 +3138,9 @@ msgstr "این پیام زمانی نمایش داده می‌شود که نوب
 
 msgid "Shows the login form to signed-out visitors."
 msgstr "در حالت مهمان، فرم ورود را نشان می‌دهد."
+
+msgid "Shows the time, provider, and result of SMS requests for sign-in, two-step verification, and password reset."
+msgstr "زمان، سرویس‌دهنده و نتیجهٔ ارسال پیامک‌های ورود، تأیید دومرحله‌ای و بازیابی رمز عبور را نشان می‌دهد."
 
 msgid "Sign in"
 msgstr "ورود"
@@ -3321,6 +3375,9 @@ msgstr "درگاه و اطلاعاتی که همین الان در بالا وا
 
 msgid "Text above the game"
 msgstr "متن بالای بازی"
+
+msgid "Texts customers or store administrators about selected WooCommerce order events, such as payment, shipping, or a change of status."
+msgstr "برای رویدادهای انتخاب‌شدهٔ سفارش ووکامرس، مثل پرداخت، ارسال مرسوله یا تغییر وضعیت، به مشتری یا مدیر فروشگاه پیامک می‌فرستد."
 
 msgid "Thank you for being one of our valued regular customers."
 msgstr "ممنونیم که از مشتریان همیشگی و ارزشمند ما هستید."
@@ -3705,6 +3762,9 @@ msgstr "جست‌وجوی گنج"
 
 msgid "Turn a lucky card"
 msgstr "کارت شانس"
+
+msgid "Turning a feature off keeps its settings and stored records."
+msgstr "با غیرفعال‌سازی، تنظیمات و سوابق حفظ می‌شوند."
 
 msgid "Turning monitoring off stops scheduled checks and warnings. Sending SMS and saved connection settings are preserved."
 msgstr "با خاموش‌کردن این قابلیت، بررسی دوره‌ای و هشدارها متوقف می‌شوند. ارسال پیامک و اطلاعات اتصال تغییری نمی‌کنند."
