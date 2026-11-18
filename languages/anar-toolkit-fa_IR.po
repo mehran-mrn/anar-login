@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: Anar Toolkit 1.5.9\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
+msgstr "Project-Id-Version: Anar Toolkit 1.6.0\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
 
 msgid "%1$d paid orders. A gift at every %2$d orders."
 msgstr "%1$d سفارش پرداخت‌شده؛ یک هدیه پس از هر %2$d سفارش."
@@ -108,6 +108,9 @@ msgstr "سبدهای رهاشده"
 
 msgid "Accent"
 msgstr "برجسته"
+
+msgid "Accent color"
+msgstr "رنگ اصلی"
 
 msgid "Accepted by provider"
 msgstr "پذیرفته‌شده توسط سرویس‌دهنده"
@@ -283,6 +286,9 @@ msgstr "بازیابی رمز پیامکی انار"
 msgid "Anar Toolkit"
 msgstr "جعبه‌ابزار انار"
 
+msgid "Anar Toolkit - SMS Login, Recovery & Marketing for WooCommerce"
+msgstr "جعبه‌ابزار انار — ورود پیامکی، بازیابی خرید و بازاریابی ووکامرس"
+
 msgid "Anar Toolkit overview"
 msgstr "وضعیت کلی انار"
 
@@ -292,8 +298,14 @@ msgstr "جعبه‌ابزار انار — ورود پیامکی، بازیاب�
 msgid "Anar Toolkit — WooCommerce SMS"
 msgstr "جعبه‌ابزار انار — پیامک ووکامرس"
 
+msgid "Anar account button"
+msgstr "دکمه ورود و حساب کاربری انار"
+
 msgid "Anar and MRN Forms"
 msgstr "انار و MRN Forms"
+
+msgid "Anar cart recovery"
+msgstr "بازیابی سبد خرید انار"
 
 msgid "Anar customer campaigns"
 msgstr "کمپین‌های مشتریان انار"
@@ -448,6 +460,18 @@ msgstr "موجودی دریافت شد"
 msgid "Balance settings saved."
 msgstr "تنظیمات اعتبار پیامک ذخیره شد."
 
+msgid "Bale OTP"
+msgstr "کد ورود در بله"
+
+msgid "Bale authentication failed."
+msgstr "احراز هویت پنل بله انجام نشد."
+
+msgid "Bale could not deliver the verification code."
+msgstr "بله نتوانست کد تأیید را ارسال کند."
+
+msgid "Bale supports verification codes only."
+msgstr "بله فقط از ارسال کد تأیید پشتیبانی می‌کند."
+
 msgid "Before a code is sent, the browser solves a short puzzle in the background, with no image or click. Adaptive mode asks only when one address requests repeatedly or the whole site sees an unusual volume, so SMS floods stop costing you money."
 msgstr "پیش از ارسال کد، مرورگر در پس‌زمینه یک معمای کوتاه را حل می‌کند؛ بدون تصویر و بدون کلیک. در حالت هوشمند فقط وقتی فعال می‌شود که یک نشانی پشت‌سرهم درخواست بدهد یا حجم کل سایت غیرعادی شود؛ بنابراین ارسال انبوه رباتی، هزینهٔ پیامک برای شما نمی‌سازد."
 
@@ -477,6 +501,9 @@ msgstr "هر دو لینک بازیابی و لغو دریافت باید در �
 
 msgid "Brand color"
 msgstr "رنگ برند"
+
+msgid "Branded"
+msgstr "برنددار"
 
 msgid "Build a registration form with your own fields in MRN Forms. Anar verifies the mobile number and creates the WordPress account. Other forms can use the same SMS service to verify a number before submission."
 msgstr "فرم ثبت‌نام را با فیلدهای دلخواه در MRN Forms بسازید. انار شمارهٔ همراه را تأیید و حساب وردپرس را ایجاد می‌کند. فرم‌های دیگر هم می‌توانند پیش از ارسال، شمارهٔ همراه را با همین سرویس پیامکی تأیید کنند."
@@ -538,6 +565,12 @@ msgstr "لغوشده"
 msgid "Capped game discount"
 msgstr "تخفیف بازی با سقف مبلغ"
 
+msgid "Capped recovery discount"
+msgstr "تخفیف سقف‌دار بازیابی"
+
+msgid "Capped recovery discounts require WooCommerce 8.8 or newer."
+msgstr "تخفیف سقف‌دار بازیابی به ووکامرس ۸.۸ یا جدیدتر نیاز دارد."
+
 msgid "Capture source"
 msgstr "منبع ثبت"
 
@@ -558,6 +591,9 @@ msgstr "سوابق سبد"
 
 msgid "Cart recovery"
 msgstr "بازیابی سبد"
+
+msgid "Cart recovery and sending limits"
+msgstr "بازیابی سبد و محدودیت‌های ارسال"
 
 msgid "Category"
 msgstr "دسته"
@@ -666,6 +702,12 @@ msgstr "پاک‌سازی هنگام حذف افزونه"
 
 msgid "Clear about 40% of the cover to reveal your result."
 msgstr "حدود ۴۰ درصد پوشش را پاک کنید تا نتیجه نمایش داده شود."
+
+msgid "Client ID"
+msgstr "شناسه مشتری بله"
+
+msgid "Client secret"
+msgstr "رمز اتصال بله"
 
 msgid "Close"
 msgstr "بستن"
@@ -802,6 +844,9 @@ msgstr "متصل و تأییدشده"
 msgid "Connection and message"
 msgstr "اتصال و پیام"
 
+msgid "Connection and orders"
+msgstr "اتصال و سفارش‌ها"
+
 msgid "Connection interrupted. Retry to continue the same game."
 msgstr "ارتباط قطع شد. با زدن «ادامهٔ همین بازی»، همان نوبت را دنبال کنید."
 
@@ -822,6 +867,9 @@ msgstr "برآورد محافظه‌کارانه تعداد بخش‌های پی
 
 msgid "Contact mobile numbers"
 msgstr "شماره‌های همراه مخاطبان"
+
+msgid "Content"
+msgstr "محتوا"
 
 msgid "Continue"
 msgstr "ادامه"
@@ -873,6 +921,9 @@ msgstr "هسته فعال است"
 
 msgid "Correct answer number"
 msgstr "شمارهٔ پاسخ درست"
+
+msgid "Correct quiz option (1-8)"
+msgstr "گزینهٔ درست مسابقه (۱ تا ۸)"
 
 msgid "Correct quiz option (1–8)"
 msgstr "گزینهٔ درست مسابقه (۱ تا ۸)"
@@ -1149,6 +1200,9 @@ msgstr "قابلیت‌های مورد نیاز فروشگاه را فعال ک�
 
 msgid "Enable the login SMS report to count future login and verification messages."
 msgstr "برای ثبت آمار پیامک‌های ورود و تأیید از این به بعد، گزارش پیامک ورود را فعال کنید."
+
+msgid "Enable this feature in Anar settings."
+msgstr "این قابلیت را در تنظیمات انار فعال کنید."
 
 msgid "Enable this feature, check an account, then set its alert threshold. Periodic checks contact only the accounts you select, about every 30 minutes."
 msgstr "این قابلیت را فعال کنید، موجودی حساب را دریافت کنید و حد هشدار را تعیین کنید. فقط حساب‌های انتخاب‌شده، تقریباً هر ۳۰ دقیقه به‌صورت خودکار بررسی می‌شوند."
@@ -1564,8 +1618,14 @@ msgstr "اگر این شماره به حساب واجد شرایطی متصل ب
 msgid "If you leave now, the changes you made to this message will be lost."
 msgstr "با خروج از ویرایشگر، تغییرات این پیام از دست می‌رود."
 
+msgid "If you opt into purchase reminders, we store your mobile number, optional email, consent text and timestamp, cart products, amount, currency and related order ID locally. We send your number and the configured reminder variables (which may include purchase links and order details) to our selected SMS provider. Each reminder includes a link to stop future cart and unpaid-order reminders. Payment notifications are separate service messages. Phone-bound, single-use recovery codes restore products or open WooCommerce payment; they do not log you in. Recovery code hashes, attempts, expiry and consumption timestamps are stored separately from login challenges. Unsubscribe links only stop purchase reminders. The store configures a 7-90 day retention period and SMS provider. Add the selected provider, its terms and privacy links, your actual retention period and the purposes of your messages to this policy before enabling the modules."
+msgstr "با انتخاب دریافت یادآوری خرید، شماره موبایل، ایمیل اختیاری، متن و زمان رضایت، محصولات سبد، مبلغ، ارز و شناسه سفارش مرتبط در سایت ذخیره می‌شوند. شماره و متغیرهای پیکربندی‌شده یادآوری، شامل لینک خرید یا جزئیات سفارش، به سرویس پیامکی منتخب ارسال می‌شوند. هر پیام لینک توقف یادآوری سبد و سفارش پرداخت‌نشده دارد. اعلان پرداخت پیام خدماتی جداگانه‌ای است. کد یک‌بارمصرف متصل به شماره، سبد را بازیابی یا پرداخت ووکامرس را باز می‌کند و باعث ورود به حساب نمی‌شود. هش کد، تعداد تلاش، انقضا و زمان مصرف مستقل از کدهای ورود ذخیره می‌شوند. لینک لغو فقط یادآوری خرید را متوقف می‌کند. مدیر فروشگاه مدت نگهداری ۷ تا ۹۰ روز و سرویس پیامکی را تنظیم می‌کند. پیش از فعال‌سازی، نام سرویس، لینک شرایط و حریم خصوصی، مدت واقعی نگهداری و هدف پیام‌ها را به این سیاست اضافه کنید."
+
 msgid "If you opt into purchase reminders, we store your mobile number, optional email, consent text and timestamp, cart products, amount, currency and related order ID locally. We send your number and the configured reminder variables (which may include purchase links and order details) to our selected SMS provider. Each reminder includes a link to stop future cart and unpaid-order reminders. Payment notifications are separate service messages. Phone-bound, single-use recovery codes restore products or open WooCommerce payment; they do not log you in. Recovery code hashes, attempts, expiry and consumption timestamps are stored separately from login challenges. Unsubscribe links only stop purchase reminders. The store configures a 7–90 day retention period and SMS provider. Add the selected provider, its terms and privacy links, your actual retention period and the purposes of your messages to this policy before enabling the modules."
 msgstr "با انتخاب دریافت یادآوری خرید، شماره موبایل، ایمیل اختیاری، متن و زمان رضایت، محصولات سبد، مبلغ، ارز و شناسه سفارش مرتبط در سایت ذخیره می‌شوند. شماره و متغیرهای پیکربندی‌شده یادآوری، شامل لینک خرید یا جزئیات سفارش، به سرویس پیامکی منتخب ارسال می‌شوند. هر پیام لینک توقف یادآوری سبد و سفارش پرداخت‌نشده دارد. اعلان پرداخت پیام خدماتی جداگانه‌ای است. کد یک‌بارمصرف متصل به شماره، سبد را بازیابی یا پرداخت ووکامرس را باز می‌کند و باعث ورود به حساب نمی‌شود. هش کد، تعداد تلاش، انقضا و زمان مصرف مستقل از کدهای ورود ذخیره می‌شوند. لینک لغو فقط یادآوری خرید را متوقف می‌کند. مدیر فروشگاه مدت نگهداری ۷ تا ۹۰ روز و سرویس پیامکی را تنظیم می‌کند. پیش از فعال‌سازی، نام سرویس، لینک شرایط و حریم خصوصی، مدت واقعی نگهداری و هدف پیام‌ها را به این سیاست اضافه کنید."
+
+msgid "If you opt into purchase reminders, we store your mobile number, optional email, consent text and timestamp, cart products, amount, currency and related order ID locally. We send your number and the configured reminder variables (which may include purchase links and order details) to our selected SMS provider. Each reminder includes a link to stop future cart and unpaid-order reminders. Payment notifications are separate service messages. Reminder links restore products or open WooCommerce payment; they do not log you in. The store configures a 7-90 day retention period and SMS provider. Add the selected provider, its terms and privacy links, your actual retention period and the purposes of your messages to this policy before enabling the modules."
+msgstr "با انتخاب دریافت یادآوری خرید، شماره موبایل، ایمیل اختیاری، متن و زمان رضایت، محصولات سبد، مبلغ، ارز و شناسه سفارش مرتبط در سایت ذخیره می‌شوند. شماره و متغیرهای پیکربندی‌شده یادآوری، شامل لینک خرید یا جزئیات سفارش، به سرویس پیامکی منتخب ارسال می‌شوند. هر پیام لینک توقف یادآوری سبد و سفارش پرداخت‌نشده دارد. اعلان پرداخت پیام خدماتی جداگانه‌ای است. لینک یادآوری، سبد را بازیابی یا پرداخت ووکامرس را باز می‌کند و باعث ورود به حساب نمی‌شود. مدیر فروشگاه مدت نگهداری ۷ تا ۹۰ روز و سرویس پیامکی را تنظیم می‌کند. پیش از فعال‌سازی، نام سرویس، لینک شرایط و حریم خصوصی، مدت واقعی نگهداری و هدف پیام‌ها را به این سیاست اضافه کنید."
 
 msgid "If you opt into purchase reminders, we store your mobile number, optional email, consent text and timestamp, cart products, amount, currency and related order ID locally. We send your number and the configured reminder variables (which may include purchase links and order details) to our selected SMS provider. Each reminder includes a link to stop future cart and unpaid-order reminders. Payment notifications are separate service messages. Reminder links restore products or open WooCommerce payment; they do not log you in. The store configures a 7–90 day retention period and SMS provider. Add the selected provider, its terms and privacy links, your actual retention period and the purposes of your messages to this policy before enabling the modules."
 msgstr "با انتخاب دریافت یادآوری خرید، شماره موبایل، ایمیل اختیاری، متن و زمان رضایت، محصولات سبد، مبلغ، ارز و شناسه سفارش مرتبط در سایت ذخیره می‌شوند. شماره و متغیرهای پیکربندی‌شده یادآوری، شامل لینک خرید یا جزئیات سفارش، به سرویس پیامکی منتخب ارسال می‌شوند. هر پیام لینک توقف یادآوری سبد و سفارش پرداخت‌نشده دارد. اعلان پرداخت پیام خدماتی جداگانه‌ای است. لینک یادآوری، سبد را بازیابی یا پرداخت ووکامرس را باز می‌کند و باعث ورود به حساب نمی‌شود. مدیر فروشگاه مدت نگهداری ۷ تا ۹۰ روز و سرویس پیامکی را تنظیم می‌کند. پیش از فعال‌سازی، نام سرویس، لینک شرایط و حریم خصوصی، مدت واقعی نگهداری و هدف پیام‌ها را به این سیاست اضافه کنید."
@@ -1615,8 +1675,14 @@ msgstr "برای اجرای این ماژول‌ها، ووکامرس را نص�
 msgid "Invisible bot check"
 msgstr "بررسی نامرئی ربات"
 
+msgid "Invoice footer"
+msgstr "متن پایین فاکتور"
+
 msgid "Invoice number prefix"
 msgstr "پیشوند شمارهٔ صورتحساب"
+
+msgid "Invoice template"
+msgstr "قالب فاکتور"
 
 msgid "Issued or reserved in the shared pool: %d"
 msgstr "صادر یا رزرو شده در مخزن مشترک: %d"
@@ -1735,6 +1801,9 @@ msgstr "در حال دریافت پیام…"
 msgid "Loading the sign-in form…"
 msgstr "در حال بارگذاری فرم ورود…"
 
+msgid "Local data retention, days (7-90)"
+msgstr "مدت نگهداری داده‌های محلی، به روز (۷ تا ۹۰)"
+
 msgid "Local data retention, days (7–90)"
 msgstr "مدت نگهداری داده‌های محلی، به روز (۷ تا ۹۰)"
 
@@ -1752,6 +1821,9 @@ msgstr "فرم ورود"
 
 msgid "Login popup"
 msgstr "پاپ‌آپ ورود"
+
+msgid "Logo URL"
+msgstr "نشانی تصویر لوگو"
 
 msgid "Low credit"
 msgstr "اعتبار کم است"
@@ -1798,6 +1870,9 @@ msgstr "حداکثر پیام کمپین برای هر شماره در روز"
 msgid "Maximum coupons for this prize"
 msgstr "سقف تعداد این جایزه"
 
+msgid "Maximum discount including tax (0 = unlimited)"
+msgstr "حداکثر مبلغ تخفیف با احتساب مالیات (۰ = بدون سقف)"
+
 msgid "Maximum lifetime spend (0 = no maximum)"
 msgstr "حداکثر مجموع خرید (۰ یعنی بدون سقف)"
 
@@ -1806,6 +1881,9 @@ msgstr "سقف مبلغ تخفیف جایزهٔ ثابت"
 
 msgid "Maximum money discount per coupon"
 msgstr "سقف مبلغ تخفیف هر کد"
+
+msgid "Maximum reminders per phone in 24 hours (1-10)"
+msgstr "سقف یادآوری هر شماره در ۲۴ ساعت (۱ تا ۱۰)"
 
 msgid "Maximum reminders per phone in 24 hours (1–10)"
 msgstr "سقف یادآوری هر شماره در ۲۴ ساعت (۱ تا ۱۰)"
@@ -2071,6 +2149,9 @@ msgstr "خاموش"
 msgid "Off by default. When on, the WordPress login page shows the passwordless form with a “Sign in with a password” link, so staff can always use their password."
 msgstr "به‌طور پیش‌فرض خاموش است. در صورت فعال‌سازی، صفحهٔ ورود وردپرس فرم ورود بدون رمز را همراه با لینک «ورود با رمز عبور» نمایش می‌دهد تا مدیران همیشه بتوانند با رمز وارد شوند."
 
+msgid "Offer from reminder stage (1-3)"
+msgstr "ارائهٔ تخفیف از مرحلهٔ یادآوری (۱ تا ۳)"
+
 msgid "Offer from reminder stage (1–3)"
 msgstr "ارائهٔ تخفیف از مرحلهٔ یادآوری (۱ تا ۳)"
 
@@ -2187,6 +2268,12 @@ msgstr "سفارش تکمیل‌شده"
 
 msgid "Order invoice"
 msgstr "صورتحساب سفارش"
+
+msgid "Order messages and connection"
+msgstr "پیام‌های سفارش و اتصال پنل"
+
+msgid "Order not found."
+msgstr "سفارش پیدا نشد."
 
 msgid "Order notifications"
 msgstr "اعلان‌های سفارش"
@@ -2440,8 +2527,14 @@ msgstr "نتیجهٔ بازی در حال آماده شدن است…"
 msgid "Preview eligible audience"
 msgstr "پیش‌نمایش مخاطبان واجد شرایط"
 
+msgid "Preview order ID (empty = sample)"
+msgstr "شناسه سفارش برای پیش‌نمایش (خالی = نمونه)"
+
 msgid "Preview saved form"
 msgstr "پیش‌نمایش فرم ذخیره‌شده"
+
+msgid "Preview saved invoice settings"
+msgstr "پیش‌نمایش فاکتور با تنظیمات ذخیره‌شده"
 
 msgid "Preview the form and choose where it appears"
 msgstr "فرم را ببینید و محل نمایش آن را انتخاب کنید"
@@ -2563,6 +2656,9 @@ msgstr "OTP خام هرگز در دیتابیس ذخیره نمی‌شود."
 msgid "Receive today’s gift"
 msgstr "دریافت هدیهٔ امروز"
 
+msgid "Receive verification codes inside Bale."
+msgstr "کد تأیید را در پیام‌رسان بله دریافت کنید."
+
 msgid "Recent customer profiles"
 msgstr "پروفایل مشتریان اخیر"
 
@@ -2602,14 +2698,23 @@ msgstr "درآمد خریدهای بازیابی‌شده"
 msgid "Recovery code"
 msgstr "کد بازیابی"
 
+msgid "Recovery code validity, minutes (5-1440)"
+msgstr "اعتبار کد بازیابی، به دقیقه (۵ تا ۱۴۴۰)"
+
 msgid "Recovery code validity, minutes (5–1440)"
 msgstr "اعتبار کد بازیابی، به دقیقه (۵ تا ۱۴۴۰)"
 
 msgid "Recovery discounts"
 msgstr "تخفیف بازیابی خرید"
 
+msgid "Recovery eligibility after cart activity, days (1-30)"
+msgstr "مهلت بازیابی پس از فعالیت سبد، به روز (۱ تا ۳۰)"
+
 msgid "Recovery eligibility after cart activity, days (1–30)"
 msgstr "مهلت بازیابی پس از فعالیت سبد، به روز (۱ تا ۳۰)"
+
+msgid "Recovery link lifetime after cart activity, days (1-30)"
+msgstr "اعتبار لینک بازیابی پس از فعالیت سبد، به روز (۱ تا ۳۰)"
 
 msgid "Recovery link lifetime after cart activity, days (1–30)"
 msgstr "اعتبار لینک بازیابی پس از فعالیت سبد، به روز (۱ تا ۳۰)"
@@ -2626,8 +2731,14 @@ msgstr "پیام یادآوری باید کد بازیابی و لینک لغو 
 msgid "Recovery page URL"
 msgstr "نشانی صفحهٔ بازیابی خرید"
 
+msgid "Recovery sending starts at hour (0-23)"
+msgstr "ساعت شروع ارسال یادآوری (۰ تا ۲۳)"
+
 msgid "Recovery sending starts at hour (0–23)"
 msgstr "ساعت شروع ارسال یادآوری (۰ تا ۲۳)"
+
+msgid "Recovery sending stops at hour (1-24)"
+msgstr "ساعت پایان ارسال یادآوری (۱ تا ۲۴)"
 
 msgid "Recovery sending stops at hour (1–24)"
 msgstr "ساعت پایان ارسال یادآوری (۱ تا ۲۴)"
@@ -2839,11 +2950,20 @@ msgstr "ورود با پیامک، ایمیل و گوگل، بازیابی رم�
 msgid "Sample"
 msgstr "نمونه"
 
+msgid "Sample address"
+msgstr "نشانی نمونه"
+
 msgid "Sample campaign content"
 msgstr "متن نمونهٔ کمپین"
 
+msgid "Sample customer"
+msgstr "مشتری نمونه"
+
 msgid "Sample preview"
 msgstr "پیش‌نمایش نمونه"
+
+msgid "Sample product"
+msgstr "کالای نمونه"
 
 msgid "Save and close"
 msgstr "ذخیره و بستن"
@@ -3121,8 +3241,17 @@ msgstr "پیوند ورود با رمز عبور را نشان می‌دهد. ا
 msgid "Show above the WooCommerce forms"
 msgstr "نمایش بالای فرم‌های ووکامرس"
 
+msgid "Show customer note"
+msgstr "نمایش یادداشت مشتری"
+
 msgid "Show low-credit warnings to site administrators"
 msgstr "هشدار کمبود اعتبار به مدیران سایت نمایش داده شود"
+
+msgid "Show product SKU"
+msgstr "نمایش شناسه کالا"
+
+msgid "Show shipping address"
+msgstr "نمایش نشانی ارسال"
 
 msgid "Show the Google sign-in button on the login form."
 msgstr "دکمه ورود گوگل در فرم ورود نمایش داده شود."
@@ -3144,6 +3273,9 @@ msgstr "زمان، سرویس‌دهنده و نتیجهٔ ارسال پیامک
 
 msgid "Sign in"
 msgstr "ورود"
+
+msgid "Sign in / Account"
+msgstr "ورود / حساب کاربری"
 
 msgid "Sign in / Register"
 msgstr "ورود / ثبت‌نام"
@@ -3216,6 +3348,9 @@ msgstr "در حال ورود…"
 
 msgid "Simple"
 msgstr "ساده"
+
+msgid "Simple print"
+msgstr "ساده و مناسب چاپ"
 
 msgid "Single use"
 msgstr "مصرف یک‌باره"
@@ -3321,6 +3456,9 @@ msgstr "هدیهٔ فروشگاه"
 
 msgid "Store quiz"
 msgstr "مسابقهٔ پرسش‌وپاسخ"
+
+msgid "Store settings"
+msgstr "تنظیمات فروشگاه"
 
 msgid "Store tax / registration ID"
 msgstr "شناسهٔ مالیاتی / ثبتی فروشگاه"
@@ -3814,6 +3952,9 @@ msgstr "از کد کوتاه، پاپ‌آپ یا اتصال ووکامرس اس
 msgid "Use the same SMS settings as the sign-in code"
 msgstr "استفاده از تنظیمات ارسال پیامک کد ورود"
 
+msgid "Use the sign-in SMS provider"
+msgstr "استفاده از پنل پیامکی ورود"
+
 msgid "Use the sign-in template for this verification message"
 msgstr "استفاده از الگوی ورود برای این پیام تأیید"
 
@@ -3852,6 +3993,9 @@ msgstr "مقدار ارسالی"
 
 msgid "Verification code"
 msgstr "کد تأیید"
+
+msgid "Verification code sent via Bale."
+msgstr "کد تأیید در پیام‌رسان بله ارسال شد."
 
 msgid "Verified"
 msgstr "تأییدشده"
@@ -3919,6 +4063,9 @@ msgstr "در صورت فعال‌سازی فروشگاه، انار شمارهٔ
 msgid "When no prizes remain"
 msgstr "پس از تمام شدن جوایز"
 
+msgid "When purchase reminders are enabled, automatic capture saves your account/checkout phone and cart without a separate checkbox and shows a notice. An optional explicit preference form is also available. We store your mobile number, optional email, consent text and timestamp, cart products, amount, currency and related order ID locally. We send your number and the configured reminder variables (which may include purchase links and order details) to our selected SMS provider. Each reminder includes a link to stop future cart and unpaid-order reminders. Payment notifications are separate service messages. Phone-bound, single-use recovery codes restore products or open WooCommerce payment; they do not log you in. Recovery code hashes, attempts, expiry and consumption timestamps are stored separately from login challenges. Unsubscribe links stop purchase reminders and optional marketing campaigns; service notices are separate. A keyed suppression identifier is retained after erasure. The store configures a 7-90 day retention period and SMS provider. Add the selected provider, its terms and privacy links, your actual retention period and the purposes of your messages to this policy before enabling the modules."
+msgstr "با فعال شدن یادآوری خرید، حالت خودکار شمارهٔ حساب یا تسویه‌حساب و سبد را بدون تیک جداگانه و با نمایش اطلاعیه ذخیره می‌کند. حالت اختیاری فرم جداگانه نیز وجود دارد. شمارهٔ همراه، ایمیل اختیاری، متن و زمان انتخاب صریح، کالاهای سبد، مبلغ، ارز و شناسهٔ سفارش مربوط محلی نگهداری می‌شوند. شماره و متغیرهای پیام، شامل پیوند خرید و اطلاعات سفارش، به سرویس‌دهندهٔ انتخاب‌شده فرستاده می‌شوند. هر یادآوری پیوند توقف پیام‌های بعدی دارد. اعلان‌های پرداخت پیام خدماتی مستقل‌اند. کد بازیابی یک‌بارمصرف و محدود به شماره، فقط کالاها یا پرداخت ووکامرس را بازیابی می‌کند و ورود به حساب نیست. هش کد، تلاش‌ها، انقضا و زمان مصرف از کدهای ورود جدا نگهداری می‌شوند. لغو دریافت، یادآوری خرید و کمپین‌های اختیاری بازاریابی را متوقف می‌کند؛ پیام‌های خدماتی مستقل‌اند. پس از حذف هویت، یک شناسهٔ کلیددار برای حفظ لغو پیام باقی می‌ماند. فروشگاه سرویس‌دهنده و دورهٔ نگهداری ۷ تا ۹۰ روز را تعیین می‌کند. پیش از فعال‌سازی، نام سرویس، پیوند شرایط و حریم خصوصی آن، مدت نگهداری واقعی و اهداف پیام‌ها را به این سیاست اضافه کنید."
+
 msgid "When purchase reminders are enabled, automatic capture saves your account/checkout phone and cart without a separate checkbox and shows a notice. An optional explicit preference form is also available. We store your mobile number, optional email, consent text and timestamp, cart products, amount, currency and related order ID locally. We send your number and the configured reminder variables (which may include purchase links and order details) to our selected SMS provider. Each reminder includes a link to stop future cart and unpaid-order reminders. Payment notifications are separate service messages. Phone-bound, single-use recovery codes restore products or open WooCommerce payment; they do not log you in. Recovery code hashes, attempts, expiry and consumption timestamps are stored separately from login challenges. Unsubscribe links stop purchase reminders and optional marketing campaigns; service notices are separate. A keyed suppression identifier is retained after erasure. The store configures a 7–90 day retention period and SMS provider. Add the selected provider, its terms and privacy links, your actual retention period and the purposes of your messages to this policy before enabling the modules."
 msgstr "با فعال شدن یادآوری خرید، حالت خودکار شمارهٔ حساب یا تسویه‌حساب و سبد را بدون تیک جداگانه و با نمایش اطلاعیه ذخیره می‌کند. حالت اختیاری فرم جداگانه نیز وجود دارد. شمارهٔ همراه، ایمیل اختیاری، متن و زمان انتخاب صریح، کالاهای سبد، مبلغ، ارز و شناسهٔ سفارش مربوط محلی نگهداری می‌شوند. شماره و متغیرهای پیام، شامل پیوند خرید و اطلاعات سفارش، به سرویس‌دهندهٔ انتخاب‌شده فرستاده می‌شوند. هر یادآوری پیوند توقف پیام‌های بعدی دارد. اعلان‌های پرداخت پیام خدماتی مستقل‌اند. کد بازیابی یک‌بارمصرف و محدود به شماره، فقط کالاها یا پرداخت ووکامرس را بازیابی می‌کند و ورود به حساب نیست. هش کد، تلاش‌ها، انقضا و زمان مصرف از کدهای ورود جدا نگهداری می‌شوند. لغو دریافت، یادآوری خرید و کمپین‌های اختیاری بازاریابی را متوقف می‌کند؛ پیام‌های خدماتی مستقل‌اند. پس از حذف هویت، یک شناسهٔ کلیددار برای حفظ لغو پیام باقی می‌ماند. فروشگاه سرویس‌دهنده و دورهٔ نگهداری ۷ تا ۹۰ روز را تعیین می‌کند. پیش از فعال‌سازی، نام سرویس، پیوند شرایط و حریم خصوصی آن، مدت نگهداری واقعی و اهداف پیام‌ها را به این سیاست اضافه کنید."
 
@@ -3960,6 +4107,9 @@ msgstr "اجازهٔ مدیریت این کمپین‌ها را ندارید."
 
 msgid "You cannot manage these settings."
 msgstr "اجازه مدیریت این تنظیمات را ندارید."
+
+msgid "You cannot preview invoices."
+msgstr "شما اجازه پیش‌نمایش فاکتور را ندارید."
 
 msgid "You have signed in successfully."
 msgstr "با موفقیت وارد شدید."

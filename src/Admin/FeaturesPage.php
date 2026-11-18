@@ -40,7 +40,7 @@ final class FeaturesPage {
 				remove_submenu_page( 'anar-login', 'anar-login' );
 			}
 		}
-		add_submenu_page( 'anar-login', __( 'Features', 'anar-toolkit' ), __( 'Features', 'anar-toolkit' ), 'manage_options', 'anar-login', array( self::class, 'render' ), 0 );
+		add_submenu_page( 'anar-login', __( 'Settings', 'anar-toolkit' ), __( 'Settings', 'anar-toolkit' ), 'manage_options', 'anar-login', array( SettingsPage::class, 'landing' ), 0 );
 		$flags = Features::all();
 		$commerce = new \Anar\Login\Commerce\Admin( new \Anar\Login\Commerce\Settings(), new \Anar\Login\Commerce\Repository(), \Anar\Login\Messaging\ProviderRegistry::shared() );
 		if ( $flags['recovery'] || $flags['orders'] || $flags['login_log'] || Features::queue_needed() ) {
@@ -51,7 +51,14 @@ final class FeaturesPage {
 			if ( $flags[ $key ] && class_exists( 'WooCommerce' ) ) {
 				add_submenu_page( 'anar-login', self::labels()[ $key ], self::labels()[ $key ], 'manage_options', 'anar-toolkit-' . $key, array( $commerce, 'render' ) ); }
 		}
-		add_submenu_page( 'anar-login', __( 'Settings', 'anar-toolkit' ), __( 'Settings', 'anar-toolkit' ), 'manage_options', 'anar-login-settings', array( new SettingsPage( new Settings(), \Anar\Login\Messaging\ProviderRegistry::shared() ), 'render' ) );
+		$settings_hook = add_submenu_page( null, __( 'Settings', 'anar-toolkit' ), __( 'Settings', 'anar-toolkit' ), 'manage_options', 'anar-login-settings', array( new SettingsPage( new Settings(), \Anar\Login\Messaging\ProviderRegistry::shared() ), 'render' ) );
+		add_action(
+			'load-' . $settings_hook,
+			static function () {
+			// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Hidden compatibility page still needs its admin heading.
+				$GLOBALS['title'] = __( 'Settings', 'anar-toolkit' );
+			}
+		);
 		add_submenu_page( $flags['balance'] ? 'anar-login' : null, __( 'SMS credit', 'anar-toolkit' ), __( 'SMS credit', 'anar-toolkit' ), 'manage_options', 'anar-toolkit-balance', array( BalancePage::class, 'render' ) );
 		// Keep older bookmarked URLs working without a second copy of the catalog in the menu.
 		add_submenu_page( null, __( 'Other features', 'anar-toolkit' ), __( 'Other features', 'anar-toolkit' ), 'manage_options', 'anar-features-other', array( $this, 'render' ) );
@@ -92,7 +99,7 @@ final class FeaturesPage {
 		);
 	}
 
-	public static function render() {
+	public static function render( $embedded = false ) {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
@@ -103,16 +110,30 @@ final class FeaturesPage {
 		$other_first = isset( $_GET['page'] ) && 'anar-features-other' === $_GET['page'];
 		$groups = $other_first ? array( false => __( 'Other features', 'anar-toolkit' ), true => __( 'Active features', 'anar-toolkit' ) ) : array( true => __( 'Active features', 'anar-toolkit' ), false => __( 'Other features', 'anar-toolkit' ) );
 		?>
-		<div class="wrap anar-features" dir="<?php echo is_rtl() ? 'rtl' : 'ltr'; ?>">
+		<div class="<?php echo $embedded ? 'anar-features' : 'wrap anar-features'; ?>" dir="<?php echo is_rtl() ? 'rtl' : 'ltr'; ?>">
 			<header class="anar-features-banner">
 				<img src="<?php echo esc_url( ANAR_LOGIN_URL . 'assets/images/anar-logo.png?ver=' . ANAR_LOGIN_VERSION ); ?>" alt="" width="64" height="64">
 				<div>
-					<h1><?php esc_html_e( 'Features', 'anar-toolkit' ); ?></h1>
+					<?php
+					if ( $embedded ) :
+						?>
+						<h2><?php esc_html_e( 'Features', 'anar-toolkit' ); ?></h2>
+						<?php
+else :
+	?>
+						<h1><?php esc_html_e( 'Features', 'anar-toolkit' ); ?></h1><?php endif; ?>
 					<p><?php esc_html_e( 'Enable the features your store needs.', 'anar-toolkit' ); ?></p>
 				</div>
 			</header>
-			<hr class="wp-header-end">
-			<?php StatusPanel::credit(); ?>
+			<!---->
+			<?php
+			if ( ! $embedded ) :
+				?>
+				<hr class="wp-header-end">
+				<?php
+				StatusPanel::credit();
+endif;
+			?>
 			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 				<?php wp_nonce_field( 'anar_features' ); ?>
 				<input type="hidden" name="action" value="anar_features">
@@ -193,7 +214,7 @@ final class FeaturesPage {
 		$balance = \Anar\Login\Balance\Monitor::settings();
 		$balance['enabled'] = empty( $selected['balance'] ) ? 0 : 1;
 		update_option( \Anar\Login\Balance\Monitor::OPTION, $balance, false );
-		wp_safe_redirect( admin_url( 'admin.php?page=anar-login&saved=1' ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=anar-login-settings&section=features&saved=1' ) );
 		exit;
 	}
 }

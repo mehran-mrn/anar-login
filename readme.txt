@@ -4,7 +4,7 @@ Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.5.9
+Stable tag: 1.6.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -117,7 +117,19 @@ WooCommerce login integration uses My Account and classic checkout; it does not 
 
 Customers print/save invoices as PDF from My Account or an expiring scoped link. Use [anar_customer_preferences] for birthday month/day, [anar_referrals] for referrals and [anar_game type="wheel"] for a game. Other types: scratch, boxes, cards, slots, treasure, daily, quiz, memory and milestone. Server-side rules enforce coupon rewards and daily limits; there is no paid entry or cash prize. Persian birthday dates require PHP Intl.
 
+= Elementor widgets and printable invoices =
+Three optional Elementor widgets reuse Anar's sign-in form, account button and cart recovery form. Elementor is not required for other features. Enable the corresponding Anar capability before using its widget.
+Choose a simple-print or branded invoice, adjust its accent color, logo URL and footer, and choose whether to show product SKUs, shipping addresses and customer notes. Save changes before opening the invoice preview. An empty preview order ID uses sample data; a real order ID is accessible only to an authorized store manager.
+Recovery coupons support an optional maximum monetary discount including tax (0 means unlimited). Capped recovery coupons require WooCommerce 8.8 or later. Coupon expiry is measured from issuance and is not renewed by subsequent reminders.
+
 == External services ==
+
+= Bale Safir OTP (optional) =
+Bale is a verification-code channel, not a plain-text commerce SMS provider. It is used only after the store administrator selects Bale and supplies their Safir client ID and client secret. When a verification code is requested, Anar sends those credentials to https://safir.bale.ai/api/v2/auth/token to obtain an access token. The token is cached temporarily on the WordPress server. Anar sends the recipient's international mobile number and numeric OTP to https://safir.bale.ai/api/v2/send_otp with that bearer token. The user receives the code inside Bale and must have a Bale account. No automatic SMS fallback is performed. Select a separate SMS provider for commerce messages when sign-in uses Bale.
+Official service: https://safir.bale.ai/
+Official documentation: https://docs.bale.ai/
+Official terms, including privacy provisions: https://bale.ai/terms
+
 
 All integrations use accounts configured by the site administrator. The plugin makes no telemetry, licensing or analytics requests to MRNWP or its author. Provider service fees and contracts are independent of the free plugin.
 
@@ -240,6 +252,16 @@ Uninstall preserves data unless deletion was explicitly enabled beforehand. It d
 Yes. Set a budget per pool and a maximum money discount for each prize. Amounts use the current store currency and include the tax reduction. The maximum cost is reserved at issuance; a paid order consumes its actual saving and releases the remainder. Unused expired gifts release their reservation. Saved unpaid orders retain it to cover late payments. Refunds do not reactivate consumed gifts or replenish spent money. Earlier uncapped coupons remain unchanged and outside this budget. Capped calculations require WooCommerce 8.8 or later.
 
 == Changelog ==
+
+= 1.6.0 =
+
+* Move feature switches into Settings and group store recovery, message and discount controls.
+* Let store messages follow the sign-in provider by default while preserving explicit provider and message bindings.
+* Add recovery discount ceilings including tax, retaining coupon expiry and single-use restrictions.
+* Add optional Bale Safir OTP delivery with cached access tokens.
+* Add Elementor sign-in, account-button and purchase-recovery widgets using existing forms.
+* Add simple-print and branded invoice templates, display controls and administrator-only sample/order previews.
+
 
 = 1.5.9 =
 

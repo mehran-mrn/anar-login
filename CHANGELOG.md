@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.6.0 - 2026-11-18
+
+- Integrate capability switches into Settings and organize store controls.
+- Inherit the sign-in provider for store messages unless an independent provider or per-message binding is saved.
+- Enforce tax-aware recovery coupon ceilings in both cart and order calculations; preserve issuance expiry.
+- Add Bale Safir OTP with temporary token caching.
+- Add three Elementor widgets using existing Anar shortcodes.
+- Add two invoice templates, display controls and protected sample/order previews.
+- Preserve all fixes and directory assets from 1.5.9.
+
 ## 1.5.9 — 2026-11-11
 
 - Redesign the Features screen with a distinct color and icon for each of its 19 capabilities and a responsive layout.

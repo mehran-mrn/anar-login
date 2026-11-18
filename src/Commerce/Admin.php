@@ -41,6 +41,7 @@ final class Admin {
 
 	public function assets( $hook ) {
 		if ( false !== strpos( $hook, 'anar-toolkit-' ) ) {
+			wp_enqueue_script( 'anar-invoice-preview', ANAR_LOGIN_URL . 'assets/js/invoice-preview.js', array(), ANAR_LOGIN_VERSION, true );
 			wp_enqueue_style( 'anar-toolkit-commerce', ANAR_LOGIN_URL . 'assets/css/commerce-suite.css', array(), ANAR_LOGIN_VERSION );
 		}
 	}
@@ -111,10 +112,10 @@ final class Admin {
 			if ( 'settings' === $tab ) :
 				\Anar\Login\Admin\Help::section( $flags['recovery'] ? 'recovery' : 'orders' );
 				?>
-				<form method="post" action="options.php" class="anar-settings-form"><input type="hidden" name="<?php echo esc_attr( Settings::OPTION ); ?>[_partial]" value="1"><section class="anar-suite-panel" id="settings" data-suite-panel="settings" <?php echo 'settings' === $tab ? '' : 'hidden'; ?>><div class="anar-suite-toolbar"><h2><?php esc_html_e( 'Automation settings', 'anar-toolkit' ); ?></h2></div><div class="anar-settings-grid">
+				<form method="post" action="options.php" class="anar-settings-form"><input type="hidden" name="<?php echo esc_attr( Settings::OPTION ); ?>[_partial]" value="1"><section class="anar-suite-panel" id="settings" data-suite-panel="settings" <?php echo 'settings' === $tab ? '' : 'hidden'; ?>><div class="anar-suite-toolbar"><h2><?php esc_html_e( 'Store settings', 'anar-toolkit' ); ?></h2></div><div class="anar-settings-grid">
 				<?php settings_fields( 'anar_toolkit_commerce' ); ?>
-				<div class="anar-commerce-card">
-					<h2><?php esc_html_e( 'Modules', 'anar-toolkit' ); ?></h2>
+<nav class="anar-store-nav" aria-label="<?php esc_attr_e( 'Store settings', 'anar-toolkit' ); ?>"><a href="#anar-store-connection"><?php esc_html_e( 'Connection and orders', 'anar-toolkit' ); ?></a><a href="#anar-store-recovery"><?php esc_html_e( 'Cart recovery', 'anar-toolkit' ); ?></a><a href="#anar-store-discounts"><?php esc_html_e( 'Recovery discounts', 'anar-toolkit' ); ?></a></nav>
+				<div class="anar-commerce-card" id="anar-store-connection"><h2><?php esc_html_e( 'Order messages and connection', 'anar-toolkit' ); ?></h2>
 					<?php
 					foreach ( array( 'paid_customer' => $labels['paid_customer'], 'paid_admin' => $labels['paid_admin'], 'recovery' => __( 'Cart and unpaid-order reminders', 'anar-toolkit' ), 'new_admin' => $labels['new_admin'], 'failed_admin' => $labels['failed_admin'], 'shipment_customer' => $labels['shipment_customer'], 'status_processing' => $labels['status_processing'], 'status_completed' => $labels['status_completed'], 'status_on-hold' => $labels['status_on-hold'], 'status_cancelled' => $labels['status_cancelled'], 'status_refunded' => $labels['status_refunded'] ) as $key => $label ) :
 						if ( 'recovery' === $key ? ! $flags['recovery'] : ! $flags['orders'] ) {
@@ -129,6 +130,7 @@ final class Admin {
 					<?php endforeach; ?>
 					<p><?php esc_html_e( 'Payment messages are triggered by WooCommerce payment completion, not by viewing the thank-you page. Merely creating an order or choosing cash on delivery does not trigger them.', 'anar-toolkit' ); ?></p>
 					<p><label for="anar-commerce-provider"><strong><?php esc_html_e( 'Commerce SMS provider', 'anar-toolkit' ); ?></strong></label><br><select id="anar-commerce-provider" name="<?php echo esc_attr( Settings::OPTION ); ?>[provider]">
+					<option value="" <?php selected( $value['provider'], '' ); ?>><?php esc_html_e( 'Use the sign-in SMS provider', 'anar-toolkit' ); ?></option>
 					<?php foreach ( $this->providers->all() as $key => $provider ) : ?>
 						<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $value['provider'], $key ); ?>><?php echo esc_html( $provider->title() ); ?></option>
 					<?php endforeach; ?></select></p>
@@ -138,8 +140,7 @@ final class Admin {
 				<?php
 				if ( $flags['recovery'] ) :
 					?>
-					<div class="anar-commerce-card">
-					<h2><?php esc_html_e( 'Reminder timing and privacy', 'anar-toolkit' ); ?></h2>
+					<div class="anar-commerce-card" id="anar-store-recovery"><h2><?php esc_html_e( 'Cart recovery and sending limits', 'anar-toolkit' ); ?></h2>
 					<p><label for="anar-recovery-page"><strong><?php esc_html_e( 'Page for entering recovery codes', 'anar-toolkit' ); ?></strong></label><br>
 					<?php
 					$dropdown = wp_dropdown_pages( array( 'name' => esc_attr( Settings::OPTION . '[recovery_page_id]' ), 'id' => 'anar-recovery-page', 'selected' => (int) $value['recovery_page_id'], 'show_option_none' => esc_html__( 'Default WooCommerce cart page', 'anar-toolkit' ), 'option_none_value' => 0, 'echo' => 0 ) );
@@ -149,12 +150,12 @@ final class Admin {
 					<p><label for="anar-capture-mode"><strong><?php esc_html_e( 'How to capture carts', 'anar-toolkit' ); ?></strong></label><br><select id="anar-capture-mode" name="<?php echo esc_attr( Settings::OPTION ); ?>[capture_mode]"><option value="automatic" <?php selected( $value['capture_mode'], 'automatic' ); ?>><?php esc_html_e( 'Automatically from account and checkout', 'anar-toolkit' ); ?></option><option value="explicit" <?php selected( $value['capture_mode'], 'explicit' ); ?>><?php esc_html_e( 'With a separate reminder preference form', 'anar-toolkit' ); ?></option></select></p><p class="description"><?php esc_html_e( 'Automatic mode does not require a separate checkbox. A short notice explains cart storage. Previously stopped numbers remain stopped; every reminder includes an unsubscribe link.', 'anar-toolkit' ); ?></p>
 					<p><?php esc_html_e( 'Stage times are minutes after the last saved cart change. A value of 0 disables that stage. Payment, cancellation, expiry or opting out stops future reminders. Guest carts without a saved number cannot receive SMS.', 'anar-toolkit' ); ?></p>
 					<?php
-					$this->input( 'start_hour', __( 'Recovery sending starts at hour (0–23)', 'anar-toolkit' ), $value['start_hour'], 'number' );
-					$this->input( 'end_hour', __( 'Recovery sending stops at hour (1–24)', 'anar-toolkit' ), $value['end_hour'], 'number' );
-					$this->input( 'daily_limit', __( 'Maximum reminders per phone in 24 hours (1–10)', 'anar-toolkit' ), $value['daily_limit'], 'number' );
-					$this->input( 'link_days', __( 'Recovery eligibility after cart activity, days (1–30)', 'anar-toolkit' ), $value['link_days'], 'number' );
-					$this->input( 'code_minutes', __( 'Recovery code validity, minutes (5–1440)', 'anar-toolkit' ), $value['code_minutes'], 'number' );
-					$this->input( 'retention', __( 'Local data retention, days (7–90)', 'anar-toolkit' ), $value['retention'], 'number' );
+					$this->input( 'start_hour', __( 'Recovery sending starts at hour (0-23)', 'anar-toolkit' ), $value['start_hour'], 'number' );
+					$this->input( 'end_hour', __( 'Recovery sending stops at hour (1-24)', 'anar-toolkit' ), $value['end_hour'], 'number' );
+					$this->input( 'daily_limit', __( 'Maximum reminders per phone in 24 hours (1-10)', 'anar-toolkit' ), $value['daily_limit'], 'number' );
+					$this->input( 'link_days', __( 'Recovery eligibility after cart activity, days (1-30)', 'anar-toolkit' ), $value['link_days'], 'number' );
+					$this->input( 'code_minutes', __( 'Recovery code validity, minutes (5-1440)', 'anar-toolkit' ), $value['code_minutes'], 'number' );
+					$this->input( 'retention', __( 'Local data retention, days (7-90)', 'anar-toolkit' ), $value['retention'], 'number' );
 					foreach ( $value['events'] as $key => $event ) {
 						if ( ! isset( $event['minutes'] ) ) {
 							continue; }
@@ -170,7 +171,7 @@ final class Admin {
 					<p><?php esc_html_e( 'Hours use the WordPress site timezone. Action Scheduler is used when available; WP-Cron is the fallback. Execution depends on the site scheduler and may be delayed. Retention cleanup runs daily.', 'anar-toolkit' ); ?> <code><?php echo esc_html( wp_timezone_string() ); ?></code></p>
 				</div>
 
-				<div class="anar-commerce-card"><h2><?php esc_html_e( 'Recovery discounts', 'anar-toolkit' ); ?></h2>
+				<div class="anar-commerce-card" id="anar-store-discounts"><h2><?php esc_html_e( 'Recovery discounts', 'anar-toolkit' ); ?></h2>
 					<?php
 					foreach ( array( 'coupon_enabled' => __( 'Generate recovery discounts', 'anar-toolkit' ), 'coupon_individual' => __( 'Do not combine with other coupons', 'anar-toolkit' ), 'coupon_exclude_sale' => __( 'Exclude sale products', 'anar-toolkit' ) ) as $key => $label ) :
 						?>
@@ -178,8 +179,9 @@ final class Admin {
 				<p><label><?php esc_html_e( 'Discount type', 'anar-toolkit' ); ?> <select name="<?php echo esc_attr( Settings::OPTION ); ?>[coupon_type]"><option value="percent" <?php selected( $value['coupon_type'], 'percent' ); ?>><?php esc_html_e( 'Percentage', 'anar-toolkit' ); ?></option><option value="fixed_cart" <?php selected( $value['coupon_type'], 'fixed_cart' ); ?>><?php esc_html_e( 'Fixed cart amount', 'anar-toolkit' ); ?></option></select></label></p>
 					<?php
 					$this->input( 'coupon_amount', __( 'Discount amount', 'anar-toolkit' ), $value['coupon_amount'], 'number' );
+					$this->input( 'coupon_maximum', __( 'Maximum discount including tax (0 = unlimited)', 'anar-toolkit' ), $value['coupon_maximum'], 'number' );
 					$this->input( 'coupon_minimum', __( 'Minimum cart amount', 'anar-toolkit' ), $value['coupon_minimum'], 'number' );
-					$this->input( 'coupon_stage', __( 'Offer from reminder stage (1–3)', 'anar-toolkit' ), $value['coupon_stage'], 'number' );
+					$this->input( 'coupon_stage', __( 'Offer from reminder stage (1-3)', 'anar-toolkit' ), $value['coupon_stage'], 'number' );
 					$this->input( 'coupon_hours', __( 'Discount validity in hours', 'anar-toolkit' ), $value['coupon_hours'], 'number' );
 					?>
 				<p class="description"><?php esc_html_e( 'One coupon per cart, one use, restricted to the recipient billing phone. Include {coupon_code} in the relevant reminder template. A valid coupon is applied after the customer verifies their recovery code.', 'anar-toolkit' ); ?></p></div>
@@ -193,8 +195,7 @@ final class Admin {
 			if ( 'privacy' === $tab ) :
 				\Anar\Login\Admin\Help::section( 'privacy' );
 				?>
-				<section class="anar-suite-panel" data-suite-panel="privacy" id="privacy"><div class="anar-commerce-card">
-				<h2><?php esc_html_e( 'Personal data', 'anar-toolkit' ); ?></h2>
+				<section class="anar-suite-panel" data-suite-panel="privacy" id="privacy"><div class="anar-commerce-card"><h2><?php esc_html_e( 'Personal data', 'anar-toolkit' ); ?></h2>
 				<p><?php esc_html_e( 'WordPress export and erasure tools can locate reminders by the optional saved email. For a phone-only request, verify the requester first and remove that number here. This removes local reminder data and queue entries, not WooCommerce orders or records already held by the SMS provider.', 'anar-toolkit' ); ?></p>
 				<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 					<?php wp_nonce_field( 'anar_toolkit_forget' ); ?><input type="hidden" name="action" value="anar_toolkit_forget">

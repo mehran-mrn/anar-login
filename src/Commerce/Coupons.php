@@ -48,6 +48,13 @@ final class Coupons {
 			$coupon->set_usage_limit( 1 );
 			$coupon->set_usage_limit_per_user( 1 );
 			$coupon->set_date_expires( min( time() + $config['coupon_hours'] * HOUR_IN_SECONDS, $cart->updated_at + $config['link_days'] * DAY_IN_SECONDS ) );
+			if ( (float) $config['coupon_maximum'] > 0 ) {
+				$coupon->update_meta_data( '_anar_recovery_money_cap', $config['coupon_maximum'] );
+				$coupon->update_meta_data( '_anar_recovery_kind', $config['coupon_type'] );
+				$coupon->update_meta_data( '_anar_recovery_value', $config['coupon_amount'] );
+				$coupon->set_discount_type( 'anar_recovery_capped' );
+				$coupon->set_amount( 0 );
+			}
 			$coupon->set_description( __( 'Anar purchase recovery discount', 'anar-toolkit' ) );
 			$coupon->update_meta_data( '_anar_cart_id', (int) $cart->id );
 			$coupon->update_meta_data( '_anar_phone_hash', Repository::phone_hash( $contact->phone ) );

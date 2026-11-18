@@ -34,6 +34,9 @@ with tempfile.TemporaryDirectory(prefix='anar-release-qa-') as folder:
             verify('anar-toolkit/languages/anar-toolkit-fa_IR.mo' in names, 'Persian runtime MO is available without a separate language pack')
             verify('anar-toolkit/languages/anar-toolkit-fa_IR.l10n.php' in names, 'Persian PHP catalog is included for modern WordPress')
             verify(not any('/languages/anar-login-' in name for name in names), 'Unused legacy text-domain catalogs are excluded')
+            for required in ('src/Messaging/Providers/Bale.php', 'src/Commerce/CappedDiscount.php', 'src/Integrations/Elementor.php', 'src/Integrations/ElementorWidget.php', 'src/Admin/InvoicePreview.php', 'assets/js/invoice-preview.js'):
+                verify('anar-toolkit/' + required in names, 'Store update runtime included: ' + required)
+            verify('= Bale Safir OTP (optional) =' in bundle.read('anar-toolkit/readme.txt').decode('utf-8'), 'Bale external-service processing is disclosed')
             verify('anar-toolkit/src/Messaging/Providers/Melipayamak.php' in names, 'Meli Payamak retained')
             verify('anar-toolkit/src/Messaging/Providers/IPPanel.php' in names, 'IPPanel included in every profile')
             verify('anar-toolkit/src/Messaging/Providers/Panelchi.php' in names, 'Panelchi included in every profile')

@@ -47,6 +47,7 @@ final class Settings {
 			'coupon_type' => 'percent',
 			'coupon_amount' => '10',
 			'coupon_minimum' => '0',
+			'coupon_maximum' => '0',
 			'coupon_stage' => 2,
 			'coupon_hours' => 48,
 			'coupon_individual' => 1,
@@ -60,7 +61,7 @@ final class Settings {
 			'status_on-hold' => 0,
 			'status_cancelled' => 0,
 			'status_refunded' => 0,
-			'provider'      => 'kavenegar',
+			'provider'      => '',
 			'admin_phones'  => '',
 			'start_hour'    => 9,
 			'end_hour'      => 21,
@@ -94,6 +95,10 @@ final class Settings {
 		return $all[ $key ] ?? null;
 	}
 
+	public function provider() {
+		return $this->get( 'provider' ) ?: \Anar\Login\Messaging\MessageSettings::get( 'login_otp' )['provider'];
+	}
+
 	public function enabled() {
 		foreach ( array_merge( array( 'recovery' ), array_keys( $this->defaults()['events'] ) ) as $key ) {
 			if ( 'recovery' !== $key && ! \Anar\Login\Infrastructure\Features::enabled( 'orders' ) ) {
@@ -113,10 +118,10 @@ final class Settings {
 		foreach ( array( 'paid_customer', 'paid_admin', 'recovery', 'new_admin', 'failed_admin', 'shipment_customer', 'status_processing', 'status_completed', 'status_on-hold', 'status_cancelled', 'status_refunded', 'coupon_enabled', 'coupon_individual', 'coupon_exclude_sale' ) as $key ) {
 			$output[ $key ] = empty( $input[ $key ] ) ? 0 : 1;
 		}
-		$output['provider'] = sanitize_key( $input['provider'] ?? 'kavenegar' );
+		$output['provider'] = sanitize_key( $input['provider'] ?? '' );
 		$output['capture_mode'] = 'explicit' === ( $input['capture_mode'] ?? '' ) ? 'explicit' : 'automatic';
 		$output['coupon_type'] = 'fixed_cart' === ( $input['coupon_type'] ?? '' ) ? 'fixed_cart' : 'percent';
-		foreach ( array( 'coupon_amount', 'coupon_minimum' ) as $key ) {
+		foreach ( array( 'coupon_amount', 'coupon_minimum', 'coupon_maximum' ) as $key ) {
 			$raw = Identity::latin_digits( (string) ( $input[ $key ] ?? $output[ $key ] ) );
 			$output[ $key ] = (string) round( max( 0, min( 1000000000, (float) $raw ) ), 2 );
 		}

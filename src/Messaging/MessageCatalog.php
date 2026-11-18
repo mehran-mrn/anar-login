@@ -73,17 +73,17 @@ final class MessageCatalog {
 			$config = $login->provider( $provider );
 			$name = 'kavenegar' === $provider ? 'token' : ( ( $config['code_parameter'] ?? '' ) ?: 'code' );
 			$text = 'custom' === $provider || ( 'melipayamak' === $provider && empty( $config['template_id'] ) && ! empty( $config['from'] ) );
-			return array( 'provider' => $provider, 'mode' => $text ? 'text' : 'template', 'template' => $config['template_id'] ?? '', 'params' => $name . '={code}', 'message' => $login->get( 'sms_message' ), 'inherit' => 'login_otp' !== $id );
+			return array( 'provider' => $provider, 'mode' => $text ? 'text' : 'template', 'template' => 'bale' === $provider ? 'otp' : ( $config['template_id'] ?? '' ), 'params' => $name . '={code}', 'message' => $login->get( 'sms_message' ), 'inherit' => 'login_otp' !== $id );
 		}
 		if ( 'commerce' === $item['source'] ) {
 			$settings = ( new CommerceSettings() )->all();
 			$key = 'recovery_request' === $id ? 'recovery_1' : $item['key'];
 			$event = $settings['events'][ $key ];
-			$provider = $settings['provider'];
+			$provider = ( new CommerceSettings() )->provider();
 		} else {
 			$settings = ( new MarketingSettings() )->all();
 			$event = $settings['rules'][ $item['key'] ];
-			$provider = $settings['provider'] ?: ( new CommerceSettings() )->get( 'provider' );
+			$provider = $settings['provider'] ?: ( new CommerceSettings() )->provider();
 		}
 		return array_merge( $event, array( 'provider' => $provider, 'mode' => 'custom' === $provider ? 'text' : 'template', 'inherit' => false ) );
 	}

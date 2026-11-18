@@ -82,7 +82,7 @@ final class ProviderRegistry {
 
 		$http            = $this->http ? $this->http : new HttpClient();
 		$this->providers = array();
-		foreach ( array( Kavenegar::class, Melipayamak::class, IPPanel::class, Panelchi::class, MaxSms::class, FarazSms::class, SmsIr::class, CustomHttp::class ) as $class ) {
+		foreach ( array( Kavenegar::class, Melipayamak::class, IPPanel::class, Panelchi::class, MaxSms::class, FarazSms::class, SmsIr::class, \Anar\Login\Messaging\Providers\Bale::class, CustomHttp::class ) as $class ) {
 			$provider                            = new $class( $this->settings, $http );
 			$this->providers[ $provider->key() ] = $provider;
 		}
