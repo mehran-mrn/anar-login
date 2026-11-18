@@ -1233,3 +1233,59 @@ body.anar-wp-login .anar-security-card form { margin: 0; padding: 0; border: 0; 
 .anar-form--profile .anar-btn {
 	margin-top: 18px;
 }
+
+/* Scrollbar styling stays inside Anar dialogs; page and theme scrollbars keep their own styles. */
+:is(.anar-modal, html.anar-login-preview-document),
+:is(.anar-modal, html.anar-login-preview-document) * {
+ scrollbar-width: thin;
+ scrollbar-color: #bd8798 transparent;
+}
+:is(.anar-modal, html.anar-login-preview-document) {
+ overscroll-behavior: contain;
+}
+@supports selector(::-webkit-scrollbar) {
+ :is(.anar-modal, html.anar-login-preview-document),
+ :is(.anar-modal, html.anar-login-preview-document) * {
+  scrollbar-width: auto;
+  scrollbar-color: auto;
+ }
+ :is(.anar-modal, html.anar-login-preview-document)::-webkit-scrollbar,
+ :is(.anar-modal, html.anar-login-preview-document) *::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+ }
+ :is(.anar-modal, html.anar-login-preview-document)::-webkit-scrollbar-track,
+ :is(.anar-modal, html.anar-login-preview-document) *::-webkit-scrollbar-track {
+  background: transparent;
+  margin-block: 12px;
+ }
+ :is(.anar-modal, html.anar-login-preview-document)::-webkit-scrollbar-thumb,
+ :is(.anar-modal, html.anar-login-preview-document) *::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: #bd8798;
+  background-clip: padding-box;
+ }
+ :is(.anar-modal, html.anar-login-preview-document)::-webkit-scrollbar-thumb:hover,
+ :is(.anar-modal, html.anar-login-preview-document) *::-webkit-scrollbar-thumb:hover {
+  background-color: #a34a65;
+ }
+ :is(.anar-modal, html.anar-login-preview-document)::-webkit-scrollbar-corner,
+ :is(.anar-modal, html.anar-login-preview-document) *::-webkit-scrollbar-corner {
+  background: transparent;
+ }
+}
+@media (forced-colors: active) {
+ :is(.anar-modal, html.anar-login-preview-document),
+ :is(.anar-modal, html.anar-login-preview-document) * {
+  scrollbar-color: auto;
+ }
+ :is(.anar-modal, html.anar-login-preview-document)::-webkit-scrollbar-thumb,
+ :is(.anar-modal, html.anar-login-preview-document) *::-webkit-scrollbar-thumb {
+  background-color: CanvasText;
+ }
+}
+
+.anar-modal .anar-auth {
+ overscroll-behavior: contain;
+}

@@ -992,3 +992,61 @@
 	max-width: 100%;
 	margin-block-start: 6px;
 }
+
+/* Scrollbar styling stays inside Anar dialogs; page and theme scrollbars keep their own styles. */
+:is(.anar-meli-dialog, .anar-login-preview, .anar-message-dialog, .anar-message-unsaved),
+:is(.anar-meli-dialog, .anar-login-preview, .anar-message-dialog, .anar-message-unsaved) * {
+ scrollbar-width: thin;
+ scrollbar-color: #bd8798 transparent;
+}
+:is(.anar-meli-dialog, .anar-login-preview, .anar-message-dialog, .anar-message-unsaved) {
+ overscroll-behavior: contain;
+}
+@supports selector(::-webkit-scrollbar) {
+ :is(.anar-meli-dialog, .anar-login-preview, .anar-message-dialog, .anar-message-unsaved),
+ :is(.anar-meli-dialog, .anar-login-preview, .anar-message-dialog, .anar-message-unsaved) * {
+  scrollbar-width: auto;
+  scrollbar-color: auto;
+ }
+ :is(.anar-meli-dialog, .anar-login-preview, .anar-message-dialog, .anar-message-unsaved)::-webkit-scrollbar,
+ :is(.anar-meli-dialog, .anar-login-preview, .anar-message-dialog, .anar-message-unsaved) *::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+ }
+ :is(.anar-meli-dialog, .anar-login-preview, .anar-message-dialog, .anar-message-unsaved)::-webkit-scrollbar-track,
+ :is(.anar-meli-dialog, .anar-login-preview, .anar-message-dialog, .anar-message-unsaved) *::-webkit-scrollbar-track {
+  background: transparent;
+  margin-block: 12px;
+ }
+ :is(.anar-meli-dialog, .anar-login-preview, .anar-message-dialog, .anar-message-unsaved)::-webkit-scrollbar-thumb,
+ :is(.anar-meli-dialog, .anar-login-preview, .anar-message-dialog, .anar-message-unsaved) *::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: #bd8798;
+  background-clip: padding-box;
+ }
+ :is(.anar-meli-dialog, .anar-login-preview, .anar-message-dialog, .anar-message-unsaved)::-webkit-scrollbar-thumb:hover,
+ :is(.anar-meli-dialog, .anar-login-preview, .anar-message-dialog, .anar-message-unsaved) *::-webkit-scrollbar-thumb:hover {
+  background-color: #a34a65;
+ }
+ :is(.anar-meli-dialog, .anar-login-preview, .anar-message-dialog, .anar-message-unsaved)::-webkit-scrollbar-corner,
+ :is(.anar-meli-dialog, .anar-login-preview, .anar-message-dialog, .anar-message-unsaved) *::-webkit-scrollbar-corner {
+  background: transparent;
+ }
+}
+@media (forced-colors: active) {
+ :is(.anar-meli-dialog, .anar-login-preview, .anar-message-dialog, .anar-message-unsaved),
+ :is(.anar-meli-dialog, .anar-login-preview, .anar-message-dialog, .anar-message-unsaved) * {
+  scrollbar-color: auto;
+ }
+ :is(.anar-meli-dialog, .anar-login-preview, .anar-message-dialog, .anar-message-unsaved)::-webkit-scrollbar-thumb,
+ :is(.anar-meli-dialog, .anar-login-preview, .anar-message-dialog, .anar-message-unsaved) *::-webkit-scrollbar-thumb {
+  background-color: CanvasText;
+ }
+}
+
+.anar-message-dialog__body,
+.anar-message-dialog > .anar-message-feedback,
+.anar-message-dialog > .anar-message-warning {
+ overscroll-behavior: contain;
+}
