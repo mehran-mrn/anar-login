@@ -86,7 +86,7 @@ final class LoginSetup {
 		wp_enqueue_style( 'anar-login-preview', ANAR_LOGIN_URL . 'assets/css/frontend.css', array(), ANAR_LOGIN_VERSION );
 		wp_add_inline_style( 'anar-login-preview', 'body{margin:0;padding:12px;background:#f8f6f7}main{pointer-events:none}' );
 		?>
-		<!doctype html><html lang="<?php echo esc_attr( get_bloginfo( 'language' ) ); ?>" dir="<?php echo is_rtl() ? 'rtl' : 'ltr'; ?>"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title><?php esc_html_e( 'Sign-in form preview', 'anar-toolkit' ); ?></title><?php wp_print_styles( array( 'anar-login-preview', 'anar-password-reset' ) ); ?></head><body><main inert><?php echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Shared renderer escapes every value. ?></main></body></html>
+		<!doctype html><html class="anar-login-preview-document" lang="<?php echo esc_attr( get_bloginfo( 'language' ) ); ?>" dir="<?php echo is_rtl() ? 'rtl' : 'ltr'; ?>"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title><?php esc_html_e( 'Sign-in form preview', 'anar-toolkit' ); ?></title><?php wp_print_styles( array( 'anar-login-preview', 'anar-password-reset' ) ); ?></head><body><main inert><?php echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Shared renderer escapes every value. ?></main></body></html>
 		<?php
 		exit;
 	}

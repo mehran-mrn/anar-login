@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.6.2 - 2026-11-18
+
+- Add slim, rounded scrollbars scoped to Anar administration dialogs, Meli Payamak signup, frontend sign-in popups and the isolated saved-form preview.
+- Preserve wheel, touch and keyboard scrolling for long dialog content, with standard scrollbar styling for Firefox and system colors in forced-color mode.
+- Keep page and other-plugin scrollbars unchanged.
+
+
 ## 1.6.1 - 2026-11-18
 
 - Keep the combined WordPress directory description below 2,500 words, including custom service and privacy sections.
