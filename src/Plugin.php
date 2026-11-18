@@ -54,6 +54,7 @@ final class Plugin {
 	 * @return void
 	 */
 	public function boot() {
+		( new \Anar\Login\Integrations\Elementor() )->register();
 		add_action( 'init', array( $this, 'init' ), 0 );
 		add_action( 'init', array( $this, 'runtime' ), 1 );
 		add_action( 'updated_option', array( \Anar\Login\Infrastructure\Features::class, 'changed' ), 10, 3 );
@@ -89,6 +90,7 @@ final class Plugin {
 			9
 		);
 		if ( is_admin() ) {
+			add_action( 'admin_post_anar_invoice_preview', array( \Anar\Login\Admin\InvoicePreview::class, 'render' ) );
 			$settings = new Settings();
 			$providers = ProviderRegistry::shared();
 			( new SettingsPage( $settings, $providers ) )->register();
@@ -190,6 +192,7 @@ final class Plugin {
 				( new \Anar\Login\Commerce\Worker( $commerce, $repo, $module, new \Anar\Login\Messaging\NotificationSender( $settings, new \Anar\Login\Messaging\HttpClient() ) ) )->register();
 			}
 		}
+		( new \Anar\Login\Commerce\CappedDiscount() )->register();
 		// Existing personal coupons keep their restrictions even if their creating module is stopped.
 		if ( $flags['games'] || get_option( 'anar_game_budget_coupons' ) ) {
 			( new \Anar\Login\Marketing\GameBudget() )->register(); }

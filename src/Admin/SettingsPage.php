@@ -50,13 +50,17 @@ final class SettingsPage {
 	 *
 	 * @return void
 	 */
+	public static function landing() {
+		( new self( new Settings(), ProviderRegistry::shared() ) )->render();
+	}
+
 	public function menu() {
 		add_menu_page(
 			__( 'Anar Toolkit', 'anar-toolkit' ),
 			__( 'Anar Toolkit', 'anar-toolkit' ),
 			'manage_options',
 			'anar-login',
-			array( FeaturesPage::class, 'render' ),
+			array( self::class, 'landing' ),
 			ANAR_LOGIN_URL . 'assets/images/anar-menu-icon.png?ver=' . ANAR_LOGIN_VERSION,
 			58
 		);
@@ -96,7 +100,7 @@ final class SettingsPage {
 	 * @return void
 	 */
 	public function assets( $hook ) {
-		if ( false === strpos( $hook, 'anar-login-settings' ) ) {
+		if ( false === strpos( $hook, 'anar-login' ) ) {
 			return;
 		}
 
@@ -524,6 +528,7 @@ final class SettingsPage {
 						<?php submit_button( __( 'Save settings', 'anar-toolkit' ), 'primary', 'submit', false ); ?>
 					</footer>
 				</form>
+				<section class="anar-tab" data-panel="features" hidden><?php FeaturesPage::render( true ); ?></section>
 				<section class="anar-tab" data-panel="messages" hidden>
 					<?php $this->section_header( __( 'Messages and templates', 'anar-toolkit' ), __( 'Find a message and edit it here. The same editor is available in each feature.', 'anar-toolkit' ), '✉' ); ?>
 					<?php ( new MessageCenter() )->catalog(); ?>
@@ -556,6 +561,8 @@ final class SettingsPage {
 		$first = true;
 		?>
 		<div class="anar-admin__nav-label"><?php esc_html_e( 'Shared settings', 'anar-toolkit' ); ?></div>
+		<button type="button" data-tab="features"><?php esc_html_e( 'Features', 'anar-toolkit' ); ?></button>
+		<a class="button" href="<?php echo esc_url( admin_url( 'admin.php?page=anar-toolkit-commerce&tab=settings' ) ); ?>"><?php esc_html_e( 'Store settings', 'anar-toolkit' ); ?></a>
 		<button type="button" data-tab="messages"><?php esc_html_e( 'Messages and templates', 'anar-toolkit' ); ?></button>
 		<button type="button" data-tab="sending"><?php esc_html_e( 'Campaign sending rules', 'anar-toolkit' ); ?></button>
 		<?php

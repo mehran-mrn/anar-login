@@ -31,7 +31,7 @@ ob_start();
 // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- WordPress generates this hook from the existing menu slug.
 do_action( 'toplevel_page_anar-login' );
 $catalog = ob_get_clean();
-if ( count( FeaturesPage::labels() ) !== substr_count( $catalog, 'role="switch"' ) || 1 !== substr_count( $catalog, '<form ' ) ) {
+if ( count( FeaturesPage::labels() ) !== substr_count( $catalog, 'role="switch"' ) || 1 !== substr_count( $catalog, 'name="action" value="anar_features"' ) ) {
 	throw new RuntimeException( 'The feature catalog must contain one switch per capability in one form.' );
 }
 if ( strpos( $catalog, 'id="active"' ) >= strpos( $catalog, 'id="other"' ) || strpos( $catalog, 'id="feature-stock"' ) >= strpos( $catalog, 'id="other"' ) ) {

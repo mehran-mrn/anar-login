@@ -56,6 +56,7 @@ final class Module {
 		}
 		$page = get_queried_object();
 		$shortcode = $page instanceof \WP_Post && ( has_shortcode( $page->post_content, 'anar_recover_cart' ) || has_shortcode( $page->post_content, 'anar_cart_reminders' ) );
+		$shortcode = (bool) apply_filters( 'anar_toolkit_recovery_page_has_form', $shortcode, $page );
 		if ( $shortcode || is_cart() || is_checkout() || ( $this->settings->get( 'recovery_page_id' ) && is_page( (int) $this->settings->get( 'recovery_page_id' ) ) ) ) {
 			if ( ! defined( 'DONOTCACHEPAGE' ) ) {
 				// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound -- Standard WordPress/page-cache integration flag.

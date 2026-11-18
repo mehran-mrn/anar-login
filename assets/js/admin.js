@@ -7,7 +7,7 @@
 
 	const showTab = (name) => {
 		const connection = root.querySelector('.anar-connection-form');
-		if (connection) connection.hidden = name === 'messages' || name === 'sending';
+		if (connection) connection.hidden = name === 'messages' || name === 'sending' || name === 'features';
 		const save = root.querySelector('.anar-admin__save');
 		if (save) save.hidden = name === 'setup';
 		root.querySelectorAll('[data-tab]').forEach((button) => {

@@ -108,6 +108,9 @@ final class MessageSettings {
 			return array( __( 'This message is unavailable.', 'anar-toolkit' ) );
 		}
 		$registry = ProviderRegistry::shared()->all();
+		if ( 'bale' === ( $value['provider'] ?? '' ) && 'auth' !== $item['source'] ) {
+			$errors[] = __( 'Bale supports verification codes only.', 'anar-toolkit' );
+		}
 		if ( ! empty( $value['account_changed'] ) ) {
 			$errors[] = __( 'The provider account changed. Review and save this message again.', 'anar-toolkit' );
 		}

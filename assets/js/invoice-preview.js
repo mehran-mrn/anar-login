@@ -1,0 +1,1 @@
+document.querySelectorAll('[data-invoice-order]').forEach(input => { input.addEventListener('input', () => { const link = input.closest('form').querySelector('[data-invoice-preview]'); if (!link) return; const url = new URL(link.href); url.searchParams.set('preview_order', String(Math.max(0, parseInt(input.value, 10) || 0))); link.href = url.href; }); });

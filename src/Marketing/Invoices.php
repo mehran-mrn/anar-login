@@ -55,28 +55,52 @@ final class Invoices {
 		header( 'Referrer-Policy: no-referrer' );
 		header( 'X-Robots-Tag: noindex, nofollow' );
 		header( 'Content-Type: text/html; charset=utf-8' );
+		self::document( $order, $config );
+		exit;
+	}
+
+	public static function document( $order, $config ) {
 		?>
-		<!doctype html><html <?php language_attributes(); ?>><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title><?php echo esc_html( $config['invoice_prefix'] . $order->get_order_number() ); ?></title><style>body{margin:0;background:#f4f1f5;color:#29232f;font:14px/1.9 Tahoma,Arial,sans-serif}main{max-width:850px;margin:40px auto;background:#fff;border:1px solid #e9e0ea;padding:46px;border-radius:18px}header{display:flex;justify-content:space-between;gap:24px;border-bottom:3px solid #a72c52;padding-bottom:24px}h1{font-size:24px;margin:0;color:#9b294e}h2{font-size:16px;margin-top:0}.addresses{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin:32px 0;color:#786d80}table{width:100%;border-collapse:collapse;margin:26px 0}th,td{padding:13px;text-align:start;border-bottom:1px solid #eee8f0}th{font-size:12px;color:#95849f;background:#faf7fb}.totals{max-width:360px;margin-inline-start:auto}.total{display:flex;justify-content:space-between;padding:8px 0}.grand{font-weight:700;color:#9b294e;border-top:2px solid #e8d9e3;padding-top:16px}footer{font-size:11px;color:#9c8da6;border-top:1px solid #e9e0ed;padding-top:18px;margin-top:30px}button{display:block;margin:20px auto;background:#a72c52;color:#fff;border:0;border-radius:10px;padding:12px 26px;cursor:pointer}small{display:block;color:#96879d}address{font-style:normal}@media(max-width:600px){main{margin:12px;padding:20px}.addresses{grid-template-columns:1fr}table{font-size:11px}th,td{padding:8px}header{flex-direction:column}}@media print{body{background:#fff}main{margin:0;padding:0;border:0;max-width:none}button{display:none}@page{size:A4;margin:18mm}}</style></head><body><main>
-		<header><div><h1><?php echo esc_html( $config['store_name'] ?: get_bloginfo( 'name' ) ); ?></h1><small><?php echo esc_html( $config['store_address'] ); ?></small>
+		<!doctype html><html <?php language_attributes(); ?>><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title><?php echo esc_html( $config['invoice_prefix'] . $order->get_order_number() ); ?></title><style>body{margin:0;background:#f4f1f5;color:#29232f;font:14px/1.9 Tahoma,Arial,sans-serif}main{max-width:850px;margin:40px auto;background:#fff;border:1px solid #e9e0ea;padding:46px;border-radius:18px}header{display:flex;justify-content:space-between;gap:24px;border-bottom:3px solid #a72c52;padding-bottom:24px}h1{font-size:24px;margin:0;color:#9b294e}h2{font-size:16px;margin-top:0}.addresses{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin:32px 0;color:#786d80}table{width:100%;border-collapse:collapse;margin:26px 0}th,td{padding:13px;text-align:start;border-bottom:1px solid #eee8f0}th{font-size:12px;color:#95849f;background:#faf7fb}.totals{max-width:360px;margin-inline-start:auto}.total{display:flex;justify-content:space-between;padding:8px 0}.grand{font-weight:700;color:#9b294e;border-top:2px solid #e8d9e3;padding-top:16px}footer{font-size:11px;color:#9c8da6;border-top:1px solid #e9e0ed;padding-top:18px;margin-top:30px}button{display:block;margin:20px auto;background:#a72c52;color:#fff;border:0;border-radius:10px;padding:12px 26px;cursor:pointer}small{display:block;color:#96879d}address{font-style:normal}@media(max-width:600px){main{margin:12px;padding:20px}.addresses{grid-template-columns:1fr}table{font-size:11px}th,td{padding:8px}header{flex-direction:column}}@media print{body{background:#fff}main{margin:0;padding:0;border:0;max-width:none}button{display:none}@page{size:A4;margin:18mm}}</style><style>
+:root{--invoice-accent:<?php echo esc_html( sanitize_hex_color( $config['invoice_color'] ) ?: '#a72c52' ); ?>}
+h1,.grand{color:var(--invoice-accent)}header{border-color:var(--invoice-accent)}button{background:var(--invoice-accent)}
+.invoice-logo{max-width:150px;max-height:75px;object-fit:contain}
+		<?php
+		if ( 'simple' === $config['invoice_template'] ) :
+			?>
+			body{background:#fff;color:#111}main{border:0;border-radius:0}h1,.grand{color:#111}header{border-color:#111}th{background:#fff;color:#111}<?php endif; ?>
+</style></head><body><main>
+		<header><div>
+		<?php
+		if ( $config['invoice_logo'] ) :
+			?>
+			<img class="invoice-logo" src="<?php echo esc_url( $config['invoice_logo'] ); ?>" alt="<?php echo esc_attr( $config['store_name'] ); ?>"><?php endif; ?><h1><?php echo esc_html( $config['store_name'] ?: get_bloginfo( 'name' ) ); ?></h1><small><?php echo esc_html( $config['store_address'] ); ?></small>
 		<?php
 		if ( $config['store_tax_id'] ) :
 			?>
 			<small><?php esc_html_e( 'Store tax / registration ID:', 'anar-toolkit' ); ?> <?php echo esc_html( $config['store_tax_id'] ); ?></small><?php endif; ?></div><div><h2><?php esc_html_e( 'Order invoice', 'anar-toolkit' ); ?> <span dir="ltr"><?php echo esc_html( $config['invoice_prefix'] . $order->get_order_number() ); ?></span></h2><small><?php echo esc_html( $order->get_date_created() ? wc_format_datetime( $order->get_date_created() ) : '' ); ?></small><small><?php echo esc_html( wc_get_order_status_name( $order->get_status() ) ); ?></small></div></header>
-		<div class="addresses"><div><h2><?php esc_html_e( 'Bill to', 'anar-toolkit' ); ?></h2><address><?php echo wp_kses_post( $order->get_formatted_billing_address() ); ?></address><small dir="ltr"><?php echo esc_html( $order->get_billing_phone() ); ?></small></div><div><h2><?php esc_html_e( 'Ship to', 'anar-toolkit' ); ?></h2><address><?php echo wp_kses_post( $order->get_formatted_shipping_address() ?: $order->get_formatted_billing_address() ); ?></address><small><?php echo esc_html( $order->get_payment_method_title() ); ?></small></div></div>
+		<div class="addresses"><div><h2><?php esc_html_e( 'Bill to', 'anar-toolkit' ); ?></h2><address><?php echo wp_kses_post( $order->get_formatted_billing_address() ); ?></address><small dir="ltr"><?php echo esc_html( $order->get_billing_phone() ); ?></small></div>
+		<?php
+		if ( $config['invoice_show_shipping'] ) :
+			?>
+			<div><h2><?php esc_html_e( 'Ship to', 'anar-toolkit' ); ?></h2><address><?php echo wp_kses_post( $order->get_formatted_shipping_address() ?: $order->get_formatted_billing_address() ); ?></address><small><?php echo esc_html( $order->get_payment_method_title() ); ?></small></div><?php endif; ?></div>
 		<table><thead><tr><th><?php esc_html_e( 'Item', 'anar-toolkit' ); ?></th><th><?php esc_html_e( 'Quantity', 'anar-toolkit' ); ?></th><th><?php esc_html_e( 'Amount', 'anar-toolkit' ); ?></th></tr></thead><tbody>
 		<?php
 		foreach ( $order->get_items() as $item ) :
 			?>
 			<tr><td><?php echo esc_html( $item->get_name() ); ?>
 			<?php
-			if ( $item->get_product() ) :
+			if ( $config['invoice_show_sku'] && $item->get_product() ) :
 				?>
 			<small><?php echo esc_html( $item->get_product()->get_sku() ); ?></small><?php endif; ?></td><td><?php echo esc_html( $item->get_quantity() ); ?></td><td><?php echo wp_kses_post( wc_price( $item->get_total(), array( 'currency' => $order->get_currency() ) ) ); ?></td></tr><?php endforeach; ?></tbody></table><div class="totals">
 			<?php
 			foreach ( $order->get_order_item_totals() as $key => $total ) :
 				?>
-	<div class="total <?php echo 'order_total' === $key ? 'grand' : ''; ?>"><span><?php echo esc_html( $total['label'] ); ?></span><span><?php echo wp_kses_post( $total['value'] ); ?></span></div><?php endforeach; ?></div><footer><?php esc_html_e( 'This document reflects the current order and payment status. Use your browser print dialog to print it or save it as PDF.', 'anar-toolkit' ); ?></footer></main><button type="button" onclick="window.print()"><?php esc_html_e( 'Print / save as PDF', 'anar-toolkit' ); ?></button></body></html>
+	<div class="total <?php echo 'order_total' === $key ? 'grand' : ''; ?>"><span><?php echo esc_html( $total['label'] ); ?></span><span><?php echo wp_kses_post( $total['value'] ); ?></span></div><?php endforeach; ?></div>
 		<?php
-		exit;
+		if ( $config['invoice_show_note'] && $order->get_customer_note() ) :
+			?>
+		<p><?php echo esc_html( $order->get_customer_note() ); ?></p><?php endif; ?><footer><p><?php echo esc_html( $config['invoice_footer'] ); ?></p><?php esc_html_e( 'This document reflects the current order and payment status. Use your browser print dialog to print it or save it as PDF.', 'anar-toolkit' ); ?></footer></main><button type="button" onclick="window.print()"><?php esc_html_e( 'Print / save as PDF', 'anar-toolkit' ); ?></button></body></html>
+		<?php
 	}
 }

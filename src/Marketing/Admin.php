@@ -196,6 +196,7 @@ else :
 		foreach ( $fields as $key => $label ) {
 			$this->field( $key, $label, $config[ $key ], 'number' ); }
 		if ( 'invoice' === $module ) {
+			\Anar\Login\Admin\InvoicePreview::controls( $config );
 			foreach ( array( 'store_name' => __( 'Store display name', 'anar-toolkit' ), 'store_address' => __( 'Store address', 'anar-toolkit' ), 'store_tax_id' => __( 'Store tax / registration ID', 'anar-toolkit' ), 'invoice_prefix' => __( 'Invoice number prefix', 'anar-toolkit' ) ) as $key => $label ) {
 				$this->field( $key, $label, $config[ $key ] ); }
 		}

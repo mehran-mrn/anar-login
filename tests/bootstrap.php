@@ -131,3 +131,6 @@ require_once dirname( __DIR__ ) . '/src/Marketing/Contacts.php';
 require_once dirname( __DIR__ ) . '/src/Marketing/Settings.php';
 
 require_once dirname( __DIR__ ) . '/src/Infrastructure/Features.php';
+
+function sanitize_hex_color( $value ) {
+	return preg_match( '/^#[a-fA-F0-9]{6}$/', $value ) ? $value : null; }
