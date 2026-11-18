@@ -53,11 +53,14 @@ final class MessageSettings {
 		$variant = $variant ?? self::variant( $id );
 		$saved = self::stored( $id, $variant );
 		$value = array_replace( $legacy, $saved ?? array() );
+		$source_provider = $value['provider'] ?? '';
 		if ( 'login_sms' === $id && ( new Settings() )->get( 'mobile_sms_provider' ) ) {
 			$value['provider'] = ( new Settings() )->get( 'mobile_sms_provider' );
 		}
+		if ( 'login_otp' === $id && ( new Settings() )->get( 'login_provider' ) ) {
+			$value['provider'] = ( new Settings() )->get( 'login_provider' ); }
 		$value['_variant'] = $variant;
-		$value['account_changed'] = isset( $value['account'] ) && ! hash_equals( $value['account'], self::account( $value['provider'] ) );
+		$value['account_changed'] = $source_provider !== $value['provider'] || ( isset( $value['account'] ) && ! hash_equals( $value['account'], self::account( $value['provider'] ) ) );
 		if ( ! empty( $value['inherit'] ) && ! in_array( $id, array( 'login_otp', 'login_sms' ), true ) ) {
 			$value = array_replace( $value, self::get( 'login_otp' ) );
 			$value['inherit'] = true;
@@ -114,7 +117,7 @@ final class MessageSettings {
 		if ( 'login_sms' === $id && ( 'bale' === ( $value['provider'] ?? '' ) || ! empty( $value['inherit'] ) ) ) {
 			$errors[] = __( 'Choose an SMS provider for the mobile sign-in SMS message.', 'anar-toolkit' );
 		}
-		if ( 'bale' === ( $value['provider'] ?? '' ) && 'auth' !== $item['source'] ) {
+		if ( 'bale' === ( $value['provider'] ?? '' ) && 'auth' !== $item['source'] && empty( ( new Settings() )->provider( 'bale' )['api_key'] ) ) {
 			$errors[] = __( 'Bale supports verification codes only.', 'anar-toolkit' );
 		}
 		if ( ! empty( $value['account_changed'] ) ) {

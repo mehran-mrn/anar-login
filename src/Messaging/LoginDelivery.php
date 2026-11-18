@@ -24,7 +24,7 @@ final class LoginDelivery {
 	}
 
 	public static function applies( Settings $settings, $context ) {
-		if ( ! in_array( $settings->get( 'mobile_delivery_order', 'single' ), array( 'bale_sms', 'sms_bale' ), true ) || 'login_sms' === $context ) {
+		if ( ! in_array( $settings->get( 'mobile_delivery_order', 'single' ), array( 'bale_sms', 'sms_bale', 'parallel' ), true ) || 'login_sms' === $context ) {
 			return false;
 		}
 		if ( 'login_otp' === $context ) {
@@ -60,6 +60,8 @@ final class LoginDelivery {
 			return new WP_Error( 'anar_invalid_recipient', __( 'A valid mobile number is required.', 'anar-toolkit' ) );
 		}
 		$order = 'bale_sms' === $this->settings->get( 'mobile_delivery_order' ) ? array( 'bale', 'sms' ) : array( 'sms', 'bale' );
+		$parallel = 'parallel' === $this->settings->get( 'mobile_delivery_order' );
+		$accepted = false;
 		foreach ( $order as $index => $channel ) {
 			if ( 'sms' === $channel ) {
 				$result = $this->registry->send_single( $identity['identity'], $code, $message, $context, 'login_sms' );
@@ -69,15 +71,19 @@ final class LoginDelivery {
 				do_action( 'anar_toolkit_sms_result', $identity['identity'], sanitize_key( $context ), 'bale', $result );
 			}
 			if ( ! is_wp_error( $result ) ) {
-				return $result;
+				if ( ! $parallel ) {
+					return $result; }
+				$accepted = true;
+				continue;
 			}
 			if ( self::uncertain( $result ) ) {
+				$accepted = $parallel || $accepted;
 				$result->add_data( array_merge( (array) $result->get_error_data(), array( 'delivery_uncertain' => true ) ) );
 			}
-			if ( 1 === $index || ! self::may_fallback( $result ) ) {
+			if ( ! $parallel && ( 1 === $index || ! self::may_fallback( $result ) ) ) {
 				return $result;
 			}
 		}
-		return $result;
+		return $accepted ? true : $result;
 	}
 }

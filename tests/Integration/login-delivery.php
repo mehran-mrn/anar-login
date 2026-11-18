@@ -67,6 +67,7 @@ $send = static function ( $context = 'login_otp' ) use ( $settings ) {
 };
 $keys = array();
 $mail_count = 0;
+$qa_user = 0;
 $mail_filter = static function () use ( &$mail_count ) {
 	++$mail_count;
 	return true;
@@ -216,8 +217,53 @@ try {
 		) && 1 === $mail_count && ! $requests,
 		'Email remains available alongside mobile without contacting SMS or Bale'
 	);
+
+	$reset( 'parallel' );
+	$queue = array( $sms_ok, $auth, $bale_ok );
+	$assert( true === $send() && 3 === count( $requests ), 'Parallel mobile delivery calls SMS and Bale even after success' );
+	$assert( '123456' === json_decode( $requests[0]['body'], true )['variables']['otp'] && 123456 === json_decode( $requests[2]['body'], true )['otp'], 'Parallel mobile uses one code' );
+	$reset();
+	$qa_user = wp_create_user( 'delivery-' . wp_generate_uuid4(), wp_generate_password(), 'delivery-' . wp_generate_uuid4() . '@example.test' );
+	$assert( ! is_wp_error( $qa_user ), 'Disposable linked account created' );
+	$qa_phone = '+989' . random_int( 100000000, 999999999 );
+	update_user_meta( $qa_user, '_anar_phone', $qa_phone );
+	$configured = get_option( Settings::OPTION_KEY );
+	$configured['login_delivery_mode'] = 'simultaneous';
+	$configured['bot_challenge'] = 'off';
+	$configured['max_requests_hour'] = 30;
+	update_option( Settings::OPTION_KEY, $configured );
+	$users = new \Anar\Login\Auth\UserService( $settings );
+	$otp = new \Anar\Login\Auth\OtpService( $settings, $repository, $limiter, new ProviderRegistry( $settings ), $users );
+	$queue = array( $auth, $reject, $sms_ok );
+	$before_mail = $mail_count;
+	$assert( ! is_wp_error( $otp->request( $qa_phone ) ) && $mail_count === $before_mail + 1 && 3 === count( $requests ), 'Linked account receives email and mobile; Bale rejection still triggers SMS backup' );
+	$mobile_code = json_decode( $requests[2]['body'], true )['variables']['otp'];
+	$assert( ! is_wp_error( $otp->check( array( 'identity' => $qa_phone, 'channel' => 'sms' ), $mobile_code ) ), 'Combined delivery authorizes the original identity with the same code' );
+	$configured['login_delivery_mode'] = 'choice';
+	$configured['login_email_backup'] = 'mobile';
+	update_option( Settings::OPTION_KEY, $configured );
+	delete_transient( $cache );
+	$requests = array();
+	$queue = array( $auth, $bale_ok );
+	$fail_mail = static function () {
+		return false;
+	};
+	add_filter( 'pre_wp_mail', $fail_mail, PHP_INT_MAX );
+	$qa_email = get_userdata( $qa_user )->user_email;
+	$email_result = $otp->request( $qa_email );
+	remove_filter( 'pre_wp_mail', $fail_mail, PHP_INT_MAX );
+	$assert( ! is_wp_error( $email_result ) && 2 === count( $requests ), 'Failed email uses the canonical linked mobile route' );
+	$reset();
+	$legacy_input = $settings->all();
+	$legacy_input['provider_bale']['api_key'] = '';
+	$legacy_input['provider_bale']['bot_id'] = '';
+	$preserved = $settings->sanitize( $legacy_input, ( new ProviderRegistry( $settings ) )->all() );
+	$assert( $base['provider_bale'] === $preserved['provider_bale'], 'Saving legacy connections with unused v3 fields preserves the account fingerprint' );
 	$report = array( 'passed' => true, 'checks' => count( $checks ), 'results' => $checks );
 } finally {
+	if ( $qa_user && ! is_wp_error( $qa_user ) ) {
+		require_once ABSPATH . 'wp-admin/includes/user.php';
+		wp_delete_user( $qa_user ); }
 	remove_filter( 'pre_http_request', $http, PHP_INT_MAX );
 	remove_filter( 'pre_wp_mail', $mail_filter, PHP_INT_MAX );
 	delete_transient( $cache );

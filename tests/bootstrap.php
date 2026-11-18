@@ -139,3 +139,6 @@ require_once dirname( __DIR__ ) . '/src/Infrastructure/Features.php';
 
 function sanitize_hex_color( $value ) {
 	return preg_match( '/^#[a-fA-F0-9]{6}$/', $value ) ? $value : null; }
+
+function wp_generate_uuid4() {
+	return '12345678-1234-4123-8123-123456789abc'; }

@@ -35,6 +35,9 @@ final class Settings {
 			'identity_mode'       => 'both',
 			'mobile_delivery_order' => 'single',
 			'mobile_sms_provider' => '',
+			'login_delivery_mode' => 'choice',
+			'login_provider' => '',
+			'login_email_backup' => 'none',
 			'default_role'        => 'subscriber',
 			'login_redirect'      => '',
 			'role_redirects'      => array(),
@@ -223,9 +226,11 @@ final class Settings {
 
 		$identity_mode                = sanitize_key( $input['identity_mode'] ?? $defaults['identity_mode'] );
 		$delivery_order = sanitize_key( $input['mobile_delivery_order'] ?? $current['mobile_delivery_order'] );
-		$output['mobile_delivery_order'] = in_array( $delivery_order, array( 'single', 'bale_sms', 'sms_bale' ), true ) ? $delivery_order : 'single';
+		$output['mobile_delivery_order'] = in_array( $delivery_order, array( 'single', 'bale_sms', 'sms_bale', 'parallel' ), true ) ? $delivery_order : 'single';
 		$sms_fallback = sanitize_key( $input['mobile_sms_provider'] ?? $current['mobile_sms_provider'] );
 		$output['mobile_sms_provider'] = 'bale' === $sms_fallback ? '' : $sms_fallback;
+		$output['login_delivery_mode'] = 'simultaneous' === ( $input['login_delivery_mode'] ?? $current['login_delivery_mode'] ) ? 'simultaneous' : 'choice';
+		$output['login_email_backup'] = 'mobile' === ( $input['login_email_backup'] ?? $current['login_email_backup'] ) ? 'mobile' : 'none';
 		$output['identity_mode']       = in_array( $identity_mode, array( 'both', 'phone', 'email' ), true ) ? $identity_mode : 'both';
 		$output['default_role']        = isset( $input['default_role'] ) && self::is_assignable_role( $input['default_role'] ) ? sanitize_key( $input['default_role'] ) : 'subscriber';
 		$output['login_redirect']      = isset( $input['login_redirect'] ) ? esc_url_raw( $input['login_redirect'] ) : '';
@@ -241,6 +246,7 @@ final class Settings {
 		$bot_challenge                 = sanitize_key( $input['bot_challenge'] ?? $current['bot_challenge'] );
 		$output['bot_challenge']       = in_array( $bot_challenge, array( 'off', 'adaptive', 'always' ), true ) ? $bot_challenge : 'adaptive';
 		$output['challenge_threshold'] = max( 20, min( 100000, absint( $input['challenge_threshold'] ?? $current['challenge_threshold'] ) ) );
+		$output['login_provider'] = sanitize_key( $input['login_provider'] ?? $current['login_provider'] );
 		$output['sms_provider']        = sanitize_key( $input['sms_provider'] ?? $current['sms_provider'] );
 		$output['sms_provider_confirmed'] = isset( $input['sms_provider'] ) ? (int) ( '' !== $output['sms_provider'] ) : (int) $current['sms_provider_confirmed'];
 		$output['sms_message']         = sanitize_textarea_field( $input['sms_message'] ?? $current['sms_message'] );
@@ -275,6 +281,10 @@ final class Settings {
 
 			foreach ( $fields as $field => $definition ) {
 				$field = sanitize_key( $field );
+				if ( 'bale' === $provider && in_array( $field, array( 'api_key', 'bot_id' ), true ) && ! array_key_exists( $field, $old ) && empty( $raw[ $field ] ) ) {
+					// Keep legacy account fingerprints stable when the optional v3 fields are unused.
+					continue;
+				}
 				if ( in_array( $field, array( 'template_id', 'code_parameter' ), true ) && ! array_key_exists( $field, $raw ) ) {
 					$sanitized[ $field ] = (string) ( $old[ $field ] ?? '' );
 					continue;

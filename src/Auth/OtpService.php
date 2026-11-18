@@ -151,6 +151,10 @@ final class OtpService {
 				'context' => $context,
 				'scope'   => $scope,
 				'limit'   => false,
+				'alternate' => 'login_otp' === $context ? $this->alternate( $identity ) : null,
+				'alternate_mode' => $this->settings->get( 'login_delivery_mode' ),
+				'alternate_render' => function ( $channel, $code, $ttl ) {
+					return $this->message( $channel, $code, $ttl ); },
 			)
 		);
 
@@ -170,6 +174,22 @@ final class OtpService {
 		do_action( 'anar_login_otp_sent', $identity['channel'], $identity['identity'] );
 
 		return true;
+	}
+
+	private function alternate( $identity ) {
+		if ( 'simultaneous' !== $this->settings->get( 'login_delivery_mode' ) && ( 'email' !== $identity['channel'] || 'mobile' !== $this->settings->get( 'login_email_backup' ) ) ) {
+			return null; }
+		$user = $this->users->find_by_identity( $identity );
+		if ( ! $user || is_wp_error( $user ) ) {
+			return null; }
+		$contact = 'email' === $identity['channel'] ? get_user_meta( $user->ID, '_anar_phone', true ) : $user->user_email;
+		if ( ! $contact ) {
+			return null; }
+		$other = Identity::normalize( $contact );
+		if ( is_wp_error( $other ) || $other['channel'] === $identity['channel'] ) {
+			return null; }
+		$owner = $this->users->find_by_identity( $other );
+		return $owner && ! is_wp_error( $owner ) && $owner->ID === $user->ID ? $other : null;
 	}
 
 	/**
@@ -303,9 +323,9 @@ final class OtpService {
 	 */
 	private function generic_request_response( $channel ) {
 		return array(
-			'message'      => 'email' === $channel
+			'message'      => 'simultaneous' === $this->settings->get( 'login_delivery_mode' ) || 'mobile' === $this->settings->get( 'login_email_backup' ) ? __( 'If sign-in is available, check your email or linked mobile delivery methods for the code.', 'anar-toolkit' ) : ( 'email' === $channel
 				? __( 'If sign-in is available, a code has been sent to your email.', 'anar-toolkit' )
-				: ( 'single' !== $this->settings->get( 'mobile_delivery_order', 'single' ) ? __( 'If sign-in is available, check Bale or SMS for your mobile code.', 'anar-toolkit' ) : ( 'bale' === \Anar\Login\Messaging\MessageSettings::get( 'login_otp' )['provider'] ? __( 'Verification code sent via Bale.', 'anar-toolkit' ) : __( 'If sign-in is available, a code has been sent to your mobile.', 'anar-toolkit' ) ) ),
+				: ( 'single' !== $this->settings->get( 'mobile_delivery_order', 'single' ) ? __( 'If sign-in is available, check Bale or SMS for your mobile code.', 'anar-toolkit' ) : ( 'bale' === \Anar\Login\Messaging\MessageSettings::get( 'login_otp' )['provider'] ? __( 'Verification code sent via Bale.', 'anar-toolkit' ) : __( 'If sign-in is available, a code has been sent to your mobile.', 'anar-toolkit' ) ) ) ),
 			'channel'      => $channel,
 			'resend_after' => absint( $this->settings->get( 'resend_delay', 60 ) ),
 			'expires_in'   => absint( $this->settings->get( 'otp_ttl', 120 ) ),
