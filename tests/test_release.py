@@ -13,6 +13,9 @@ spec.loader.exec_module(package)
 release_spec = importlib.util.spec_from_file_location('anar_prepare_release', ROOT / 'tools/prepare-release.py')
 release = importlib.util.module_from_spec(release_spec)
 release_spec.loader.exec_module(release)
+readme_spec = importlib.util.spec_from_file_location('anar_readme', ROOT / 'tools/check_readme.py')
+readme_check = importlib.util.module_from_spec(readme_spec)
+readme_spec.loader.exec_module(readme_check)
 checks = 0
 
 def verify(condition, message):
@@ -20,6 +23,14 @@ def verify(condition, message):
     if not condition:
         raise AssertionError(message)
     checks += 1
+
+verify(readme_check.description_word_count('== Description ==\nShort summary\n== External services ==\nService details') == 7, 'Custom sections contribute to the description length')
+verify(readme_check.description_word_count('== Description ==\nShort summary\n== Frequently Asked Questions ==\n' + 'answer ' * 2600) == 3, 'Recognized FAQ content is not counted as description')
+try:
+    readme_check.validate('== Description ==\n' + 'word ' * 2500)
+    verify(False, 'An overlong merged description must fail release checks')
+except ValueError:
+    verify(True, 'An overlong merged description is rejected')
 
 with tempfile.TemporaryDirectory(prefix='anar-release-qa-') as folder:
     temporary = Path(folder).resolve()
@@ -59,6 +70,7 @@ with tempfile.TemporaryDirectory(prefix='anar-release-qa-') as folder:
             verify('IPPanel::class' in registry and 'Panelchi::class' in registry, 'Registry matches shipped adapters')
             verify('MaxSms::class' in registry, 'MaxSMS registered in the public runtime')
             readme = bundle.read('anar-toolkit/readme.txt').decode('utf-8')
+            verify(readme_check.validate(readme) < 2500, 'WordPress description includes custom sections without truncation')
             verify('https://www.melipayamak.com/rules/' in readme, 'Official Meli Payamak terms retained')
             verify('Optional Meli Payamak partner registration' in readme and 'commission' in readme and 'https://mrnwp.ir/privacy/' in readme, 'Optional registration and affiliate data flow are disclosed')
             verify('Optional SMS account balance monitoring' in readme and 'off by default' in readme and 'account/info' in readme, 'Balance opt-in, endpoints and native-unit behavior are disclosed')

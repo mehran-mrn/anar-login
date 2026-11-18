@@ -4,7 +4,7 @@ Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.6.0
+Stable tag: 1.6.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,51 +12,30 @@ SMS login, password reset, cart recovery, order alerts and customer campaigns fo
 
 == Description ==
 
-Anar Toolkit brings sign-in, purchase recovery and customer communication into one modular toolkit for WordPress and WooCommerce. Choose the capabilities your store needs and configure each one separately.
+Anar Toolkit adds modular sign-in, purchase recovery and customer communication tools to WordPress and WooCommerce. Enable only the capabilities your store needs.
 
-= Sign-in and account access =
-* Iranian mobile-number registration and SMS login, email verification codes and Google sign-in.
-* SMS password reset for a previously linked phone and optional two-step verification.
-* Optional authenticator apps, recovery codes and passkeys; one shared form with three visual presets.
-* Verified mobile-number changes, sign-out from other devices and adaptive bot checks on public code requests.
-* Block editor blocks for sign-in, the sign-in button and SMS password reset.
-* Four-step setup guidance and a saved-form preview in the existing Settings page.
-* On-demand login popup, My Account and classic checkout integration.
-* Optional registration with custom fields in [MRN Forms](https://wordpress.org/plugins/mrn-forms/) 1.5.0 or later. Anar also provides SMS verification for regular MRN Forms submissions.
+= Sign-in and accounts =
+* Iranian SMS codes, email codes, Google sign-in and optional Bale OTP.
+* SMS password recovery, two-step verification, authenticator apps and passkeys.
+* Verified mobile-number changes, adaptive bot checks and optional MRN Forms registration.
+* On-demand popup, WooCommerce account/checkout integration and block-editor blocks.
+* Elementor widgets for sign-in, the account button and cart recovery.
 
-= Recover purchases and follow up with customers =
-* Automatic abandoned-cart capture, three reminder stages and personal single-use discounts.
-* Order status, shipment tracking, payment notices and administrator purchase/failure alerts.
-* First-purchase, inactivity, VIP, birthday and next-purchase gift campaigns.
-* Purchase-interval estimates, product offers and segmented scheduled bulk SMS.
-* Verified stock alerts, post-purchase surveys, moderated reviews and customer referrals.
-* Printable invoices, ten promotional games and actual-data cart, message and campaign reports.
+= Store and marketing tools =
+* Abandoned-cart capture, three reminder stages and single-use recovery coupons with expiry and optional tax-inclusive discount ceilings.
+* Order, payment, shipment and administrator notifications.
+* Lifecycle, birthday, VIP and next-purchase campaigns; segmented bulk messages and product suggestions.
+* Stock alerts, surveys, referrals, promotional games and local sales/traffic reports.
+* Simple-print and branded invoices with display controls and protected sample/order previews.
 
-= Persian included; enable only what you need =
-The complete Persian (fa_IR) translation is bundled with the plugin. Set your WordPress site or user language to Persian for RTL forms, settings and contextual guides. No separate language ZIP is required. English LTR remains available.
+= Setup and language =
+Manage capabilities inside Settings. Store messages can follow the sign-in provider or use an independent connection; existing message-specific settings remain available. Customer-facing features load their files only when needed.
 
-Anar keeps storefront pages light by loading the login popup on demand and loading storefront assets only for active features. The feature screen groups the active tools first and keeps the other tools available with setup guides and switches. Administrator reports query only the selected section. New store and campaign modules start disabled.
+Persian RTL translations are bundled; English LTR is supported. Anar is 100% free, forever; SMS providers charge separately.
 
-Built-in SMS providers: Kavenegar, Meli Payamak, IPPanel, Panelchi, MaxSMS, Faraz SMS and SMS.ir, plus a custom HTTPS gateway. Use your own account and approved templates. Provider acceptance does not confirm handset delivery.
-
-**100% free, forever, with all features included.** No Pro edition, plugin subscription, license key or feature paywall. SMS providers charge separately for their accounts and message credits.
-
-[Persian feature and setup guide](https://github.com/mehran-mrn/anar-login/blob/main/docs/plugin-page-fa.md) | [Source and support](https://github.com/mehran-mrn/anar-login) | [Product website and Persian guide](https://mrnwp.ir/anar/) | [English product page](https://mrnwp.ir/anar/en/)
-
-= معرفی فارسی انار =
+[Setup guide](https://github.com/mehran-mrn/anar-login/blob/main/guide-fa.txt) | [Source and support](https://github.com/mehran-mrn/anar-login) | [Product website](https://mrnwp.ir/anar/)
 
 انار جعبه‌ابزار ورود و ثبت‌نام پیامکی، بازیابی سبد خرید رهاشده، بازاریابی پیامکی و بازی‌های آنلاین فروشگاهی برای وردپرس و ووکامرس است. پنل تنظیمات و فرم‌ها به فارسی راست‌چین و انگلیسی چپ‌چین در دسترس‌اند. هر قابلیت را می‌توان جداگانه فعال کرد.
-
-انار برای بارگذاری سبک و سریع طراحی شده است. فرم پاپ‌آپ هنگام نیاز بارگیری می‌شود و فایل‌های فروشگاه فقط برای قابلیت‌های فعال بارگذاری می‌شوند.
-
-= امکانات انار =
-
-* ورود و ثبت‌نام با شمارهٔ موبایل ایرانی و رمز یک‌بارمصرف پیامکی، کد تأیید ایمیل یا حساب گوگل. فرم ورود به‌صورت پاپ‌آپ، بلوک و کد کوتاه هم در دسترس است.
-* بازیابی رمز عبور با پیامک، تأیید دومرحله‌ای و پشتیبانی از کلید عبور (Passkey). اتصال به MRN Forms برای ثبت‌نام با فیلدهای سفارشی و تأیید پیامکی فرم‌ها.
-* بازیابی سبد خرید رهاشده و سفارش پرداخت‌نشده با یادآوری پیامکی و امکان ارائهٔ تخفیف یک‌بارمصرف.
-* ارسال پیامک وضعیت سفارش ووکامرس، تأیید پرداخت، کد رهگیری مرسوله و اعلان خرید یا پرداخت ناموفق برای مدیر فروشگاه.
-* کمپین‌های پیامکی خرید اول، بازگشت مشتری، تولد و مشتریان ویژه. ارسال انبوه زمان‌بندی‌شده، پیشنهاد محصول و اطلاع‌رسانی موجودی.
-* نظرسنجی پس از خرید، معرفی دوستان، فاکتور قابل چاپ، بازی‌های تبلیغاتی و گزارش سبدهای خرید، پیامک‌ها و کمپین‌ها.
 
 == Installation ==
 
@@ -252,6 +231,10 @@ Uninstall preserves data unless deletion was explicitly enabled beforehand. It d
 Yes. Set a budget per pool and a maximum money discount for each prize. Amounts use the current store currency and include the tax reduction. The maximum cost is reserved at issuance; a paid order consumes its actual saving and releases the remainder. Unused expired gifts release their reservation. Saved unpaid orders retain it to cover late payments. Refunds do not reactivate consumed gifts or replenish spent money. Earlier uncapped coupons remain unchanged and outside this budget. Capped calculations require WooCommerce 8.8 or later.
 
 == Changelog ==
+
+= 1.6.1 =
+* Shorten the directory description so WordPress retains all service and privacy disclosures without truncation.
+
 
 = 1.6.0 =
 
