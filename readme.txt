@@ -1,4 +1,4 @@
-=== Anar Toolkit (انار) – SMS Login, Recovery & Marketing for WooCommerce ===
+=== Anar Toolkit – SMS Login, Recovery & Marketing for WooCommerce ===
 Contributors: mrnwp
 Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
@@ -8,7 +8,7 @@ Stable tag: 1.6.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-انار برای ووکامرس با ورود پیامکی، بازیابی رمز و سبد خرید، اعلان سفارش و کمپین. SMS login, password reset, cart recovery, order alerts and campaigns.
+SMS login, password reset, cart recovery, order alerts and customer campaigns for WooCommerce.
 
 == Description ==
 
