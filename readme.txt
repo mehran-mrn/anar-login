@@ -4,7 +4,7 @@ Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.8.0
+Stable tag: 1.9.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,7 +29,7 @@ Anar Toolkit adds modular sign-in, purchase recovery and customer communication 
 * Simple-print and branded invoices with display controls and protected sample/order previews.
 
 = Setup and language =
-Manage capabilities inside Settings. Store messages can follow the sign-in provider or use an independent connection; existing message-specific settings remain available. Customer-facing features load their files only when needed.
+Manage capabilities inside Settings. Configure SMS, email and messenger connections separately. Choose SMS, Email and/or Bale for sign-in. New features use the shared SMS default; explicit feature and message providers remain independent. Customer-facing features load their files only when needed.
 
 Persian RTL translations are bundled; English LTR is supported. Anar is 100% free, forever; SMS providers charge separately.
 
@@ -42,7 +42,7 @@ Persian RTL translations are bundled; English LTR is supported. Anar is 100% fre
 1. Install and activate Anar Toolkit. If replacing a pre-release copy in an anar-login folder, deactivate that copy first.
 2. For Persian, choose Persian in Settings > General or the user's Profile language. The translation is included in the plugin.
 3. Open Anar Toolkit > Features. Select the capabilities you need, then use each active feature's Configure link. New store and campaign modules start disabled.
-4. In Connection settings, enter your SMS provider credentials and approved template. Email uses your site's mail transport; Google sign-in needs your own OAuth web application.
+4. In Service providers, enter connection credentials and choose the default SMS provider. In General, select SMS, Email and/or Bale and configure the SMS code message. Email uses your site's mail transport; Google sign-in needs your own OAuth web application.
 5. Use [anar_account] for the account page, [anar_login] for a standalone form and [anar_login_button] for a popup button.
 6. Configure each event's schedule, audience, approved template and exact provider variable names. Keep login and campaign templates separate. Recovery mappings require {code}, {recovery_page} and {unsubscribe_url}; marketing messages require {unsubscribe_url}, surveys require {action_url}, and discount messages require {coupon_code}.
 7. Place [anar_recover_cart] beside Cart/Checkout blocks. Automatic capture uses a linked account or checkout phone with a visible notice and no separate checkbox. Explicit preference mode is optional; existing unsubscribes always remain effective.
@@ -104,10 +104,7 @@ Recovery coupons support an optional maximum monetary discount including tax (0 
 == External services ==
 
 = Bale Safir OTP (optional) =
-Bale supports legacy v2 verification codes and optional Safir v3 OTP, plain-text and template messages. With v3 enabled, Anar sends the organization API access key in the request header and the bot ID, destination phone, request ID and configured message content to https://safir.bale.ai/api/v3/send_message. Configure the API access key and bot ID to enable v3; leave the API access key empty to retain the existing v2 connection. It is used only after the store administrator selects Bale and supplies their Safir client ID and client secret. When a verification code is requested, Anar sends those credentials to https://safir.bale.ai/api/v2/auth/token to obtain an access token. The token is cached temporarily on the WordPress server. Anar sends the recipient's international mobile number and numeric OTP to https://safir.bale.ai/api/v2/send_otp with that bearer token. The user receives the code inside Bale and must have a Bale account. Administrators can opt into Bale-then-SMS or SMS-then-Bale delivery. A definite rejection, including a number without a Bale account, triggers the second service with the same code. Ambiguous send timeouts keep the code valid without automatic duplicate delivery. SMS fallback sends the number and configured code variables to the selected SMS service described above. Commerce messages keep their own provider settings.
-Official service: https://safir.bale.ai/
-Official documentation: https://docs.bale.ai/
-Official terms, including privacy provisions: https://bale.ai/terms
+Bale is used only for verification codes when selected by the administrator. SMS and Bale can send the same code for one mobile challenge; email goes only to the address entered. Bale is not used for store or marketing messages. For legacy v2 accounts, Anar sends the configured client ID and secret to https://safir.bale.ai/api/v2/auth/token and temporarily caches the access token. It sends the international phone and numeric OTP to https://safir.bale.ai/api/v2/send_otp with that token. Existing v3 accounts remain usable for OTP: the configured API key goes in the header, and the bot ID, phone, request ID and OTP go to https://safir.bale.ai/api/v3/send_message. A Bale account is needed to receive the code. A failure in one enabled mobile sender does not stop the other. Uncertain delivery keeps the challenge valid. [Bale documentation](https://docs.bale.ai/safir).
 
 
 All integrations use accounts configured by the site administrator. The plugin makes no telemetry, licensing or analytics requests to MRNWP or its author. Provider service fees and contracts are independent of the free plugin.
@@ -231,6 +228,13 @@ Uninstall preserves data unless deletion was explicitly enabled beforehand. It d
 Yes. Set a budget per pool and a maximum money discount for each prize. Amounts use the current store currency and include the tax reduction. The maximum cost is reserved at issuance; a paid order consumes its actual saving and releases the remainder. Unused expired gifts release their reservation. Saved unpaid orders retain it to cover late payments. Refunds do not reactivate consumed gifts or replenish spent money. Earlier uncapped coupons remain unchanged and outside this budget. Capped calculations require WooCommerce 8.8 or later.
 
 == Changelog ==
+
+= 1.9.0 =
+* Simplify sign-in to SMS, Email and Bale choices; SMS and Bale share one OTP without priorities or backups.
+* Group sender connections into SMS, email and messengers; restrict Bale to verification codes.
+* Add a shared SMS default, configured-first provider lists, incomplete-connection warnings and saved usage summaries.
+* Preserve existing credentials and explicit message bindings; update the Persian setup guide.
+
 
 = 1.8.0 =
 * Separate provider connections from General sign-in delivery and OTP controls while retaining the original provider cards.
@@ -392,6 +396,9 @@ Yes. Set a budget per pool and a maximum money discount for each prize. Amounts 
 Full history: https://github.com/mehran-mrn/anar-login/blob/main/CHANGELOG.md
 
 == Upgrade Notice ==
+
+= 1.9.0 =
+Review the SMS, Email and Bale choices in General after updating. Former mobile priority routes now send the same OTP through SMS and Bale together. Bale is OTP-only. Existing credentials and explicit SMS selections are retained.
 
 = 1.5.1 =
 Enable “Password sign-in in the popup” in Anar settings if you want to offer password sign-in alongside one-time codes.

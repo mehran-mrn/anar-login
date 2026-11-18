@@ -159,26 +159,58 @@
 		});
 	}
 
-	const mobileDelivery = root.querySelector('[data-mobile-delivery]');
-    const syncDelivery = () => {
-        if (!mobileDelivery) return;
-        const order = mobileDelivery.querySelector('#anar-mobile-delivery-order').value;
-        mobileDelivery.querySelector('[data-mobile-priority]').hidden = order === 'single';
-        mobileDelivery.querySelector('#anar-login-provider').closest('.anar-field-row').hidden = order !== 'single';
-        const sms = mobileDelivery.querySelector('#anar-mobile-sms-provider');
-        const changed = sms.value !== sms.dataset.savedSmsProvider;
-        mobileDelivery.querySelector('[data-mobile-save-first]').hidden = !changed;
-        mobileDelivery.querySelector('[data-message-summary="login_sms"]').hidden = changed;
-        root.querySelectorAll('[data-verification-messages] [data-message-summary="login_otp"]').forEach(el => { el.hidden = order !== 'single'; });
-    };
-    mobileDelivery?.addEventListener('change', syncDelivery);
-    syncDelivery();
-    root.querySelectorAll('.anar-provider input[type="radio"]').forEach(radio => {
-        radio.addEventListener('change', () => {
-            root.querySelectorAll('.anar-provider').forEach(el => el.classList.toggle('is-selected', el.contains(radio)));
-            root.querySelectorAll('.anar-provider-settings').forEach(el => { el.hidden = el.dataset.provider !== radio.value; });
-        });
-    });
+	const methods = root.querySelector('[data-login-methods]');
+	const syncMethods = () => {
+		if (!methods) return;
+		const enabled = [...methods.querySelectorAll('input[type="checkbox"]:checked')].map(input => input.value);
+		const boxes = methods.querySelectorAll('input[type="checkbox"]');
+		boxes[0].setCustomValidity(enabled.length ? '' : methods.querySelector('[data-login-methods-required]').textContent);
+		methods.querySelector('[data-login-methods-required]').hidden = enabled.length > 0;
+		methods.querySelector('[data-login-sms]').hidden = !enabled.includes('sms');
+		methods.querySelectorAll('[data-login-bale]').forEach(el => { el.hidden = !enabled.includes('bale'); });
+		root.querySelectorAll('[data-login-email]').forEach(el => { el.hidden = !enabled.includes('email'); });
+		const selected = methods.querySelector('#anar-login-provider');
+		const global = root.querySelector('#anar-default-provider');
+		const savedGlobal = root.querySelector('[data-verification-messages]')?.dataset.savedProvider;
+		const changed = selected.value !== selected.dataset.savedProvider || (global && global.value !== savedGlobal);
+		methods.querySelector('[data-login-save-first]').hidden = !changed;
+		methods.querySelector('[data-message-summary="login_otp"]').hidden = changed;
+	};
+	methods?.addEventListener('change', syncMethods);
+	root.querySelector('#anar-default-provider')?.addEventListener('change', syncMethods);
+	syncMethods();
+
+	const showCategory = name => {
+		root.querySelectorAll('[data-connection-group]').forEach(el => { el.hidden = el.dataset.connectionGroup !== name; });
+		root.querySelectorAll('[data-connection-category]').forEach(el => el.setAttribute('aria-pressed', String(el.dataset.connectionCategory === name)));
+	};
+	root.querySelectorAll('[data-connection-category]').forEach(button => button.addEventListener('click', () => showCategory(button.dataset.connectionCategory)));
+	if (requestedTab === 'email') { showTab('sms'); showCategory('email'); }
+	root.querySelectorAll('[data-provider-connections] input[type="radio"]').forEach(radio => {
+		radio.addEventListener('change', () => {
+			const group = radio.closest('[data-connection-group]');
+			group.querySelectorAll('.anar-provider').forEach(el => el.classList.toggle('is-selected', el.contains(radio)));
+			group.querySelectorAll('.anar-provider-settings').forEach(el => { el.hidden = el.dataset.provider !== radio.value; });
+		});
+	});
+	root.querySelectorAll('.anar-provider-settings').forEach(panel => {
+		const has = name => {
+			const field = panel.querySelector(`[name$="[${name}]"]`);
+			return !!field && (!!field.value.trim() || field.dataset.savedValue === '1');
+		};
+		panel.addEventListener('input', () => {
+			let required = JSON.parse(panel.dataset.requiredFields);
+			if (panel.dataset.provider === 'bale') required = has('api_key') ? ['api_key', 'bot_id'] : ['username', 'password'];
+			let ready = required.every(has);
+			if (panel.dataset.provider === 'bale' && has('api_key')) ready = ready && /^[1-9][0-9]*$/.test(panel.querySelector('[name$="[bot_id]"]').value.trim());
+			if (panel.dataset.provider === 'custom') ready = ready && /^https?:\/\/[^/\s]+/i.test(panel.querySelector('[name$="[url]"]').value.trim());
+			const badge = root.querySelector(`[data-connection-state="${panel.dataset.provider}"]`);
+			badge.textContent = ready ? config.connectionCompleteDraft : '⚠ ' + config.connectionIncomplete;
+			badge.classList.toggle('is-ready', ready);
+			badge.classList.toggle('needs-setup', !ready);
+			panel.querySelector('[data-connection-unsaved]').hidden = false;
+		});
+	});
 	root.querySelectorAll('[data-copy]').forEach((button) => {
 		button.addEventListener('click', async () => {
 			const original = button.textContent;

@@ -79,12 +79,13 @@ final class LoginDeliveryTest extends TestCase {
 	public function test_bale_only_configuration_cannot_become_an_sms_fallback() {
 		$GLOBALS['anar_test_options'][ Settings::OPTION_KEY ] = array( 'sms_provider' => 'bale' );
 		$GLOBALS['anar_test_options'][ MessageSettings::OPTION . '_login_otp' ] = array( 'provider' => 'bale', 'template' => 'otp' );
-		$this->assertSame( '', MessageSettings::get( 'login_sms' )['provider'] );
+		$this->assertSame( 'melipayamak', MessageSettings::get( 'login_sms' )['provider'] );
+		$this->assertContains( 'bale', ( new Settings() )->get( 'login_methods' ) );
 	}
 
-	public function test_new_priority_is_opt_in_and_explicit_purpose_binding_is_preserved() {
+	public function test_login_router_preserves_explicit_purpose_bindings_and_excludes_commerce() {
 		$settings = new Settings();
-		$this->assertFalse( LoginDelivery::applies( $settings, 'login_otp' ) );
+		$this->assertTrue( LoginDelivery::applies( $settings, 'login_otp' ) );
 		$GLOBALS['anar_test_options'][ Settings::OPTION_KEY ] = array( 'mobile_delivery_order' => 'bale_sms' );
 		$this->assertTrue( LoginDelivery::applies( $settings, 'login_otp' ) );
 		$this->assertTrue( LoginDelivery::applies( $settings, 'password_reset' ) );

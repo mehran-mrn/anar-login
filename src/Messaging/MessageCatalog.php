@@ -75,7 +75,7 @@ final class MessageCatalog {
 				if ( ( ! $login->get( 'mobile_sms_provider' ) || $login->get( 'mobile_sms_provider' ) === ( $saved['provider'] ?? '' ) ) && $saved && ! empty( $saved['provider'] ) && 'bale' !== $saved['provider'] ) {
 					return array_replace( $saved, array( 'inherit' => false ) ); }
 			}
-			$provider = 'login_sms' === $id && $login->get( 'mobile_sms_provider' ) ? $login->get( 'mobile_sms_provider' ) : $login->get( 'sms_provider' );
+			$provider = 'login_sms' === $id && $login->get( 'mobile_sms_provider' ) ? $login->get( 'mobile_sms_provider' ) : ( ( 'login_otp' === $id ? $login->get( 'login_provider' ) : '' ) ?: $login->get( 'sms_provider' ) );
 			if ( 'login_sms' === $id && 'bale' === $provider ) {
 				$provider = ''; }
 			$config = $login->provider( $provider );
@@ -91,7 +91,7 @@ final class MessageCatalog {
 		} else {
 			$settings = ( new MarketingSettings() )->all();
 			$event = $settings['rules'][ $item['key'] ];
-			$provider = $settings['provider'] ?: ( new CommerceSettings() )->provider();
+			$provider = $settings['provider'] ?: $login->get( 'sms_provider' );
 		}
 		return array_merge( $event, array( 'provider' => $provider, 'mode' => 'custom' === $provider ? 'text' : 'template', 'inherit' => false ) );
 	}

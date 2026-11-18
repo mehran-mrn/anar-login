@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: Anar Toolkit 1.8.0\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
+msgstr "Project-Id-Version: Anar Toolkit 1.9.0\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
 
 msgid "%1$d paid orders. A gift at every %2$d orders."
 msgstr "%1$d سفارش پرداخت‌شده؛ یک هدیه پس از هر %2$d سفارش."
@@ -243,6 +243,9 @@ msgstr "پس از خرید پیش‌بینی‌شده"
 
 msgid "After saving the delivery order, test the sign-in form with a Bale account and a number that is not on Bale. Also test an email address if email sign-in is enabled. Never deliberately disconnect the live store to test a fallback."
 msgstr "پس از ذخیرهٔ ترتیب ارسال، فرم ورود را با یک شمارهٔ عضو بله و یک شمارهٔ غیرعضو آزمایش کنید. اگر ورود ایمیلی فعال است، یک ایمیل را هم آزمایش کنید. برای آزمایش ارسال جایگزین، اتصال فروشگاه فعال را عمداً قطع نکنید."
+
+msgid "After saving, test sign-in with your own mobile number. If SMS and Bale are both enabled, check that both receive the same code and that it works only once. Test an email address separately if Email is enabled."
+msgstr "پس از ذخیره، ورود را با شماره خودتان آزمایش کنید. اگر پیامک و بله فعال‌اند، یکسان بودن کد دریافتی در هر دو و یک‌بارمصرف بودن آن را بررسی کنید. در صورت فعال بودن ایمیل، ورود با ایمیل را هم جداگانه آزمایش کنید."
 
 msgid "Alert threshold"
 msgstr "حد نمایش هشدار"
@@ -490,8 +493,14 @@ msgstr "بله نتوانست کد تأیید را ارسال کند."
 msgid "Bale first, SMS as backup"
 msgstr "ابتدا بله، پیامک به‌عنوان پشتیبان"
 
+msgid "Bale sends verification codes only. No message template is needed."
+msgstr "بله فقط کد تأیید ارسال می‌کند و به تنظیم الگوی پیام نیاز ندارد."
+
 msgid "Bale supports verification codes only."
 msgstr "بله فقط از ارسال کد تأیید پشتیبانی می‌کند."
+
+msgid "Based on saved settings. Selecting a provider does not enable the feature or complete its message template."
+msgstr "بر اساس تنظیمات ذخیره‌شده. انتخاب سرویس‌دهنده به‌تنهایی قابلیت را فعال نمی‌کند و الگوی پیام را تکمیل نمی‌کند."
 
 msgid "Before a code is sent, the browser solves a short puzzle in the background, with no image or click. Adaptive mode asks only when one address requests repeatedly or the whole site sees an unusual volume, so SMS floods stop costing you money."
 msgstr "پیش از ارسال کد، مرورگر در پس‌زمینه یک معمای کوتاه را حل می‌کند؛ بدون تصویر و بدون کلیک. در حالت هوشمند فقط وقتی فعال می‌شود که یک نشانی پشت‌سرهم درخواست بدهد یا حجم کل سایت غیرعادی شود؛ بنابراین ارسال انبوه رباتی، هزینهٔ پیامک برای شما نمی‌سازد."
@@ -667,6 +676,9 @@ msgstr "اعتبار حساب‌های پیامکی انتخاب‌شده را �
 msgid "Cherry"
 msgstr "گیلاس"
 
+msgid "Choose Email in sign-in settings. Its subject and message are in OTP settings and messages."
+msgstr "ایمیل را در روش‌های ورود انتخاب کنید. عنوان و متن آن در تنظیمات و پیام‌های کد یک‌بارمصرف قرار دارند."
+
 msgid "Choose Mobile number or email to offer both at once. Customers enter either contact in the same form. Existing accounts are preserved."
 msgstr "برای ارائهٔ هم‌زمان هر دو روش، «شماره موبایل یا ایمیل» را انتخاب کنید. مشتری در همان فرم، شماره یا ایمیل خود را وارد می‌کند. حساب‌های فعلی حفظ می‌شوند."
 
@@ -693,6 +705,12 @@ msgstr "کارتی را انتخاب کنید که هنوز جفت نشده اس
 
 msgid "Choose and save the default provider for verification messages. Then edit the messages below to set their delivery method and content."
 msgstr "سرویس‌دهندهٔ پیش‌فرض پیامک‌های تأیید را انتخاب و ذخیره کنید. سپس روش ارسال و محتوای هر پیام را از فهرست زیر تنظیم کنید."
+
+msgid "Choose at least one sign-in method."
+msgstr "حداقل یک روش ورود را انتخاب کنید."
+
+msgid "Choose how customers receive their sign-in code."
+msgstr "روش‌های دریافت کد ورود را انتخاب کنید."
 
 msgid "Choose how customers sign in"
 msgstr "روش ورود مشتریان را انتخاب کنید"
@@ -790,6 +808,9 @@ msgstr "تکمیل اطلاعات حساب"
 msgid "Complete account verification to sign in."
 msgstr "برای ورود، تأیید امنیت حساب را تکمیل کنید."
 
+msgid "Complete the Bale connection before using it for sign-in."
+msgstr "پیش از استفاده از بله برای ورود، اطلاعات اتصال آن را کامل کنید."
+
 msgid "Complete the SMS account connection settings first."
 msgstr "ابتدا اطلاعات اتصال حساب پیامکی را کامل کنید."
 
@@ -853,6 +874,9 @@ msgstr "سرویس ارسال و اطلاعات الگوی OTP را تنظیم �
 msgid "Configure the reminder templates and sending times first. Automatic mode saves the account or checkout number with the cart; no separate checkbox is required. Add a discount if needed, then test recovery with your own number."
 msgstr "ابتدا الگوهای یادآوری و زمان ارسال را تنظیم کنید. حالت خودکار، شمارهٔ حساب یا تسویه‌حساب را همراه سبد ذخیره می‌کند و به تیک جداگانه نیاز ندارد. در صورت نیاز تخفیف تعریف و بازیابی را با شمارهٔ خود آزمایش کنید."
 
+msgid "Configure the selected connections in Service providers. Choose a default SMS provider there, or a different one for sign-in in General. Save the SMS code message. Bale needs only its OTP connection; email uses the site mail service."
+msgstr "اتصال‌ها را در سرویس‌دهنده‌ها تنظیم کنید. سرویس‌دهنده پیامکی پیش‌فرض را همان‌جا مشخص کنید؛ برای ورود می‌توانید در عمومی سرویس دیگری انتخاب کنید. پیام کد پیامکی را ذخیره کنید. بله فقط به اتصال کد تأیید نیاز دارد و ایمیل از سرویس ایمیل سایت استفاده می‌کند."
+
 msgid "Configure the service and save it. SMS templates open in the same message editor used throughout Anar; there is no separate template in this guide."
 msgstr "اتصال سرویس را تنظیم و ذخیره کنید. الگوی پیامک در همان ویرایشگر مشترک انار باز می‌شود و نیازی به تعریف دوبارهٔ آن نیست."
 
@@ -889,8 +913,17 @@ msgstr "اتصال و پیام"
 msgid "Connection and orders"
 msgstr "اتصال و سفارش‌ها"
 
+msgid "Connection complete — save to apply"
+msgstr "اطلاعات اتصال کامل شد؛ تنظیمات را ذخیره کنید"
+
+msgid "Connection configured"
+msgstr "اطلاعات اتصال کامل است"
+
 msgid "Connection details saved"
 msgstr "اطلاعات اتصال ذخیره شده است"
+
+msgid "Connection incomplete"
+msgstr "تنظیمات اتصال ناقص است"
 
 msgid "Connection interrupted. Retry to continue the same game."
 msgstr "ارتباط قطع شد. با زدن «ادامهٔ همین بازی»، همان نوبت را دنبال کنید."
@@ -1120,6 +1153,12 @@ msgstr "پیش‌فرض"
 msgid "Default Anar registration"
 msgstr "ثبت‌نام پیش‌فرض انار"
 
+msgid "Default SMS provider"
+msgstr "سرویس‌دهنده پیامکی پیش‌فرض"
+
+msgid "Default SMS provider for new features"
+msgstr "سرویس‌دهنده پیامکی پیش‌فرض برای قابلیت‌های جدید"
+
 msgid "Default WooCommerce cart page"
 msgstr "صفحه پیش‌فرض سبد خرید ووکامرس"
 
@@ -1225,6 +1264,9 @@ msgstr "فقط ایمیل"
 msgid "Email sign-in"
 msgstr "ورود با ایمیل"
 
+msgid "Email sign-in message"
+msgstr "پیام ایمیل ورود"
+
 msgid "Email subject"
 msgstr "موضوع ایمیل"
 
@@ -1236,6 +1278,9 @@ msgstr "بررسی اعتبار پیامکی فعال باشد"
 
 msgid "Enable SMS credit monitoring before checking an account."
 msgstr "ابتدا بررسی اعتبار پیامکی را فعال و تنظیمات را ذخیره کنید."
+
+msgid "Enable SMS, Email or Bale in General. Customers enter a mobile number for SMS or Bale, or an email address for Email. Enable both mobile senders to send the same code through SMS and Bale."
+msgstr "در عمومی، پیامک، ایمیل یا بله را فعال کنید. مشتری برای پیامک یا بله شماره موبایل و برای ایمیل آدرس ایمیل وارد می‌کند. با فعال بودن پیامک و بله، همان کد از هر دو مسیر ارسال می‌شود."
 
 msgid "Enable authenticator"
 msgstr "فعال‌سازی برنامهٔ رمزساز"
@@ -1422,6 +1467,9 @@ msgstr "برای دریافت موجودی فراز، کلید API جدید هم
 
 msgid "Fast, secure sign-in"
 msgstr "ورود امن و سریع"
+
+msgid "Feature disabled"
+msgstr "قابلیت غیرفعال"
 
 msgid "Features"
 msgstr "مدیریت قابلیت‌ها"
@@ -2035,6 +2083,9 @@ msgstr "پیام‌ها"
 msgid "Messages and templates"
 msgstr "پیام‌ها و الگوها"
 
+msgid "Messengers"
+msgstr "پیام‌رسان‌ها"
+
 msgid "Minimum cart amount"
 msgstr "حداقل مبلغ سبد"
 
@@ -2137,6 +2188,9 @@ msgstr "نیازمند بررسی"
 msgid "New customers"
 msgstr "مشتریان جدید"
 
+msgid "New features use this SMS provider automatically. Features with their own provider keep that selection. Each message still needs its own text or approved template."
+msgstr "قابلیت‌های جدید به‌صورت خودکار از این سرویس‌دهنده استفاده می‌کنند. انتخاب اختصاصی قابلیت‌های دیگر حفظ می‌شود. متن یا الگوی تأییدشده هر پیام باید جداگانه تنظیم شود."
+
 msgid "New mobile number"
 msgstr "شمارهٔ موبایل جدید"
 
@@ -2182,6 +2236,9 @@ msgstr "این بار جایزه‌ای دریافت نکردید."
 msgid "No discount"
 msgstr "بدون تخفیف"
 
+msgid "No features currently use this connection."
+msgstr "در حال حاضر هیچ قابلیتی این اتصال را انتخاب نکرده است."
+
 msgid "No history import is running."
 msgstr "درون‌ریزی تاریخچه در حال اجرا نیست."
 
@@ -2217,6 +2274,9 @@ msgstr "به این حساب متصل نیست"
 
 msgid "Not selected"
 msgstr "انتخاب نشده"
+
+msgid "Not selected for"
+msgstr "انتخاب‌نشده برای"
 
 msgid "Not used yet"
 msgstr "هنوز استفاده نشده"
@@ -3004,6 +3064,9 @@ msgstr "فرصتی دوباره برای خرید"
 msgid "SMS"
 msgstr "پیامک"
 
+msgid "SMS and Bale send the same code to the entered mobile number. Email sends a code only to the email address entered by the customer."
+msgstr "پیامک و بله همان کد را به شماره موبایل واردشده می‌فرستند. ایمیل فقط به آدرسی ارسال می‌شود که مشتری وارد کرده است."
+
 msgid "SMS codes per hour"
 msgstr "کد پیامکی در ساعت"
 
@@ -3030,6 +3093,9 @@ msgstr "سرویس‌دهندهٔ پیامک"
 
 msgid "SMS provider key (blank = commerce provider)"
 msgstr "کلید سرویس پیامک (خالی یعنی سرویس فروشگاه)"
+
+msgid "SMS providers"
+msgstr "سرویس‌دهنده‌های پیامکی"
 
 msgid "SMS purchase reminders"
 msgstr "یادآوری پیامکی خرید"
@@ -3117,6 +3183,9 @@ msgstr "ذخیره ترجیح یادآوری"
 
 msgid "Save settings"
 msgstr "ذخیره تنظیمات"
+
+msgid "Save settings to apply these connection changes. Usage below reflects saved settings."
+msgstr "برای اعمال تغییرات اتصال، تنظیمات را ذخیره کنید. کاربردهای زیر بر اساس تنظیمات ذخیره‌شده هستند."
 
 msgid "Save the SMS provider and connection details first, then edit its code message."
 msgstr "ابتدا پنل پیامکی و اطلاعات اتصال را ذخیره کنید، سپس پیام کد ورود آن را ویرایش کنید."
@@ -3223,6 +3292,12 @@ msgstr "رویدادهای مورد نیاز سفارش را انتخاب و ب�
 msgid "Select which accounts require a code after password sign-in. Confirm SMS or email delivery before enabling this option. This protection can remain active independently of the Anar login form."
 msgstr "حساب‌های نیازمند کد پس از ورود با رمز عبور را انتخاب کنید. پیش از فعال‌سازی، ارسال پیامک یا ایمیل را بررسی کنید. این حفاظت مستقل از فرم ورود انار نیز فعال می‌ماند."
 
+msgid "Selected for"
+msgstr "انتخاب‌شده برای"
+
+msgid "Selected for inactive features"
+msgstr "انتخاب‌شده برای قابلیت‌های غیرفعال"
+
 msgid "Selected form is unavailable"
 msgstr "فرم انتخاب‌شده در دسترس نیست"
 
@@ -3267,6 +3342,9 @@ msgstr "شماره فرستنده"
 
 msgid "Sender number (optional)"
 msgstr "شمارهٔ فرستنده (اختیاری)"
+
+msgid "Sender type"
+msgstr "نوع ارسال‌کننده"
 
 msgid "Sending"
 msgstr "در حال ارسال"
@@ -3436,6 +3514,9 @@ msgstr "خروج از همهٔ دستگاه‌های دیگر"
 msgid "Sign-in & security"
 msgstr "ورود و امنیت"
 
+msgid "Sign-in SMS provider"
+msgstr "سرویس‌دهنده پیامکی ورود"
+
 msgid "Sign-in and recovery"
 msgstr "ورود و بازیابی رمز"
 
@@ -3486,6 +3567,9 @@ msgstr "مصرف یک‌باره"
 
 msgid "Site domain"
 msgstr "دامنهٔ سایت"
+
+msgid "Site email service"
+msgstr "سرویس ایمیل سایت"
 
 msgid "Site logo"
 msgstr "لوگوی سایت"
@@ -4045,6 +4129,9 @@ msgstr "دو شورت‌کد سبک، سازگار با ویرایشگر کلا�
 msgid "Two-step verification"
 msgstr "ورود دومرحله‌ای"
 
+msgid "Unavailable for SMS"
+msgstr "برای پیامک قابل استفاده نیست"
+
 msgid "Unsaved message changes"
 msgstr "تغییرات ذخیره‌نشده"
 
@@ -4062,6 +4149,9 @@ msgstr "رمز عبوری با طول ۱۲ تا ۴۰۹۶ بایت انتخاب �
 
 msgid "Use commerce provider"
 msgstr "استفاده از سرویس فروشگاه"
+
+msgid "Use default: %s"
+msgstr "استفاده از پیش‌فرض: %s"
 
 msgid "Use interactive sign-in for this account."
 msgstr "برای این حساب از فرم ورود سایت استفاده کنید."
@@ -4134,6 +4224,9 @@ msgstr "کد تأیید"
 
 msgid "Verification code sent via Bale."
 msgstr "کد تأیید در پیام‌رسان بله ارسال شد."
+
+msgid "Verification codes in Bale. OTP only."
+msgstr "ارسال کد تأیید در بله؛ فقط کد یک‌بارمصرف."
 
 msgid "Verified"
 msgstr "تأییدشده"
@@ -4209,6 +4302,9 @@ msgstr "با فعال شدن یادآوری خرید، حالت خودکار ش�
 
 msgid "Where should the mobile code be sent first?"
 msgstr "کد موبایل ابتدا از کجا ارسال شود؟"
+
+msgid "Where this connection is used"
+msgstr "کاربردهای این سرویس‌دهنده"
 
 msgid "Winning chance and single-reward fallback"
 msgstr "احتمال برد و جایزهٔ ثابت"

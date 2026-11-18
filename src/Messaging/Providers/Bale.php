@@ -16,20 +16,13 @@ final class Bale extends AbstractProvider {
 	public function title() {
 		return __( 'Bale', 'anar-toolkit' ); }
 	public function description() {
-		return __( 'Safir OTP and store messages. Existing legacy OTP connections remain supported.', 'anar-toolkit' ); }
+		return __( 'Verification codes in Bale. OTP only.', 'anar-toolkit' ); }
 	public function fields() {
 		return array( 'api_key' => __( 'Safir API access key (v3)', 'anar-toolkit' ), 'bot_id' => __( 'Sender bot numeric ID (v3)', 'anar-toolkit' ), 'username' => __( 'Client ID', 'anar-toolkit' ), 'password' => __( 'Client secret', 'anar-toolkit' ) ); }
 	public function template_credentials() {
 		return ! empty( $this->config()['api_key'] ) ? array( 'api_key', 'bot_id' ) : array( 'username', 'password' ); }
 	public function send( $recipient, $code, $message ) {
 		return $this->send_template( $recipient, 'otp', array( 'code' => $code ) ); }
-	public function text_credentials() {
-		return ! empty( $this->config()['api_key'] ) ? array( 'api_key', 'bot_id' ) : null; }
-	public function send_text( $recipient, $text ) {
-		if ( null === $this->text_credentials() ) {
-			return parent::send_text( $recipient, $text ); }
-		return $this->send_v3( $recipient, array( 'message' => array( 'text' => (string) $text ) ) );
-	}
 	private function send_v3( $recipient, $data ) {
 		$config = $this->config();
 		$ready = $this->require_config( $config, array( 'api_key', 'bot_id' ) );
@@ -53,16 +46,16 @@ final class Bale extends AbstractProvider {
 
 	public function send_template( $recipient, $template, $params ) {
 		$config = $this->config();
+		$code = (string) ( $params['code'] ?? '' );
+		if ( 'otp' !== $template || ! preg_match( '/^[1-9][0-9]{3,7}$/D', $code ) || 1 !== count( $params ) ) {
+			return new WP_Error( 'anar_bale_code', __( 'Bale supports verification codes only.', 'anar-toolkit' ) );
+		}
 		if ( ! empty( $config['api_key'] ) ) {
-			$data = 'otp' === $template && isset( $params['code'] ) && 1 === count( $params ) ? array( 'otp_message' => array( 'otp' => (string) $params['code'] ) ) : array( 'template_message' => array( 'template_id' => (string) $template, 'text_fields' => (object) $params ) );
-			return $this->send_v3( $recipient, $data );
+			return $this->send_v3( $recipient, array( 'otp_message' => array( 'otp' => $code ) ) );
 		}
 		$ready = $this->require_config( $config, $this->template_credentials() );
 		if ( is_wp_error( $ready ) ) {
 			return $ready; }
-		$code = (string) ( $params['code'] ?? '' );
-		if ( ! preg_match( '/^[1-9][0-9]{2,7}$/D', $code ) || count( $params ) !== 1 ) {
-			return new WP_Error( 'anar_bale_code', __( 'Bale supports verification codes only.', 'anar-toolkit' ) ); }
 		$cache = 'anar_bale_' . hash_hmac( 'sha256', $config['username'] . '|' . $config['password'], wp_salt( 'auth' ) );
 		$token = get_transient( $cache );
 		if ( ! $token ) {

@@ -130,11 +130,8 @@ final class Admin {
 					<?php endforeach; ?>
 					<p><?php esc_html_e( 'Payment messages are triggered by WooCommerce payment completion, not by viewing the thank-you page. Merely creating an order or choosing cash on delivery does not trigger them.', 'anar-toolkit' ); ?></p>
 					<p><label for="anar-commerce-provider"><strong><?php esc_html_e( 'Commerce SMS provider', 'anar-toolkit' ); ?></strong></label><br><select id="anar-commerce-provider" name="<?php echo esc_attr( Settings::OPTION ); ?>[provider]">
-					<option value="" <?php selected( $value['provider'], '' ); ?>><?php esc_html_e( 'Use the sign-in SMS provider', 'anar-toolkit' ); ?></option>
-					<?php foreach ( $this->providers->all() as $key => $provider ) : ?>
-						<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $value['provider'], $key ); ?>><?php echo esc_html( $provider->title() ); ?></option>
-					<?php endforeach; ?></select></p>
-					<p><a href="<?php echo esc_url( admin_url( 'admin.php?page=anar-login-settings' ) ); ?>"><?php esc_html_e( 'Configure provider credentials in SMS settings', 'anar-toolkit' ); ?></a></p>
+					<?php \Anar\Login\Admin\ProviderPicker::options( $value['provider'], true, $this->providers->all() ); ?></select></p>
+					<p><a href="<?php echo esc_url( admin_url( 'admin.php?page=anar-login-settings&section=sms' ) ); ?>"><?php esc_html_e( 'Configure provider credentials in SMS settings', 'anar-toolkit' ); ?></a></p>
 					<?php $this->input( 'admin_phones', __( 'Administrator mobile numbers (maximum 5, one per line)', 'anar-toolkit' ), $value['admin_phones'], 'textarea' ); ?>
 				</div>
 				<?php
