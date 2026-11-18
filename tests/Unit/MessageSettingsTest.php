@@ -29,7 +29,7 @@ final class MessageSettingsTest extends TestCase {
 
 	public function test_all_existing_purposes_have_one_catalog_entry() {
 		$items = MessageCatalog::all();
-		$this->assertCount( 34, $items );
+		$this->assertCount( 35, $items );
 		$this->assertArrayHasKey( 'recovery_request', $items );
 		$this->assertArrayHasKey( 'stock_verification', $items );
 		$this->assertArrayHasKey( 'mkt_birthday', $items );

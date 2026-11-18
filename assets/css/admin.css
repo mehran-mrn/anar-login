@@ -1050,3 +1050,5 @@
 .anar-message-dialog > .anar-message-warning {
  overscroll-behavior: contain;
 }
+
+.anar-mobile-delivery select{display:block;width:min(100%,440px);margin-block:10px 16px}.anar-mobile-delivery p{line-height:1.9}.anar-mobile-delivery [hidden]{display:none!important}

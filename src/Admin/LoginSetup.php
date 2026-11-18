@@ -25,14 +25,15 @@ final class LoginSetup {
 			</ol>
 			<div class="anar-card" data-setup-step="0">
 				<h3 tabindex="-1"><?php esc_html_e( 'Choose how customers sign in', 'anar-toolkit' ); ?></h3>
-				<p><?php esc_html_e( 'Choose mobile number, email or both. Existing customers keep their accounts.', 'anar-toolkit' ); ?></p>
+				<p><?php esc_html_e( 'Choose Mobile number or email to offer both at once. Customers enter either contact in the same form. Existing accounts are preserved.', 'anar-toolkit' ); ?></p>
 				<button type="button" class="button" data-setup-target="general"><?php esc_html_e( 'Open sign-in settings', 'anar-toolkit' ); ?></button>
 			</div>
 			<div class="anar-card" data-setup-step="1" hidden>
 				<h3 tabindex="-1"><?php esc_html_e( 'Connect the selected service', 'anar-toolkit' ); ?></h3>
 				<?php if ( 'email' !== $value['identity_mode'] ) : ?>
 					<button type="button" class="button" data-setup-target="sms"><?php esc_html_e( 'Open SMS connection', 'anar-toolkit' ); ?></button>
-					<?php MessageCenter::summary( 'login_otp', 'login' ); ?>
+					<?php MessageCenter::summary( 'single' === $value['mobile_delivery_order'] ? 'login_otp' : 'login_sms', 'login' ); ?>
+					<p><?php esc_html_e( 'For mobile codes, choose one service or set Bale and SMS in priority order in SMS settings. Connect both services and save the SMS code message. Email is configured separately through the site mail service.', 'anar-toolkit' ); ?></p>
 				<?php endif; ?>
 				<?php if ( 'phone' !== $value['identity_mode'] ) : ?>
 					<button type="button" class="button" data-setup-target="email"><?php esc_html_e( 'Open email settings', 'anar-toolkit' ); ?></button>
@@ -43,7 +44,8 @@ final class LoginSetup {
 				<h3 tabindex="-1"><?php esc_html_e( 'Check delivery and complete a test sign-in', 'anar-toolkit' ); ?></h3>
 				<p><?php esc_html_e( 'Send a test from the message editor, then sign in from a private browser window using your own contact. Test sending uses your provider credit.', 'anar-toolkit' ); ?></p>
 				<?php if ( 'email' !== $value['identity_mode'] ) : ?>
-					<?php MessageCenter::summary( 'login_otp', 'login', true ); ?>
+					<?php MessageCenter::summary( 'single' === $value['mobile_delivery_order'] ? 'login_otp' : 'login_sms', 'login', true ); ?>
+					<p><?php esc_html_e( 'After saving the delivery order, test the sign-in form with a Bale account and a number that is not on Bale. Also test an email address if email sign-in is enabled. Never deliberately disconnect the live store to test a fallback.', 'anar-toolkit' ); ?></p>
 				<?php endif; ?>
 				<p><?php esc_html_e( 'A provider acceptance response does not confirm receipt on the phone. Check the received code before enabling the form for customers.', 'anar-toolkit' ); ?></p>
 			</div>

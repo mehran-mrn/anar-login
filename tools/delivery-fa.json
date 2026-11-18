@@ -1,0 +1,22 @@
+{
+  "Choose Mobile number or email to offer both at once. Customers enter either contact in the same form. Existing accounts are preserved.": "برای ارائهٔ هم‌زمان هر دو روش، «شماره موبایل یا ایمیل» را انتخاب کنید. مشتری در همان فرم، شماره یا ایمیل خود را وارد می‌کند. حساب‌های فعلی حفظ می‌شوند.",
+  "For mobile codes, choose one service or set Bale and SMS in priority order in SMS settings. Connect both services and save the SMS code message. Email is configured separately through the site mail service.": "برای کدهای موبایل، در تنظیمات پیامک یک سرویس یا ترتیب بله و پیامک را انتخاب کنید. اتصال هر دو سرویس را تنظیم و پیام کد ورود را ذخیره کنید. ارسال ایمیل از سرویس ایمیل سایت انجام می‌شود و تنظیمات جداگانه دارد.",
+  "After saving the delivery order, test the sign-in form with a Bale account and a number that is not on Bale. Also test an email address if email sign-in is enabled. Never deliberately disconnect the live store to test a fallback.": "پس از ذخیرهٔ ترتیب ارسال، فرم ورود را با یک شمارهٔ عضو بله و یک شمارهٔ غیرعضو آزمایش کنید. اگر ورود ایمیلی فعال است، یک ایمیل را هم آزمایش کنید. برای آزمایش ارسال جایگزین، اتصال فروشگاه فعال را عمداً قطع نکنید.",
+  "Only the selected service": "فقط سرویس انتخاب‌شده",
+  "1. Bale, then 2. SMS": "۱. بله، سپس ۲. پیامک",
+  "1. SMS, then 2. Bale": "۱. پیامک، سپس ۲. بله",
+  "Mobile code delivery order": "ترتیب ارسال کد موبایل",
+  "Customers can use mobile number and email together. This order applies only to mobile verification codes; email and store messages keep their own settings.": "امکان ورود با شماره موبایل و ایمیل به‌صورت هم‌زمان وجود دارد. این ترتیب فقط برای کدهای تأیید موبایل است؛ ایمیل و پیام‌های فروشگاه تنظیمات خود را دارند.",
+  "Where should the mobile code be sent first?": "کد موبایل ابتدا از کجا ارسال شود؟",
+  "If the first service rejects delivery, Anar sends the same code through the second service. A number without a Bale account automatically receives SMS when Bale is first.": "اگر سرویس اول ارسال را رد کند، انار همان کد را از سرویس دوم می‌فرستد. در حالت «اول بله»، اگر شماره عضو بله نباشد، کد به‌صورت خودکار پیامک می‌شود.",
+  "If a service stops responding after a send request, delivery may already have happened. Anar keeps that code valid and waits for the resend timer instead of automatically sending it twice.": "اگر پس از درخواست ارسال، سرویس پاسخ ندهد، ممکن است کد ارسال شده باشد. انار اعتبار همان کد را حفظ می‌کند و برای جلوگیری از ارسال تکراری، تا پایان زمان ارسال مجدد منتظر می‌ماند.",
+  "Bale connection": "اتصال بله",
+  "Connection details saved": "اطلاعات اتصال ذخیره شده است",
+  "Choose the SMS provider here, complete both connection forms below and save settings. Then use Edit message to enter the approved SMS template and test sign-in.": "پنل پیامکی را اینجا انتخاب کنید، اطلاعات اتصال هر دو سرویس را در پایین تکمیل و تنظیمات را ذخیره کنید. سپس با «ویرایش پیام»، الگوی تأییدشدهٔ پیامک را وارد و ورود را آزمایش کنید.",
+  "Save the SMS provider and connection details first, then edit its code message.": "ابتدا پنل پیامکی و اطلاعات اتصال را ذخیره کنید، سپس پیام کد ورود آن را ویرایش کنید.",
+  "Choose Mobile number or email to offer both methods at the same time. Mobile delivery priority is configured under SMS.": "برای ارائهٔ هم‌زمان هر دو روش، «شماره موبایل یا ایمیل» را انتخاب کنید. اولویت ارسال کد موبایل در بخش پیامک تنظیم می‌شود.",
+  "If sign-in is available, check Bale or SMS for your mobile code.": "اگر امکان ورود وجود داشته باشد، کد موبایل را در بله یا پیامک بررسی کنید.",
+  "Enter your mobile number to receive a one-time code.": "برای دریافت کد یک‌بارمصرف، شماره موبایل خود را وارد کنید.",
+  "Mobile sign-in SMS": "پیامک کد ورود موبایل",
+  "Choose an SMS provider for the mobile sign-in SMS message.": "برای پیامک کد ورود موبایل، یک پنل پیامکی انتخاب کنید."
+}
