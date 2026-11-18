@@ -8,7 +8,6 @@
 namespace Anar\Login\Balance;
 
 use Anar\Login\Infrastructure\Settings;
-use Anar\Login\Infrastructure\Features;
 use Anar\Login\Messaging\ProviderRegistry;
 
 defined( 'ABSPATH' ) || exit;
@@ -18,18 +17,13 @@ final class Accounts {
 	public static function all() {
 		$settings = new Settings();
 		$registry = new ProviderRegistry( $settings );
-		$flags = Features::all();
-		$commerce = (array) get_option( 'anar_toolkit_commerce', array() );
-		$marketing = (array) get_option( 'anar_toolkit_marketing', array() );
 		$uses = array();
-		if ( $flags['login'] || $flags['reset'] || $flags['two_factor'] ) {
-			$uses[ $settings->get( 'sms_provider' ) ][] = __( 'Sign-in and recovery', 'anar-toolkit' );
-		}
-		if ( $flags['orders'] || $flags['recovery'] ) {
-			$uses[ $commerce['provider'] ?? 'kavenegar' ][] = __( 'Orders and abandoned carts', 'anar-toolkit' );
-		}
-		if ( Features::queue_needed() && Features::marketing() ) {
-			$uses[ ( $marketing['provider'] ?? '' ) ?: ( $commerce['provider'] ?? 'kavenegar' ) ][] = __( 'Marketing messages', 'anar-toolkit' );
+		foreach ( \Anar\Login\Messaging\ProviderUsage::all() as $assignment ) {
+			if ( $assignment['active'] ) {
+				foreach ( $assignment['keys'] as $provider_key ) {
+					$uses[ $provider_key ][] = $assignment['label'];
+				}
+			}
 		}
 		$accounts = array();
 		foreach ( $registry->all() as $key => $provider ) {

@@ -72,6 +72,7 @@ final class MessageCenter {
 			$config = $settings->provider( $key );
 			$fields[ $key ] = array(
 				'title' => $provider->title(),
+				'ready' => \Anar\Login\Messaging\ProviderStatus::ready( $provider ),
 				'template' => $transport && 'custom' !== $key,
 				'text' => null !== $text,
 				'codeOnly' => 'custom' === $key && MessageSettings::uses_custom_code_only( $config ),
@@ -114,7 +115,7 @@ final class MessageCenter {
 	}
 
 	private function active( $id, $item ) {
-		if ( 'login_sms' === $id && 'single' === ( new Settings() )->get( 'mobile_delivery_order', 'single' ) ) {
+		if ( 'login_sms' === $id || ( 'login_otp' === $id && ! in_array( 'sms', ( new Settings() )->get( 'login_methods' ), true ) ) ) {
 			return false; }
 		if ( ! Features::enabled( $item['module'] ) ) {
 			return false;
@@ -231,6 +232,9 @@ final class MessageCenter {
 			<?php endforeach; ?></tr></thead><tbody>
 			<?php
 			foreach ( MessageCatalog::all() as $id => $item ) :
+				if ( 'login_sms' === $id ) {
+					continue;
+				}
 				$active = $this->active( $id, $item );
 				$value = MessageSettings::get( $id );
 				$errors = MessageSettings::errors( $id, $value );
@@ -263,8 +267,8 @@ final class MessageCenter {
 			$value = $draft['value'];
 			delete_transient( 'anar_message_draft_' . get_current_user_id() );
 		}
-		$providers = ProviderRegistry::shared()->all();
-		if ( 'login_sms' === $id || ( 'login_otp' === $id && ( new Settings() )->get( 'login_provider' ) ) ) {
+		$providers = \Anar\Login\Messaging\ProviderStatus::sorted( ProviderRegistry::shared()->all() );
+		if ( in_array( $id, array( 'login_sms', 'login_otp' ), true ) ) {
 			$providers = array_intersect_key( $providers, array( $value['provider'] => true ) ); }
 		$sample = MessageSettings::preview( $id, $value );
 		$is_auth = 'auth' === $item['source'];
@@ -300,18 +304,7 @@ final class MessageCenter {
 			<?php endif; ?>
 			<div id="anar-message-provider-options" class="anar-message-provider__options" data-provider-picker hidden>
 				<select name="value[provider]" data-message-provider aria-label="<?php esc_attr_e( 'SMS provider', 'anar-toolkit' ); ?>">
-					<option value=""><?php esc_html_e( 'No SMS provider selected', 'anar-toolkit' ); ?></option>
-					<?php if ( $value['provider'] && ! isset( $providers[ $value['provider'] ] ) ) : ?>
-						<option value="<?php echo esc_attr( $value['provider'] ); ?>" selected><?php echo esc_html( $value['provider'] ); ?></option>
-					<?php endif; ?>
-					<?php foreach ( $providers as $key => $provider ) : ?>
-						<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $value['provider'], $key ); ?>>
-							<?php
-							/* translators: %s: SMS provider name. */
-							echo esc_html( $is_auth && $key === $default_provider ? sprintf( __( '%s (default in SMS settings)', 'anar-toolkit' ), $provider->title() ) : $provider->title() );
-							?>
-						</option>
-					<?php endforeach; ?>
+					<?php ProviderPicker::options( $value['provider'], false, $providers ); ?>
 				</select>
 				<?php if ( $is_auth && isset( $providers[ $default_provider ] ) ) : ?>
 					<button type="button" class="button" data-use-default-provider hidden>
@@ -323,6 +316,7 @@ final class MessageCenter {
 				<?php endif; ?>
 				<a href="<?php echo esc_url( self::provider_url() ); ?>"><?php esc_html_e( 'Open SMS connection settings', 'anar-toolkit' ); ?></a>
 			</div>
+			<p class="anar-message-warning" data-provider-connection-warning hidden>⚠ <?php esc_html_e( 'Connection incomplete', 'anar-toolkit' ); ?> <a href="<?php echo esc_url( self::provider_url() ); ?>"><?php esc_html_e( 'Configure service connections', 'anar-toolkit' ); ?></a></p>
 			<p class="description" data-provider-missing hidden>
 				<?php esc_html_e( 'Select and save a provider in SMS settings, then return here to set up this message.', 'anar-toolkit' ); ?>
 				<a href="<?php echo esc_url( self::provider_url() ); ?>"><?php esc_html_e( 'Open SMS connection settings', 'anar-toolkit' ); ?></a>
@@ -414,11 +408,7 @@ final class MessageCenter {
 		$value = ( new \Anar\Login\Marketing\Settings() )->all();
 		?>
 		<p class="anar-message-scope"><?php esc_html_e( 'These settings affect all customer campaigns, including birthday and repeat-purchase messages.', 'anar-toolkit' ); ?></p><form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="anar-card anar-message-shared" data-message-shared><?php wp_nonce_field( 'anar_message_shared' ); ?><input type="hidden" name="action" value="anar_message"><input type="hidden" name="id" value="shared"><input type="hidden" name="operation" value="shared">
-		<label><?php esc_html_e( 'SMS provider', 'anar-toolkit' ); ?><select name="shared[provider]"><option value=""><?php esc_html_e( 'Use commerce provider', 'anar-toolkit' ); ?></option>
-		<?php
-		foreach ( ProviderRegistry::shared()->all() as $provider_key => $provider ) {
-			?>
-			<option value="<?php echo esc_attr( $provider_key ); ?>" <?php selected( $value['provider'], $provider_key ); ?>><?php echo esc_html( $provider->title() ); ?></option><?php } ?></select></label>
+		<label><?php esc_html_e( 'SMS provider', 'anar-toolkit' ); ?><select name="shared[provider]"><?php ProviderPicker::options( $value['provider'], true ); ?></select></label>
 		<?php
 		foreach ( array( 'daily_limit' => __( 'Maximum campaign messages per phone / day', 'anar-toolkit' ), 'gap_hours' => __( 'Minimum hours between campaign messages', 'anar-toolkit' ), 'retention' => __( 'Marketing retention in days', 'anar-toolkit' ), 'minimum_orders' => __( 'Minimum purchases for automated customer campaigns', 'anar-toolkit' ), 'minimum_spent' => __( 'Minimum lifetime spend', 'anar-toolkit' ), 'maximum_spent' => __( 'Maximum lifetime spend (0 = no maximum)', 'anar-toolkit' ), 'vip_amount' => __( 'VIP lifetime spend threshold', 'anar-toolkit' ) ) as $key => $label ) {
 			?>

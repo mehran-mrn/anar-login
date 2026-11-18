@@ -33,6 +33,7 @@ final class Settings {
 			'allow_registration'  => 1,
 			'mrn_registration_form' => 0,
 			'identity_mode'       => 'both',
+			'login_methods' => array( 'sms', 'email' ),
 			'mobile_delivery_order' => 'single',
 			'mobile_sms_provider' => '',
 			'login_delivery_mode' => 'choice',
@@ -116,7 +117,37 @@ final class Settings {
 		if ( empty( $settings['sms_provider'] ) || $legacy_default ) {
 			$settings['sms_provider'] = $defaults['sms_provider'];
 		}
+		// Derive the simpler sender choices without writing on page views. Older
+		// priority routes become two enabled mobile senders, with no failover.
+		if ( ! isset( $value['login_methods'] ) ) {
+			$binding = (array) get_option( 'anar_toolkit_messages_login_otp', array() );
+			$primary = $settings['login_provider'] ?: ( $binding['provider'] ?? $settings['sms_provider'] );
+			$methods = 'phone' !== $settings['identity_mode'] ? array( 'email' ) : array();
+			if ( 'email' !== $settings['identity_mode'] ) {
+				$methods = array_merge( $methods, 'single' !== $settings['mobile_delivery_order'] ? array( 'sms', 'bale' ) : array( 'bale' === $primary ? 'bale' : 'sms' ) );
+			}
+			$settings['login_methods'] = $methods;
+			$sms_binding = (array) get_option( 'anar_toolkit_messages_login_sms', array() );
+			$settings['login_provider'] = 'single' !== $settings['mobile_delivery_order']
+				? ( $settings['mobile_sms_provider'] ?: ( $sms_binding['provider'] ?? '' ) )
+				: ( 'bale' === $primary ? '' : ( $settings['login_provider'] ?: ( $binding['provider'] ?? '' ) ) );
+		}
+		$settings['login_methods'] = self::normalize_methods( $settings['login_methods'] );
+		$mobile = (bool) array_intersect( array( 'sms', 'bale' ), $settings['login_methods'] );
+		$settings['identity_mode'] = in_array( 'email', $settings['login_methods'], true ) ? ( $mobile ? 'both' : 'email' ) : 'phone';
+		// A messenger can never become the shared SMS default.
+		if ( 'bale' === $settings['sms_provider'] ) {
+			$settings['sms_provider'] = $settings['mobile_sms_provider'] ?: $defaults['sms_provider'];
+		}
+		if ( 'bale' === $settings['login_provider'] ) {
+			$settings['login_provider'] = '';
+		}
 		return $settings;
+	}
+
+	public static function normalize_methods( $methods ) {
+		$methods = is_array( $methods ) ? array_values( array_intersect( array( 'sms', 'email', 'bale' ), $methods ) ) : array();
+		return $methods ?: array( 'sms' );
 	}
 
 	/**
@@ -231,7 +262,21 @@ final class Settings {
 		$output['mobile_sms_provider'] = 'bale' === $sms_fallback ? '' : $sms_fallback;
 		$output['login_delivery_mode'] = 'simultaneous' === ( $input['login_delivery_mode'] ?? $current['login_delivery_mode'] ) ? 'simultaneous' : 'choice';
 		$output['login_email_backup'] = 'mobile' === ( $input['login_email_backup'] ?? $current['login_email_backup'] ) ? 'mobile' : 'none';
-		$output['identity_mode']       = in_array( $identity_mode, array( 'both', 'phone', 'email' ), true ) ? $identity_mode : 'both';
+		$methods = $current['login_methods'];
+		if ( isset( $input['login_methods_present'] ) || array_key_exists( 'login_methods', $input ) ) {
+			$raw_methods = $input['login_methods'] ?? array();
+			if ( ! is_array( $raw_methods ) || ! array_intersect( $raw_methods, array( 'sms', 'email', 'bale' ) ) ) {
+				if ( function_exists( 'add_settings_error' ) ) {
+					add_settings_error( self::OPTION_KEY, 'anar_login_method_required', __( 'Choose at least one sign-in method.', 'anar-toolkit' ) );
+				}
+			} else {
+				$methods = self::normalize_methods( $raw_methods );
+			}
+		} elseif ( isset( $input['identity_mode'] ) ) {
+			$methods = 'email' === $identity_mode ? array( 'email' ) : ( 'phone' === $identity_mode ? array( 'sms' ) : array( 'sms', 'email' ) );
+		}
+		$output['login_methods'] = $methods;
+		$output['identity_mode'] = in_array( 'email', $methods, true ) ? ( array_intersect( $methods, array( 'sms', 'bale' ) ) ? 'both' : 'email' ) : 'phone';
 		$output['default_role']        = isset( $input['default_role'] ) && self::is_assignable_role( $input['default_role'] ) ? sanitize_key( $input['default_role'] ) : 'subscriber';
 		$output['login_redirect']      = isset( $input['login_redirect'] ) ? esc_url_raw( $input['login_redirect'] ) : '';
 		$profile_step                  = sanitize_key( $input['profile_step'] ?? $current['profile_step'] );
@@ -249,6 +294,12 @@ final class Settings {
 		$output['login_provider'] = sanitize_key( $input['login_provider'] ?? $current['login_provider'] );
 		$output['sms_provider']        = sanitize_key( $input['sms_provider'] ?? $current['sms_provider'] );
 		$output['sms_provider_confirmed'] = isset( $input['sms_provider'] ) ? (int) ( '' !== $output['sms_provider'] ) : (int) $current['sms_provider_confirmed'];
+		if ( 'bale' === $output['sms_provider'] ) {
+			$output['sms_provider'] = $current['sms_provider'];
+		}
+		if ( 'bale' === $output['login_provider'] ) {
+			$output['login_provider'] = '';
+		}
 		$output['sms_message']         = sanitize_textarea_field( $input['sms_message'] ?? $current['sms_message'] );
 		$output['email_subject']       = sanitize_text_field( $input['email_subject'] ?? $defaults['email_subject'] );
 		$output['email_message']       = sanitize_textarea_field( $input['email_message'] ?? $defaults['email_message'] );

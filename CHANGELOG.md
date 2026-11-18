@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.9.0 - 2026-11-19
+
+- Replace delivery priorities, backups and linked-contact broadcasts with three simple SMS, Email and Bale choices. SMS and Bale share one mobile challenge; email uses the entered address.
+- Group connection configuration into SMS providers, email and messengers while keeping the original SMS cards and account forms.
+- Add an independent shared SMS default for new features, with explicit sign-in, store, campaign and message choices preserved.
+- Order every SMS provider picker by saved connection completeness and mark incomplete or unavailable choices with a warning.
+- Show each account's saved uses, inactive assignments and unselected purposes below its credentials.
+- Limit Bale v2/v3 connections to OTP; preserve existing account credentials and dedicated SMS templates during migration.
+- Invalidate legacy autoloaded message caches after atomic saves. Update bundled Persian translations and the setup guide.
+
 ## 1.6.2 - 2026-11-18
 
 - Add slim, rounded scrollbars scoped to Anar administration dialogs, Meli Payamak signup, frontend sign-in popups and the isolated saved-form preview.

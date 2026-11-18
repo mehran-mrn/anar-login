@@ -119,7 +119,7 @@ final class ProviderRegistry {
 		}
 		$key       = sanitize_key( $this->settings->get( 'sms_provider', '' ) );
 		$binding = MessageSettings::stored( $context );
-		if ( $this->settings->get( 'login_provider' ) && 'auth' === ( MessageCatalog::all()[ $context ]['source'] ?? '' ) && ( null === $binding || ! empty( $binding['inherit'] ) ) ) {
+		if ( 'auth' === ( MessageCatalog::all()[ $context ]['source'] ?? '' ) ) {
 			$binding = MessageSettings::get( $context ); }
 		if ( $binding_id ) {
 			$binding = MessageSettings::get( $binding_id ); }

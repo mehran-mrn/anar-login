@@ -1052,3 +1052,21 @@
 }
 
 .anar-mobile-delivery select{display:block;width:min(100%,440px);margin-block:10px 16px}.anar-mobile-delivery p{line-height:1.9}.anar-mobile-delivery [hidden]{display:none!important}
+
+/* Sender settings: compact controls and saved account assignments. */
+.anar-admin .anar-login-methods{display:flex;flex-wrap:wrap;gap:12px;margin:12px 0;border:0;padding:0}
+.anar-admin .anar-login-methods legend{margin-bottom:12px}
+.anar-admin .anar-login-methods label{display:flex;align-items:center;gap:7px;border:1px solid #ded9dc;border-radius:10px;padding:12px 20px;background:#fff;cursor:pointer}
+.anar-admin .anar-login-methods label:has(input:checked){border-color:#a72c52;background:#fff6f8}
+.anar-admin .anar-connection-categories{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 24px}
+.anar-admin .anar-connection-categories [aria-pressed="true"]{background:#a72c52;border-color:#a72c52;color:#fff}
+.anar-admin .anar-connection-state{display:block;font-size:12px;font-weight:600;margin:5px 0}
+.anar-admin .anar-connection-state.is-ready{color:#187044}
+.anar-admin .anar-connection-state.needs-setup{color:#b32d2e}
+.anar-admin .anar-provider-usage{background:#faf8f9;border:1px solid #e8e1e5;border-radius:12px;padding:18px;margin-top:22px}
+.anar-admin .anar-provider-usage h4{margin:0 0 8px;font-size:15px}
+.anar-admin .anar-provider-usage ul{display:flex;flex-wrap:wrap;gap:8px;padding:0;list-style:none}
+.anar-admin .anar-provider-usage li{display:flex;align-items:center;flex-wrap:wrap;gap:6px;border:1px solid #e8e1e5;border-radius:8px;background:#fff;padding:8px 10px;max-width:100%;overflow-wrap:anywhere}
+.anar-admin .anar-provider-usage small{color:#68616a;font-size:11px}
+.anar-admin .anar-provider-usage details summary,.anar-admin .anar-email-message summary{cursor:pointer;padding:12px 0;font-weight:600}
+.anar-admin .anar-usage-default{color:#187044;font-weight:600}

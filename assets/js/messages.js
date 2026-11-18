@@ -98,9 +98,11 @@
 			body.innerHTML = result.data.html;
 			const form = body.querySelector('[data-message-editor]');
 			editor = initialize(form);
-			const savedProvider = document.querySelector('[data-verification-messages]')?.dataset.savedProvider;
-			const selectedProvider = document.querySelector('[data-panel="sms"] .anar-provider input:checked')?.value;
-			providerDraft.hidden = !form.hasAttribute('data-auth-message') || !selectedProvider || selectedProvider === savedProvider;
+			const loginProvider = document.querySelector('#anar-login-provider');
+			const defaultProvider = document.querySelector('#anar-default-provider');
+			const savedDefault = document.querySelector('[data-verification-messages]')?.dataset.savedProvider;
+			providerDraft.hidden = !form.hasAttribute('data-auth-message') || !loginProvider ||
+				(loginProvider.value === loginProvider.dataset.savedProvider && (!defaultProvider || defaultProvider.value === savedDefault));
 			document.dispatchEvent(new CustomEvent('anar:content-ready', { detail: { root: body } }));
 		} catch (error) {
 			if (error.name !== 'AbortError') { report(error.message || config.network, false); reloadButton.hidden = false; }
@@ -175,6 +177,7 @@
 			providerToggle.hidden = inherited || form.hasAttribute('data-fixed-provider');
 			if (inherited) showProviderPicker(false);
 			form.querySelector('[data-provider-missing]').hidden = !!effectiveKey;
+			form.querySelector('[data-provider-connection-warning]').hidden = !effectiveKey || !!effective?.ready;
 			const auth = form.hasAttribute('data-auth-message');
 			const usesDefault = effectiveKey === form.dataset.defaultProvider;
 			form.querySelector('[data-provider-default]').hidden = !auth || inherited || !effectiveKey || !usesDefault;
