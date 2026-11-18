@@ -107,8 +107,20 @@ final class ProviderRegistry {
 	 * @return true|WP_Error
 	 */
 	public function send( $recipient, $code, $message, $context = 'login_otp' ) {
+		if ( LoginDelivery::applies( $this->settings, $context ) ) {
+			return ( new LoginDelivery( $this->settings, $this ) )->send( $recipient, $code, $message, $context );
+		}
+		return $this->send_single( $recipient, $code, $message, $context );
+	}
+
+	public function send_single( $recipient, $code, $message, $context = 'login_otp', $binding_id = '' ) {
+		if ( 'login_sms' === $context ) {
+			$binding_id = 'login_sms';
+		}
 		$key       = sanitize_key( $this->settings->get( 'sms_provider', '' ) );
 		$binding = MessageSettings::stored( $context );
+		if ( $binding_id ) {
+			$binding = MessageSettings::get( $binding_id ); }
 		if ( null === $binding && 'login_otp' !== $context && isset( MessageCatalog::all()[ $context ] ) && 'auth' === MessageCatalog::all()[ $context ]['source'] ) {
 			$binding = MessageSettings::stored( 'login_otp' );
 		}
@@ -118,9 +130,9 @@ final class ProviderRegistry {
 				return new WP_Error( 'anar_invalid_recipient', __( 'A valid mobile number is required.', 'anar-toolkit' ) );
 			}
 			$recipient = $identity['identity'];
-			$value = MessageSettings::get( $context );
+			$value = MessageSettings::get( $binding_id ?: $context );
 			$key = $value['provider'];
-			$errors = MessageSettings::errors( $context, $value );
+			$errors = MessageSettings::errors( $binding_id ?: $context, $value );
 			if ( $errors ) {
 				return new WP_Error( 'anar_message_incomplete', implode( ' ', $errors ) );
 			}

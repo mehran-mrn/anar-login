@@ -337,7 +337,7 @@ final class Shortcodes {
 			return array(
 				'mode'         => 'phone',
 				'label'        => __( 'Mobile number', 'anar-toolkit' ),
-				'intro'        => __( 'Enter your mobile number and we will text you a one-time password.', 'anar-toolkit' ),
+				'intro'        => __( 'Enter your mobile number to receive a one-time code.', 'anar-toolkit' ),
 				'type'         => 'tel',
 				'inputmode'    => 'tel',
 				'autocomplete' => 'tel',

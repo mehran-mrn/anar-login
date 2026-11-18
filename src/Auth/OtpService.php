@@ -305,7 +305,7 @@ final class OtpService {
 		return array(
 			'message'      => 'email' === $channel
 				? __( 'If sign-in is available, a code has been sent to your email.', 'anar-toolkit' )
-				: ( 'bale' === \Anar\Login\Messaging\MessageSettings::get( 'login_otp' )['provider'] ? __( 'Verification code sent via Bale.', 'anar-toolkit' ) : __( 'If sign-in is available, a code has been sent to your mobile.', 'anar-toolkit' ) ),
+				: ( 'single' !== $this->settings->get( 'mobile_delivery_order', 'single' ) ? __( 'If sign-in is available, check Bale or SMS for your mobile code.', 'anar-toolkit' ) : ( 'bale' === \Anar\Login\Messaging\MessageSettings::get( 'login_otp' )['provider'] ? __( 'Verification code sent via Bale.', 'anar-toolkit' ) : __( 'If sign-in is available, a code has been sent to your mobile.', 'anar-toolkit' ) ) ),
 			'channel'      => $channel,
 			'resend_after' => absint( $this->settings->get( 'resend_delay', 60 ) ),
 			'expires_in'   => absint( $this->settings->get( 'otp_ttl', 120 ) ),

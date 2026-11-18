@@ -84,6 +84,6 @@ class Panelchi extends AbstractProvider {
 		if ( is_array( $data ) && is_string( $data['uid'] ?? null ) && '' !== trim( $data['uid'] ) && in_array( $data['status'] ?? '', array( 'CREATED', 'ACCEPTING', 'ACCEPTED', 'SENDING', 'FINISHED', 'REPORTING' ), true ) ) {
 			return true;
 		}
-		return $this->gateway_error();
+		return $this->gateway_error( $result['body'] );
 	}
 }

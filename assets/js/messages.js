@@ -172,7 +172,7 @@
 			form.querySelector('[data-current-provider]').textContent = effective?.title || effectiveKey || provider.options[0].textContent;
 			const inheritedEditor = form.querySelector('[data-inherited-editor]');
 			if (inheritedEditor) inheritedEditor.hidden = !inherited;
-			providerToggle.hidden = inherited;
+			providerToggle.hidden = inherited || form.hasAttribute('data-fixed-provider');
 			if (inherited) showProviderPicker(false);
 			form.querySelector('[data-provider-missing]').hidden = !!effectiveKey;
 			const auth = form.hasAttribute('data-auth-message');
@@ -283,6 +283,7 @@
 		return { dirty: function () { return snapshot(form) !== baseline; } };
 	}
 	function updateSummary(data) {
+		if (data.id === 'login_sms' && data.provider_key) document.dispatchEvent(new CustomEvent('anar:login-sms-saved', {detail: {provider: data.provider_key}}));
 		document.querySelectorAll('[data-message-summary], [data-message-row]').forEach(function (element) {
 			if ((element.dataset.messageSummary || element.dataset.messageRow) !== data.id) return;
 			const status = element.querySelector('[data-message-status]');

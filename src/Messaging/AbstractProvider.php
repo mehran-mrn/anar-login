@@ -180,6 +180,29 @@ abstract class AbstractProvider implements SmsProviderInterface {
 	 * @return WP_Error
 	 */
 	protected function gateway_error( $detail = '' ) {
+		// An unrecognized success response may still mean the code was delivered.
+		$json = json_decode( (string) $detail, true );
+		$rejected = is_array( $json ) && ( ! empty( $json['error'] ) || false === ( $json['success'] ?? null ) );
+		switch ( $this->key() ) {
+			case 'kavenegar':
+				$rejected = isset( $json['return']['status'] ) && 200 !== (int) $json['return']['status'];
+				break;
+			case 'melipayamak':
+				$rejected = isset( $json['RetStatus'] ) && 1 !== (int) $json['RetStatus'];
+				break;
+			case 'ippanel':
+				$rejected = false === ( $json['meta']['status'] ?? null );
+				break;
+			case 'farazsms':
+				$body = trim( (string) $detail, "\" \t\n\r\0\x0B" );
+				$rejected = is_numeric( $body ) && 0 >= (int) $body;
+				break;
+			case 'smsir':
+				$rejected = isset( $json['status'] ) && 1 !== (int) $json['status'];
+				break;
+			case 'custom':
+				$rejected = false;
+		}
 		return new WP_Error(
 			'anar_sms_rejected',
 			sprintf(
@@ -187,7 +210,7 @@ abstract class AbstractProvider implements SmsProviderInterface {
 				__( 'The SMS message was not accepted by %s.', 'anar-toolkit' ),
 				$this->title()
 			),
-			array( 'detail' => substr( wp_strip_all_tags( (string) $detail ), 0, 300 ) )
+			array( 'detail' => substr( wp_strip_all_tags( (string) $detail ), 0, 300 ), 'delivery_safe_to_retry' => $rejected )
 		);
 	}
 }

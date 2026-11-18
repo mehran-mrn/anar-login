@@ -27,6 +27,7 @@ final class MessageCatalog {
 		foreach ( array( 'login_otp' => __( 'Sign-in code', 'anar-toolkit' ), 'two_factor' => __( 'Two-step verification', 'anar-toolkit' ), 'password_reset' => __( 'SMS password recovery', 'anar-toolkit' ), 'game_phone' => __( 'Game phone verification', 'anar-toolkit' ), 'stock_verification' => __( 'Stock request verification', 'anar-toolkit' ) ) as $key => $label ) {
 			$items[ $key ] = array( 'label' => $label, 'group' => 'auth', 'module' => array( 'login_otp' => 'login', 'two_factor' => 'two_factor', 'password_reset' => 'reset', 'game_phone' => 'games', 'stock_verification' => 'stock' )[ $key ], 'source' => 'auth', 'key' => $key, 'variables' => array( 'code', 'site', 'domain', 'minutes' ), 'required' => array( 'code' ) );
 		}
+		$items['login_sms'] = array_replace( $items['login_otp'], array( 'label' => __( 'Mobile sign-in SMS', 'anar-toolkit' ), 'key' => 'login_sms' ) );
 		$labels = \Anar\Login\Commerce\Dashboard::labels();
 		foreach ( ( new CommerceSettings() )->all()['events'] as $key => $event ) {
 			$recovery = isset( $event['minutes'] );
@@ -69,11 +70,18 @@ final class MessageCatalog {
 		}
 		$login = new LoginSettings();
 		if ( 'auth' === $item['source'] ) {
-			$provider = $login->get( 'sms_provider' );
+			if ( 'login_sms' === $id ) {
+				$saved = MessageSettings::stored( 'login_otp', 'plain' );
+				if ( ( ! $login->get( 'mobile_sms_provider' ) || $login->get( 'mobile_sms_provider' ) === ( $saved['provider'] ?? '' ) ) && $saved && ! empty( $saved['provider'] ) && 'bale' !== $saved['provider'] ) {
+					return array_replace( $saved, array( 'inherit' => false ) ); }
+			}
+			$provider = 'login_sms' === $id && $login->get( 'mobile_sms_provider' ) ? $login->get( 'mobile_sms_provider' ) : $login->get( 'sms_provider' );
+			if ( 'login_sms' === $id && 'bale' === $provider ) {
+				$provider = ''; }
 			$config = $login->provider( $provider );
 			$name = 'kavenegar' === $provider ? 'token' : ( ( $config['code_parameter'] ?? '' ) ?: 'code' );
 			$text = 'custom' === $provider || ( 'melipayamak' === $provider && empty( $config['template_id'] ) && ! empty( $config['from'] ) );
-			return array( 'provider' => $provider, 'mode' => $text ? 'text' : 'template', 'template' => 'bale' === $provider ? 'otp' : ( $config['template_id'] ?? '' ), 'params' => $name . '={code}', 'message' => $login->get( 'sms_message' ), 'inherit' => 'login_otp' !== $id );
+			return array( 'provider' => $provider, 'mode' => $text ? 'text' : 'template', 'template' => 'bale' === $provider ? 'otp' : ( $config['template_id'] ?? '' ), 'params' => $name . '={code}', 'message' => $login->get( 'sms_message' ), 'inherit' => ! in_array( $id, array( 'login_otp', 'login_sms' ), true ) );
 		}
 		if ( 'commerce' === $item['source'] ) {
 			$settings = ( new CommerceSettings() )->all();

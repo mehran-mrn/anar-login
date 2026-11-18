@@ -33,6 +33,8 @@ final class Settings {
 			'allow_registration'  => 1,
 			'mrn_registration_form' => 0,
 			'identity_mode'       => 'both',
+			'mobile_delivery_order' => 'single',
+			'mobile_sms_provider' => '',
 			'default_role'        => 'subscriber',
 			'login_redirect'      => '',
 			'role_redirects'      => array(),
@@ -220,6 +222,10 @@ final class Settings {
 		$output['two_factor'] = in_array( $two_factor, array( 'off', 'privileged', 'all' ), true ) ? $two_factor : 'off';
 
 		$identity_mode                = sanitize_key( $input['identity_mode'] ?? $defaults['identity_mode'] );
+		$delivery_order = sanitize_key( $input['mobile_delivery_order'] ?? $current['mobile_delivery_order'] );
+		$output['mobile_delivery_order'] = in_array( $delivery_order, array( 'single', 'bale_sms', 'sms_bale' ), true ) ? $delivery_order : 'single';
+		$sms_fallback = sanitize_key( $input['mobile_sms_provider'] ?? $current['mobile_sms_provider'] );
+		$output['mobile_sms_provider'] = 'bale' === $sms_fallback ? '' : $sms_fallback;
 		$output['identity_mode']       = in_array( $identity_mode, array( 'both', 'phone', 'email' ), true ) ? $identity_mode : 'both';
 		$output['default_role']        = isset( $input['default_role'] ) && self::is_assignable_role( $input['default_role'] ) ? sanitize_key( $input['default_role'] ) : 'subscriber';
 		$output['login_redirect']      = isset( $input['login_redirect'] ) ? esc_url_raw( $input['login_redirect'] ) : '';

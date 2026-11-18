@@ -53,9 +53,12 @@ final class MessageSettings {
 		$variant = $variant ?? self::variant( $id );
 		$saved = self::stored( $id, $variant );
 		$value = array_replace( $legacy, $saved ?? array() );
+		if ( 'login_sms' === $id && ( new Settings() )->get( 'mobile_sms_provider' ) ) {
+			$value['provider'] = ( new Settings() )->get( 'mobile_sms_provider' );
+		}
 		$value['_variant'] = $variant;
 		$value['account_changed'] = isset( $value['account'] ) && ! hash_equals( $value['account'], self::account( $value['provider'] ) );
-		if ( ! empty( $value['inherit'] ) && 'login_otp' !== $id ) {
+		if ( ! empty( $value['inherit'] ) && ! in_array( $id, array( 'login_otp', 'login_sms' ), true ) ) {
 			$value = array_replace( $value, self::get( 'login_otp' ) );
 			$value['inherit'] = true;
 		}
@@ -108,6 +111,9 @@ final class MessageSettings {
 			return array( __( 'This message is unavailable.', 'anar-toolkit' ) );
 		}
 		$registry = ProviderRegistry::shared()->all();
+		if ( 'login_sms' === $id && ( 'bale' === ( $value['provider'] ?? '' ) || ! empty( $value['inherit'] ) ) ) {
+			$errors[] = __( 'Choose an SMS provider for the mobile sign-in SMS message.', 'anar-toolkit' );
+		}
 		if ( 'bale' === ( $value['provider'] ?? '' ) && 'auth' !== $item['source'] ) {
 			$errors[] = __( 'Bale supports verification codes only.', 'anar-toolkit' );
 		}

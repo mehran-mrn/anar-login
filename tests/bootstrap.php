@@ -29,6 +29,11 @@ if ( ! class_exists( 'WP_Error' ) ) {
 			return $this->code;
 		}
 
+		public function get_error_data() {
+			return $this->data; }
+		public function add_data( $data ) {
+			$this->data = $data; }
+
 		public function get_error_message() {
 			return $this->message;
 		}

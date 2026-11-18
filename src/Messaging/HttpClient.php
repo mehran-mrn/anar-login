@@ -32,7 +32,7 @@ final class HttpClient {
 
 		$response = wp_safe_remote_request( esc_url_raw( $url ), $args );
 		if ( is_wp_error( $response ) ) {
-			return new WP_Error( 'anar_sms_network', __( 'Could not connect to the SMS provider.', 'anar-toolkit' ), array( 'detail' => $response->get_error_message() ) );
+			return new WP_Error( 'anar_sms_network', __( 'Could not connect to the SMS provider.', 'anar-toolkit' ), array( 'detail' => $response->get_error_message(), 'delivery_safe_to_retry' => (bool) preg_match( '/cURL error (?:6|7|35|60)\b/i', $response->get_error_message() ) ) );
 		}
 
 		$status = wp_remote_retrieve_response_code( $response );

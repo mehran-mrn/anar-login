@@ -186,7 +186,7 @@ final class SettingsPage {
 						<?php $this->section_header( __( 'General settings', 'anar-toolkit' ), __( 'Configure sign-in, registration, and the appearance of the form.', 'anar-toolkit' ), '⚙' ); ?>
 						<div class="anar-card">
 							<div class="anar-field-row">
-								<label for="anar-identity-mode"><strong><?php esc_html_e( 'Sign-in methods', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'Phone-only mode shows a numeric keypad on mobile for the fastest sign-in.', 'anar-toolkit' ); ?></small></label>
+								<label for="anar-identity-mode"><strong><?php esc_html_e( 'Sign-in methods', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'Choose Mobile number or email to offer both methods at the same time. Mobile delivery priority is configured under SMS.', 'anar-toolkit' ); ?></small></label>
 								<select id="anar-identity-mode" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[identity_mode]">
 									<option value="both" <?php selected( $value['identity_mode'], 'both' ); ?>><?php esc_html_e( 'Mobile number or email', 'anar-toolkit' ); ?></option>
 									<option value="phone" <?php selected( $value['identity_mode'], 'phone' ); ?>><?php esc_html_e( 'Mobile number only', 'anar-toolkit' ); ?></option>
@@ -293,7 +293,8 @@ final class SettingsPage {
 					<section class="anar-tab" data-panel="sms" hidden>
 						<?php $this->section_header( __( 'SMS provider', 'anar-toolkit' ), __( 'Connect your SMS service here. Message content and approved templates are available in Messages and templates.', 'anar-toolkit' ), '◈' ); ?>
 						<p class="description"><?php esc_html_e( 'Choose and save the default provider for verification messages. Then edit the messages below to set their delivery method and content.', 'anar-toolkit' ); ?></p>
-						<div class="anar-provider-grid">
+						<?php MobileDelivery::render( $value ); ?>
+						<div class="anar-provider-grid" data-mobile-single>
 							<?php foreach ( $providers as $key => $provider ) : ?>
 								<label class="anar-provider <?php echo $key === $value['sms_provider'] ? 'is-selected' : ''; ?>">
 									<input type="radio" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[sms_provider]" value="<?php echo esc_attr( $key ); ?>" <?php checked( $value['sms_provider'], $key ); ?>>

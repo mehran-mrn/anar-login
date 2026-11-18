@@ -36,18 +36,24 @@ final class Bale extends AbstractProvider {
 		if ( ! $token ) {
 			$auth = $this->http->request( 'POST', 'https://safir.bale.ai/api/v2/auth/token', array( 'body' => array( 'grant_type' => 'client_credentials', 'client_id' => $config['username'], 'client_secret' => $config['password'], 'scope' => 'read' ) ) );
 			if ( is_wp_error( $auth ) ) {
+				$auth->add_data( array_merge( (array) $auth->get_error_data(), array( 'delivery_safe_to_retry' => true ) ) );
 				return $auth; }
 			$token = $auth['json']['access_token'] ?? '';
 			if ( ! is_string( $token ) || ! $token ) {
-				return new WP_Error( 'anar_bale_auth', __( 'Bale authentication failed.', 'anar-toolkit' ) ); }
+				return new WP_Error( 'anar_bale_auth', __( 'Bale authentication failed.', 'anar-toolkit' ), array( 'delivery_safe_to_retry' => true ) ); }
 			set_transient( $cache, $token, max( 1, min( 43200, (int) ( $auth['json']['expires_in'] ?? 60 ) ) - 30 ) );
 		}
 		$response = $this->http->request( 'POST', 'https://safir.bale.ai/api/v2/send_otp', array( 'headers' => array( 'Authorization' => 'Bearer ' . $token, 'Content-Type' => 'application/json' ), 'body' => wp_json_encode( array( 'phone' => '98' . substr( $this->local_phone( $recipient ), 1 ), 'otp' => (int) $code ) ) ) );
 		if ( is_wp_error( $response ) ) {
 			delete_transient( $cache );
+			$data = (array) $response->get_error_data();
+			$body = json_decode( $data['body'] ?? '', true );
+			if ( is_array( $body ) && ! empty( $body['code'] ) ) {
+				$data['delivery_safe_to_retry'] = true;
+				$response->add_data( $data ); }
 			return $response; }
 		if ( ! is_array( $response['json'] ) || ! empty( $response['json']['error'] ) || ( isset( $response['json']['code'] ) && 0 !== (int) $response['json']['code'] ) ) {
-			return new WP_Error( 'anar_bale_rejected', __( 'Bale could not deliver the verification code.', 'anar-toolkit' ) ); }
+			return new WP_Error( 'anar_bale_rejected', __( 'Bale could not deliver the verification code.', 'anar-toolkit' ), array( 'delivery_safe_to_retry' => is_array( $response['json'] ) && ( ! empty( $response['json']['error'] ) || ! empty( $response['json']['code'] ) ) ) ); }
 		return true;
 	}
 }

@@ -159,6 +159,30 @@
 		});
 	}
 
+	const mobileDelivery = root.querySelector('[data-mobile-delivery]');
+	const mobileSms = root.querySelector('#anar-mobile-sms-provider');
+	const deliveryOrder = root.querySelector('#anar-mobile-delivery-order');
+	const syncMobileDelivery = () => {
+		if (!mobileDelivery || !deliveryOrder) return;
+		const priority = deliveryOrder.value !== 'single';
+		mobileDelivery.querySelector('[data-mobile-priority]').hidden = !priority;
+		const changed = mobileSms.value !== mobileSms.dataset.savedSmsProvider;
+		mobileDelivery.querySelector('[data-mobile-save-first]').hidden = !changed;
+		mobileDelivery.querySelector('[data-message-summary]').hidden = changed;
+		root.querySelector('[data-mobile-single]').hidden = priority;
+		const selected = root.querySelector('.anar-provider input:checked')?.value;
+		root.querySelectorAll('.anar-provider-settings').forEach(panel => {
+			panel.hidden = priority ? !['bale', mobileSms.value].includes(panel.dataset.provider) : panel.dataset.provider !== selected;
+		});
+		root.querySelectorAll('[data-verification-messages] [data-message-summary="login_otp"]').forEach(element => { element.hidden = priority; });
+	};
+	mobileSms?.addEventListener('change', syncMobileDelivery);
+	deliveryOrder?.addEventListener('change', syncMobileDelivery);
+	document.addEventListener('anar:login-sms-saved', event => {
+		if (mobileDelivery) mobileDelivery.dataset.smsProvider = event.detail.provider;
+		syncMobileDelivery();
+	});
+	syncMobileDelivery();
 	const verificationMessages = root.querySelector('[data-verification-messages]');
 	const saveProviderFirst = verificationMessages?.querySelector('[data-save-provider-first]');
 	root.querySelectorAll('.anar-provider input[type="radio"]').forEach((radio) => {
@@ -169,6 +193,7 @@
 				panel.hidden = panel.dataset.provider !== radio.value;
 			});
 			if (saveProviderFirst) saveProviderFirst.hidden = radio.value === verificationMessages.dataset.savedProvider;
+			syncMobileDelivery();
 		});
 	});
 	root.querySelectorAll('[data-copy]').forEach((button) => {

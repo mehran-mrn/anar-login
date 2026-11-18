@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: Anar Toolkit 1.6.2\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
+msgstr "Project-Id-Version: Anar Toolkit 1.7.0\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
 
 msgid "%1$d paid orders. A gift at every %2$d orders."
 msgstr "%1$d سفارش پرداخت‌شده؛ یک هدیه پس از هر %2$d سفارش."
@@ -18,6 +18,12 @@ msgstr "%s برای هر پیامک"
 
 msgid "09121234567 or name@example.com"
 msgstr "09121234567 یا name@example.com"
+
+msgid "1. Bale, then 2. SMS"
+msgstr "۱. بله، سپس ۲. پیامک"
+
+msgid "1. SMS, then 2. Bale"
+msgstr "۱. پیامک، سپس ۲. بله"
 
 msgid "100% free, forever — all features included."
 msgstr "۱۰۰٪ رایگان، برای همیشه — با تمام امکانات."
@@ -234,6 +240,9 @@ msgstr "پس از واردکردن رمز درست، کدی به موبایل ح
 
 msgid "After predicted purchase"
 msgstr "پس از خرید پیش‌بینی‌شده"
+
+msgid "After saving the delivery order, test the sign-in form with a Bale account and a number that is not on Bale. Also test an email address if email sign-in is enabled. Never deliberately disconnect the live store to test a fallback."
+msgstr "پس از ذخیرهٔ ترتیب ارسال، فرم ورود را با یک شمارهٔ عضو بله و یک شمارهٔ غیرعضو آزمایش کنید. اگر ورود ایمیلی فعال است، یک ایمیل را هم آزمایش کنید. برای آزمایش ارسال جایگزین، اتصال فروشگاه فعال را عمداً قطع نکنید."
 
 msgid "Alert threshold"
 msgstr "حد نمایش هشدار"
@@ -466,6 +475,9 @@ msgstr "کد ورود در بله"
 msgid "Bale authentication failed."
 msgstr "احراز هویت پنل بله انجام نشد."
 
+msgid "Bale connection"
+msgstr "اتصال بله"
+
 msgid "Bale could not deliver the verification code."
 msgstr "بله نتوانست کد تأیید را ارسال کند."
 
@@ -646,6 +658,12 @@ msgstr "اعتبار حساب‌های پیامکی انتخاب‌شده را �
 msgid "Cherry"
 msgstr "گیلاس"
 
+msgid "Choose Mobile number or email to offer both at once. Customers enter either contact in the same form. Existing accounts are preserved."
+msgstr "برای ارائهٔ هم‌زمان هر دو روش، «شماره موبایل یا ایمیل» را انتخاب کنید. مشتری در همان فرم، شماره یا ایمیل خود را وارد می‌کند. حساب‌های فعلی حفظ می‌شوند."
+
+msgid "Choose Mobile number or email to offer both methods at the same time. Mobile delivery priority is configured under SMS."
+msgstr "برای ارائهٔ هم‌زمان هر دو روش، «شماره موبایل یا ایمیل» را انتخاب کنید. اولویت ارسال کد موبایل در بخش پیامک تنظیم می‌شود."
+
 msgid "Choose a box to open"
 msgstr "یکی از جعبه‌ها را باز کنید"
 
@@ -657,6 +675,9 @@ msgstr "طرح موردنظر و مشخصات صاحب حساب را وارد ک
 
 msgid "Choose a spot on the treasure map"
 msgstr "یک نقطه از نقشهٔ گنج را انتخاب کنید"
+
+msgid "Choose an SMS provider for the mobile sign-in SMS message."
+msgstr "برای پیامک کد ورود موبایل، یک پنل پیامکی انتخاب کنید."
 
 msgid "Choose an unmatched card."
 msgstr "کارتی را انتخاب کنید که هنوز جفت نشده است."
@@ -684,6 +705,9 @@ msgstr "برای هر پیام یکی از این دو روش ارسال را ا
 
 msgid "Choose separate limits to let a customer play each game once a day. Existing installations keep their shared limit until you change this setting. Attempts already used today still count."
 msgstr "برای اینکه مشتری بتواند روزانه یک بار در هر بازی شرکت کند، سهمیهٔ مستقل را انتخاب کنید. تنظیم قبلی تا زمان تغییر شما حفظ می‌شود. نوبت‌های استفاده‌شدهٔ امروز همچنان محاسبه می‌شوند."
+
+msgid "Choose the SMS provider here, complete both connection forms below and save settings. Then use Edit message to enter the approved SMS template and test sign-in."
+msgstr "پنل پیامکی را اینجا انتخاب کنید، اطلاعات اتصال هر دو سرویس را در پایین تکمیل و تنظیمات را ذخیره کنید. سپس با «ویرایش پیام»، الگوی تأییدشدهٔ پیامک را وارد و ورود را آزمایش کنید."
 
 msgid "Choose the least-privileged suitable role."
 msgstr "کم‌دسترسی‌ترین نقش مناسب را انتخاب کنید."
@@ -846,6 +870,9 @@ msgstr "اتصال و پیام"
 
 msgid "Connection and orders"
 msgstr "اتصال و سفارش‌ها"
+
+msgid "Connection details saved"
+msgstr "اطلاعات اتصال ذخیره شده است"
 
 msgid "Connection interrupted. Retry to continue the same game."
 msgstr "ارتباط قطع شد. با زدن «ادامهٔ همین بازی»، همان نوبت را دنبال کنید."
@@ -1026,6 +1053,9 @@ msgstr "معرفی دوستان"
 
 msgid "Customer sign-in"
 msgstr "ورود کاربران"
+
+msgid "Customers can use mobile number and email together. This order applies only to mobile verification codes; email and store messages keep their own settings."
+msgstr "امکان ورود با شماره موبایل و ایمیل به‌صورت هم‌زمان وجود دارد. این ترتیب فقط برای کدهای تأیید موبایل است؛ ایمیل و پیام‌های فروشگاه تنظیمات خود را دارند."
 
 msgid "Customers save their month and day in account details or [anar_customer_preferences]. Configure the greeting and optional gift. Persian dates require PHP Intl; no birth year is requested."
 msgstr "مشتری ماه و روز تولد را در جزئیات حساب یا [anar_customer_preferences] ذخیره می‌کند. پیام تبریک و هدیهٔ اختیاری را تنظیم کنید. تقویم شمسی به PHP Intl نیاز دارد و سال تولد درخواست نمی‌شود."
@@ -1306,6 +1336,9 @@ msgstr "شماره موبایل یا ایمیل خود را وارد کنید؛ 
 msgid "Enter your mobile number or email address."
 msgstr "شماره موبایل یا ایمیل را وارد کنید."
 
+msgid "Enter your mobile number to receive a one-time code."
+msgstr "برای دریافت کد یک‌بارمصرف، شماره موبایل خود را وارد کنید."
+
 msgid "Enter your mobile number."
 msgstr "شماره موبایل را وارد کنید."
 
@@ -1437,6 +1470,9 @@ msgstr "برای مثال: «۱۰ درصد تخفیف خرید بعدی». ای�
 
 msgid "For example: Spin the wheel or Receive my daily gift."
 msgstr "برای مثال: «گردونه را بچرخانید» یا «دریافت هدیهٔ روزانه»."
+
+msgid "For mobile codes, choose one service or set Bale and SMS in priority order in SMS settings. Connect both services and save the SMS code message. Email is configured separately through the site mail service."
+msgstr "برای کدهای موبایل، در تنظیمات پیامک یک سرویس یا ترتیب بله و پیامک را انتخاب کنید. اتصال هر دو سرویس را تنظیم و پیام کد ورود را ذخیره کنید. ارسال ایمیل از سرویس ایمیل سایت انجام می‌شود و تنظیمات جداگانه دارد."
 
 msgid "For signed-out visitors, every WooCommerce login form and the theme’s login links (header account, side panels, WoodMart dropdowns) use the passwordless form."
 msgstr "برای بازدیدکنندگانی که وارد نشده‌اند، همهٔ فرم‌های ورود ووکامرس و لینک‌های ورود قالب (حساب کاربری در هدر، پنل‌های کناری و منوهای کشویی وودمارت) از فرم ورود بدون رمز استفاده می‌کنند."
@@ -1603,6 +1639,9 @@ msgstr "خریدتان چطور بود؟ بازخورد خود را با ما ب
 msgid "If a consented unfinished purchase exists, a new code will be sent shortly. Please wait before trying again."
 msgstr "اگر خرید ناتمام همراه با رضایت ثبت‌شده وجود داشته باشد، کد جدید به‌زودی پیامک می‌شود. پیش از تلاش دوباره کمی صبر کنید."
 
+msgid "If a service stops responding after a send request, delivery may already have happened. Anar keeps that code valid and waits for the resend timer instead of automatically sending it twice."
+msgstr "اگر پس از درخواست ارسال، سرویس پاسخ ندهد، ممکن است کد ارسال شده باشد. انار اعتبار همان کد را حفظ می‌کند و برای جلوگیری از ارسال تکراری، تا پایان زمان ارسال مجدد منتظر می‌ماند."
+
 msgid "If delivery is available, a verification code will arrive shortly."
 msgstr "اگر ارسال در دسترس باشد، کد تأیید به‌زودی می‌رسد."
 
@@ -1611,6 +1650,12 @@ msgstr "اگر امکان ورود وجود داشته باشد، کد به ای
 
 msgid "If sign-in is available, a code has been sent to your mobile."
 msgstr "اگر امکان ورود وجود داشته باشد، کد به موبایل شما ارسال شد."
+
+msgid "If sign-in is available, check Bale or SMS for your mobile code."
+msgstr "اگر امکان ورود وجود داشته باشد، کد موبایل را در بله یا پیامک بررسی کنید."
+
+msgid "If the first service rejects delivery, Anar sends the same code through the second service. A number without a Bale account automatically receives SMS when Bale is first."
+msgstr "اگر سرویس اول ارسال را رد کند، انار همان کد را از سرویس دوم می‌فرستد. در حالت «اول بله»، اگر شماره عضو بله نباشد، کد به‌صورت خودکار پیامک می‌شود."
 
 msgid "If this number is linked to an eligible account, a password reset code will be sent. Please wait before requesting another."
 msgstr "اگر این شماره به حساب واجد شرایطی متصل باشد، کد بازنشانی رمز برای آن ارسال می‌شود. پیش از درخواست مجدد کمی صبر کنید."
@@ -1987,6 +2032,9 @@ msgstr "دقیقه پس از آخرین تغییر سبد (صفر = غیرفعا
 msgid "Mobile"
 msgstr "موبایل"
 
+msgid "Mobile code delivery order"
+msgstr "ترتیب ارسال کد موبایل"
+
 msgid "Mobile number"
 msgstr "شماره موبایل"
 
@@ -1998,6 +2046,9 @@ msgstr "شماره موبایل یا ایمیل"
 
 msgid "Mobile or email"
 msgstr "موبایل یا ایمیل"
+
+msgid "Mobile sign-in SMS"
+msgstr "پیامک کد ورود موبایل"
 
 msgid "Mobile verification is busy. Please request a new code and try again."
 msgstr "در حال حاضر امکان ثبت شماره وجود ندارد. لطفاً کد جدید بگیرید و دوباره تلاش کنید."
@@ -2190,6 +2241,9 @@ msgstr "فقط سبد مشتریانی ذخیره می‌شود که رضایت 
 
 msgid "Only shoppers who save an explicit reminder preference are tracked. Add [anar_cart_reminders] beside a Cart or Checkout block. Classic cart and checkout show the form automatically. Phone numbers used for OTP are not subscribed automatically."
 msgstr "فقط سبد مشتریانی ذخیره می‌شود که ترجیح دریافت یادآوری را ثبت کنند. برای بلوک سبد یا تسویه‌حساب، شورت‌کد [anar_cart_reminders] را کنار بلوک قرار دهید. فرم در سبد و تسویه‌حساب کلاسیک خودکار نمایش داده می‌شود. ورود با کد تأیید به معنای عضویت در یادآوری‌ها نیست."
+
+msgid "Only the selected service"
+msgstr "فقط سرویس انتخاب‌شده"
 
 msgid "Only the store quiz uses this question. It has no effect on the wheel or other games."
 msgstr "این سؤال فقط در مسابقهٔ پرسش‌وپاسخ نمایش داده می‌شود و به گردونه یا بازی‌های دیگر مربوط نیست."
@@ -3006,6 +3060,9 @@ msgstr "ذخیره ترجیح یادآوری"
 
 msgid "Save settings"
 msgstr "ذخیره تنظیمات"
+
+msgid "Save the SMS provider and connection details first, then edit its code message."
+msgstr "ابتدا پنل پیامکی و اطلاعات اتصال را ذخیره کنید، سپس پیام کد ورود آن را ویرایش کنید."
 
 msgid "Save the message before sending a test."
 msgstr "پیش از ارسال آزمایشی، تنظیمات پیام را ذخیره کنید."
@@ -4068,6 +4125,9 @@ msgstr "با فعال شدن یادآوری خرید، حالت خودکار ش�
 
 msgid "When purchase reminders are enabled, automatic capture saves your account/checkout phone and cart without a separate checkbox and shows a notice. An optional explicit preference form is also available. We store your mobile number, optional email, consent text and timestamp, cart products, amount, currency and related order ID locally. We send your number and the configured reminder variables (which may include purchase links and order details) to our selected SMS provider. Each reminder includes a link to stop future cart and unpaid-order reminders. Payment notifications are separate service messages. Phone-bound, single-use recovery codes restore products or open WooCommerce payment; they do not log you in. Recovery code hashes, attempts, expiry and consumption timestamps are stored separately from login challenges. Unsubscribe links stop purchase reminders and optional marketing campaigns; service notices are separate. A keyed suppression identifier is retained after erasure. The store configures a 7–90 day retention period and SMS provider. Add the selected provider, its terms and privacy links, your actual retention period and the purposes of your messages to this policy before enabling the modules."
 msgstr "با فعال شدن یادآوری خرید، حالت خودکار شمارهٔ حساب یا تسویه‌حساب و سبد را بدون تیک جداگانه و با نمایش اطلاعیه ذخیره می‌کند. حالت اختیاری فرم جداگانه نیز وجود دارد. شمارهٔ همراه، ایمیل اختیاری، متن و زمان انتخاب صریح، کالاهای سبد، مبلغ، ارز و شناسهٔ سفارش مربوط محلی نگهداری می‌شوند. شماره و متغیرهای پیام، شامل پیوند خرید و اطلاعات سفارش، به سرویس‌دهندهٔ انتخاب‌شده فرستاده می‌شوند. هر یادآوری پیوند توقف پیام‌های بعدی دارد. اعلان‌های پرداخت پیام خدماتی مستقل‌اند. کد بازیابی یک‌بارمصرف و محدود به شماره، فقط کالاها یا پرداخت ووکامرس را بازیابی می‌کند و ورود به حساب نیست. هش کد، تلاش‌ها، انقضا و زمان مصرف از کدهای ورود جدا نگهداری می‌شوند. لغو دریافت، یادآوری خرید و کمپین‌های اختیاری بازاریابی را متوقف می‌کند؛ پیام‌های خدماتی مستقل‌اند. پس از حذف هویت، یک شناسهٔ کلیددار برای حفظ لغو پیام باقی می‌ماند. فروشگاه سرویس‌دهنده و دورهٔ نگهداری ۷ تا ۹۰ روز را تعیین می‌کند. پیش از فعال‌سازی، نام سرویس، پیوند شرایط و حریم خصوصی آن، مدت نگهداری واقعی و اهداف پیام‌ها را به این سیاست اضافه کنید."
+
+msgid "Where should the mobile code be sent first?"
+msgstr "کد موبایل ابتدا از کجا ارسال شود؟"
 
 msgid "Winning chance and single-reward fallback"
 msgstr "احتمال برد و جایزهٔ ثابت"
