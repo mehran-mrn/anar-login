@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.6.1 - 2026-11-18
+
+- Keep the combined WordPress directory description below 2,500 words, including custom service and privacy sections.
+- Add a release check that accounts for custom sections appended by the WordPress readme parser.
+
+
 ## 1.6.0 - 2026-11-18
 
 - Integrate capability switches into Settings and organize store controls.
