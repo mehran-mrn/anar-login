@@ -186,13 +186,37 @@ final class SettingsPage {
 						<?php $this->section_header( __( 'General settings', 'anar-toolkit' ), __( 'Configure sign-in, registration, and the appearance of the form.', 'anar-toolkit' ), '⚙' ); ?>
 						<div class="anar-card">
 							<div class="anar-field-row">
-								<label for="anar-identity-mode"><strong><?php esc_html_e( 'Sign-in methods', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'Choose Mobile number or email to offer both methods at the same time. Mobile delivery priority is configured under SMS.', 'anar-toolkit' ); ?></small></label>
+								<label for="anar-identity-mode"><strong><?php esc_html_e( 'Sign-in methods', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'Choose which contact customers enter. Configure delivery and backup methods below.', 'anar-toolkit' ); ?></small></label>
 								<select id="anar-identity-mode" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[identity_mode]">
 									<option value="both" <?php selected( $value['identity_mode'], 'both' ); ?>><?php esc_html_e( 'Mobile number or email', 'anar-toolkit' ); ?></option>
 									<option value="phone" <?php selected( $value['identity_mode'], 'phone' ); ?>><?php esc_html_e( 'Mobile number only', 'anar-toolkit' ); ?></option>
 									<option value="email" <?php selected( $value['identity_mode'], 'email' ); ?>><?php esc_html_e( 'Email only', 'anar-toolkit' ); ?></option>
 								</select>
 							</div>
+						</div><?php MobileDelivery::render( $value ); ?><details class="anar-card"><summary><?php esc_html_e( 'OTP settings and messages', 'anar-toolkit' ); ?></summary>								<?php $this->number_field( 'otp_length', __( 'Code length', 'anar-toolkit' ), $value, 4, 8, __( 'digits', 'anar-toolkit' ) ); ?>
+								<?php $this->number_field( 'otp_ttl', __( 'Code lifetime', 'anar-toolkit' ), $value, 60, 600, __( 'seconds', 'anar-toolkit' ) ); ?>
+								<?php $this->number_field( 'resend_delay', __( 'Resend interval', 'anar-toolkit' ), $value, 30, 300, __( 'seconds', 'anar-toolkit' ) ); ?>
+								<?php $this->number_field( 'max_requests_hour', __( 'Hourly send limit', 'anar-toolkit' ), $value, 2, 30, __( 'requests', 'anar-toolkit' ) ); ?>
+								<?php $this->number_field( 'max_verify_attempts', __( 'Attempts per code', 'anar-toolkit' ), $value, 3, 10, __( 'attempts', 'anar-toolkit' ) ); ?>
+
+						<div class="anar-card" data-verification-messages data-saved-provider="<?php echo esc_attr( $value['sms_provider'] ); ?>">
+						<p class="anar-message-warning" role="status" data-save-provider-first hidden><?php esc_html_e( 'Your new SMS provider selection is unsaved.', 'anar-toolkit' ); ?></p>
+						<?php
+						foreach ( array( 'login_otp', 'two_factor', 'password_reset', 'game_phone', 'stock_verification' ) as $message_id ) {
+							MessageCenter::summary( $message_id, 'login' ); }
+						?>
+						</div>
+<div class="anar-card anar-tip">
+							<span class="dashicons dashicons-smartphone" aria-hidden="true"></span>
+							<div>
+								<strong><?php esc_html_e( 'Automatic code filling on Android', 'anar-toolkit' ); ?></strong>
+								<small><?php esc_html_e( 'Chrome on Android can fill the code with one tap when the last line of your provider template is exactly:', 'anar-toolkit' ); ?></small>
+								<code dir="ltr">@<?php echo esc_html( (string) wp_parse_url( home_url(), PHP_URL_HOST ) ); ?> #<var>code</var></code>
+								<small><?php esc_html_e( 'Put your template’s code variable after the # sign. iPhones suggest the code above the keyboard without any change.', 'anar-toolkit' ); ?></small>
+							</div>
+						</div>
+
+</details><div class="anar-card">
 							<?php $this->toggle( 'allow_registration', __( 'Allow new account registration', 'anar-toolkit' ), __( 'Let new users create an account after verification.', 'anar-toolkit' ), $value ); ?>
 							<?php $this->mrn_forms( $value ); ?>
 							<div class="anar-field-row">
@@ -291,13 +315,12 @@ final class SettingsPage {
 					</section>
 
 					<section class="anar-tab" data-panel="sms" hidden>
-						<?php $this->section_header( __( 'SMS provider', 'anar-toolkit' ), __( 'Connect your SMS service here. Message content and approved templates are available in Messages and templates.', 'anar-toolkit' ), '◈' ); ?>
-						<p class="description"><?php esc_html_e( 'Choose and save the default provider for verification messages. Then edit the messages below to set their delivery method and content.', 'anar-toolkit' ); ?></p>
-						<?php MobileDelivery::render( $value ); ?>
-						<div class="anar-provider-grid" data-mobile-single>
+						<?php $this->section_header( __( 'Service providers', 'anar-toolkit' ), __( 'Configure each connection once, then select it in sign-in, store or club settings.', 'anar-toolkit' ), '◈' ); ?>
+						<p class="description"><?php esc_html_e( 'Select a card to edit its connection. This selection does not change which service sends your messages.', 'anar-toolkit' ); ?></p>
+						<div class="anar-provider-grid" data-provider-connections>
 							<?php foreach ( $providers as $key => $provider ) : ?>
 								<label class="anar-provider <?php echo $key === $value['sms_provider'] ? 'is-selected' : ''; ?>">
-									<input type="radio" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[sms_provider]" value="<?php echo esc_attr( $key ); ?>" <?php checked( $value['sms_provider'], $key ); ?>>
+									<input type="radio" name="anar_connection_view" value="<?php echo esc_attr( $key ); ?>" <?php checked( $value['sms_provider'], $key ); ?>>
 									<span class="anar-provider__mark" aria-hidden="true">✦</span>
 									<span><strong><?php echo esc_html( $provider->title() ); ?></strong>
 									<?php
@@ -361,22 +384,6 @@ final class SettingsPage {
 							</div>
 						<?php endforeach; ?>
 
-						<div class="anar-card" data-verification-messages data-saved-provider="<?php echo esc_attr( $value['sms_provider'] ); ?>">
-						<p class="anar-message-warning" role="status" data-save-provider-first hidden><?php esc_html_e( 'Your new SMS provider selection is unsaved.', 'anar-toolkit' ); ?></p>
-						<?php
-						foreach ( array( 'login_otp', 'two_factor', 'password_reset', 'game_phone', 'stock_verification' ) as $message_id ) {
-							MessageCenter::summary( $message_id, 'sms' ); }
-						?>
-						</div>
-<div class="anar-card anar-tip">
-							<span class="dashicons dashicons-smartphone" aria-hidden="true"></span>
-							<div>
-								<strong><?php esc_html_e( 'Automatic code filling on Android', 'anar-toolkit' ); ?></strong>
-								<small><?php esc_html_e( 'Chrome on Android can fill the code with one tap when the last line of your provider template is exactly:', 'anar-toolkit' ); ?></small>
-								<code dir="ltr">@<?php echo esc_html( (string) wp_parse_url( home_url(), PHP_URL_HOST ) ); ?> #<var>code</var></code>
-								<small><?php esc_html_e( 'Put your template’s code variable after the # sign. iPhones suggest the code above the keyboard without any change.', 'anar-toolkit' ); ?></small>
-							</div>
-						</div>
 
 					</section>
 
@@ -433,11 +440,6 @@ final class SettingsPage {
 						</div>
 						<div class="anar-card">
 							<div class="anar-fields-grid anar-fields-grid--security">
-								<?php $this->number_field( 'otp_length', __( 'Code length', 'anar-toolkit' ), $value, 4, 8, __( 'digits', 'anar-toolkit' ) ); ?>
-								<?php $this->number_field( 'otp_ttl', __( 'Code lifetime', 'anar-toolkit' ), $value, 60, 600, __( 'seconds', 'anar-toolkit' ) ); ?>
-								<?php $this->number_field( 'resend_delay', __( 'Resend interval', 'anar-toolkit' ), $value, 30, 300, __( 'seconds', 'anar-toolkit' ) ); ?>
-								<?php $this->number_field( 'max_requests_hour', __( 'Hourly send limit', 'anar-toolkit' ), $value, 2, 30, __( 'requests', 'anar-toolkit' ) ); ?>
-								<?php $this->number_field( 'max_verify_attempts', __( 'Attempts per code', 'anar-toolkit' ), $value, 3, 10, __( 'attempts', 'anar-toolkit' ) ); ?>
 							</div>
 							<div class="anar-field-row">
 								<label for="anar-bot-challenge"><strong><?php esc_html_e( 'Invisible bot check', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'Before a code is sent, the browser solves a short puzzle in the background, with no image or click. Adaptive mode asks only when one address requests repeatedly or the whole site sees an unusual volume, so SMS floods stop costing you money.', 'anar-toolkit' ); ?></small></label>
@@ -557,7 +559,7 @@ final class SettingsPage {
 	 */
 	private function navigation( $value ) {
 		$flags = \Anar\Login\Infrastructure\Features::all();
-		$labels = array( 'general' => __( 'General', 'anar-toolkit' ), 'setup' => __( 'Sign-in setup guide', 'anar-toolkit' ), 'sms' => __( 'SMS', 'anar-toolkit' ), 'email' => __( 'Email', 'anar-toolkit' ), 'google' => __( 'Google sign-in', 'anar-toolkit' ), 'security' => __( 'Security', 'anar-toolkit' ), 'woocommerce' => __( 'WooCommerce', 'anar-toolkit' ), 'install' => __( 'Add to pages', 'anar-toolkit' ) );
+		$labels = array( 'general' => __( 'General', 'anar-toolkit' ), 'setup' => __( 'Sign-in setup guide', 'anar-toolkit' ), 'sms' => __( 'Service providers', 'anar-toolkit' ), 'email' => __( 'Email', 'anar-toolkit' ), 'google' => __( 'Google sign-in', 'anar-toolkit' ), 'security' => __( 'Security', 'anar-toolkit' ), 'woocommerce' => __( 'WooCommerce', 'anar-toolkit' ), 'install' => __( 'Add to pages', 'anar-toolkit' ) );
 		$primary = array( 'general' => $flags['login'], 'setup' => $flags['login'], 'sms' => ( $flags['login'] && 'email' !== $value['identity_mode'] ) || $flags['two_factor'] || $flags['reset'] || \Anar\Login\Infrastructure\Features::queue_needed(), 'email' => $flags['login'] && 'phone' !== $value['identity_mode'], 'google' => $flags['login'] && ! empty( $value['google_enabled'] ), 'security' => $flags['login'] || $flags['reset'] || $flags['two_factor'], 'woocommerce' => $flags['login'] && WooCommerce::active(), 'install' => $flags['login'] );
 		$first = true;
 		?>

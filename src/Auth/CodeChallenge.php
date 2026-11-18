@@ -88,6 +88,7 @@ final class CodeChallenge {
 		}
 
 		$message = call_user_func( $render, $code, $ttl );
+		$mobile_attempted = 'sms' === $recipient['channel'];
 		if ( 'sms' === $recipient['channel'] ) {
 			$sent = $this->providers->send( $recipient['identity'], $code, (string) $message, $args['context'] );
 		} else {
@@ -95,6 +96,19 @@ final class CodeChallenge {
 			$sent    = wp_mail( $recipient['identity'], (string) ( $message[0] ?? '' ), (string) ( $message[1] ?? '' ) )
 				? true
 				: new WP_Error( 'anar_email_failed', __( 'The email could not be sent. Please check the site email settings.', 'anar-toolkit' ) );
+		}
+
+		$alternate = $args['alternate'] ?? null;
+		if ( $alternate && is_callable( $args['alternate_render'] ?? null ) && ( 'simultaneous' === ( $args['alternate_mode'] ?? '' ) || ( is_wp_error( $sent ) && empty( ( (array) $sent->get_error_data() )['delivery_uncertain'] ) ) ) ) {
+			$extra_message = call_user_func( $args['alternate_render'], $alternate['channel'], $code, $ttl );
+			if ( 'sms' === $alternate['channel'] ) {
+				$mobile_attempted = true;
+				$extra = $this->providers->send( $alternate['identity'], $code, (string) $extra_message, $args['context'] );
+			} else {
+				$extra = wp_mail( $alternate['identity'], $extra_message[0], $extra_message[1] ) ? true : new WP_Error( 'anar_email_failed', __( 'The email could not be sent. Please check the site email settings.', 'anar-toolkit' ) );
+			}
+			if ( ! is_wp_error( $extra ) || ( is_wp_error( $extra ) && ! empty( ( (array) $extra->get_error_data() )['delivery_uncertain'] ) ) ) {
+				$sent = true; }
 		}
 
 		if ( is_wp_error( $sent ) && ! empty( ( (array) $sent->get_error_data() )['delivery_uncertain'] ) ) {
@@ -111,7 +125,7 @@ final class CodeChallenge {
 
 			return $sent;
 		}
-		if ( 'sms' === $recipient['channel'] ) {
+		if ( $mobile_attempted ) {
 			// Site-wide volume drives the adaptive bot check during a flood.
 			$this->limiter->count_site_request();
 		}

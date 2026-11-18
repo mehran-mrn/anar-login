@@ -264,7 +264,7 @@ final class MessageCenter {
 			delete_transient( 'anar_message_draft_' . get_current_user_id() );
 		}
 		$providers = ProviderRegistry::shared()->all();
-		if ( 'login_sms' === $id ) {
+		if ( 'login_sms' === $id || ( 'login_otp' === $id && ( new Settings() )->get( 'login_provider' ) ) ) {
 			$providers = array_intersect_key( $providers, array( $value['provider'] => true ) ); }
 		$sample = MessageSettings::preview( $id, $value );
 		$is_auth = 'auth' === $item['source'];
@@ -277,7 +277,7 @@ final class MessageCenter {
 		if ( MessageCatalog::variants( $id ) ) {
 			?>
 			<nav class="anar-message-variants" aria-label="<?php esc_attr_e( 'Message variant', 'anar-toolkit' ); ?>"><a class="button <?php echo 'plain' === $variant ? 'is-active' : ''; ?>" data-message-variant="plain" aria-current="<?php echo 'plain' === $variant ? 'true' : 'false'; ?>" href="<?php echo esc_url( add_query_arg( 'variant', 'plain', self::url( $id, $back ) ) ); ?>"><?php esc_html_e( 'Without a gift', 'anar-toolkit' ); ?></a> <a class="button <?php echo 'gift' === $variant ? 'is-active' : ''; ?>" data-message-variant="gift" aria-current="<?php echo 'gift' === $variant ? 'true' : 'false'; ?>" href="<?php echo esc_url( add_query_arg( 'variant', 'gift', self::url( $id, $back ) ) ); ?>"><?php esc_html_e( 'With a gift', 'anar-toolkit' ); ?></a></nav><?php } ?>
-		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="anar-message-editor" data-message-editor <?php echo 'login_sms' === $id ? 'data-fixed-provider' : ''; ?> data-provider-fields="<?php echo esc_attr( wp_json_encode( self::provider_fields( $providers ) ) ); ?>" data-default-provider="<?php echo esc_attr( $default_provider ); ?>" data-inherited-provider="<?php echo esc_attr( $inherited_provider ); ?>" <?php echo $is_auth ? 'data-auth-message' : ''; ?> data-samples="<?php echo esc_attr( wp_json_encode( $sample['variables'] ) ); ?>">
+		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="anar-message-editor" data-message-editor <?php echo in_array( $id, array( 'login_sms', 'login_otp' ), true ) ? 'data-fixed-provider' : ''; ?> data-provider-fields="<?php echo esc_attr( wp_json_encode( self::provider_fields( $providers ) ) ); ?>" data-default-provider="<?php echo esc_attr( $default_provider ); ?>" data-inherited-provider="<?php echo esc_attr( $inherited_provider ); ?>" <?php echo $is_auth ? 'data-auth-message' : ''; ?> data-samples="<?php echo esc_attr( wp_json_encode( $sample['variables'] ) ); ?>">
 		<?php wp_nonce_field( 'anar_message_' . $id ); ?><input type="hidden" name="action" value="anar_message"><input type="hidden" name="id" value="<?php echo esc_attr( $id ); ?>"><input type="hidden" name="variant" value="<?php echo esc_attr( $variant ); ?>"><input type="hidden" name="back" value="<?php echo esc_attr( $back ); ?>"><input type="hidden" name="revision" value="<?php echo esc_attr( MessageSettings::fingerprint( MessageSettings::get( $id, $variant ) ) ); ?>">
 		<?php
 		if ( $is_auth && ! in_array( $id, array( 'login_otp', 'login_sms' ), true ) ) {

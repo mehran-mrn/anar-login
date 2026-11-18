@@ -33,7 +33,7 @@ final class LoginSetup {
 				<?php if ( 'email' !== $value['identity_mode'] ) : ?>
 					<button type="button" class="button" data-setup-target="sms"><?php esc_html_e( 'Open SMS connection', 'anar-toolkit' ); ?></button>
 					<?php MessageCenter::summary( 'single' === $value['mobile_delivery_order'] ? 'login_otp' : 'login_sms', 'login' ); ?>
-					<p><?php esc_html_e( 'For mobile codes, choose one service or set Bale and SMS in priority order in SMS settings. Connect both services and save the SMS code message. Email is configured separately through the site mail service.', 'anar-toolkit' ); ?></p>
+					<p><?php esc_html_e( 'First configure connections in Service providers. In General, choose the primary mobile route, backups and whether linked email and mobile receive the code together. Then save the code message. Email uses the site mail service.', 'anar-toolkit' ); ?></p>
 				<?php endif; ?>
 				<?php if ( 'phone' !== $value['identity_mode'] ) : ?>
 					<button type="button" class="button" data-setup-target="email"><?php esc_html_e( 'Open email settings', 'anar-toolkit' ); ?></button>

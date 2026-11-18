@@ -1,6 +1,6 @@
 <?php
 /**
- * Plain-language mobile delivery choices and saved configuration status.
+ * Login delivery controls; provider credentials live in the connection screen.
  *
  * @package AnarLogin
  */
@@ -10,50 +10,50 @@ namespace Anar\Login\Admin;
 use Anar\Login\Infrastructure\Settings;
 use Anar\Login\Messaging\MessageSettings;
 use Anar\Login\Messaging\ProviderRegistry;
-
 defined( 'ABSPATH' ) || exit;
-
 final class MobileDelivery {
 	public static function choices() {
 		return array(
 			'single' => __( 'Only the selected service', 'anar-toolkit' ),
-			'bale_sms' => __( '1. Bale, then 2. SMS', 'anar-toolkit' ),
-			'sms_bale' => __( '1. SMS, then 2. Bale', 'anar-toolkit' ),
+			'bale_sms' => __( 'Bale first, SMS as backup', 'anar-toolkit' ),
+			'sms_bale' => __( 'SMS first, Bale as backup', 'anar-toolkit' ),
+			'parallel' => __( 'Bale and SMS together', 'anar-toolkit' ),
 		);
 	}
-
-	public static function render( $value ) {
-		$sms = MessageSettings::get( 'login_sms' );
-		$bale = ( new Settings() )->provider( 'bale' );
+	private static function select( $key, $label, $options, $selected, $attributes = '' ) {
 		?>
-		<div class="anar-card anar-mobile-delivery" data-mobile-delivery data-sms-provider="<?php echo esc_attr( $sms['provider'] ); ?>">
-			<h3><?php esc_html_e( 'Mobile code delivery order', 'anar-toolkit' ); ?></h3>
-			<p><?php esc_html_e( 'Customers can use mobile number and email together. This order applies only to mobile verification codes; email and store messages keep their own settings.', 'anar-toolkit' ); ?></p>
-			<label for="anar-mobile-delivery-order"><strong><?php esc_html_e( 'Where should the mobile code be sent first?', 'anar-toolkit' ); ?></strong></label>
-			<select id="anar-mobile-delivery-order" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[mobile_delivery_order]">
-				<?php foreach ( self::choices() as $key => $label ) : ?>
-					<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $value['mobile_delivery_order'], $key ); ?>><?php echo esc_html( $label ); ?></option>
-				<?php endforeach; ?>
-			</select>
-			<div data-mobile-priority hidden>
-				<p><?php esc_html_e( 'If the first service rejects delivery, Anar sends the same code through the second service. A number without a Bale account automatically receives SMS when Bale is first.', 'anar-toolkit' ); ?></p>
-				<p class="description"><?php esc_html_e( 'If a service stops responding after a send request, delivery may already have happened. Anar keeps that code valid and waits for the resend timer instead of automatically sending it twice.', 'anar-toolkit' ); ?></p>
-				<p><strong><?php esc_html_e( 'Bale connection', 'anar-toolkit' ); ?>:</strong> <?php echo esc_html( ! empty( $bale['username'] ) && ! empty( $bale['password'] ) ? __( 'Connection details saved', 'anar-toolkit' ) : __( 'Needs configuration', 'anar-toolkit' ) ); ?></p>
-				<label for="anar-mobile-sms-provider"><strong><?php esc_html_e( 'SMS provider', 'anar-toolkit' ); ?></strong></label>
-				<select id="anar-mobile-sms-provider" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[mobile_sms_provider]" data-saved-sms-provider="<?php echo esc_attr( $sms['provider'] ); ?>">
-				<option value=""><?php esc_html_e( 'No SMS provider selected', 'anar-toolkit' ); ?></option>
-				<?php foreach ( ProviderRegistry::shared()->all() as $key => $provider ) : ?>
-					<?php
-					if ( 'bale' === $key ) {
-						continue; }
-					?>
-					<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $sms['provider'], $key ); ?>><?php echo esc_html( $provider->title() ); ?></option>
-				<?php endforeach; ?>
-				</select>
-				<p data-mobile-save-first hidden><?php esc_html_e( 'Save the SMS provider and connection details first, then edit its code message.', 'anar-toolkit' ); ?></p>
-				<?php MessageCenter::summary( 'login_sms', 'sms' ); ?>
-				<p class="description"><?php esc_html_e( 'Choose the SMS provider here, complete both connection forms below and save settings. Then use Edit message to enter the approved SMS template and test sign-in.', 'anar-toolkit' ); ?></p>
-			</div>
+		<div class="anar-field-row"><label for="anar-<?php echo esc_attr( str_replace( '_', '-', $key ) ); ?>"><strong><?php echo esc_html( $label ); ?></strong></label>
+		<select id="anar-<?php echo esc_attr( str_replace( '_', '-', $key ) ); ?>" name="<?php echo esc_attr( Settings::OPTION_KEY . '[' . $key . ']' ); ?>" <?php echo $attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Internal static attributes only. ?>>
+		<?php foreach ( $options as $id => $text ) : ?>
+			<option value="<?php echo esc_attr( $id ); ?>" <?php selected( $selected, $id ); ?>><?php echo esc_html( $text ); ?></option>
+		<?php endforeach; ?></select></div>
+		<?php
+	}
+	public static function render( $value ) {
+		$providers = array();
+		foreach ( ProviderRegistry::shared()->all() as $key => $provider ) {
+			$providers[ $key ] = $provider->title(); }
+		$sms = MessageSettings::get( 'login_sms' );
+		?>
+		<div class="anar-card anar-mobile-delivery" data-mobile-delivery>
+		<h3><?php esc_html_e( 'Sign-in code delivery', 'anar-toolkit' ); ?></h3>
+		<?php
+		self::select( 'login_delivery_mode', __( 'How should sign-in methods work?', 'anar-toolkit' ), array( 'choice' => __( 'Use the contact entered by the customer', 'anar-toolkit' ), 'simultaneous' => __( 'Send to linked email and mobile together', 'anar-toolkit' ) ), $value['login_delivery_mode'] );
+		self::select( 'login_provider', __( 'Primary mobile service', 'anar-toolkit' ), $providers, MessageSettings::get( 'login_otp' )['provider'] );
+		self::select( 'mobile_delivery_order', __( 'Mobile delivery and backup', 'anar-toolkit' ), self::choices(), $value['mobile_delivery_order'] );
+		?>
+		<div data-mobile-priority>
+		<?php
+		unset( $providers['bale'] );
+		self::select( 'mobile_sms_provider', __( 'SMS service for this route', 'anar-toolkit' ), array( '' => __( 'No SMS provider selected', 'anar-toolkit' ) ) + $providers, $sms['provider'], 'data-saved-sms-provider="' . esc_attr( $sms['provider'] ) . '"' );
+		?>
+		<p data-mobile-save-first hidden><?php esc_html_e( 'Save the SMS provider and connection details first, then edit its code message.', 'anar-toolkit' ); ?></p>
+		<?php MessageCenter::summary( 'login_sms', 'login' ); ?>
+		</div>
+		<?php self::select( 'login_email_backup', __( 'If email sending fails', 'anar-toolkit' ), array( 'none' => __( 'No backup', 'anar-toolkit' ), 'mobile' => __( 'Use the mobile delivery route', 'anar-toolkit' ) ), $value['login_email_backup'] ); ?>
+		<p><?php esc_html_e( 'Together means sending one code to the email and canonical mobile linked to the same existing account. A new customer receives the code only at the contact they entered.', 'anar-toolkit' ); ?></p>
+		<p><?php esc_html_e( 'Each mobile route runs independently of email: if Bale rejects a code, its SMS backup still runs even when email succeeds. Uncertain send timeouts retain the valid code without an automatic duplicate.', 'anar-toolkit' ); ?></p>
+		<a class="button" data-setup-target="sms" href="<?php echo esc_url( admin_url( 'admin.php?page=anar-login-settings&section=sms' ) ); ?>"><?php esc_html_e( 'Configure service connections', 'anar-toolkit' ); ?></a>
 		</div>
 		<?php
 	}

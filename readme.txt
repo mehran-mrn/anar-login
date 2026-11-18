@@ -4,7 +4,7 @@ Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.7.0
+Stable tag: 1.8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -104,7 +104,7 @@ Recovery coupons support an optional maximum monetary discount including tax (0 
 == External services ==
 
 = Bale Safir OTP (optional) =
-Bale is a verification-code channel, not a plain-text commerce SMS provider. It is used only after the store administrator selects Bale and supplies their Safir client ID and client secret. When a verification code is requested, Anar sends those credentials to https://safir.bale.ai/api/v2/auth/token to obtain an access token. The token is cached temporarily on the WordPress server. Anar sends the recipient's international mobile number and numeric OTP to https://safir.bale.ai/api/v2/send_otp with that bearer token. The user receives the code inside Bale and must have a Bale account. Administrators can opt into Bale-then-SMS or SMS-then-Bale delivery. A definite rejection, including a number without a Bale account, triggers the second service with the same code. Ambiguous send timeouts keep the code valid without automatic duplicate delivery. SMS fallback sends the number and configured code variables to the selected SMS service described above. Commerce messages keep their own provider settings.
+Bale supports legacy v2 verification codes and optional Safir v3 OTP, plain-text and template messages. With v3 enabled, Anar sends the organization API access key in the request header and the bot ID, destination phone, request ID and configured message content to https://safir.bale.ai/api/v3/send_message. Configure the API access key and bot ID to enable v3; leave the API access key empty to retain the existing v2 connection. It is used only after the store administrator selects Bale and supplies their Safir client ID and client secret. When a verification code is requested, Anar sends those credentials to https://safir.bale.ai/api/v2/auth/token to obtain an access token. The token is cached temporarily on the WordPress server. Anar sends the recipient's international mobile number and numeric OTP to https://safir.bale.ai/api/v2/send_otp with that bearer token. The user receives the code inside Bale and must have a Bale account. Administrators can opt into Bale-then-SMS or SMS-then-Bale delivery. A definite rejection, including a number without a Bale account, triggers the second service with the same code. Ambiguous send timeouts keep the code valid without automatic duplicate delivery. SMS fallback sends the number and configured code variables to the selected SMS service described above. Commerce messages keep their own provider settings.
 Official service: https://safir.bale.ai/
 Official documentation: https://docs.bale.ai/
 Official terms, including privacy provisions: https://bale.ai/terms
@@ -231,6 +231,12 @@ Uninstall preserves data unless deletion was explicitly enabled beforehand. It d
 Yes. Set a budget per pool and a maximum money discount for each prize. Amounts use the current store currency and include the tax reduction. The maximum cost is reserved at issuance; a paid order consumes its actual saving and releases the remainder. Unused expired gifts release their reservation. Saved unpaid orders retain it to cover late payments. Refunds do not reactivate consumed gifts or replenish spent money. Earlier uncapped coupons remain unchanged and outside this budget. Capped calculations require WooCommerce 8.8 or later.
 
 == Changelog ==
+
+= 1.8.0 =
+* Separate provider connections from General sign-in delivery and OTP controls while retaining the original provider cards.
+* Add linked email/mobile and Bale/SMS simultaneous delivery, with independent mobile fallback.
+* Support optional Safir v3 OTP, plain text and template messages for store and club use. Existing v2 OTP accounts remain supported.
+
 
 = 1.7.0 =
 * Add optional Bale/SMS delivery priorities with one shared code, safe fallback and preserved resend limits. Existing installations keep single-service delivery.
