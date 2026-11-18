@@ -2,6 +2,9 @@
 
 namespace Anar\Login\Vendor\WebAuthn;
 use Anar\Login\Vendor\WebAuthn\Binary\ByteBuffer;
+
+defined( 'ABSPATH' ) || exit;
+
 require_once 'WebAuthnException.php';
 require_once 'Binary/ByteBuffer.php';
 require_once 'Attestation/AttestationObject.php';
