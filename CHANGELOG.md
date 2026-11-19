@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.13.1
+
+- Refresh the admin rose palette: borderless pink active navigation, red enabled switches and consistent selected cards and buttons.
+
 ## 1.13.0
 
 - Add delivery-independent, confirmed recovery codes, first-login enrollment and a host-only per-account recovery command.

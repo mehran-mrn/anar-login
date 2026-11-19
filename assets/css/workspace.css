@@ -38,14 +38,14 @@
 .anar-workspace-link>span{font-size:12px;opacity:.7}
 
 /* Shared surfaces use local type and CSS only: no icon, font or UI framework requests. */
-.anar-admin{--anar-admin-ink:#263149;--anar-admin-muted:#69758a;--anar-admin-line:#e5e9f0;--anar-admin-soft:#fff3f6}
+.anar-admin{--anar-admin-accent:#d71d42;--anar-admin-accent-dark:#b91639;--anar-admin-ink:#24171c;--anar-admin-muted:#766b70;--anar-admin-line:#eee3e8;--anar-admin-soft:#fff0f4}
 .anar-admin__layout{grid-template-columns:230px minmax(0,1fr);border-radius:18px;box-shadow:0 8px 32px #22304b08;overflow:clip}
-.anar-admin__nav{background:#fff;border-inline-end:1px solid var(--anar-admin-line);padding:20px 12px}
+.anar-admin__nav{background:#fffafb;border-inline-end:1px solid var(--anar-admin-line);padding:20px 12px}
 .anar-admin__nav .anar-admin__nav-label{background:none;border:0;padding:0 12px;color:#7c8799;font-size:10px;font-weight:600;letter-spacing:.02em;margin-bottom:8px}
-.anar-admin__nav :is(button,.anar-workspace-link){color:#526077!important;background:transparent;border:1px solid transparent;border-radius:9px;padding:9px 12px;font-size:12px;line-height:1.8}
-.anar-admin__nav :is(button,.anar-workspace-link):hover{background:#f5f7fb;color:#263149!important}
-.anar-admin__nav :is(button,.anar-workspace-link).is-active{background:#fff0f4;color:var(--anar-admin-accent-dark)!important;border-color:#f8dce4;font-weight:700;box-shadow:none}
-.anar-admin__content,.anar-workspace-content{background:#f8fafc;padding:28px}
+.anar-admin__nav :is(button,.anar-workspace-link){color:#665c64!important;background:transparent;border:0;border-radius:9px;padding:9px 12px;font-size:12px;line-height:1.8}
+.anar-admin__nav :is(button,.anar-workspace-link):hover{background:#fff6f8;color:#d71d42!important}
+.anar-admin__nav :is(button,.anar-workspace-link).is-active{background:#fff0f4;color:#d71d42!important;border:0;font-weight:700;box-shadow:none}
+.anar-admin__content,.anar-workspace-content{background:#fffafb;padding:28px}
 .anar-admin :is(.anar-card,.anar-commerce-card){background:#fff;border:1px solid var(--anar-admin-line);border-radius:14px;box-shadow:0 2px 8px #22304b03}
 .anar-admin .anar-section-head{margin-bottom:24px}
 .anar-admin .anar-section-head h2{font-size:20px;letter-spacing:-.02em}
@@ -60,18 +60,18 @@
 .anar-provider__body{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:6px}
 .anar-admin .anar-provider__body strong{font-size:13px;line-height:1.8}
 .anar-admin .anar-provider__mark{width:40px;height:40px;border-radius:12px;background:#f1f4f9;color:#72819b}
-.anar-admin .anar-provider.is-selected{background:#fff9fb;border-color:#e77c96;box-shadow:0 0 0 1px #e77c96}
-.anar-admin .anar-provider.is-selected .anar-provider__mark{background:#fce7ee;color:var(--anar-admin-accent)}
+.anar-admin .anar-provider.is-selected{background:#fff0f4;border-color:#d71d42;box-shadow:none}
+.anar-admin .anar-provider.is-selected .anar-provider__mark{background:#ffe3ec;color:var(--anar-admin-accent)}
 .anar-admin .anar-provider .anar-meli-badge{font-size:9px;padding:0;color:#8b6372;background:none;line-height:1.7;white-space:normal}
-.anar-admin .anar-connection-categories .button{border-color:transparent;background:#eef2f7;color:#59677e}
-.anar-admin .anar-connection-categories [aria-pressed=true]{background:#263149;color:#fff}
-.anar-recovery-tabs{display:flex;gap:6px;flex-wrap:wrap;padding:6px;background:#eaf0f6;border-radius:12px;margin-bottom:24px}
+.anar-admin .anar-connection-categories .button{border-color:transparent;background:#fff6f8;color:#766b70}
+.anar-admin .anar-connection-categories [aria-pressed=true]{background:#d71d42;color:#fff}
+.anar-recovery-tabs{display:flex;gap:6px;flex-wrap:wrap;padding:6px;background:#fff6f8;border-radius:12px;margin-bottom:24px}
 .anar-recovery-tabs button{border:0;border-radius:8px;background:none;color:#61708a;padding:10px 16px;font:600 12px/1.8 var(--anar-admin-font);cursor:pointer}
-.anar-recovery-tabs button.is-active{background:white;color:#263149;box-shadow:0 2px 6px #22304b0a}
+.anar-recovery-tabs button.is-active{background:#fff0f4;color:#d71d42;box-shadow:none}
 .anar-recovery-callout{display:flex;gap:16px;border:1px solid #d6e5e2;background:#f0f8f5;border-radius:14px;padding:22px;margin-bottom:24px}
 .anar-recovery-callout>.dashicons{color:#27816a;margin-top:5px;flex:0 0 22px}
 .anar-recovery-callout h2{margin:0 0 8px;font-size:17px}.anar-recovery-callout p{line-height:1.9;color:#526b63}
-.anar-section-intro{padding:14px 16px;background:#f1f5fb;border-radius:10px;color:#526077;line-height:1.9}
+.anar-section-intro{padding:14px 16px;background:#fff6f8;border-radius:10px;color:#766b70;line-height:1.9}
 .anar-feature-card.is-pending{border-color:#e7b877}.anar-feature-feedback{font-size:11px;line-height:1.8;min-height:20px}
 .anar-admin a.is-loading:after{content:'';width:12px;height:12px;border:2px solid currentColor;border-inline-end-color:transparent;border-radius:50%;animation:anar-route-spin .7s linear infinite}
 .anar-admin[aria-busy=true] .anar-admin__layout{border-top-color:var(--anar-admin-accent)}
@@ -80,3 +80,20 @@
 @media(max-width:900px){.anar-admin__layout{grid-template-columns:1fr}.anar-admin__nav{border-inline:0;border-bottom:1px solid var(--anar-admin-line)}.anar-admin__nav .anar-admin__nav-label{margin:0!important}.anar-admin__content,.anar-workspace-content{padding:20px 16px}}
 @media(max-width:600px){.anar-admin .anar-provider-grid{grid-template-columns:1fr}.anar-recovery-tabs button{flex:1;padding:8px;font-size:11px}.anar-recovery-callout{padding:16px;gap:10px}}
 @media(prefers-reduced-motion:reduce){.anar-admin *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+/* Shared rose controls across specialized workspaces and message dialogs. */
+.anar-admin :is(.button.button-primary,button.button-primary,input.button-primary):not(:disabled){background:#d71d42;border-color:#d71d42;color:#fff;box-shadow:0 4px 12px #d71d4222}
+.anar-admin :is(.button.button-primary,button.button-primary,input.button-primary):not(:disabled):hover{background:#b91639;border-color:#b91639;color:#fff}
+.anar-admin .button:not(.button-primary):not(:disabled){color:#d71d42;border-color:#f2d5de;background:#fff}
+.anar-admin .button:not(.button-primary):not(:disabled):hover{color:#b91639;border-color:#e99caf;background:#fff0f4}
+.anar-admin .anar-connection-categories .button[aria-pressed=true]:not(:disabled),.anar-admin .anar-connection-categories .button[aria-pressed=true]:not(:disabled):hover{background:#d71d42;border-color:#d71d42;color:#fff}
+.anar-admin .anar-login-methods label:has(input:checked){border-color:#d71d42;background:#fff0f4}
+.anar-admin .anar-feature-card.is-active{border-color:#d71d42;background:linear-gradient(180deg,#fff0f4,#fff 122px)}
+.anar-admin .anar-feature-card.is-active .anar-feature-icon{color:#d71d42}
+.anar-admin .anar-feature-card .anar-feature-configure{color:#d71d42;background:#fff0f4;border-color:transparent}
+.anar-admin .anar-feature-switch>input:checked+.anar-feature-switch-track{background:#d71d42;border-color:#d71d42}
+.anar-admin .anar-feature-switch>input:checked~.anar-feature-switch-on{color:#d71d42}
+.anar-admin input:is([type=checkbox],[type=radio]){accent-color:#d71d42}
+.anar-admin input[type=radio]:checked::before{background:#d71d42}
+
+.anar-admin .anar-message-variants .button.is-active:not(:disabled){background:#fff0f4;color:#d71d42;border-color:transparent}

@@ -1,7 +1,7 @@
 .anar-features {
 	--anar-ink: #272236;
 	--anar-muted: #514b60;
-	--anar-brand: #982b50;
+	--anar-brand: #d71d42;
 	--anar-line: #e6dfe8;
 	max-width: 1440px;
 	margin-block: 24px 18px;
@@ -18,15 +18,15 @@
 	padding: 22px clamp(18px, 4vw, 38px);
 	border-radius: 20px;
 	background:
-		radial-gradient(ellipse at 50% 160%, #b13e5f 0%, transparent 64%),
-		linear-gradient(112deg, #48233c, #752845 57%, #8e304e);
+		radial-gradient(ellipse at 50% 160%, #e9385c 0%, transparent 64%),
+		linear-gradient(112deg, #b91639, #d71d42 57%, #cf1a40);
 	box-shadow: 0 8px 22px #4d233b21;
 }
 
 .anar-features[dir="rtl"] .anar-features-banner {
 	background:
-		radial-gradient(ellipse at 50% 160%, #b13e5f 0%, transparent 64%),
-		linear-gradient(248deg, #48233c, #752845 57%, #8e304e);
+		radial-gradient(ellipse at 50% 160%, #e9385c 0%, transparent 64%),
+		linear-gradient(248deg, #b91639, #d71d42 57%, #cf1a40);
 }
 
 .anar-features-banner img {
@@ -51,7 +51,7 @@
 
 .anar-features-banner p {
 	margin: 4px 0 0;
-	color: #f8e5ed;
+	color: #fff;
 	font-size: 13px;
 	line-height: 1.8;
 }
@@ -263,8 +263,8 @@
 }
 
 .anar-feature-switch > input:checked + .anar-feature-switch-track {
-	border-color: #266653;
-	background: #266653;
+	border-color: #d71d42;
+	background: #d71d42;
 }
 
 .anar-feature-switch > input:checked + .anar-feature-switch-track::before {
@@ -278,7 +278,7 @@
 
 .anar-feature-switch > input:checked ~ .anar-feature-switch-on {
 	display: inline;
-	color: #266653;
+	color: #d71d42;
 }
 
 .anar-feature-switch > input:focus-visible + .anar-feature-switch-track,

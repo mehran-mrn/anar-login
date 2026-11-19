@@ -1,8 +1,8 @@
 /* One control style for settings, feature selection and commerce workspaces. */
 .anar-admin,.anar-commerce,.anar-features{
-	--anar-admin-accent:#ae2750;--anar-admin-accent-dark:#851b3b;
-	--anar-admin-ink:#282331;--anar-admin-muted:#766b70;
-	--anar-admin-line:#ebe6ee;--anar-admin-soft:#fff5f8;
+	--anar-admin-accent:#d71d42;--anar-admin-accent-dark:#b91639;
+	--anar-admin-ink:#24171c;--anar-admin-muted:#766b70;
+	--anar-admin-line:#eee3e8;--anar-admin-soft:#fff0f4;
 	--red:var(--anar-admin-accent);--ink:var(--anar-admin-ink);--muted:var(--anar-admin-muted);--line:var(--anar-admin-line);
 }
 :is(.anar-admin,.anar-commerce,.anar-features) :is(input:not([type]),input[type=text],input[type=search],input[type=number],input[type=tel],input[type=email],input[type=url],input[type=password],select,textarea){
