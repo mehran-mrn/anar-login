@@ -16,6 +16,7 @@ final class FeaturesPage {
 	public function register() {
 		add_action( 'admin_menu', array( $this, 'menu' ), 20 );
 		add_action( 'admin_post_anar_features', array( $this, 'save' ) );
+		add_action( 'wp_ajax_anar_feature_toggle', array( $this, 'toggle' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'assets' ) );
 	}
 
@@ -66,6 +67,8 @@ final class FeaturesPage {
 
 	public function assets( $hook ) {
 		if ( false !== strpos( $hook, 'anar-' ) ) {
+			wp_enqueue_script( 'anar-features', ANAR_LOGIN_URL . 'assets/js/features.js', array(), ANAR_LOGIN_VERSION, true );
+			wp_localize_script( 'anar-features', 'AnarFeatures', array( 'url' => admin_url( 'admin-ajax.php' ), 'nonce' => wp_create_nonce( 'anar_features' ), 'configure' => __( 'Configure', 'anar-toolkit' ), 'saving' => __( 'Saving…', 'anar-toolkit' ), 'saved' => __( 'Feature updated.', 'anar-toolkit' ), 'failed' => __( 'The change could not be confirmed. Check the saved state before trying again.', 'anar-toolkit' ) ) );
 			wp_enqueue_script( 'anar-help', ANAR_LOGIN_URL . 'assets/js/help.js', array(), ANAR_LOGIN_VERSION, true );
 			wp_enqueue_style( 'anar-features', ANAR_LOGIN_URL . 'assets/css/features.css', array( 'dashicons' ), ANAR_LOGIN_VERSION ); }
 	}
@@ -173,15 +176,16 @@ endif;
 											</a>
 										<?php endif; ?>
 									</footer>
+									<div class="anar-feature-feedback" role="status" aria-live="polite" hidden></div>
 								</article>
 							<?php endforeach; ?>
 						</div>
 					</section>
 				<?php endforeach; ?>
-				<div class="anar-feature-save">
+				<noscript><div class="anar-feature-save">
 					<p><?php esc_html_e( 'Turning a feature off keeps its settings and stored records.', 'anar-toolkit' ); ?></p>
 					<?php submit_button( __( 'Save feature selection', 'anar-toolkit' ) ); ?>
-				</div>
+				</div></noscript>
 			</form>
 		</div>
 		<?php
@@ -216,5 +220,65 @@ endif;
 		update_option( \Anar\Login\Balance\Monitor::OPTION, $balance, false );
 		wp_safe_redirect( admin_url( 'admin.php?page=anar-login-settings&section=features&saved=1' ) );
 		exit;
+	}
+
+	/** Update one capability without submitting a stale copy of the entire catalog. */
+	public static function set_feature( $key, $enabled ) {
+		if ( ! array_key_exists( $key, self::labels() ) ) {
+			return new \WP_Error( 'anar_feature_unknown', __( 'Unknown feature.', 'anar-toolkit' ) );
+		}
+		$enabled = (int) (bool) $enabled;
+		if ( in_array( $key, array( 'login', 'reset', 'two_factor', 'login_log', 'orders' ), true ) ) {
+			$saved = (array) get_option( Features::OPTION, array() );
+			$core = $saved['switches'] ?? $saved;
+			$core[ $key ] = $enabled;
+			Features::refresh( $core );
+			if ( 'reset' === $key || ( 'two_factor' === $key && $enabled ) ) {
+				$login = (array) get_option( Settings::OPTION_KEY, array() );
+				if ( 'reset' === $key ) {
+					$login['password_reset_enabled'] = $enabled;
+				} elseif ( 'off' === ( $login['two_factor'] ?? 'off' ) ) {
+					$login['two_factor'] = 'privileged';
+				}
+				update_option( Settings::OPTION_KEY, $login, false );
+			}
+			if ( 'orders' === $key && $enabled ) {
+				$commerce = (array) get_option( 'anar_toolkit_commerce', array() );
+				if ( ! array_filter( array_intersect_key( $commerce, array_flip( Features::order_events() ) ) ) ) {
+					$commerce['paid_customer'] = 1;
+					update_option( 'anar_toolkit_commerce', $commerce, false );
+				}
+			}
+		} elseif ( 'recovery' === $key || 'balance' === $key ) {
+			$option = 'balance' === $key ? \Anar\Login\Balance\Monitor::OPTION : 'anar_toolkit_commerce';
+			$value = (array) get_option( $option, array() );
+			$value[ 'balance' === $key ? 'enabled' : 'recovery' ] = $enabled;
+			update_option( $option, $value, false );
+		} else {
+			$value = (array) get_option( 'anar_toolkit_marketing', array() );
+			$value['modules'][ $key ] = $enabled;
+			update_option( 'anar_toolkit_marketing', $value, false );
+		}
+		Features::refresh();
+		return Features::enabled( $key ) === (bool) $enabled;
+	}
+
+	public function toggle() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'text' => __( 'You cannot manage these settings.', 'anar-toolkit' ) ), 403 );
+		}
+		check_ajax_referer( 'anar_features', 'nonce' );
+		$key = isset( $_POST['key'] ) ? sanitize_key( wp_unslash( $_POST['key'] ) ) : '';
+		if ( ! array_key_exists( $key, self::labels() ) || ! isset( $_POST['enabled'], $_POST['expected'] ) || ! in_array( $_POST['enabled'], array( '0', '1' ), true ) || ! in_array( $_POST['expected'], array( '0', '1' ), true ) ) {
+			wp_send_json_error( array( 'text' => __( 'Unknown feature.', 'anar-toolkit' ) ), 422 );
+		}
+		if ( Features::enabled( $key ) !== (bool) $_POST['expected'] ) {
+			wp_send_json_error( array( 'text' => __( 'This feature was changed elsewhere. Reload to see its current state.', 'anar-toolkit' ), 'enabled' => Features::enabled( $key ) ), 409 );
+		}
+		$result = self::set_feature( $key, '1' === $_POST['enabled'] );
+		if ( true !== $result ) {
+			wp_send_json_error( array( 'text' => __( 'The change could not be confirmed. Check the saved state before trying again.', 'anar-toolkit' ), 'enabled' => Features::enabled( $key ) ), 422 );
+		}
+		wp_send_json_success( array( 'enabled' => Features::enabled( $key ), 'url' => self::url( $key ) ) );
 	}
 }

@@ -15,6 +15,11 @@ final class ProviderStatus {
 	public static function ready( $provider, ?Settings $settings = null ) {
 		$settings = $settings ?: new Settings();
 		$config = $settings->provider( $provider->key() );
+		return self::ready_config( $provider, $config );
+	}
+
+	/** Validate draft credentials without replacing the site's active option. */
+	public static function ready_config( $provider, $config ) {
 		if ( $provider instanceof AbstractProvider ) {
 			$required = 'custom' === $provider->key() ? array( 'url' ) : $provider->template_credentials();
 		} else {

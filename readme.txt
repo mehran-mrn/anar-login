@@ -4,7 +4,7 @@ Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.10.0
+Stable tag: 1.11.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -121,6 +121,8 @@ Official terms and limited account-data-use notice: https://console.kavenegar.co
 
 = Optional SMS account balance monitoring =
 
+An administrator can explicitly click Check connection in Service providers to validate the entered account credentials through its credit endpoint, even when credit monitoring is off. This check does not save settings or send an SMS. Unsupported providers can be tested through a configured message instead.
+
 The SMS credit feature is off by default. Enable it from the feature catalog or SMS credit page. An administrator can explicitly check a configured account, opt it into periodic monitoring and independently enable or disable low-credit warnings and set the threshold. Enabling periodic monitoring authorizes authenticated, server-side balance requests to that provider about every 30 minutes through WordPress scheduled tasks; actual timing depends on scheduled-task execution. No balance requests run on normal storefront requests or when rendering administrator pages.
 
 The supported read-only endpoints are https://rest.payamak-panel.com/api/SendSMS/GetCredit (Meli Payamak sending username/password), https://api.kavenegar.com/v1/{API-KEY}/account/info.json, https://edge.ippanel.com/v1/api/payment/credit/mine, https://api.panelchi.com/account/info (Panelchi and MaxSMS), https://api.sms.ir/v1/credit and https://api.iranpayamak.com/ws/v1/account/balance (Faraz). The corresponding account API key/token authenticates each request. Faraz requires its new Api-Key separately from the legacy sending password. Meli Payamak affiliate credentials are not used. No recipient numbers, OTPs, order details or message bodies are sent for balance checks.
@@ -228,6 +230,11 @@ Uninstall preserves data unless deletion was explicitly enabled beforehand. It d
 Yes. Set a budget per pool and a maximum money discount for each prize. Amounts use the current store currency and include the tax reduction. The maximum cost is reserved at issuance; a paid order consumes its actual saving and releases the remainder. Unused expired gifts release their reservation. Saved unpaid orders retain it to cover late payments. Refunds do not reactivate consumed gifts or replenish spent money. Earlier uncapped coupons remain unchanged and outside this budget. Capped calculations require WooCommerce 8.8 or later.
 
 == Changelog ==
+
+= 1.11.0 =
+* Save feature switches immediately with inline status and conflict handling.
+* Save provider connections and OTP generation independently so hidden logo fields cannot block them.
+* Separate login messages from code generation and add connection checks and fixed message shortcuts.
 
 = 1.10.0 =
 * Use one active SMS provider throughout the toolkit. Review message templates after changing provider.

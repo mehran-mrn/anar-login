@@ -49,7 +49,7 @@ final class ProviderConnections {
 						<div class="anar-provider-grid" data-provider-connections>
 							<?php foreach ( $group as $key => $provider ) : ?>
 								<label class="anar-provider <?php echo $key === $view ? 'is-selected' : ''; ?>">
-									<input type="radio" name="<?php echo 'sms' === $category ? esc_attr( Settings::OPTION_KEY . '[sms_provider]' ) : 'anar_connection_view_messengers'; ?>" value="<?php echo esc_attr( $key ); ?>" <?php checked( $view, $key ); ?>>
+									<input form="anar-connections-form" type="radio" name="<?php echo 'sms' === $category ? esc_attr( Settings::OPTION_KEY . '[sms_provider]' ) : 'anar_connection_view_messengers'; ?>" value="<?php echo esc_attr( $key ); ?>" <?php checked( $view, $key ); ?>>
 									<span class="anar-provider__mark" aria-hidden="true">✦</span>
 									<span><strong><?php echo esc_html( $provider->title() ); ?></strong>
 									<?php
@@ -94,15 +94,15 @@ final class ProviderConnections {
 										<label class="<?php echo 'textarea' === $definition['type'] || 'url' === $definition['type'] ? 'anar-fields-grid__wide' : ''; ?>">
 											<span><?php echo esc_html( $definition['label'] ); ?></span>
 											<?php if ( 'select' === $definition['type'] ) : ?>
-												<select name="<?php echo esc_attr( $name ); ?>">
+												<select form="anar-connections-form" name="<?php echo esc_attr( $name ); ?>">
 													<?php foreach ( $definition['options'] as $option => $option_label ) : ?>
 														<option value="<?php echo esc_attr( $option ); ?>" <?php selected( $current, (string) $option ); ?>><?php echo esc_html( $option_label ); ?></option>
 													<?php endforeach; ?>
 												</select>
 											<?php elseif ( 'textarea' === $definition['type'] ) : ?>
-												<textarea name="<?php echo esc_attr( $name ); ?>" rows="4" dir="ltr" placeholder="<?php echo esc_attr( $definition['placeholder'] ); ?>"><?php echo esc_textarea( $current ); ?></textarea>
+												<textarea form="anar-connections-form" name="<?php echo esc_attr( $name ); ?>" rows="4" dir="ltr" placeholder="<?php echo esc_attr( $definition['placeholder'] ); ?>"><?php echo esc_textarea( $current ); ?></textarea>
 											<?php else : ?>
-												<input type="<?php echo $is_secret ? 'password' : 'text'; ?>" name="<?php echo esc_attr( $name ); ?>" value="<?php echo $is_secret ? '' : esc_attr( $current ); ?>" data-saved-value="<?php echo $is_secret && $current ? '1' : '0'; ?>" dir="ltr" placeholder="<?php echo esc_attr( $is_secret && $current ? __( 'Saved — enter a new value to change it', 'anar-toolkit' ) : $definition['placeholder'] ); ?>">
+												<input form="anar-connections-form" type="<?php echo $is_secret ? 'password' : 'text'; ?>" name="<?php echo esc_attr( $name ); ?>" value="<?php echo $is_secret ? '' : esc_attr( $current ); ?>" data-saved-value="<?php echo $is_secret && $current ? '1' : '0'; ?>" dir="ltr" placeholder="<?php echo esc_attr( $is_secret && $current ? __( 'Saved — enter a new value to change it', 'anar-toolkit' ) : $definition['placeholder'] ); ?>">
 											<?php endif; ?>
 											<?php if ( $definition['help'] ) : ?>
 												<small><?php echo esc_html( $definition['help'] ); ?></small>
@@ -110,8 +110,8 @@ final class ProviderConnections {
 										</label>
 									<?php endforeach; ?>
 								</div>
-								<p class="description" data-connection-unsaved hidden><?php esc_html_e( 'Save settings to apply these connection changes. Usage below reflects saved settings.', 'anar-toolkit' ); ?></p>
-								<?php self::usage( $key ); ?>
+
+
 							</div>
 						<?php endforeach; ?>
 
@@ -120,6 +120,10 @@ final class ProviderConnections {
 			</div>
 			<?php
 		endforeach;
+		?>
+		<div class="anar-scoped-actions"><button type="submit" form="anar-connections-form" class="button button-primary"><?php esc_html_e( 'Save connection settings', 'anar-toolkit' ); ?></button><button type="button" class="button" data-connection-check><?php esc_html_e( 'Check connection', 'anar-toolkit' ); ?></button><?php Help::button( __( 'Checks the selected account without sending an SMS. It does not save your changes.', 'anar-toolkit' ) ); ?><span data-scoped-feedback="connections" role="status" aria-live="polite" hidden></span></div>
+		<?php
+		self::usage();
 	}
 
 	private static function required( $provider ) {
@@ -128,7 +132,7 @@ final class ProviderConnections {
 
 	public static function email_message( $value ) {
 		?>
-		<details class="anar-email-message" data-login-email><summary><?php esc_html_e( 'Email sign-in message', 'anar-toolkit' ); ?></summary>
+		<div class="anar-email-message" data-login-email><h4><?php esc_html_e( 'Email sign-in message', 'anar-toolkit' ); ?></h4>
 						<div class="anar-card">
 							<div class="anar-field-row anar-field-row--stack">
 								<label for="anar-email-subject"><strong><?php esc_html_e( 'Email subject', 'anar-toolkit' ); ?></strong></label>
@@ -140,33 +144,32 @@ final class ProviderConnections {
 								<div class="anar-placeholders"><code>{code}</code><code>{site}</code><code>{minutes}</code></div>
 							</div>
 						</div>
-		</details>
+		</div>
 		<?php
 	}
 
 
-	private static function usage( $key ) {
-		$active = ( new Settings() )->get( 'sms_provider' );
-		if ( 'bale' !== $key && $key !== $active ) {
-			echo '<p>' . esc_html__( 'Save settings to apply these connection changes. Usage below reflects saved settings.', 'anar-toolkit' ) . '</p>';
-			return;
-		}
+	private static function usage() {
+		$key = ( new Settings() )->get( 'sms_provider' );
+		$provider = \Anar\Login\Messaging\ProviderRegistry::shared()->all()[ $key ] ?? null;
 		$records = \Anar\Login\Messaging\ProviderUsage::all();
 		?>
-		<aside class="anar-provider-usage">
-			<h4><?php esc_html_e( 'Active SMS messages', 'anar-toolkit' ); ?></h4>
-			<p><?php esc_html_e( 'Quick links to the messages of your active features.', 'anar-toolkit' ); ?></p>
-			<ul>
+		<section class="anar-card anar-provider-usage" data-active-messages data-saved-provider="<?php echo esc_attr( $key ); ?>">
+			<h3><?php esc_html_e( 'Active feature messages', 'anar-toolkit' ); ?></h3>
+			<p><?php esc_html_e( 'Write the message or configure its approved template for each active feature. Choose a message below to edit it or send a test.', 'anar-toolkit' ); ?></p>
+			<p class="anar-active-provider"><?php esc_html_e( 'Active SMS provider:', 'anar-toolkit' ); ?> <strong data-active-provider-title><?php echo esc_html( $provider ? $provider->title() : $key ); ?></strong></p>
+			<p class="anar-message-warning" role="status" data-provider-draft-warning hidden><?php esc_html_e( 'Your connection changes are not saved. These messages still use the active provider shown above until you save.', 'anar-toolkit' ); ?></p>
+			<div class="anar-active-message-buttons">
 			<?php foreach ( $records as $record ) : ?>
 				<?php
-				if ( ! $record['active'] || 'bale' === $key ) {
+				if ( ! $record['active'] ) {
 					continue; }
 				?>
-				<li><a data-message-open href="<?php echo esc_url( MessageCenter::url( $record['id'] ) ); ?>"><?php echo esc_html( $record['label'] ); ?></a></li>
+				<button type="button" class="button" data-message-id="<?php echo esc_attr( $record['id'] ); ?>"><?php echo esc_html( $record['label'] ); ?><span class="dashicons dashicons-edit" aria-hidden="true"></span></button>
 			<?php endforeach; ?>
-			</ul>
-			<p><?php esc_html_e( 'Enable other features first to configure their messages here.', 'anar-toolkit' ); ?></p>
-		</aside>
+			</div>
+			<p class="description"><?php esc_html_e( 'Enable other features first to configure their messages here.', 'anar-toolkit' ); ?></p>
+		</section>
 		<?php
 	}
 }

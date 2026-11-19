@@ -39,6 +39,7 @@ final class SettingsPage {
 	 * @return void
 	 */
 	public function register() {
+		ScopedSettings::register();
 		add_action( 'admin_menu', array( $this, 'menu' ) );
 		add_action( 'admin_init', array( $this, 'setting' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'assets' ) );
@@ -90,6 +91,13 @@ final class SettingsPage {
 	 * @return array<string,mixed>
 	 */
 	public function sanitize( $input ) {
+		$current = $this->settings->all();
+		$input = is_array( $input ) ? $input : array();
+		foreach ( array_keys( $current ) as $key ) {
+			if ( ( isset( ScopedSettings::otp_fields()[ $key ] ) || 0 === strpos( $key, 'provider_' ) || 'form_logo_url' === $key ) && ! array_key_exists( $key, $input ) ) {
+				$input[ $key ] = $current[ $key ];
+			}
+		}
 		return $this->settings->sanitize( $input, $this->providers->all() );
 	}
 
@@ -109,6 +117,7 @@ final class SettingsPage {
 		wp_enqueue_style( 'anar-login-admin', ANAR_LOGIN_URL . 'assets/css/admin.css', array(), ANAR_LOGIN_VERSION );
 		wp_enqueue_style( 'anar-meli-signup', ANAR_LOGIN_URL . 'assets/css/meli-signup.css', array( 'anar-login-admin' ), ANAR_LOGIN_VERSION );
 		wp_enqueue_script( 'anar-login-admin', ANAR_LOGIN_URL . 'assets/js/admin.js', array(), ANAR_LOGIN_VERSION, true );
+		wp_enqueue_script( 'anar-settings-save', ANAR_LOGIN_URL . 'assets/js/settings-save.js', array( 'anar-login-admin' ), ANAR_LOGIN_VERSION, true );
 		wp_enqueue_script( 'anar-meli-signup', ANAR_LOGIN_URL . 'assets/js/meli-signup.js', array( 'anar-login-admin' ), ANAR_LOGIN_VERSION, true );
 		wp_localize_script(
 			'anar-login-admin',
@@ -116,6 +125,10 @@ final class SettingsPage {
 			array(
 				'connectionCompleteDraft' => __( 'Connection complete — save to apply', 'anar-toolkit' ),
 				'connectionIncomplete' => __( 'Connection incomplete', 'anar-toolkit' ),
+				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+				'saving' => __( 'Saving…', 'anar-toolkit' ),
+				'checking' => __( 'Checking connection…', 'anar-toolkit' ),
+				'invalid' => __( 'Check the highlighted field before saving.', 'anar-toolkit' ),
 				'copied'  => __( 'Copied ✓', 'anar-toolkit' ),
 				'failed'  => __( 'Copy failed', 'anar-toolkit' ),
 				'restUrl' => esc_url_raw( rest_url( 'anar-login/v1/' ) ),
@@ -187,20 +200,19 @@ final class SettingsPage {
 
 					<section class="anar-tab is-active" data-panel="general">
 						<?php $this->section_header( __( 'Sign-in settings', 'anar-toolkit' ), __( 'Configure sign-in, registration, and the appearance of the form.', 'anar-toolkit' ), '⚙' ); ?>
-						<?php MobileDelivery::render( $value ); ?><details class="anar-card"><summary><?php esc_html_e( 'OTP settings and messages', 'anar-toolkit' ); ?></summary>								<?php $this->number_field( 'otp_length', __( 'Code length', 'anar-toolkit' ), $value, 4, 8, __( 'digits', 'anar-toolkit' ) ); ?>
-								<?php $this->number_field( 'otp_ttl', __( 'Code lifetime', 'anar-toolkit' ), $value, 60, 600, __( 'seconds', 'anar-toolkit' ) ); ?>
-								<?php $this->number_field( 'resend_delay', __( 'Resend interval', 'anar-toolkit' ), $value, 30, 300, __( 'seconds', 'anar-toolkit' ) ); ?>
-								<?php $this->number_field( 'max_requests_hour', __( 'Hourly send limit', 'anar-toolkit' ), $value, 2, 30, __( 'requests', 'anar-toolkit' ) ); ?>
-								<?php $this->number_field( 'max_verify_attempts', __( 'Attempts per code', 'anar-toolkit' ), $value, 3, 10, __( 'attempts', 'anar-toolkit' ) ); ?>
-
-						<div class="anar-card" data-verification-messages data-saved-provider="<?php echo esc_attr( $value['sms_provider'] ); ?>">
-						<p class="anar-message-warning" role="status" data-save-provider-first hidden><?php esc_html_e( 'Your new SMS provider selection is unsaved.', 'anar-toolkit' ); ?></p>
-						<?php
-						foreach ( array( 'two_factor', 'password_reset', 'game_phone', 'stock_verification' ) as $message_id ) {
-							MessageCenter::summary( $message_id, 'login' ); }
-						?>
-						</div>
-<div class="anar-card anar-tip">
+						<?php MobileDelivery::render( $value ); ?>
+<section class="anar-card anar-otp-settings" aria-labelledby="anar-otp-title">
+	<h3 id="anar-otp-title"><?php esc_html_e( 'One-time code generation', 'anar-toolkit' ); ?></h3>
+	<div class="anar-otp-grid"><?php $this->number_field( 'otp_length', __( 'Code length', 'anar-toolkit' ), $value, 4, 8, __( 'digits', 'anar-toolkit' ), 'anar-otp-form' ); ?><?php $this->number_field( 'otp_ttl', __( 'Code lifetime', 'anar-toolkit' ), $value, 60, 600, __( 'seconds', 'anar-toolkit' ), 'anar-otp-form' ); ?><?php $this->number_field( 'resend_delay', __( 'Resend interval', 'anar-toolkit' ), $value, 30, 300, __( 'seconds', 'anar-toolkit' ), 'anar-otp-form' ); ?><?php $this->number_field( 'max_requests_hour', __( 'Hourly send limit', 'anar-toolkit' ), $value, 2, 30, __( 'requests', 'anar-toolkit' ), 'anar-otp-form' ); ?><?php $this->number_field( 'max_verify_attempts', __( 'Attempts per code', 'anar-toolkit' ), $value, 3, 10, __( 'attempts', 'anar-toolkit' ), 'anar-otp-form' ); ?></div>
+	<div class="anar-scoped-actions"><button type="submit" form="anar-otp-form" class="button button-primary"><?php esc_html_e( 'Save code settings', 'anar-toolkit' ); ?></button><span role="status" aria-live="polite" data-scoped-feedback="otp" hidden></span></div>
+</section>
+<section class="anar-card" data-verification-messages data-saved-provider="<?php echo esc_attr( $value['sms_provider'] ); ?>" aria-labelledby="anar-login-messages-title">
+	<h3 id="anar-login-messages-title"><?php esc_html_e( 'Sign-in and recovery messages', 'anar-toolkit' ); ?></h3>
+		<?php
+		foreach ( array( 'login_otp', 'two_factor', 'password_reset', 'game_phone', 'stock_verification' ) as $message_id ) {
+			MessageCenter::summary( $message_id, 'login' ); }
+		?>
+	<div class="anar-card anar-tip">
 							<span class="dashicons dashicons-smartphone" aria-hidden="true"></span>
 							<div>
 								<span class="anar-field-title"><strong><?php esc_html_e( 'Automatic code filling on Android', 'anar-toolkit' ); ?></strong><?php Help::button( __( 'Chrome on Android can fill the code with one tap when the last line of your provider template is exactly:', 'anar-toolkit' ) ); ?></span>
@@ -210,7 +222,7 @@ final class SettingsPage {
 						</div>
 
 		<?php ProviderConnections::email_message( $value ); ?>
-</details><div class="anar-card">
+</section><div class="anar-card">
 							<?php $this->toggle( 'allow_registration', __( 'Allow new account registration', 'anar-toolkit' ), __( 'Let new users create an account after verification.', 'anar-toolkit' ), $value ); ?>
 							<?php $this->mrn_forms( $value ); ?>
 							<div class="anar-field-row">
@@ -438,9 +450,9 @@ final class SettingsPage {
 
 					<footer class="anar-admin__save">
 						<div><span class="dashicons dashicons-saved"></span><p><span class="anar-field-title"><strong><?php esc_html_e( 'Your settings are stored securely', 'anar-toolkit' ); ?></strong><?php Help::button( __( 'Confidential values are not displayed again in the admin interface.', 'anar-toolkit' ) ); ?></span></p></div>
-						<?php submit_button( __( 'Save settings', 'anar-toolkit' ), 'primary', 'submit', false ); ?>
+						<?php submit_button( __( 'Save settings', 'anar-toolkit' ), 'primary', 'submit', false ); ?><span role="status" data-settings-validation hidden></span>
 					</footer>
-				</form>
+				</form><?php ScopedSettings::forms(); ?>
 				<section class="anar-tab" data-panel="features" hidden><?php FeaturesPage::render( true ); ?></section>
 				<section class="anar-tab" data-panel="messages" hidden>
 					<?php $this->section_header( __( 'Messages and templates', 'anar-toolkit' ), __( 'Find a message and edit it here. The same editor is available in each feature.', 'anar-toolkit' ), '✉' ); ?>
@@ -474,7 +486,7 @@ final class SettingsPage {
 		$primary = array( 'general' => $flags['login'], 'setup' => $flags['login'], 'sms' => ( $flags['login'] && 'email' !== $value['identity_mode'] ) || $flags['two_factor'] || $flags['reset'] || \Anar\Login\Infrastructure\Features::queue_needed(), 'google' => $flags['login'] && ! empty( $value['google_enabled'] ), 'security' => $flags['login'] || $flags['reset'] || $flags['two_factor'], 'woocommerce' => $flags['login'] && WooCommerce::active(), 'install' => $flags['login'] );
 		$first = true;
 		?>
-		<div class="anar-admin__nav-label"><?php esc_html_e( 'Shared settings', 'anar-toolkit' ); ?></div>
+		<div class="anar-admin__nav-label" role="heading" aria-level="2"><?php esc_html_e( 'Shared settings', 'anar-toolkit' ); ?></div>
 		<button type="button" data-tab="features"><?php esc_html_e( 'Features', 'anar-toolkit' ); ?></button>
 
 		<button type="button" data-tab="messages"><?php esc_html_e( 'Messages and templates', 'anar-toolkit' ); ?></button>
@@ -482,7 +494,7 @@ final class SettingsPage {
 		<?php
 		foreach ( array( true => __( 'Connection settings', 'anar-toolkit' ), false => __( 'Other features', 'anar-toolkit' ) ) as $enabled => $heading ) {
 			?>
-			<div class="anar-admin__nav-label"><?php echo esc_html( $heading ); ?></div>
+			<div class="anar-admin__nav-label" role="heading" aria-level="2"><?php echo esc_html( $heading ); ?></div>
 			<?php
 			foreach ( $labels as $key => $label ) {
 				if ( (bool) $primary[ $key ] !== (bool) $enabled || ( 'woocommerce' === $key && ! WooCommerce::active() ) || ( 'setup' === $key && ! $flags['login'] ) ) {
@@ -563,9 +575,13 @@ final class SettingsPage {
 	 * @param string              $suffix Suffix.
 	 * @return void
 	 */
-	private function number_field( $key, $label, $value, $min, $max, $suffix ) {
+	private function number_field( $key, $label, $value, $min, $max, $suffix, $form = '' ) {
 		?>
-		<label><span><?php echo esc_html( $label ); ?></span><div class="anar-number"><input type="number" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[<?php echo esc_attr( $key ); ?>]" value="<?php echo esc_attr( $value[ $key ] ); ?>" min="<?php echo esc_attr( $min ); ?>" max="<?php echo esc_attr( $max ); ?>"><i><?php echo esc_html( $suffix ); ?></i></div></label>
+		<label><span><?php echo esc_html( $label ); ?></span><div class="anar-number"><input
+		<?php
+		if ( $form ) {
+			?>
+			form="<?php echo esc_attr( $form ); ?>"<?php } ?> type="number" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[<?php echo esc_attr( $key ); ?>]" value="<?php echo esc_attr( $value[ $key ] ); ?>" min="<?php echo esc_attr( $min ); ?>" max="<?php echo esc_attr( $max ); ?>"><i><?php echo esc_html( $suffix ); ?></i></div></label>
 		<?php
 	}
 }

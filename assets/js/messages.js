@@ -297,6 +297,8 @@
 		});
 	}
 	document.addEventListener('click', function (event) {
+		const messageButton = event.target.closest('button[data-message-id]');
+		if (messageButton) { event.preventDefault(); open(messageButton.dataset.messageId, null, {replace:dialog.open}); return; }
 		const link = event.target.closest('a[href]');
 		if (!link || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
 		const address = new URL(link.href);
@@ -356,9 +358,12 @@
 		filter.addEventListener('submit', function (event) { event.preventDefault(); filterRows(); });
 		filter.addEventListener('input', filterRows); filter.addEventListener('change', filterRows); filterRows();
 	}
-	document.querySelectorAll('.anar-connection-form, [data-message-shared], .anar-commerce form[action$="options.php"], .anar-features form').forEach(function (form) {
+	document.querySelectorAll('.anar-connection-form, [data-scoped-settings], [data-message-shared], .anar-commerce form[action$="options.php"], .anar-features form').forEach(function (form) {
 		parents.set(form, snapshot(form));
-		form.addEventListener('submit', function () { if (!form.matches('[data-message-shared]')) parents.delete(form); });
+		form.addEventListener('submit', function () { if (!form.matches('[data-message-shared], [data-scoped-settings]')) parents.delete(form); });
+	});
+	['anar:scoped-saved', 'anar:feature-saved'].forEach(function (name) {
+		document.addEventListener(name, function (event) { parents.set(event.detail.form, snapshot(event.detail.form)); });
 	});
 	const shared = document.querySelector('[data-message-shared]');
 	if (shared) shared.addEventListener('submit', async function (event) {

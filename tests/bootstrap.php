@@ -62,6 +62,18 @@ function get_option( $name, $default = false ) {
 	return $GLOBALS['anar_test_options'][ $name ] ?? $default;
 }
 
+function get_role( $name ) {
+	if ( ! in_array( $name, array( 'subscriber', 'customer' ), true ) ) {
+		return null;
+	}
+	return new class() {
+		public $capabilities = array( 'read' => true );
+		public function has_cap( $capability ) {
+			return ! empty( $this->capabilities[ $capability ] );
+		}
+	};
+}
+
 function wp_parse_args( $args, $defaults = array() ) {
 	return array_merge( $defaults, $args );
 }

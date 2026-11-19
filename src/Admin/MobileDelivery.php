@@ -28,17 +28,13 @@ final class MobileDelivery {
 			</fieldset>
 
 			<p data-login-methods-required hidden role="status"><?php esc_html_e( 'Choose at least one sign-in method.', 'anar-toolkit' ); ?></p>
-			<div data-login-sms <?php echo in_array( 'sms', $methods, true ) ? '' : 'hidden'; ?>>
 
-				<p class="anar-message-warning" role="status" data-login-save-first hidden><?php esc_html_e( 'Save the SMS provider and connection details first, then edit its code message.', 'anar-toolkit' ); ?></p>
-				<?php MessageCenter::summary( 'login_otp', 'login' ); ?>
-			</div>
 			<p data-login-bale <?php echo in_array( 'bale', $methods, true ) ? '' : 'hidden'; ?>><?php esc_html_e( 'Bale sends verification codes only. No message template is needed.', 'anar-toolkit' ); ?></p>
 			<?php
 			if ( ! $bale || ! ProviderStatus::ready( $bale ) ) :
 				?>
 				<p class="anar-message-warning" data-login-bale <?php echo in_array( 'bale', $methods, true ) ? '' : 'hidden'; ?>>⚠ <?php esc_html_e( 'Complete the Bale connection before using it for sign-in.', 'anar-toolkit' ); ?></p><?php endif; ?>
-			<a class="button" data-setup-target="sms" href="<?php echo esc_url( admin_url( 'admin.php?page=anar-login-settings&section=sms' ) ); ?>"><?php esc_html_e( 'Configure service connections', 'anar-toolkit' ); ?></a>
+			<a class="anar-inline-route" data-setup-target="sms" href="<?php echo esc_url( admin_url( 'admin.php?page=anar-login-settings&section=sms' ) ); ?>"><?php esc_html_e( 'Configure service connections', 'anar-toolkit' ); ?><span aria-hidden="true">↗</span></a>
 		</div>
 		<?php
 	}

@@ -397,3 +397,8 @@
 .anar-features{font-family:Vazirmatn,IRANSansX,Tahoma,Arial,sans-serif}
 
 .anar-help-popover{margin:0;inset:auto}
+
+.anar-feature-feedback{margin-top:10px;font-size:11px;line-height:1.8;color:#24664c}
+.anar-feature-feedback.is-error{color:#a32340}
+.anar-feature-card[aria-busy=true]{opacity:.75}
+.anar-feature-configure[hidden]{display:none!important}

@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.11.0 - 2026-11-19
+
+- Save individual feature switches immediately, preserving unrelated capability settings and handling stale state.
+- Give provider credentials and OTP generation independent forms and scoped saves with visible success and error feedback. Hidden invalid logo URLs no longer block connection changes.
+- Add read-only connection checks, a permanent active-message panel with unsaved-connection warnings, and modal editor buttons.
+- Separate code generation from sign-in/recovery messages; refine two-column input spacing, navigation headings and connection links.
+
 ## 1.10.0 - 2026-11-19
 
 - Use one active SMS provider for login, store and campaigns. Ignore retired overrides; block mismatched templates until reviewed.

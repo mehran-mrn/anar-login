@@ -9,7 +9,7 @@
 		const connection = root.querySelector('.anar-connection-form');
 		if (connection) connection.hidden = name === 'messages' || name === 'sending' || name === 'features';
 		const save = root.querySelector('.anar-admin__save');
-		if (save) save.hidden = name === 'setup';
+		if (save) save.hidden = name === 'setup' || name === 'sms';
 		root.querySelectorAll('[data-tab]').forEach((button) => {
 			button.classList.toggle('is-active', button.dataset.tab === name);
 			button.setAttribute('aria-current', button.dataset.tab === name ? 'true' : 'false');
@@ -90,9 +90,12 @@
 	const logoMode = root.querySelector('#anar-form-logo');
 	const logoCustom = root.querySelector('.anar-logo-picker__custom');
 	if (logoMode && logoCustom) {
-		logoMode.addEventListener('change', () => {
+		const syncLogo = () => {
 			logoCustom.hidden = logoMode.value !== 'custom';
-		});
+			logoCustom.querySelectorAll('input').forEach(field => { field.disabled = logoCustom.hidden; });
+		};
+		logoMode.addEventListener('change', syncLogo);
+		syncLogo();
 		const mediaButton = logoCustom.querySelector('[data-anar-media]');
 		if (mediaButton && window.wp && window.wp.media) {
 			let frame;
@@ -166,16 +169,8 @@
 		const boxes = methods.querySelectorAll('input[type="checkbox"]');
 		boxes[0].setCustomValidity(enabled.length ? '' : methods.querySelector('[data-login-methods-required]').textContent);
 		methods.querySelector('[data-login-methods-required]').hidden = enabled.length > 0;
-		methods.querySelector('[data-login-sms]').hidden = !enabled.includes('sms');
 		methods.querySelectorAll('[data-login-bale]').forEach(el => { el.hidden = !enabled.includes('bale'); });
 		root.querySelectorAll('[data-login-email]').forEach(el => { el.hidden = !enabled.includes('email'); });
-		const selected = methods.querySelector('#anar-login-provider');
-		const global = root.querySelector('#anar-default-provider');
-		const savedGlobal = root.querySelector('[data-verification-messages]')?.dataset.savedProvider;
-		const chosen = root.querySelector('[name="anar_login_settings[sms_provider]"]:checked');
-		const changed = !!chosen && chosen.value !== savedGlobal;
-		methods.querySelector('[data-login-save-first]').hidden = !changed;
-		methods.querySelector('[data-message-summary="login_otp"]').hidden = changed;
 	};
 	methods?.addEventListener('change', syncMethods);
 	root.querySelectorAll('[name="anar_login_settings[sms_provider]"]').forEach(input => input.addEventListener('change', syncMethods));
@@ -209,7 +204,6 @@
 			if (badge) badge.textContent = ready ? config.connectionCompleteDraft : '⚠ ' + config.connectionIncomplete;
 			badge?.classList.toggle('is-ready', ready);
 			badge?.classList.toggle('needs-setup', !ready);
-			panel.querySelector('[data-connection-unsaved]').hidden = false;
 		});
 	});
 	root.querySelectorAll('[data-copy]').forEach((button) => {
