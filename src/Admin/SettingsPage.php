@@ -160,10 +160,14 @@ final class SettingsPage {
 						<div><h1>Anar Toolkit</h1><span>v<?php echo esc_html( ANAR_LOGIN_VERSION ); ?></span></div>
 						<p><?php esc_html_e( 'SMS sign-in and customer communication tools', 'anar-toolkit' ); ?></p>
 						<p class="anar-admin__free"><?php esc_html_e( '100% free, forever — all features included.', 'anar-toolkit' ); ?></p>
-						<span class="anar-admin__credits"><a class="anar-admin__author" href="https://mehranmarandi.ir" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Designed by Mehran Marandi', 'anar-toolkit' ); ?></a><span aria-hidden="true"> · </span><a class="anar-admin__author" href="https://mrnwp.ir/anar/" target="_blank" rel="noopener noreferrer">MRNWP</a></span>
 					</div>
 				</div>
-				<div class="anar-admin__health"><span></span><?php esc_html_e( 'Core is active', 'anar-toolkit' ); ?></div>
+				<div class="anar-admin__header-actions">
+					<div class="anar-admin__health"><span aria-hidden="true"></span><?php esc_html_e( 'Core is active', 'anar-toolkit' ); ?></div>
+					<?php if ( \Anar\Login\Infrastructure\Features::enabled( 'login' ) ) : ?>
+						<button type="button" class="button" data-login-preview><?php esc_html_e( 'Preview saved form', 'anar-toolkit' ); ?></button>
+					<?php endif; ?>
+				</div>
 			</header>
 			<?php // WordPress moves admin notices after this marker; without it they land inside the flex header next to the h1. ?>
 			<hr class="wp-header-end">
@@ -171,9 +175,6 @@ final class SettingsPage {
 			<?php settings_errors(); ?>
 			<?php MessageCenter::notice(); ?>
 			<?php StatusPanel::credit(); ?>
-			<?php if ( \Anar\Login\Infrastructure\Features::enabled( 'login' ) ) : ?>
-				<div class="anar-setup-actions"><button type="button" class="button" data-login-preview><?php esc_html_e( 'Preview saved form', 'anar-toolkit' ); ?></button></div>
-			<?php endif; ?>
 
 			<div class="anar-admin__layout">
 				<aside class="anar-admin__nav"><?php $this->navigation( $value ); ?></aside>
@@ -457,6 +458,7 @@ final class SettingsPage {
 					MeliOffer::dialog(); }
 				?>
 			</div>
+			<footer class="anar-admin__credits"><a class="anar-admin__author" href="https://mehranmarandi.ir/" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Designed by Mehran Marandi', 'anar-toolkit' ); ?></a><span aria-hidden="true"> · </span><a class="anar-admin__author" href="https://mrnwp.ir/anar/" target="_blank" rel="noopener noreferrer">MRNWP</a></footer>
 		</div>
 		<?php
 	}

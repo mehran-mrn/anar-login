@@ -8,4 +8,6 @@ Official or custom language packs installed in WordPress's global languages dire
 
 The project catalogs must be reviewed by a fluent human translator before submission to translate.wordpress.org. No automated bulk submission or PTE request was sent as part of this release.
 
+Since 1.9.1, the domain-specific gettext filter fills missing Persian strings from the bundled catalog, cached once per request. Existing translations in official or custom packs retain priority. English and other locales are unaffected. This handles installed packs that predate newly added interface messages while WordPress.org generates and distributes an updated pack. Run `tests/Integration/localization-partial-pack.php` through WP-CLI in a disposable local installation to verify partial-pack fallback, custom translation priority and locale switching.
+
 References: [WordPress localization](https://developer.wordpress.org/reference/functions/load_plugin_textdomain/), [translation approval and language packs](https://make.wordpress.org/polyglots/handbook/plugin-theme-authors-guide/).

@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.9.1 - 2026-11-19
+
+- Fill untranslated Persian strings from the bundled catalog when an installed language pack lacks newer messages. Preserve existing language-pack translations and English locale switching.
+- Move saved-form preview next to core status and developer credits to the bottom of settings.
+- Show cached SMS credit in a compact row with visible low/stale/error states and accessible check times.
+- Use Anar's primary color for settings navigation, with white text and a distinct selected tab.
+
 ## 1.9.0 - 2026-11-19
 
 - Replace delivery priorities, backups and linked-contact broadcasts with three simple SMS, Email and Bale choices. SMS and Bale share one mobile challenge; email uses the entered address.

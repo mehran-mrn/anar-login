@@ -54,6 +54,7 @@ final class Plugin {
 	 * @return void
 	 */
 	public function boot() {
+		\Anar\Login\Infrastructure\Localization::register();
 		( new \Anar\Login\Integrations\Elementor() )->register();
 		add_action( 'init', array( $this, 'init' ), 0 );
 		add_action( 'init', array( $this, 'runtime' ), 1 );

@@ -23,6 +23,8 @@
 
 .anar-admin__header {
 	display: flex;
+	flex-wrap: wrap;
+	gap: 16px;
 	align-items: center;
 	justify-content: space-between;
 	margin-bottom: 18px;
@@ -71,8 +73,11 @@
 }
 
 .anar-admin__credits {
-	display: inline-block;
-	margin-top: 3px;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin-top: 20px;
 	color: #aaa0a4;
 	font-size: 12px;
 }
@@ -100,6 +105,21 @@
 	font-size: 12px;
 	font-weight: 700;
 	white-space: nowrap;
+}
+
+.anar-admin__header-actions {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.anar-admin__header-actions .button {
+	border-radius: 999px;
+	border-color: var(--anar-admin-line);
+	color: var(--anar-admin-ink);
+	font-family: inherit;
+	padding-inline: 14px;
 }
 
 .anar-admin__health span {
@@ -145,13 +165,13 @@
 
 .anar-admin__nav {
 	padding: 22px 14px;
-	border-inline-end: 1px solid var(--anar-admin-line);
-	background: #fdfafb;
+	border-inline-end: 1px solid var(--anar-admin-accent-dark);
+	background: var(--anar-admin-accent);
 }
 
 .anar-admin__nav-label {
 	margin: 0 10px 8px;
-	color: #aaa0a4;
+	color: #fff;
 	font-size: 12px;
 	font-weight: 800;
 }
@@ -170,7 +190,7 @@
 	border: 0;
 	border-radius: 10px;
 	background: transparent;
-	color: #685c61;
+	color: #fff;
 	text-align: start;
 	font: 600 13px var(--anar-admin-font);
 	cursor: pointer;
@@ -183,12 +203,12 @@
 }
 
 .anar-admin__nav button:hover {
-	background: #f8f2f4;
+	background: var(--anar-admin-accent-dark);
 }
 
 .anar-admin__nav button.is-active {
-	background: linear-gradient(135deg, #fff0f3, #fae8ed);
-	color: var(--anar-admin-accent);
+	background: #fff;
+	color: var(--anar-admin-accent-dark);
 	font-weight: 800;
 }
 
@@ -873,6 +893,10 @@
 	outline-offset: 2px;
 }
 
+.anar-admin__nav button:focus-visible {
+	outline-color: #fff;
+}
+
 @media (max-width: 900px) {
 	.anar-admin__layout {
 		grid-template-columns: 1fr;
@@ -906,9 +930,7 @@
 		margin-inline-end: 10px;
 	}
 
-	.anar-admin__health {
-		display: none;
-	}
+	.anar-admin__header-actions { width: 100%; }
 
 	.anar-tab {
 		padding: 24px 16px 100px;

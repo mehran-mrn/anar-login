@@ -127,7 +127,7 @@ final class StatusPanel {
 		<div class="anar-credit-summary" role="region" aria-label="<?php esc_attr_e( 'SMS credit', 'anar-toolkit' ); ?>">
 			<div class="anar-credit-summary__header">
 				<strong><span class="dashicons dashicons-money-alt" aria-hidden="true"></span><?php esc_html_e( 'SMS credit', 'anar-toolkit' ); ?></strong>
-				<a href="<?php echo esc_url( BalancePage::url() ); ?>"><?php esc_html_e( 'View balance and alert settings', 'anar-toolkit' ); ?></a>
+				<a href="<?php echo esc_url( BalancePage::url() ); ?>" aria-label="<?php esc_attr_e( 'View balance and alert settings', 'anar-toolkit' ); ?>"><?php esc_html_e( 'Settings', 'anar-toolkit' ); ?></a>
 			</div>
 			<?php if ( $accounts ) : ?>
 				<ul class="anar-credit-summary__accounts">
@@ -164,7 +164,7 @@ final class StatusPanel {
 			<div class="anar-credit-summary__identity">
 				<strong class="anar-credit-summary__provider"><?php echo esc_html( $title ); ?></strong>
 				<?php if ( $known ) : ?>
-					<span class="anar-credit-summary__amount"><bdi><?php echo esc_html( Monitor::amount( $state['value'] ) ); ?></bdi> <span><?php echo esc_html( Monitor::unit_label( $state['unit'] ) ); ?></span></span>
+					<span class="anar-credit-summary__amount" title="<?php echo esc_attr( wp_date( get_option( 'date_format' ) . ' H:i', $checked_at ) ); ?>"><bdi><?php echo esc_html( Monitor::amount( $state['value'] ) ); ?></bdi> <span><?php echo esc_html( Monitor::unit_label( $state['unit'] ) ); ?></span></span>
 				<?php endif; ?>
 			</div>
 			<div class="anar-credit-summary__meta">

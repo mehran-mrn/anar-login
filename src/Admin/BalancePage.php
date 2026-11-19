@@ -72,6 +72,11 @@ final class BalancePage {
 		if ( ! current_user_can( 'manage_options' ) || ! Features::enabled( 'balance' ) ) {
 			return;
 		}
+		$screen = get_current_screen();
+		if ( $screen && false !== strpos( $screen->id, '_page_anar-login-settings' ) ) {
+			// The settings workspace already shows per-account warnings in its credit row.
+			return;
+		}
 		$low = array();
 		foreach ( Accounts::all() as $provider => $account ) {
 			if ( Monitor::low( $provider ) ) {
