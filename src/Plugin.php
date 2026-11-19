@@ -54,6 +54,9 @@ final class Plugin {
 	 * @return void
 	 */
 	public function boot() {
+		if ( defined( 'WP_CLI' ) && WP_CLI ) {
+			\WP_CLI::add_command( 'anar recovery-codes', array( \Anar\Login\Auth\RecoveryCommand::class, 'run' ) );
+		}
 		\Anar\Login\Infrastructure\Localization::register();
 		( new \Anar\Login\Integrations\Elementor() )->register();
 		add_action( 'init', array( $this, 'init' ), 0 );
@@ -72,6 +75,7 @@ final class Plugin {
 			'deleted_user',
 			static function ( $user_id ) {
 				( new \Anar\Login\Auth\CredentialService() )->remove( $user_id );
+				( new \Anar\Login\Auth\RecoveryCodes() )->remove( $user_id );
 				( new \Anar\Login\Auth\PasskeyRepository() )->remove_user( $user_id );
 			}
 		);

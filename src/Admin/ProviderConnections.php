@@ -54,7 +54,7 @@ final class ProviderConnections {
 									if ( 'melipayamak' === $key ) :
 										?>
 										<span class="anar-provider-recommended"><?php esc_html_e( 'Recommended', 'anar-toolkit' ); ?></span><?php endif; ?><span class="anar-provider__mark" aria-hidden="true">✦</span>
-									<span><strong><?php echo esc_html( $provider->title() ); ?></strong>
+									<span class="anar-provider__body"><strong><?php echo esc_html( $provider->title() ); ?></strong>
 									<?php
 									if ( 'melipayamak' === $key ) :
 										?>

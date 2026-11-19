@@ -465,7 +465,7 @@
 	flex: 0 0 auto;
 }
 
-.anar-provider > span:nth-of-type(2) {
+.anar-provider__body {
 	display: grid;
 	gap: 3px;
 	flex: 1;

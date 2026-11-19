@@ -165,7 +165,10 @@ final class Features {
 			if ( ! $flags[ $module ] || ( isset( $marketing['rules'][ $event ]['enabled'] ) && ! $marketing['rules'][ $event ]['enabled'] ) ) {
 				$events[] = 'mkt_' . $event; }
 		}
-		foreach ( $events as $event ) {
-			$wpdb->query( $wpdb->prepare( "UPDATE %i SET status = 'cancelled', error_code = 'module_disabled' WHERE status = 'pending' AND event = %s", $wpdb->prefix . 'anar_toolkit_messages', $event ) ); }
+		if ( $events ) {
+			$placeholders = implode( ', ', array_fill( 0, count( $events ), '%s' ) );
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Only generated %s placeholders; all event values are prepared.
+			$wpdb->query( $wpdb->prepare( "UPDATE %i SET status = 'cancelled', error_code = 'module_disabled' WHERE status = 'pending' AND event IN ($placeholders)", array_merge( array( $wpdb->prefix . 'anar_toolkit_messages' ), $events ) ) );
+		}
 	}
 }

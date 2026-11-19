@@ -16,8 +16,8 @@
 .anar-workspace .anar-suite-savebar{position:static;margin-bottom:0}
 .anar-workspace .anar-suite-panel>details>summary{cursor:pointer;padding:8px 0;font-weight:700}
 .anar-workspace .anar-balance{font-family:inherit}
-.anar-provider:has(.anar-provider-recommended){overflow:visible;padding-top:22px}
-.anar-provider-recommended{position:absolute;top:-11px;inset-inline-start:16px;padding:2px 11px;border-radius:7px;background:#e8f5ed;border:1px solid #c9e3d3;color:#256548;font-size:11px;font-weight:700;line-height:1.8;z-index:1}
+.anar-provider:has(.anar-provider-recommended){overflow:visible}
+.anar-provider-recommended{position:absolute;top:12px;inset-inline-end:12px;padding:2px 8px;border-radius:6px;background:#e8f5ed;color:#256548;font-size:10px;font-weight:700;line-height:1.8;z-index:1}
 @media(max-width:900px){.anar-workspace-content{padding:20px 16px}.anar-admin__nav .anar-workspace-link{flex:0 0 auto;white-space:nowrap}.anar-workspace .anar-commerce-field{width:100%;margin-inline:0}.anar-workspace .anar-store-nav{top:46px}}
 @media print{.anar-admin__nav,.anar-admin__header-actions{display:none!important}.anar-admin__layout{display:block}.anar-workspace-content{padding:0}}
 
@@ -36,3 +36,47 @@
 
 .anar-admin__nav .anar-workspace-link{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .anar-workspace-link>span{font-size:12px;opacity:.7}
+
+/* Shared surfaces use local type and CSS only: no icon, font or UI framework requests. */
+.anar-admin{--anar-admin-ink:#263149;--anar-admin-muted:#69758a;--anar-admin-line:#e5e9f0;--anar-admin-soft:#fff3f6}
+.anar-admin__layout{grid-template-columns:230px minmax(0,1fr);border-radius:18px;box-shadow:0 8px 32px #22304b08;overflow:clip}
+.anar-admin__nav{background:#fff;border-inline-end:1px solid var(--anar-admin-line);padding:20px 12px}
+.anar-admin__nav .anar-admin__nav-label{background:none;border:0;padding:0 12px;color:#7c8799;font-size:10px;font-weight:600;letter-spacing:.02em;margin-bottom:8px}
+.anar-admin__nav :is(button,.anar-workspace-link){color:#526077!important;background:transparent;border:1px solid transparent;border-radius:9px;padding:9px 12px;font-size:12px;line-height:1.8}
+.anar-admin__nav :is(button,.anar-workspace-link):hover{background:#f5f7fb;color:#263149!important}
+.anar-admin__nav :is(button,.anar-workspace-link).is-active{background:#fff0f4;color:var(--anar-admin-accent-dark)!important;border-color:#f8dce4;font-weight:700;box-shadow:none}
+.anar-admin__content,.anar-workspace-content{background:#f8fafc;padding:28px}
+.anar-admin :is(.anar-card,.anar-commerce-card){background:#fff;border:1px solid var(--anar-admin-line);border-radius:14px;box-shadow:0 2px 8px #22304b03}
+.anar-admin .anar-section-head{margin-bottom:24px}
+.anar-admin .anar-section-head h2{font-size:20px;letter-spacing:-.02em}
+.anar-admin .anar-section-head p{color:var(--anar-admin-muted);line-height:1.9}
+.anar-admin :is(input[type=text],input[type=number],input[type=password],input[type=url],select,textarea){border-radius:8px;border-color:#d9e0ea;box-shadow:none;min-height:38px}
+.anar-admin .button{border-radius:8px;min-height:36px;font-family:inherit}
+.anar-admin .button-primary{background:var(--anar-admin-accent);border-color:var(--anar-admin-accent);text-shadow:none;box-shadow:none}
+.anar-admin .button-primary:hover{background:var(--anar-admin-accent-dark);border-color:var(--anar-admin-accent-dark)}
+.anar-admin :is(button,a,input,select,summary):focus-visible{outline:2px solid var(--anar-admin-accent);outline-offset:3px}
+.anar-admin .anar-provider-grid{gap:14px;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));margin-block:16px 24px}
+.anar-admin .anar-provider{display:grid;grid-template-columns:40px minmax(0,1fr) 20px;align-items:center;gap:12px;min-height:112px;padding:36px 16px 16px;border-radius:14px;transition:border-color .15s,background .15s}
+.anar-provider__body{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.anar-admin .anar-provider__body strong{font-size:13px;line-height:1.8}
+.anar-admin .anar-provider__mark{width:40px;height:40px;border-radius:12px;background:#f1f4f9;color:#72819b}
+.anar-admin .anar-provider.is-selected{background:#fff9fb;border-color:#e77c96;box-shadow:0 0 0 1px #e77c96}
+.anar-admin .anar-provider.is-selected .anar-provider__mark{background:#fce7ee;color:var(--anar-admin-accent)}
+.anar-admin .anar-provider .anar-meli-badge{font-size:9px;padding:0;color:#8b6372;background:none;line-height:1.7;white-space:normal}
+.anar-admin .anar-connection-categories .button{border-color:transparent;background:#eef2f7;color:#59677e}
+.anar-admin .anar-connection-categories [aria-pressed=true]{background:#263149;color:#fff}
+.anar-recovery-tabs{display:flex;gap:6px;flex-wrap:wrap;padding:6px;background:#eaf0f6;border-radius:12px;margin-bottom:24px}
+.anar-recovery-tabs button{border:0;border-radius:8px;background:none;color:#61708a;padding:10px 16px;font:600 12px/1.8 var(--anar-admin-font);cursor:pointer}
+.anar-recovery-tabs button.is-active{background:white;color:#263149;box-shadow:0 2px 6px #22304b0a}
+.anar-recovery-callout{display:flex;gap:16px;border:1px solid #d6e5e2;background:#f0f8f5;border-radius:14px;padding:22px;margin-bottom:24px}
+.anar-recovery-callout>.dashicons{color:#27816a;margin-top:5px;flex:0 0 22px}
+.anar-recovery-callout h2{margin:0 0 8px;font-size:17px}.anar-recovery-callout p{line-height:1.9;color:#526b63}
+.anar-section-intro{padding:14px 16px;background:#f1f5fb;border-radius:10px;color:#526077;line-height:1.9}
+.anar-feature-card.is-pending{border-color:#e7b877}.anar-feature-feedback{font-size:11px;line-height:1.8;min-height:20px}
+.anar-admin a.is-loading:after{content:'';width:12px;height:12px;border:2px solid currentColor;border-inline-end-color:transparent;border-radius:50%;animation:anar-route-spin .7s linear infinite}
+.anar-admin[aria-busy=true] .anar-admin__layout{border-top-color:var(--anar-admin-accent)}
+@keyframes anar-route-spin{to{transform:rotate(360deg)}}
+@media(max-width:1100px){.anar-admin__layout{grid-template-columns:205px minmax(0,1fr)}.anar-admin .anar-provider-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:900px){.anar-admin__layout{grid-template-columns:1fr}.anar-admin__nav{border-inline:0;border-bottom:1px solid var(--anar-admin-line)}.anar-admin__nav .anar-admin__nav-label{margin:0!important}.anar-admin__content,.anar-workspace-content{padding:20px 16px}}
+@media(max-width:600px){.anar-admin .anar-provider-grid{grid-template-columns:1fr}.anar-recovery-tabs button{flex:1;padding:8px;font-size:11px}.anar-recovery-callout{padding:16px;gap:10px}}
+@media(prefers-reduced-motion:reduce){.anar-admin *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}

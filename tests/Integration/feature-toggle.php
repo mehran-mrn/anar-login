@@ -13,12 +13,16 @@ if ( ! defined( 'WP_CLI' ) || 'local' !== wp_get_environment_type() ) {
 	throw new RuntimeException( 'Use a disposable local installation.' );
 }
 
-$option_names = array( Features::OPTION, Settings::OPTION_KEY, 'anar_toolkit_commerce', 'anar_toolkit_marketing', 'anar_toolkit_sms_balance', 'cron' );
+$option_names = array( Features::OPTION, Settings::OPTION_KEY, 'anar_toolkit_commerce', 'anar_toolkit_marketing', 'anar_toolkit_sms_balance', 'cron', '_anar_recovery_codes_1', '_anar_recovery_codes_1_pending' );
 $original = array();
 foreach ( $option_names as $name ) {
 	$original[ $name ] = get_option( $name );
 }
 $checks = 0;
+$original_user = get_current_user_id();
+wp_set_current_user( 1 );
+// This fixture supplies the recovery prerequisite without contacting a provider.
+( new \Anar\Login\Auth\RecoveryCodes() )->issue( 1, true );
 $block_http = static function () {
 	throw new RuntimeException( 'Feature toggles must never contact an SMS service.' );
 };
@@ -54,6 +58,7 @@ try {
 	++$checks;
 	WP_CLI::success( $checks . ' feature toggle checks passed; no provider requests occurred.' );
 } finally {
+	wp_set_current_user( $original_user );
 	remove_filter( 'pre_http_request', $block_http );
 	foreach ( $original as $name => $value ) {
 		if ( false === $value ) {

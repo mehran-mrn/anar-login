@@ -4,7 +4,7 @@ Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.12.0
+Stable tag: 1.13.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -230,6 +230,13 @@ Uninstall preserves data unless deletion was explicitly enabled beforehand. It d
 Yes. Set a budget per pool and a maximum money discount for each prize. Amounts use the current store currency and include the tax reduction. The maximum cost is reserved at issuance; a paid order consumes its actual saving and releases the remainder. Unused expired gifts release their reservation. Saved unpaid orders retain it to cover late payments. Refunds do not reactivate consumed gifts or replenish spent money. Earlier uncapped coupons remain unchanged and outside this budget. Capped calculations require WooCommerce 8.8 or later.
 
 == Changelog ==
+
+= 1.13.0 =
+* Add confirmed recovery codes independent of SMS, first-login recovery setup and a hosting recovery command.
+* Keep verification usable during delivery outages and require recovery before new MFA activation.
+* Queue feature changes, consolidate cancellation queries and improve internal navigation.
+* Place reminder schedules, messages and discounts beside abandoned carts and refresh the admin and provider cards.
+
 
 = 1.12.0 =
 * Unify administration headers and contextual navigation across settings, store, reports, features and credit.
