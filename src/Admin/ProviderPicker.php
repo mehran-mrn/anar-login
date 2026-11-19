@@ -24,6 +24,10 @@ final class ProviderPicker {
 	/** Render only options, so every existing form keeps its own field name. */
 	public static function options( $selected, $inherit = false, $providers = null ) {
 		$providers = ProviderStatus::sorted( $providers ?? ProviderRegistry::shared()->all() );
+		$active = ( new Settings() )->get( 'sms_provider' );
+		$providers = array_intersect_key( $providers, array( $active => true ) );
+		$selected = $active;
+		$inherit = false;
 		if ( $inherit ) {
 			?>
 			<option value="" <?php selected( $selected, '' ); ?>><?php echo esc_html( self::default_label() ); ?></option>

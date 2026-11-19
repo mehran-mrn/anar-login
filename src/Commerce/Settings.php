@@ -96,7 +96,7 @@ final class Settings {
 	}
 
 	public function provider() {
-		return $this->get( 'provider' ) ?: ( new \Anar\Login\Infrastructure\Settings() )->get( 'sms_provider' );
+		return ( new \Anar\Login\Infrastructure\Settings() )->get( 'sms_provider' );
 	}
 
 	public function enabled() {

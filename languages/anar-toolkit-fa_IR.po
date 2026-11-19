@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: Anar Toolkit 1.9.1\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
+msgstr "Project-Id-Version: Anar Toolkit 1.10.0\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
 
 msgid "%1$d paid orders. A gift at every %2$d orders."
 msgstr "%1$d سفارش پرداخت‌شده؛ یک هدیه پس از هر %2$d سفارش."
@@ -181,6 +181,9 @@ msgstr "عملیات"
 msgid "Active"
 msgstr "فعال"
 
+msgid "Active SMS messages"
+msgstr "پیامک‌های قابلیت‌های فعال"
+
 msgid "Active account"
 msgstr "حساب فعال"
 
@@ -216,6 +219,9 @@ msgstr "تا هشت جایزه تعریف کنید. اگر نام همهٔ رد�
 
 msgid "Add variable"
 msgstr "افزودن متغیر"
+
+msgid "Add your own registration fields"
+msgstr "افزودن فیلدهای دلخواه به ثبت‌نام"
 
 msgid "Additional tracking-number meta key"
 msgstr "کلید متای اضافی کد رهگیری"
@@ -703,6 +709,9 @@ msgstr "برای پیامک کد ورود موبایل، یک پنل پیامک�
 msgid "Choose an unmatched card."
 msgstr "کارتی را انتخاب کنید که هنوز جفت نشده است."
 
+msgid "Choose and configure one SMS provider in Service providers, then save the sign-in code message. All SMS features use this provider. Bale needs only its OTP connection; email uses the site mail service."
+msgstr "در سرویس‌دهنده‌ها یک سرویس پیامکی انتخاب و تنظیم کنید؛ سپس پیام کد ورود را ذخیره کنید. تمام قابلیت‌های پیامکی از همین سرویس استفاده می‌کنند. بله فقط به اتصال کد تأیید نیاز دارد و ایمیل از سرویس ایمیل سایت استفاده می‌کند."
+
 msgid "Choose and save the default provider for verification messages. Then edit the messages below to set their delivery method and content."
 msgstr "سرویس‌دهندهٔ پیش‌فرض پیامک‌های تأیید را انتخاب و ذخیره کنید. سپس روش ارسال و محتوای هر پیام را از فهرست زیر تنظیم کنید."
 
@@ -723,6 +732,9 @@ msgstr "انتخاب مورد %d"
 
 msgid "Choose mobile number, email or both. Existing customers keep their accounts."
 msgstr "شمارهٔ موبایل، ایمیل یا هر دو را انتخاب کنید. حساب مشتریان قبلی حفظ می‌شود."
+
+msgid "Choose one SMS provider for all SMS features, configure its connection and save."
+msgstr "یک سرویس‌دهنده برای تمام پیامک‌های افزونه انتخاب کنید؛ اتصال آن را تنظیم و ذخیره کنید."
 
 msgid "Choose one answer"
 msgstr "پاسخ خود را انتخاب کنید"
@@ -1288,6 +1300,9 @@ msgstr "فعال‌سازی برنامهٔ رمزساز"
 msgid "Enable monitoring, check an account, then select periodic checks and enter its alert threshold. Warnings are optional for each account. Balances refresh about every 30 minutes through WordPress scheduled tasks; administrator page views use the saved result. Credentials stay on your server. Other SMS accounts remain available below."
 msgstr "این قابلیت را فعال و ذخیره کنید. موجودی حساب را دریافت کنید؛ سپس بررسی دوره‌ای، نمایش هشدار و حد آن را تعیین کنید. بررسی‌ها تقریباً هر ۳۰ دقیقه با زمان‌بندی وردپرس انجام می‌شوند. صفحهٔ مدیریت آخرین نتیجهٔ ذخیره‌شده را نشان می‌دهد. اطلاعات دسترسی روی سرور شما می‌ماند. سایر حساب‌ها در بخش پایین در دسترس‌اند."
 
+msgid "Enable other features first to configure their messages here."
+msgstr "برای تنظیم پیامک سایر قابلیت‌ها، ابتدا آن قابلیت را فعال کنید."
+
 msgid "Enable standard Google OAuth without a heavy client library."
 msgstr "OAuth استاندارد گوگل را بدون کتابخانه سنگین فعال کنید."
 
@@ -1542,6 +1557,9 @@ msgstr "برای مثال: «۱۰ درصد تخفیف خرید بعدی». ای�
 
 msgid "For example: Spin the wheel or Receive my daily gift."
 msgstr "برای مثال: «گردونه را بچرخانید» یا «دریافت هدیهٔ روزانه»."
+
+msgid "For extra registration fields, build and publish a form in MRN Forms and enable Anar registration. Select it below; Anar verifies the mobile number and creates the account. Keep the default form if you do not need extra fields."
+msgstr "برای دریافت اطلاعات بیشتر هنگام ثبت‌نام، پیشنهاد می‌کنیم با فرم‌ساز MRN یک فرم بسازید، آن را منتشر و گزینهٔ «ثبت‌نام انار» را فعال کنید. سپس فرم را از فهرست زیر انتخاب کنید؛ تأیید شمارهٔ همراه و ساخت حساب را انار انجام می‌دهد. اگر فیلد اضافه‌ای نیاز ندارید، فرم پیش‌فرض انار کافی است."
 
 msgid "For mobile codes, choose one service or set Bale and SMS in priority order in SMS settings. Connect both services and save the SMS code message. Email is configured separately through the site mail service."
 msgstr "برای کدهای موبایل، در تنظیمات پیامک یک سرویس یا ترتیب بله و پیامک را انتخاب کنید. اتصال هر دو سرویس را تنظیم و پیام کد ورود را ذخیره کنید. ارسال ایمیل از سرویس ایمیل سایت انجام می‌شود و تنظیمات جداگانه دارد."
@@ -2800,6 +2818,9 @@ msgstr "در صف"
 msgid "Queued jobs"
 msgstr "کارهای ثبت‌شده در صف"
 
+msgid "Quick links to the messages of your active features."
+msgstr "دسترسی سریع به تنظیمات پیامک قابلیت‌های فعال شما."
+
 msgid "Quiz options, one per line"
 msgstr "گزینه‌های مسابقه، هر گزینه در یک خط"
 
@@ -3547,6 +3568,9 @@ msgstr "روش ورود"
 msgid "Sign-in methods"
 msgstr "روش‌های ورود"
 
+msgid "Sign-in settings"
+msgstr "تنظیمات ورود"
+
 msgid "Sign-in setup guide"
 msgstr "راهنمای راه‌اندازی ورود"
 
@@ -4272,6 +4296,9 @@ msgstr "روزهای بازدیدکننده"
 
 msgid "Waiting for stock"
 msgstr "در انتظار موجودی"
+
+msgid "Want a custom registration form?"
+msgstr "آیا فرم ثبت‌نام اختصاصی می‌خواهید؟"
 
 msgid "We would be happy to see you again."
 msgstr "از دیدار دوبارهٔ شما خوشحال می‌شویم."

@@ -51,7 +51,7 @@ final class Help {
 		if ( ! $text ) {
 			return; }
 		?>
-		<aside class="anar-section-help"><strong><?php esc_html_e( 'How to use this section', 'anar-toolkit' ); ?></strong><p><?php echo esc_html( $text ); ?></p></aside>
+		<?php self::button( $text ); ?>
 		<?php
 	}
 }

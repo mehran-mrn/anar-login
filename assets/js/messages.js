@@ -174,7 +174,7 @@
 			form.querySelector('[data-current-provider]').textContent = effective?.title || effectiveKey || provider.options[0].textContent;
 			const inheritedEditor = form.querySelector('[data-inherited-editor]');
 			if (inheritedEditor) inheritedEditor.hidden = !inherited;
-			providerToggle.hidden = inherited || form.hasAttribute('data-fixed-provider');
+			providerToggle.hidden = true;
 			if (inherited) showProviderPicker(false);
 			form.querySelector('[data-provider-missing]').hidden = !!effectiveKey;
 			form.querySelector('[data-provider-connection-warning]').hidden = !effectiveKey || !!effective?.ready;

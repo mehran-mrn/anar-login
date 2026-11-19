@@ -4,7 +4,7 @@ Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.9.1
+Stable tag: 1.10.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,7 +29,7 @@ Anar Toolkit adds modular sign-in, purchase recovery and customer communication 
 * Simple-print and branded invoices with display controls and protected sample/order previews.
 
 = Setup and language =
-Manage capabilities inside Settings. Configure SMS, email and messenger connections separately. Choose SMS, Email and/or Bale for sign-in. New features use the shared SMS default; explicit feature and message providers remain independent. Customer-facing features load their files only when needed.
+Manage capabilities inside Settings. Configure SMS, email and messenger connections separately. Choose SMS, Email and/or Bale for sign-in. All SMS features use the single provider selected in Service providers. Customer-facing features load their files only when needed.
 
 Persian RTL translations are bundled; English LTR is supported. Anar is 100% free, forever; SMS providers charge separately.
 
@@ -42,7 +42,7 @@ Persian RTL translations are bundled; English LTR is supported. Anar is 100% fre
 1. Install and activate Anar Toolkit. If replacing a pre-release copy in an anar-login folder, deactivate that copy first.
 2. For Persian, choose Persian in Settings > General or the user's Profile language. The translation is included in the plugin.
 3. Open Anar Toolkit > Features. Select the capabilities you need, then use each active feature's Configure link. New store and campaign modules start disabled.
-4. In Service providers, enter connection credentials and choose the default SMS provider. In General, select SMS, Email and/or Bale and configure the SMS code message. Email uses your site's mail transport; Google sign-in needs your own OAuth web application.
+4. In Service providers, select one SMS provider and enter its connection credentials. In Sign-in settings, select SMS, Email and/or Bale and configure the SMS code message. Email uses your site's mail transport; Google sign-in needs your own OAuth web application.
 5. Use [anar_account] for the account page, [anar_login] for a standalone form and [anar_login_button] for a popup button.
 6. Configure each event's schedule, audience, approved template and exact provider variable names. Keep login and campaign templates separate. Recovery mappings require {code}, {recovery_page} and {unsubscribe_url}; marketing messages require {unsubscribe_url}, surveys require {action_url}, and discount messages require {coupon_code}.
 7. Place [anar_recover_cart] beside Cart/Checkout blocks. Automatic capture uses a linked account or checkout phone with a visible notice and no separate checkbox. Explicit preference mode is optional; existing unsubscribes always remain effective.
@@ -229,6 +229,10 @@ Yes. Set a budget per pool and a maximum money discount for each prize. Amounts 
 
 == Changelog ==
 
+= 1.10.0 =
+* Use one active SMS provider throughout the toolkit. Review message templates after changing provider.
+* Clean settings pages with anchored contextual help, simpler feature cards and registration setup.
+
 = 1.9.1 =
 * Fill missing Persian interface strings from the bundled catalog while preserving installed language-pack translations.
 * Move saved-form preview beside core status and developer credits below settings.
@@ -401,6 +405,9 @@ Yes. Set a budget per pool and a maximum money discount for each prize. Amounts 
 Full history: https://github.com/mehran-mrn/anar-login/blob/main/CHANGELOG.md
 
 == Upgrade Notice ==
+
+= 1.10.0 =
+All SMS now uses the selected provider in Service providers. Retired per-feature choices no longer route messages. Review and save templates belonging to another provider before sending.
 
 = 1.9.0 =
 Review the SMS, Email and Bale choices in General after updating. Former mobile priority routes now send the same OTP through SMS and Bale together. Bale is OTP-only. Existing credentials and explicit SMS selections are retained.

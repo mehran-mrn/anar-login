@@ -155,10 +155,10 @@ endif;
 									</div>
 									<div class="anar-feature-heading">
 										<span class="anar-feature-icon dashicons dashicons-<?php echo esc_attr( $icon ); ?>" aria-hidden="true"></span>
-										<?php Help::button( Help::text( $key ) ); ?>
+										<?php Help::button( $description . ' ' . Help::text( $key ) ); ?>
 									</div>
 									<h3 id="<?php echo esc_attr( $title_id ); ?>"><?php echo esc_html( $label ); ?></h3>
-									<p><?php echo esc_html( $description ); ?></p>
+
 									<footer>
 										<label class="anar-feature-switch">
 											<input type="checkbox" role="switch" aria-labelledby="<?php echo esc_attr( $title_id ); ?>" name="features[<?php echo esc_attr( $key ); ?>]" value="1" <?php checked( $flags[ $key ] ); ?>>

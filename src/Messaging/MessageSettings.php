@@ -70,6 +70,7 @@ final class MessageSettings {
 			$settings = new Settings();
 			$value['provider'] = $settings->get( 'login_provider' ) ?: $settings->get( 'sms_provider' );
 		}
+		$value['provider'] = ( new Settings() )->get( 'sms_provider' );
 		$value['_variant'] = $variant;
 		$value['account_changed'] = $source_provider !== $value['provider'] || ( isset( $value['account'] ) && ! hash_equals( $value['account'], self::account( $value['provider'] ) ) );
 		if ( ! empty( $value['inherit'] ) && ! in_array( $id, array( 'login_otp', 'login_sms' ), true ) ) {
@@ -91,7 +92,7 @@ final class MessageSettings {
 		foreach ( array( 'provider', 'mode', 'template', 'params', 'message' ) as $key ) {
 			$value[ $key ] = isset( $raw[ $key ] ) && is_scalar( $raw[ $key ] ) ? sanitize_textarea_field( (string) $raw[ $key ] ) : '';
 		}
-		$value['provider'] = sanitize_key( $value['provider'] );
+		$value['provider'] = ( new Settings() )->get( 'sms_provider' );
 		$value['mode'] = 'text' === $value['mode'] ? 'text' : 'template';
 		$value['inherit'] = ! empty( $raw['inherit'] );
 		return $value;

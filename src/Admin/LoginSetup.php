@@ -36,7 +36,7 @@ final class LoginSetup {
 					if ( in_array( 'sms', $value['login_methods'], true ) ) {
 						MessageCenter::summary( 'login_otp', 'login' ); }
 					?>
-					<p><?php esc_html_e( 'Configure the selected connections in Service providers. Choose a default SMS provider there, or a different one for sign-in in General. Save the SMS code message. Bale needs only its OTP connection; email uses the site mail service.', 'anar-toolkit' ); ?></p>
+					<p><?php esc_html_e( 'Choose and configure one SMS provider in Service providers, then save the sign-in code message. All SMS features use this provider. Bale needs only its OTP connection; email uses the site mail service.', 'anar-toolkit' ); ?></p>
 				<?php endif; ?>
 				<?php if ( 'phone' !== $value['identity_mode'] ) : ?>
 					<button type="button" class="button" data-setup-target="general"><?php esc_html_e( 'Open email settings', 'anar-toolkit' ); ?></button>

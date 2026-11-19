@@ -56,6 +56,7 @@ final class ProvidersTest extends TestCase {
 	}
 
 	public function test_explicit_meli_text_mode_does_not_use_the_otp_template() {
+		$GLOBALS['anar_test_options'][ Settings::OPTION_KEY ]['sms_provider'] = 'melipayamak';
 		$GLOBALS['anar_test_options'][ Settings::OPTION_KEY ]['provider_melipayamak'] = array( 'username' => 'QA-ONLY', 'password' => 'QA-ONLY', 'from' => '3000', 'template_id' => 'OLD-OTP' );
 		$this->respond( array( 'RetStatus' => 1, 'Value' => '12345678901234567' ) );
 		$sender = new NotificationSender( new Settings(), new HttpClient() );
@@ -124,6 +125,7 @@ final class ProvidersTest extends TestCase {
 	}
 
 	public function test_maxsms_commerce_uses_all_variables_and_a_separate_pattern() {
+		$GLOBALS['anar_test_options'][ Settings::OPTION_KEY ]['sms_provider'] = 'maxsms';
 		$sender = new NotificationSender( new Settings(), new HttpClient() );
 		$vars = array( 'code' => '012345', 'recovery_page' => 'https://example.org/recover', 'unsubscribe_url' => 'https://example.org/unsubscribe' );
 		$event = array( 'template' => 'max-recovery', 'params' => "code={code}\nentry={recovery_page}\nstop={unsubscribe_url}", 'message' => '{code}' );
@@ -148,6 +150,7 @@ final class ProvidersTest extends TestCase {
 	}
 
 	public function test_otp_and_commerce_share_one_transport_per_provider() {
+		$GLOBALS['anar_test_options'][ Settings::OPTION_KEY ]['sms_provider'] = 'kavenegar';
 		$GLOBALS['anar_test_options'][ Settings::OPTION_KEY ]['provider_kavenegar'] = array( 'api_key' => 'KEY', 'template_id' => 'verify' );
 		$this->respond( array( 'return' => array( 'status' => 200 ) ) );
 		$this->assertTrue( ( new ProviderRegistry( new Settings() ) )->all()['kavenegar']->send( '+989123456789', '4321', '' ) );

@@ -28,7 +28,7 @@ final class NotificationSender {
 	}
 
 	public function send( $provider, $recipient, $event, $variables, $recovery = false ) {
-		if ( ! empty( $event['account_changed'] ) ) {
+		if ( $provider !== $this->settings->get( 'sms_provider' ) || ! empty( $event['account_changed'] ) ) {
 			return new WP_Error( 'anar_message_account_changed', __( 'The provider account changed. Review and save this message again.', 'anar-toolkit' ) );
 		}
 		$identity = Identity::normalize( $recipient );

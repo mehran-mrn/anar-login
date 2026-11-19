@@ -171,8 +171,7 @@ final class MessageCenter {
 				</button>
 			</header>
 			<div class="anar-message-warning" data-message-provider-draft role="status" hidden>
-				<strong><?php esc_html_e( 'Your new SMS provider selection is unsaved.', 'anar-toolkit' ); ?></strong>
-				<p><?php esc_html_e( 'This editor uses the saved provider. To use your new selection, close the editor and save SMS settings first.', 'anar-toolkit' ); ?></p>
+				<span class="anar-field-title"><strong><?php esc_html_e( 'Your new SMS provider selection is unsaved.', 'anar-toolkit' ); ?></strong><?php Help::button( __( 'This editor uses the saved provider. To use your new selection, close the editor and save SMS settings first.', 'anar-toolkit' ) ); ?></span>
 			</div>
 			<div class="anar-message-feedback" data-message-feedback role="status" aria-live="polite" hidden></div>
 			<button type="button" class="button anar-message-reload" data-message-reload hidden><?php esc_html_e( 'Reload saved message', 'anar-toolkit' ); ?></button>
@@ -295,15 +294,12 @@ final class MessageCenter {
 				<small data-provider-default hidden><?php esc_html_e( 'Default', 'anar-toolkit' ); ?></small>
 				<small data-provider-override hidden><?php esc_html_e( 'Per message', 'anar-toolkit' ); ?></small>
 			</div>
-			<button type="button" class="button anar-message-provider__toggle" data-provider-toggle <?php echo 'login_sms' === $id ? 'hidden' : ''; ?> aria-expanded="false" aria-controls="anar-message-provider-options" aria-label="<?php esc_attr_e( 'Change provider', 'anar-toolkit' ); ?>">
-				<?php esc_html_e( 'Change', 'anar-toolkit' ); ?>
-				<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg>
-			</button>
+
 			<?php if ( $is_auth && ! in_array( $id, array( 'login_otp', 'login_sms' ), true ) ) : ?>
 				<a data-message-open data-inherited-editor href="<?php echo esc_url( self::url( 'login_otp' ) ); ?>" hidden><?php esc_html_e( 'Edit sign-in message', 'anar-toolkit' ); ?></a>
 			<?php endif; ?>
-			<div id="anar-message-provider-options" class="anar-message-provider__options" data-provider-picker hidden>
-				<select name="value[provider]" data-message-provider aria-label="<?php esc_attr_e( 'SMS provider', 'anar-toolkit' ); ?>">
+			<button type="button" data-provider-toggle hidden></button><div id="anar-message-provider-options" class="anar-message-provider__options" data-provider-picker hidden>
+				<select hidden name="value[provider]" data-message-provider aria-label="<?php esc_attr_e( 'SMS provider', 'anar-toolkit' ); ?>">
 					<?php ProviderPicker::options( $value['provider'], false, $providers ); ?>
 				</select>
 				<?php if ( $is_auth && isset( $providers[ $default_provider ] ) ) : ?>
@@ -351,7 +347,7 @@ final class MessageCenter {
 					<?php foreach ( array_unique( $item['variables'] ) as $variable ) : ?>
 						<li <?php echo 'code' === $variable ? '' : 'data-text-variable'; ?>><code dir="ltr"><?php echo esc_html( '{' . $variable . '}' ); ?></code> <span><?php echo esc_html( $labels[ $variable ] ?? $variable ); ?></span>
 							<?php if ( in_array( $variable, $required, true ) ) : ?>
-								<small><?php esc_html_e( 'Required', 'anar-toolkit' ); ?></small>
+								<?php Help::button( __( 'Required', 'anar-toolkit' ) ); ?>
 							<?php endif; ?>
 						</li>
 					<?php endforeach; ?>
@@ -392,7 +388,7 @@ final class MessageCenter {
 				</span>
 			</div>
 		</template>
-		<details class="anar-message-test" data-message-test><summary><?php esc_html_e( 'Send a test SMS', 'anar-toolkit' ); ?></summary><p><?php esc_html_e( 'Save first. This sends sample values through this exact message configuration and may use SMS credit. No order, campaign or real discount is created.', 'anar-toolkit' ); ?></p><div class="anar-message-test__fields"><label><?php esc_html_e( 'Mobile number', 'anar-toolkit' ); ?><input type="tel" name="test_phone" dir="ltr"></label><button type="submit" class="button" name="operation" value="test"><?php esc_html_e( 'Send test', 'anar-toolkit' ); ?></button></div></details>
+		<details class="anar-message-test" data-message-test><summary><?php esc_html_e( 'Send a test SMS', 'anar-toolkit' ); ?></summary><?php Help::button( __( 'Save first. This sends sample values through this exact message configuration and may use SMS credit. No order, campaign or real discount is created.', 'anar-toolkit' ) ); ?><div class="anar-message-test__fields"><label><?php esc_html_e( 'Mobile number', 'anar-toolkit' ); ?><input type="tel" name="test_phone" dir="ltr"></label><button type="submit" class="button" name="operation" value="test"><?php esc_html_e( 'Send test', 'anar-toolkit' ); ?></button></div></details>
 		<?php
 		$test = get_option( MessageSettings::OPTION . '_test_' . $id );
 		if ( is_array( $test ) && hash_equals( $test['fingerprint'], MessageSettings::fingerprint( MessageSettings::get( $id, $variant ) ) ) ) {
@@ -407,8 +403,8 @@ final class MessageCenter {
 	public function shared() {
 		$value = ( new \Anar\Login\Marketing\Settings() )->all();
 		?>
-		<p class="anar-message-scope"><?php esc_html_e( 'These settings affect all customer campaigns, including birthday and repeat-purchase messages.', 'anar-toolkit' ); ?></p><form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="anar-card anar-message-shared" data-message-shared><?php wp_nonce_field( 'anar_message_shared' ); ?><input type="hidden" name="action" value="anar_message"><input type="hidden" name="id" value="shared"><input type="hidden" name="operation" value="shared">
-		<label><?php esc_html_e( 'SMS provider', 'anar-toolkit' ); ?><select name="shared[provider]"><?php ProviderPicker::options( $value['provider'], true ); ?></select></label>
+		<?php Help::button( __( 'These settings affect all customer campaigns, including birthday and repeat-purchase messages.', 'anar-toolkit' ) ); ?><form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="anar-card anar-message-shared" data-message-shared><?php wp_nonce_field( 'anar_message_shared' ); ?><input type="hidden" name="action" value="anar_message"><input type="hidden" name="id" value="shared"><input type="hidden" name="operation" value="shared">
+
 		<?php
 		foreach ( array( 'daily_limit' => __( 'Maximum campaign messages per phone / day', 'anar-toolkit' ), 'gap_hours' => __( 'Minimum hours between campaign messages', 'anar-toolkit' ), 'retention' => __( 'Marketing retention in days', 'anar-toolkit' ), 'minimum_orders' => __( 'Minimum purchases for automated customer campaigns', 'anar-toolkit' ), 'minimum_spent' => __( 'Minimum lifetime spend', 'anar-toolkit' ), 'maximum_spent' => __( 'Maximum lifetime spend (0 = no maximum)', 'anar-toolkit' ), 'vip_amount' => __( 'VIP lifetime spend threshold', 'anar-toolkit' ) ) as $key => $label ) {
 			?>

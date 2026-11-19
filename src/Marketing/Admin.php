@@ -190,7 +190,7 @@ else :
 		}
 		if ( 'birthday' === $module ) {
 			?>
-		<p><code>[anar_customer_preferences]</code></p><p><?php esc_html_e( 'Jalali birthdays use the PHP Intl extension. When Intl is unavailable, the birthday form offers the Gregorian calendar.', 'anar-toolkit' ); ?></p>
+		<p><code>[anar_customer_preferences]</code></p><?php \Anar\Login\Admin\Help::button( __( 'Jalali birthdays use the PHP Intl extension. When Intl is unavailable, the birthday form offers the Gregorian calendar.', 'anar-toolkit' ) ); ?>
 			<?php
 		}
 		foreach ( $fields as $key => $label ) {
@@ -230,7 +230,7 @@ else :
 
 	private function history_form() {
 		?>
-		<details class="anar-commerce-card"><summary><strong><?php esc_html_e( 'Sync your customer history', 'anar-toolkit' ); ?></strong></summary><p><?php esc_html_e( 'Import paid WooCommerce orders in bounded background batches. This records sales facts and customers locally; enabled campaign rules apply during subsequent worker runs.', 'anar-toolkit' ); ?></p><form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>"><?php wp_nonce_field( 'anar_marketing_import' ); ?><input type="hidden" name="action" value="anar_marketing_import"><button class="button"><?php esc_html_e( 'Start / resume history import', 'anar-toolkit' ); ?></button></form></details>
+		<details class="anar-commerce-card"><summary><strong><?php esc_html_e( 'Sync your customer history', 'anar-toolkit' ); ?></strong></summary><?php \Anar\Login\Admin\Help::button( __( 'Import paid WooCommerce orders in bounded background batches. This records sales facts and customers locally; enabled campaign rules apply during subsequent worker runs.', 'anar-toolkit' ) ); ?><form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>"><?php wp_nonce_field( 'anar_marketing_import' ); ?><input type="hidden" name="action" value="anar_marketing_import"><button class="button"><?php esc_html_e( 'Start / resume history import', 'anar-toolkit' ); ?></button></form></details>
 		<?php
 	}
 
@@ -238,7 +238,7 @@ else :
 		$preview = get_transient( 'anar_bulk_preview_' . get_current_user_id() );
 		\Anar\Login\Admin\MessageCenter::summary( 'mkt_bulk', 'bulk' );
 		?>
-		<details class="anar-commerce-card"><summary><strong><?php esc_html_e( 'Import campaign contacts', 'anar-toolkit' ); ?></strong></summary><p><?php esc_html_e( 'Paste up to 1,000 mobile numbers, one per line. CSV rows are supported with the phone in the first column. Duplicates are merged and stopped numbers remain stopped. Importing never launches a bulk campaign; preview and confirm it separately.', 'anar-toolkit' ); ?></p><form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>"><?php wp_nonce_field( 'anar_marketing_contacts' ); ?><input type="hidden" name="action" value="anar_marketing_contacts"><textarea class="large-text" name="contacts" rows="5" maxlength="100000" required dir="ltr" aria-label="<?php esc_attr_e( 'Contact mobile numbers', 'anar-toolkit' ); ?>"></textarea><p><button class="button"><?php esc_html_e( 'Import contacts without sending', 'anar-toolkit' ); ?></button></p></form></details>
+		<details class="anar-commerce-card"><summary><strong><?php esc_html_e( 'Import campaign contacts', 'anar-toolkit' ); ?></strong></summary><?php \Anar\Login\Admin\Help::button( __( 'Paste up to 1,000 mobile numbers, one per line. CSV rows are supported with the phone in the first column. Duplicates are merged and stopped numbers remain stopped. Importing never launches a bulk campaign; preview and confirm it separately.', 'anar-toolkit' ) ); ?><form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>"><?php wp_nonce_field( 'anar_marketing_contacts' ); ?><input type="hidden" name="action" value="anar_marketing_contacts"><textarea class="large-text" name="contacts" rows="5" maxlength="100000" required dir="ltr" aria-label="<?php esc_attr_e( 'Contact mobile numbers', 'anar-toolkit' ); ?>"></textarea><p><button class="button"><?php esc_html_e( 'Import contacts without sending', 'anar-toolkit' ); ?></button></p></form></details>
 		<div class="anar-commerce-card"><h2><?php esc_html_e( 'Prepare a bulk campaign', 'anar-toolkit' ); ?></h2><form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>"><?php wp_nonce_field( 'anar_bulk_preview' ); ?><input type="hidden" name="action" value="anar_bulk_preview"><p><label><?php esc_html_e( 'Campaign title', 'anar-toolkit' ); ?><input name="title" required maxlength="100"></label></p><p><label><?php esc_html_e( 'Audience segment', 'anar-toolkit' ); ?><select name="segment">
 		<?php
 		foreach ( array( 'all' => __( 'All eligible contacts', 'anar-toolkit' ), 'vip' => __( 'VIP customers', 'anar-toolkit' ), 'inactive' => __( 'No purchase in 30 days', 'anar-toolkit' ), 'new' => __( 'New customers', 'anar-toolkit' ) ) as $key => $label ) :

@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.10.0 - 2026-11-19
+
+- Use one active SMS provider for login, store and campaigns. Ignore retired overrides; block mismatched templates until reviewed.
+- Move long guidance into accessible contextual help outside clipped and animated panels.
+- Refine feature typography, navigation, OTP spacing and custom registration setup.
+
 ## 1.9.1 - 2026-11-19
 
 - Fill untranslated Persian strings from the bundled catalog when an installed language pack lacks newer messages. Preserve existing language-pack translations and English locale switching.

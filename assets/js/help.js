@@ -1,40 +1,13 @@
 (function () {
-	'use strict';
-	let active = null;
-	function position(help) {
-		const text = help.querySelector('[role="tooltip"]');
-		if (!text) return;
-		const anchor = help.getBoundingClientRect();
-		const bounds = text.getBoundingClientRect();
-		text.style.left = Math.max(12, Math.min(anchor.left, document.documentElement.clientWidth - bounds.width - 12)) + 'px';
-		text.style.right = 'auto';
-		text.style.top = (anchor.bottom + bounds.height + 12 <= window.innerHeight ? anchor.bottom + 6 : Math.max(12, anchor.top - bounds.height - 6)) + 'px';
-	}
-	// Delegation also covers editors loaded into the shared message dialog.
-	['mouseover', 'focusin', 'click'].forEach(function (name) {
-		document.addEventListener(name, function (event) {
-			const help = event.target.closest('.anar-help');
-			if (!help) return;
-			active = help;
-			if (name === 'click') help.classList.remove('is-dismissed');
-			position(help);
-		});
-	});
-	document.addEventListener('mouseout', function (event) {
-		const help = event.target.closest('.anar-help');
-		if (help && !help.contains(event.relatedTarget) && !help.matches(':focus-within')) help.classList.remove('is-dismissed');
-	});
-	document.addEventListener('focusout', function (event) {
-		const help = event.target.closest('.anar-help');
-		if (help) help.classList.remove('is-dismissed');
-	});
-	document.addEventListener('keydown', function (event) {
-		const help = event.target.closest('.anar-help');
-		if (event.key === 'Escape' && help && !help.classList.contains('is-dismissed')) {
-			help.classList.add('is-dismissed'); event.preventDefault(); event.stopPropagation();
-		}
-	});
-	function update() { if (active && active.isConnected && active.matches(':hover, :focus-within')) position(active); }
-	window.addEventListener('resize', update);
-	window.addEventListener('scroll', update, true);
+'use strict';
+let active, popup;
+function close() { if(active)active.querySelector('button').setAttribute('aria-expanded','false'); if(popup)popup.remove(); active=popup=null; }
+function position() { if(!active||!popup)return; const a=active.getBoundingClientRect(),b=popup.getBoundingClientRect(); popup.style.left=Math.max(12,Math.min(a.left,innerWidth-b.width-12))+'px'; popup.style.top=Math.max(12,Math.min(a.bottom+8,innerHeight-b.height-12))+'px'; }
+function open(help) { if(active===help)return; close();active=help;popup=document.createElement('div');popup.className='anar-help-popover';popup.setAttribute('role','tooltip');popup.textContent=help.querySelector('[role="tooltip"]').textContent;popup.dir=help.closest('[dir]')?.dir||document.documentElement.dir||'ltr';const topLayer=typeof popup.showPopover==='function';if(topLayer)popup.setAttribute('popover','manual');(topLayer?document.body:(help.closest('dialog[open]')||document.body)).append(popup);if(topLayer)popup.showPopover();help.querySelector('button').setAttribute('aria-expanded','true');position(); }
+document.addEventListener('mouseover',e=>{const h=e.target.closest('.anar-help');if(h)open(h);});
+document.addEventListener('focusin',e=>{const h=e.target.closest('.anar-help');if(h)open(h);else if(!popup?.contains(e.target))close();});
+document.addEventListener('click',e=>{const h=e.target.closest('.anar-help');if(h)open(h);else if(!popup?.contains(e.target))close();});
+document.addEventListener('mouseout',e=>{if(active?.contains(e.target)&&!active.contains(e.relatedTarget)&&!popup?.contains(e.relatedTarget)&&!active.matches(':focus-within'))close();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&active){e.preventDefault();e.stopPropagation();close();}},true);
+window.addEventListener('scroll',position,true);window.addEventListener('resize',position);
 })();

@@ -1092,3 +1092,17 @@
 .anar-admin .anar-provider-usage small{color:#68616a;font-size:11px}
 .anar-admin .anar-provider-usage details summary,.anar-admin .anar-email-message summary{cursor:pointer;padding:12px 0;font-weight:600}
 .anar-admin .anar-usage-default{color:#187044;font-weight:600}
+
+.anar-tab>details.anar-card{margin-block:20px;padding:20px 24px}
+.anar-tab>details.anar-card>summary{padding-block:8px;cursor:pointer;font-weight:700}
+.anar-mrn-card>summary{font-size:14px;font-weight:700;padding-block:12px;cursor:pointer}
+.anar-mrn-card[open]>summary{margin-bottom:18px}
+.anar-provider-settings>.anar-meli-offer{margin-top:20px;margin-bottom:24px}
+.anar-admin__nav .anar-store-settings-link{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:28px;padding:12px 8px;border-top:1px solid #ffffff66;color:white;text-decoration:none;font:600 12px/1.8 var(--anar-admin-font)}
+
+/* Keep contextual help on the title baseline rather than underneath it. */
+.anar-field-title{display:inline-flex;align-items:baseline;gap:8px;max-width:100%}
+.anar-admin .anar-field-title>strong{display:inline;margin:0}
+.anar-field-title>.anar-help{flex:0 0 auto;margin:0;align-self:center;line-height:1}
+.anar-section-head h2,.anar-card>h3{display:flex;align-items:center;gap:8px}
+.anar-section-head h2>.anar-help,.anar-card>h3>.anar-help{margin:0}

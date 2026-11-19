@@ -30,5 +30,14 @@
   "Unavailable for SMS": "برای پیامک قابل استفاده نیست",
   "Connection complete — save to apply": "اطلاعات اتصال کامل شد؛ تنظیمات را ذخیره کنید",
   "Verification codes in Bale. OTP only.": "ارسال کد تأیید در بله؛ فقط کد یک‌بارمصرف.",
-  "Selected for inactive features": "انتخاب‌شده برای قابلیت‌های غیرفعال"
+  "Selected for inactive features": "انتخاب‌شده برای قابلیت‌های غیرفعال",
+  "Sign-in settings": "تنظیمات ورود",
+  "Want a custom registration form?": "آیا فرم ثبت‌نام اختصاصی می‌خواهید؟",
+  "Add your own registration fields": "افزودن فیلدهای دلخواه به ثبت‌نام",
+  "For extra registration fields, build and publish a form in MRN Forms and enable Anar registration. Select it below; Anar verifies the mobile number and creates the account. Keep the default form if you do not need extra fields.": "برای دریافت اطلاعات بیشتر هنگام ثبت‌نام، پیشنهاد می‌کنیم با فرم‌ساز MRN یک فرم بسازید، آن را منتشر و گزینهٔ «ثبت‌نام انار» را فعال کنید. سپس فرم را از فهرست زیر انتخاب کنید؛ تأیید شمارهٔ همراه و ساخت حساب را انار انجام می‌دهد. اگر فیلد اضافه‌ای نیاز ندارید، فرم پیش‌فرض انار کافی است.",
+  "Choose one SMS provider for all SMS features, configure its connection and save.": "یک سرویس‌دهنده برای تمام پیامک‌های افزونه انتخاب کنید؛ اتصال آن را تنظیم و ذخیره کنید.",
+  "Active SMS messages": "پیامک‌های قابلیت‌های فعال",
+  "Quick links to the messages of your active features.": "دسترسی سریع به تنظیمات پیامک قابلیت‌های فعال شما.",
+  "Enable other features first to configure their messages here.": "برای تنظیم پیامک سایر قابلیت‌ها، ابتدا آن قابلیت را فعال کنید.",
+  "Choose and configure one SMS provider in Service providers, then save the sign-in code message. All SMS features use this provider. Bale needs only its OTP connection; email uses the site mail service.": "در سرویس‌دهنده‌ها یک سرویس پیامکی انتخاب و تنظیم کنید؛ سپس پیام کد ورود را ذخیره کنید. تمام قابلیت‌های پیامکی از همین سرویس استفاده می‌کنند. بله فقط به اتصال کد تأیید نیاز دارد و ایمیل از سرویس ایمیل سایت استفاده می‌کند."
 }

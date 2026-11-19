@@ -19,18 +19,17 @@ final class MobileDelivery {
 		$bale = ProviderRegistry::shared()->all()['bale'] ?? null;
 		?>
 		<div class="anar-card" data-login-methods>
-			<h3><?php esc_html_e( 'Sign-in methods', 'anar-toolkit' ); ?></h3>
+			<h3><?php esc_html_e( 'Sign-in methods', 'anar-toolkit' ); ?><?php Help::button( __( 'SMS and Bale send the same code to the entered mobile number. Email sends a code only to the email address entered by the customer.', 'anar-toolkit' ) ); ?></h3>
 			<input type="hidden" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[login_methods_present]" value="1">
 			<fieldset class="anar-login-methods"><legend><?php esc_html_e( 'Choose how customers receive their sign-in code.', 'anar-toolkit' ); ?></legend>
 				<?php foreach ( array( 'sms' => __( 'SMS', 'anar-toolkit' ), 'email' => __( 'Email', 'anar-toolkit' ), 'bale' => __( 'Bale', 'anar-toolkit' ) ) as $key => $label ) : ?>
 					<label><input type="checkbox" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[login_methods][]" value="<?php echo esc_attr( $key ); ?>" <?php checked( in_array( $key, $methods, true ) ); ?>> <?php echo esc_html( $label ); ?></label>
 				<?php endforeach; ?>
 			</fieldset>
-			<p><?php esc_html_e( 'SMS and Bale send the same code to the entered mobile number. Email sends a code only to the email address entered by the customer.', 'anar-toolkit' ); ?></p>
+
 			<p data-login-methods-required hidden role="status"><?php esc_html_e( 'Choose at least one sign-in method.', 'anar-toolkit' ); ?></p>
 			<div data-login-sms <?php echo in_array( 'sms', $methods, true ) ? '' : 'hidden'; ?>>
-				<div class="anar-field-row"><label for="anar-login-provider"><strong><?php esc_html_e( 'Sign-in SMS provider', 'anar-toolkit' ); ?></strong></label>
-				<select id="anar-login-provider" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[login_provider]" data-saved-provider="<?php echo esc_attr( $value['login_provider'] ); ?>"><?php ProviderPicker::options( $value['login_provider'], true ); ?></select></div>
+
 				<p class="anar-message-warning" role="status" data-login-save-first hidden><?php esc_html_e( 'Save the SMS provider and connection details first, then edit its code message.', 'anar-toolkit' ); ?></p>
 				<?php MessageCenter::summary( 'login_otp', 'login' ); ?>
 			</div>

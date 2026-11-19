@@ -186,7 +186,7 @@ final class SettingsPage {
 					<?php endif; ?>
 
 					<section class="anar-tab is-active" data-panel="general">
-						<?php $this->section_header( __( 'General settings', 'anar-toolkit' ), __( 'Configure sign-in, registration, and the appearance of the form.', 'anar-toolkit' ), '⚙' ); ?>
+						<?php $this->section_header( __( 'Sign-in settings', 'anar-toolkit' ), __( 'Configure sign-in, registration, and the appearance of the form.', 'anar-toolkit' ), '⚙' ); ?>
 						<?php MobileDelivery::render( $value ); ?><details class="anar-card"><summary><?php esc_html_e( 'OTP settings and messages', 'anar-toolkit' ); ?></summary>								<?php $this->number_field( 'otp_length', __( 'Code length', 'anar-toolkit' ), $value, 4, 8, __( 'digits', 'anar-toolkit' ) ); ?>
 								<?php $this->number_field( 'otp_ttl', __( 'Code lifetime', 'anar-toolkit' ), $value, 60, 600, __( 'seconds', 'anar-toolkit' ) ); ?>
 								<?php $this->number_field( 'resend_delay', __( 'Resend interval', 'anar-toolkit' ), $value, 30, 300, __( 'seconds', 'anar-toolkit' ) ); ?>
@@ -203,10 +203,9 @@ final class SettingsPage {
 <div class="anar-card anar-tip">
 							<span class="dashicons dashicons-smartphone" aria-hidden="true"></span>
 							<div>
-								<strong><?php esc_html_e( 'Automatic code filling on Android', 'anar-toolkit' ); ?></strong>
-								<small><?php esc_html_e( 'Chrome on Android can fill the code with one tap when the last line of your provider template is exactly:', 'anar-toolkit' ); ?></small>
+								<span class="anar-field-title"><strong><?php esc_html_e( 'Automatic code filling on Android', 'anar-toolkit' ); ?></strong><?php Help::button( __( 'Chrome on Android can fill the code with one tap when the last line of your provider template is exactly:', 'anar-toolkit' ) ); ?></span>
 								<code dir="ltr">@<?php echo esc_html( (string) wp_parse_url( home_url(), PHP_URL_HOST ) ); ?> #<var>code</var></code>
-								<small><?php esc_html_e( 'Put your template’s code variable after the # sign. iPhones suggest the code above the keyboard without any change.', 'anar-toolkit' ); ?></small>
+								<?php Help::button( __( 'Put your template’s code variable after the # sign. iPhones suggest the code above the keyboard without any change.', 'anar-toolkit' ) ); ?>
 							</div>
 						</div>
 
@@ -215,7 +214,7 @@ final class SettingsPage {
 							<?php $this->toggle( 'allow_registration', __( 'Allow new account registration', 'anar-toolkit' ), __( 'Let new users create an account after verification.', 'anar-toolkit' ), $value ); ?>
 							<?php $this->mrn_forms( $value ); ?>
 							<div class="anar-field-row">
-								<label for="anar-profile-step"><strong><?php esc_html_e( 'Name after sign-up', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'Ask new customers for their first and last name right after the code is verified, never before. Existing customers are not asked.', 'anar-toolkit' ); ?></small></label>
+								<label for="anar-profile-step"><span class="anar-field-title"><strong><?php esc_html_e( 'Name after sign-up', 'anar-toolkit' ); ?></strong><?php Help::button( __( 'Ask new customers for their first and last name right after the code is verified, never before. Existing customers are not asked.', 'anar-toolkit' ) ); ?></span></label>
 								<select id="anar-profile-step" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[profile_step]">
 									<option value="off" <?php selected( $value['profile_step'], 'off' ); ?>><?php esc_html_e( 'Do not ask', 'anar-toolkit' ); ?></option>
 									<option value="optional" <?php selected( $value['profile_step'], 'optional' ); ?>><?php esc_html_e( 'Ask, with a skip option', 'anar-toolkit' ); ?></option>
@@ -223,7 +222,7 @@ final class SettingsPage {
 								</select>
 							</div>
 							<div class="anar-field-row">
-								<label for="anar-role"><strong><?php esc_html_e( 'New user role', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'Only Subscriber and Customer roles with basic read access are allowed. Elevated or custom roles cannot be used for public registration.', 'anar-toolkit' ); ?></small></label>
+								<label for="anar-role"><span class="anar-field-title"><strong><?php esc_html_e( 'New user role', 'anar-toolkit' ); ?></strong><?php Help::button( __( 'Only Subscriber and Customer roles with basic read access are allowed. Elevated or custom roles cannot be used for public registration.', 'anar-toolkit' ) ); ?></span></label>
 								<select id="anar-role" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[default_role]">
 									<?php foreach ( get_editable_roles() as $role => $details ) : ?>
 										<?php if ( Settings::is_assignable_role( $role ) ) : ?>
@@ -233,7 +232,7 @@ final class SettingsPage {
 								</select>
 							</div>
 							<div class="anar-field-row">
-								<label for="anar-panel-page"><strong><?php esc_html_e( 'Account page', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'The page that contains the [anar_account] shortcode.', 'anar-toolkit' ); ?></small></label>
+								<label for="anar-panel-page"><span class="anar-field-title"><strong><?php esc_html_e( 'Account page', 'anar-toolkit' ); ?></strong><?php Help::button( __( 'The page that contains the [anar_account] shortcode.', 'anar-toolkit' ) ); ?></span></label>
 								<?php
 								$pages_dropdown = wp_dropdown_pages(
 									array(
@@ -262,7 +261,7 @@ final class SettingsPage {
 								?>
 							</div>
 							<div class="anar-field-row">
-								<label for="anar-redirect"><strong><?php esc_html_e( 'Redirect URL after sign-in', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'Leave empty to use the account page or home page.', 'anar-toolkit' ); ?></small></label>
+								<label for="anar-redirect"><span class="anar-field-title"><strong><?php esc_html_e( 'Redirect URL after sign-in', 'anar-toolkit' ); ?></strong><?php Help::button( __( 'Leave empty to use the account page or home page.', 'anar-toolkit' ) ); ?></span></label>
 								<input id="anar-redirect" type="url" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[login_redirect]" value="<?php echo esc_attr( $value['login_redirect'] ); ?>" dir="ltr" placeholder="<?php echo esc_attr( home_url( '/' ) ); ?>">
 							</div>
 							<div class="anar-field-row">
@@ -272,11 +271,11 @@ final class SettingsPage {
 									$anar_role_lines[] = $anar_role . ' = ' . $anar_url;
 								}
 								?>
-								<label for="anar-role-redirects"><strong><?php esc_html_e( 'Redirect by role', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'Optional. One per line as role = URL, for example shop_manager = /wp-admin/. A requested return page, such as checkout, still comes first.', 'anar-toolkit' ); ?></small></label>
+								<label for="anar-role-redirects"><span class="anar-field-title"><strong><?php esc_html_e( 'Redirect by role', 'anar-toolkit' ); ?></strong><?php Help::button( __( 'Optional. One per line as role = URL, for example shop_manager = /wp-admin/. A requested return page, such as checkout, still comes first.', 'anar-toolkit' ) ); ?></span></label>
 								<textarea id="anar-role-redirects" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[role_redirects]" rows="3" dir="ltr" placeholder="shop_manager = <?php echo esc_attr( admin_url() ); ?>"><?php echo esc_textarea( implode( "\n", $anar_role_lines ) ); ?></textarea>
 							</div>
 							<div class="anar-field-row">
-								<label for="anar-color"><strong><?php esc_html_e( 'Brand color', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'The primary color of the sign-in form and account dashboard.', 'anar-toolkit' ); ?></small></label>
+								<label for="anar-color"><span class="anar-field-title"><strong><?php esc_html_e( 'Brand color', 'anar-toolkit' ); ?></strong><?php Help::button( __( 'The primary color of the sign-in form and account dashboard.', 'anar-toolkit' ) ); ?></span></label>
 								<div class="anar-color"><input id="anar-color" type="color" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[brand_color]" value="<?php echo esc_attr( $value['brand_color'] ); ?>"><code><?php echo esc_html( $value['brand_color'] ); ?></code></div>
 							</div>
 							<div class="anar-field-row">
@@ -288,7 +287,7 @@ final class SettingsPage {
 								</select>
 							</div>
 							<div class="anar-field-row">
-								<label for="anar-form-logo"><strong><?php esc_html_e( 'Form logo', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'Shown at the top of the sign-in form. The site logo falls back to the site icon, then to a lock icon.', 'anar-toolkit' ); ?></small></label>
+								<label for="anar-form-logo"><span class="anar-field-title"><strong><?php esc_html_e( 'Form logo', 'anar-toolkit' ); ?></strong><?php Help::button( __( 'Shown at the top of the sign-in form. The site logo falls back to the site icon, then to a lock icon.', 'anar-toolkit' ) ); ?></span></label>
 								<div class="anar-logo-picker">
 									<select id="anar-form-logo" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[form_logo]">
 										<option value="site" <?php selected( $value['form_logo'], 'site' ); ?>><?php esc_html_e( 'Site logo', 'anar-toolkit' ); ?></option>
@@ -318,15 +317,15 @@ final class SettingsPage {
 						<div class="anar-card">
 							<?php $this->toggle( 'google_enabled', __( 'Enable Google sign-in', 'anar-toolkit' ), __( 'Show the Google sign-in button on the login form.', 'anar-toolkit' ), $value ); ?>
 							<div class="anar-field-row">
-								<label for="anar-google-id"><strong>Client ID</strong><small><?php esc_html_e( 'The OAuth 2.0 client ID from Google Cloud Console.', 'anar-toolkit' ); ?></small></label>
+								<label for="anar-google-id"><span class="anar-field-title"><strong>Client ID</strong><?php Help::button( __( 'The OAuth 2.0 client ID from Google Cloud Console.', 'anar-toolkit' ) ); ?></span></label>
 								<input id="anar-google-id" type="text" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[google_client_id]" value="<?php echo esc_attr( $value['google_client_id'] ); ?>" dir="ltr">
 							</div>
 							<div class="anar-field-row">
-								<label for="anar-google-secret"><strong>Client Secret</strong><small><?php esc_html_e( 'Leave this field empty to keep the saved value.', 'anar-toolkit' ); ?></small></label>
+								<label for="anar-google-secret"><span class="anar-field-title"><strong>Client Secret</strong><?php Help::button( __( 'Leave this field empty to keep the saved value.', 'anar-toolkit' ) ); ?></span></label>
 								<input id="anar-google-secret" type="password" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[google_secret]" value="" dir="ltr" placeholder="<?php echo ! empty( $value['google_secret'] ) ? esc_attr__( 'Saved', 'anar-toolkit' ) : ''; ?>">
 							</div>
 							<div class="anar-callback">
-								<div><strong>Authorized redirect URI</strong><small><?php esc_html_e( 'Add this exact URL to your Google OAuth settings.', 'anar-toolkit' ); ?></small></div>
+								<div><span class="anar-field-title"><strong>Authorized redirect URI</strong><?php Help::button( __( 'Add this exact URL to your Google OAuth settings.', 'anar-toolkit' ) ); ?></span></div>
 								<code dir="ltr"><?php echo esc_html( rest_url( 'anar-login/v1/google/callback' ) ); ?></code>
 								<button type="button" class="button" data-copy="<?php echo esc_attr( rest_url( 'anar-login/v1/google/callback' ) ); ?>"><?php esc_html_e( 'Copy', 'anar-toolkit' ); ?></button>
 							</div>
@@ -341,7 +340,7 @@ final class SettingsPage {
 							<?php endif; ?>
 							<?php $this->toggle( 'password_reset_enabled', __( 'SMS password recovery', 'anar-toolkit' ), __( 'Allow linked mobile numbers to reset an existing account password using a separate single-use SMS code.', 'anar-toolkit' ), $value ); ?>
 							<div class="anar-field-row">
-								<label for="anar-two-factor"><strong><?php esc_html_e( 'Two-step verification', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'After a correct password, a code is sent to the account’s mobile, or its email when no mobile is linked. Code and Google sign-ins skip this step, as they already prove ownership.', 'anar-toolkit' ); ?></small></label>
+								<label for="anar-two-factor"><span class="anar-field-title"><strong><?php esc_html_e( 'Two-step verification', 'anar-toolkit' ); ?></strong><?php Help::button( __( 'After a correct password, a code is sent to the account’s mobile, or its email when no mobile is linked. Code and Google sign-ins skip this step, as they already prove ownership.', 'anar-toolkit' ) ); ?></span></label>
 								<select id="anar-two-factor" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[two_factor]">
 									<option value="off" <?php selected( $value['two_factor'], 'off' ); ?>><?php esc_html_e( 'Off', 'anar-toolkit' ); ?></option>
 									<option value="privileged" <?php selected( $value['two_factor'], 'privileged' ); ?>><?php esc_html_e( 'Administrators, editors and shop managers', 'anar-toolkit' ); ?></option>
@@ -353,7 +352,7 @@ final class SettingsPage {
 							<div class="anar-fields-grid anar-fields-grid--security">
 							</div>
 							<div class="anar-field-row">
-								<label for="anar-bot-challenge"><strong><?php esc_html_e( 'Invisible bot check', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'Before a code is sent, the browser solves a short puzzle in the background, with no image or click. Adaptive mode asks only when one address requests repeatedly or the whole site sees an unusual volume, so SMS floods stop costing you money.', 'anar-toolkit' ); ?></small></label>
+								<label for="anar-bot-challenge"><span class="anar-field-title"><strong><?php esc_html_e( 'Invisible bot check', 'anar-toolkit' ); ?></strong><?php Help::button( __( 'Before a code is sent, the browser solves a short puzzle in the background, with no image or click. Adaptive mode asks only when one address requests repeatedly or the whole site sees an unusual volume, so SMS floods stop costing you money.', 'anar-toolkit' ) ); ?></span></label>
 								<select id="anar-bot-challenge" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[bot_challenge]">
 									<option value="adaptive" <?php selected( $value['bot_challenge'], 'adaptive' ); ?>><?php esc_html_e( 'Adaptive (recommended)', 'anar-toolkit' ); ?></option>
 									<option value="always" <?php selected( $value['bot_challenge'], 'always' ); ?>><?php esc_html_e( 'Every code request', 'anar-toolkit' ); ?></option>
@@ -381,9 +380,9 @@ final class SettingsPage {
 							<?php $this->toggle( 'delete_data', __( 'Clean up when uninstalling', 'anar-toolkit' ), __( 'A full uninstall removes the code table and plugin metadata. Deactivation keeps the data.', 'anar-toolkit' ), $value ); ?>
 						</div>
 						<div class="anar-security-summary">
-							<article><span>✓</span><div><strong><?php esc_html_e( 'Hashed code storage', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'Raw OTPs are never stored in the database.', 'anar-toolkit' ); ?></small></div></article>
-							<article><span>✓</span><div><strong><?php esc_html_e( 'Single use', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'A code is invalidated atomically after its first successful verification.', 'anar-toolkit' ); ?></small></div></article>
-							<article><span>✓</span><div><strong><?php esc_html_e( 'Enumeration protection', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'Request responses do not reveal whether an account exists.', 'anar-toolkit' ); ?></small></div></article>
+							<article><span>✓</span><div><span class="anar-field-title"><strong><?php esc_html_e( 'Hashed code storage', 'anar-toolkit' ); ?></strong><?php Help::button( __( 'Raw OTPs are never stored in the database.', 'anar-toolkit' ) ); ?></span></div></article>
+							<article><span>✓</span><div><span class="anar-field-title"><strong><?php esc_html_e( 'Single use', 'anar-toolkit' ); ?></strong><?php Help::button( __( 'A code is invalidated atomically after its first successful verification.', 'anar-toolkit' ) ); ?></span></div></article>
+							<article><span>✓</span><div><span class="anar-field-title"><strong><?php esc_html_e( 'Enumeration protection', 'anar-toolkit' ); ?></strong><?php Help::button( __( 'Request responses do not reveal whether an account exists.', 'anar-toolkit' ) ); ?></span></div></article>
 						</div>
 					</section>
 
@@ -393,7 +392,7 @@ final class SettingsPage {
 							<input type="hidden" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[wc_present]" value="1">
 							<div class="anar-card">
 								<div class="anar-field-row">
-									<label for="anar-wc-account"><strong><?php esc_html_e( 'My Account sign-in', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'One form signs customers in and registers new ones. A “sign in with a password” link stays available.', 'anar-toolkit' ); ?></small></label>
+									<label for="anar-wc-account"><span class="anar-field-title"><strong><?php esc_html_e( 'My Account sign-in', 'anar-toolkit' ); ?></strong><?php Help::button( __( 'One form signs customers in and registers new ones. A “sign in with a password” link stays available.', 'anar-toolkit' ) ); ?></span></label>
 									<select id="anar-wc-account" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[wc_account_mode]">
 										<option value="replace" <?php selected( $value['wc_account_mode'], 'replace' ); ?>><?php esc_html_e( 'Replace the WooCommerce forms', 'anar-toolkit' ); ?></option>
 										<option value="above" <?php selected( $value['wc_account_mode'], 'above' ); ?>><?php esc_html_e( 'Show above the WooCommerce forms', 'anar-toolkit' ); ?></option>
@@ -412,17 +411,17 @@ final class SettingsPage {
 						<div class="anar-shortcodes">
 							<article>
 								<span class="dashicons dashicons-unlock"></span>
-								<div><strong><?php esc_html_e( 'Login form', 'anar-toolkit' ); ?><small><?php esc_html_e( 'For a login page or theme modal.', 'anar-toolkit' ); ?></small></strong><code dir="ltr">[anar_login]</code></div>
+								<div><strong><?php esc_html_e( 'Login form', 'anar-toolkit' ); ?><?php Help::button( __( 'For a login page or theme modal.', 'anar-toolkit' ) ); ?></strong><code dir="ltr">[anar_login]</code></div>
 								<button type="button" class="button" data-copy="[anar_login]"><?php esc_html_e( 'Copy', 'anar-toolkit' ); ?></button>
 							</article>
 							<article>
 								<span class="dashicons dashicons-dashboard"></span>
-								<div><strong><?php esc_html_e( 'Account dashboard', 'anar-toolkit' ); ?><small><?php esc_html_e( 'Shows the login form to signed-out visitors.', 'anar-toolkit' ); ?></small></strong><code dir="ltr">[anar_account]</code></div>
+								<div><strong><?php esc_html_e( 'Account dashboard', 'anar-toolkit' ); ?><?php Help::button( __( 'Shows the login form to signed-out visitors.', 'anar-toolkit' ) ); ?></strong><code dir="ltr">[anar_account]</code></div>
 								<button type="button" class="button" data-copy="[anar_account]"><?php esc_html_e( 'Copy', 'anar-toolkit' ); ?></button>
 							</article>
 							<article>
 								<span class="dashicons dashicons-external"></span>
-								<div><strong><?php esc_html_e( 'Popup button', 'anar-toolkit' ); ?><small><?php esc_html_e( 'Opens the login popup; signed-in users go to their account. For menus, add a custom link to #anar-login.', 'anar-toolkit' ); ?></small></strong><code dir="ltr">[anar_login_button]</code></div>
+								<div><strong><?php esc_html_e( 'Popup button', 'anar-toolkit' ); ?><?php Help::button( __( 'Opens the login popup; signed-in users go to their account. For menus, add a custom link to #anar-login.', 'anar-toolkit' ) ); ?></strong><code dir="ltr">[anar_login_button]</code></div>
 								<button type="button" class="button" data-copy="[anar_login_button]"><?php esc_html_e( 'Copy', 'anar-toolkit' ); ?></button>
 							</article>
 						</div>
@@ -438,7 +437,7 @@ final class SettingsPage {
 					</section>
 
 					<footer class="anar-admin__save">
-						<div><span class="dashicons dashicons-saved"></span><p><strong><?php esc_html_e( 'Your settings are stored securely', 'anar-toolkit' ); ?></strong><small><?php esc_html_e( 'Confidential values are not displayed again in the admin interface.', 'anar-toolkit' ); ?></small></p></div>
+						<div><span class="dashicons dashicons-saved"></span><p><span class="anar-field-title"><strong><?php esc_html_e( 'Your settings are stored securely', 'anar-toolkit' ); ?></strong><?php Help::button( __( 'Confidential values are not displayed again in the admin interface.', 'anar-toolkit' ) ); ?></span></p></div>
 						<?php submit_button( __( 'Save settings', 'anar-toolkit' ), 'primary', 'submit', false ); ?>
 					</footer>
 				</form>
@@ -471,13 +470,13 @@ final class SettingsPage {
 	 */
 	private function navigation( $value ) {
 		$flags = \Anar\Login\Infrastructure\Features::all();
-		$labels = array( 'general' => __( 'General', 'anar-toolkit' ), 'setup' => __( 'Sign-in setup guide', 'anar-toolkit' ), 'sms' => __( 'Service providers', 'anar-toolkit' ), 'google' => __( 'Google sign-in', 'anar-toolkit' ), 'security' => __( 'Security', 'anar-toolkit' ), 'woocommerce' => __( 'WooCommerce', 'anar-toolkit' ), 'install' => __( 'Add to pages', 'anar-toolkit' ) );
+		$labels = array( 'general' => __( 'Sign-in settings', 'anar-toolkit' ), 'setup' => __( 'Sign-in setup guide', 'anar-toolkit' ), 'sms' => __( 'Service providers', 'anar-toolkit' ), 'google' => __( 'Google sign-in', 'anar-toolkit' ), 'security' => __( 'Security', 'anar-toolkit' ), 'woocommerce' => __( 'WooCommerce', 'anar-toolkit' ), 'install' => __( 'Add to pages', 'anar-toolkit' ) );
 		$primary = array( 'general' => $flags['login'], 'setup' => $flags['login'], 'sms' => ( $flags['login'] && 'email' !== $value['identity_mode'] ) || $flags['two_factor'] || $flags['reset'] || \Anar\Login\Infrastructure\Features::queue_needed(), 'google' => $flags['login'] && ! empty( $value['google_enabled'] ), 'security' => $flags['login'] || $flags['reset'] || $flags['two_factor'], 'woocommerce' => $flags['login'] && WooCommerce::active(), 'install' => $flags['login'] );
 		$first = true;
 		?>
 		<div class="anar-admin__nav-label"><?php esc_html_e( 'Shared settings', 'anar-toolkit' ); ?></div>
 		<button type="button" data-tab="features"><?php esc_html_e( 'Features', 'anar-toolkit' ); ?></button>
-		<a class="button" href="<?php echo esc_url( admin_url( 'admin.php?page=anar-toolkit-commerce&tab=settings' ) ); ?>"><?php esc_html_e( 'Store settings', 'anar-toolkit' ); ?></a>
+
 		<button type="button" data-tab="messages"><?php esc_html_e( 'Messages and templates', 'anar-toolkit' ); ?></button>
 		<button type="button" data-tab="sending"><?php esc_html_e( 'Campaign sending rules', 'anar-toolkit' ); ?></button>
 		<?php
@@ -494,6 +493,9 @@ final class SettingsPage {
 				$first = false;
 			}
 		}
+		?>
+		<a class="anar-store-settings-link" href="<?php echo esc_url( admin_url( 'admin.php?page=anar-toolkit-commerce&tab=settings' ) ); ?>"><span class="dashicons dashicons-admin-generic" aria-hidden="true"></span><?php esc_html_e( 'Store settings', 'anar-toolkit' ); ?><span aria-hidden="true">↗</span></a>
+		<?php
 	}
 
 	private function mrn_forms( array $value ) {
@@ -502,12 +504,12 @@ final class SettingsPage {
 		$selected  = absint( $value['mrn_registration_form'] );
 		$available = in_array( $selected, array_column( $forms, 'id' ), true );
 		?>
-		<div id="anar-mrn-forms" class="anar-mrn-card">
+		<details id="anar-mrn-forms" class="anar-mrn-card"><summary><?php esc_html_e( 'Want a custom registration form?', 'anar-toolkit' ); ?></summary>
 			<div class="anar-mrn-card__heading">
-				<div><small><?php esc_html_e( 'Plugin integration', 'anar-toolkit' ); ?></small><h3><?php esc_html_e( 'Anar and MRN Forms', 'anar-toolkit' ); ?></h3></div>
+				<div><h3><?php esc_html_e( 'Add your own registration fields', 'anar-toolkit' ); ?></h3></div>
 				<strong><?php echo esc_html( $connected ? __( 'MRN Forms available', 'anar-toolkit' ) : __( 'Compatible MRN Forms required', 'anar-toolkit' ) ); ?></strong>
 			</div>
-			<p><?php esc_html_e( 'Build a registration form with your own fields in MRN Forms. Anar verifies the mobile number and creates the WordPress account. Other forms can use the same SMS service to verify a number before submission.', 'anar-toolkit' ); ?></p>
+			<p><?php esc_html_e( 'For extra registration fields, build and publish a form in MRN Forms and enable Anar registration. Select it below; Anar verifies the mobile number and creates the account. Keep the default form if you do not need extra fields.', 'anar-toolkit' ); ?></p>
 			<label for="anar-mrn-registration"><strong><?php esc_html_e( 'Registration form', 'anar-toolkit' ); ?></strong></label>
 			<select id="anar-mrn-registration" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[mrn_registration_form]" aria-describedby="anar-mrn-help">
 				<option value="0"><?php esc_html_e( 'Default Anar registration', 'anar-toolkit' ); ?></option>
@@ -522,13 +524,13 @@ final class SettingsPage {
 			<?php if ( $connected ) : ?>
 				<a href="<?php echo esc_url( admin_url( 'admin.php?page=mrn-form-builder' ) ); ?>"><?php esc_html_e( 'Open the MRN Forms builder', 'anar-toolkit' ); ?> <span aria-hidden="true">↗</span></a>
 			<?php endif; ?>
-		</div>
+		</details>
 		<?php
 	}
 
 	private function section_header( $title, $description, $icon ) {
 		?>
-		<header class="anar-section-head"><span><?php echo esc_html( $icon ); ?></span><div><h2><?php echo esc_html( $title ); ?></h2><p><?php echo esc_html( $description ); ?></p></div><?php Help::button( $description ); ?></header>
+		<header class="anar-section-head"><span><?php echo esc_html( $icon ); ?></span><div><h2><?php echo esc_html( $title ); ?></h2></div><?php Help::button( $description ); ?></header>
 		<?php
 	}
 
@@ -544,7 +546,7 @@ final class SettingsPage {
 	private function toggle( $key, $title, $description, $value ) {
 		?>
 		<div class="anar-field-row">
-			<label for="anar-<?php echo esc_attr( $key ); ?>"><strong><?php echo esc_html( $title ); ?></strong><small><?php echo esc_html( $description ); ?></small></label>
+			<label for="anar-<?php echo esc_attr( $key ); ?>"><span class="anar-field-title"><strong><?php echo esc_html( $title ); ?></strong><?php Help::button( $description ); ?></span></label>
 			<label class="anar-switch"><input id="anar-<?php echo esc_attr( $key ); ?>" type="checkbox" name="<?php echo esc_attr( Settings::OPTION_KEY ); ?>[<?php echo esc_attr( $key ); ?>]" value="1" <?php checked( ! empty( $value[ $key ] ) ); ?>><span></span></label>
 		</div>
 		<?php

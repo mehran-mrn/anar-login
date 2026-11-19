@@ -41,6 +41,7 @@ final class Settings {
 		}
 		$defaults['game_texts'] = array();
 		$this->resolved = wp_parse_args( $saved, array_merge( $defaults, GameCampaign::defaults() ) );
+		$this->resolved['provider'] = ( new \Anar\Login\Infrastructure\Settings() )->get( 'sms_provider' );
 		return $this->resolved;
 	}
 

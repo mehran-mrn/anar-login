@@ -172,12 +172,13 @@
 		const selected = methods.querySelector('#anar-login-provider');
 		const global = root.querySelector('#anar-default-provider');
 		const savedGlobal = root.querySelector('[data-verification-messages]')?.dataset.savedProvider;
-		const changed = selected.value !== selected.dataset.savedProvider || (global && global.value !== savedGlobal);
+		const chosen = root.querySelector('[name="anar_login_settings[sms_provider]"]:checked');
+		const changed = !!chosen && chosen.value !== savedGlobal;
 		methods.querySelector('[data-login-save-first]').hidden = !changed;
 		methods.querySelector('[data-message-summary="login_otp"]').hidden = changed;
 	};
 	methods?.addEventListener('change', syncMethods);
-	root.querySelector('#anar-default-provider')?.addEventListener('change', syncMethods);
+	root.querySelectorAll('[name="anar_login_settings[sms_provider]"]').forEach(input => input.addEventListener('change', syncMethods));
 	syncMethods();
 
 	const showCategory = name => {
@@ -205,9 +206,9 @@
 			if (panel.dataset.provider === 'bale' && has('api_key')) ready = ready && /^[1-9][0-9]*$/.test(panel.querySelector('[name$="[bot_id]"]').value.trim());
 			if (panel.dataset.provider === 'custom') ready = ready && /^https?:\/\/[^/\s]+/i.test(panel.querySelector('[name$="[url]"]').value.trim());
 			const badge = root.querySelector(`[data-connection-state="${panel.dataset.provider}"]`);
-			badge.textContent = ready ? config.connectionCompleteDraft : '⚠ ' + config.connectionIncomplete;
-			badge.classList.toggle('is-ready', ready);
-			badge.classList.toggle('needs-setup', !ready);
+			if (badge) badge.textContent = ready ? config.connectionCompleteDraft : '⚠ ' + config.connectionIncomplete;
+			badge?.classList.toggle('is-ready', ready);
+			badge?.classList.toggle('needs-setup', !ready);
 			panel.querySelector('[data-connection-unsaved]').hidden = false;
 		});
 	});

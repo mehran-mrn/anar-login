@@ -68,11 +68,11 @@ final class UpdateFeaturesTest extends TestCase {
 		$this->assertFalse( \Anar\Login\Integrations\Elementor::contains_recovery( array( array( 'widgetType' => 'anar-login' ) ) ) );
 		$this->assertFalse( \Anar\Login\Integrations\Elementor::contains_recovery( null ) );
 	}
-	public function test_store_provider_inherits_login_and_preserves_explicit_provider() {
+	public function test_store_provider_uses_only_the_active_connection() {
 		$GLOBALS['anar_test_options'][ Settings::OPTION_KEY ] = array( 'sms_provider' => 'panelchi' );
 		$store = new \Anar\Login\Commerce\Settings();
 		$this->assertSame( 'panelchi', $store->provider() );
 		$GLOBALS['anar_test_options']['anar_toolkit_commerce'] = array( 'provider' => 'maxsms' );
-		$this->assertSame( 'maxsms', $store->provider() );
+		$this->assertSame( 'panelchi', $store->provider() );
 	}
 }

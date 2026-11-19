@@ -128,9 +128,8 @@ final class Admin {
 							?>
 						</div>
 					<?php endforeach; ?>
-					<p><?php esc_html_e( 'Payment messages are triggered by WooCommerce payment completion, not by viewing the thank-you page. Merely creating an order or choosing cash on delivery does not trigger them.', 'anar-toolkit' ); ?></p>
-					<p><label for="anar-commerce-provider"><strong><?php esc_html_e( 'Commerce SMS provider', 'anar-toolkit' ); ?></strong></label><br><select id="anar-commerce-provider" name="<?php echo esc_attr( Settings::OPTION ); ?>[provider]">
-					<?php \Anar\Login\Admin\ProviderPicker::options( $value['provider'], true, $this->providers->all() ); ?></select></p>
+					<?php \Anar\Login\Admin\Help::button( __( 'Payment messages are triggered by WooCommerce payment completion, not by viewing the thank-you page. Merely creating an order or choosing cash on delivery does not trigger them.', 'anar-toolkit' ) ); ?>
+
 					<p><a href="<?php echo esc_url( admin_url( 'admin.php?page=anar-login-settings&section=sms' ) ); ?>"><?php esc_html_e( 'Configure provider credentials in SMS settings', 'anar-toolkit' ); ?></a></p>
 					<?php $this->input( 'admin_phones', __( 'Administrator mobile numbers (maximum 5, one per line)', 'anar-toolkit' ), $value['admin_phones'], 'textarea' ); ?>
 				</div>
@@ -144,8 +143,8 @@ final class Admin {
 					echo wp_kses( $dropdown, array( 'select' => array( 'name' => true, 'id' => true ), 'option' => array( 'value' => true, 'selected' => true, 'class' => true ) ) );
 					?>
 					<br><span class="description"><?php esc_html_e( 'Add [anar_recover_cart] to a custom page. SMS includes its URL and a separate recovery code. The URL itself contains no code or account-access token.', 'anar-toolkit' ); ?></span></p>
-					<p><label for="anar-capture-mode"><strong><?php esc_html_e( 'How to capture carts', 'anar-toolkit' ); ?></strong></label><br><select id="anar-capture-mode" name="<?php echo esc_attr( Settings::OPTION ); ?>[capture_mode]"><option value="automatic" <?php selected( $value['capture_mode'], 'automatic' ); ?>><?php esc_html_e( 'Automatically from account and checkout', 'anar-toolkit' ); ?></option><option value="explicit" <?php selected( $value['capture_mode'], 'explicit' ); ?>><?php esc_html_e( 'With a separate reminder preference form', 'anar-toolkit' ); ?></option></select></p><p class="description"><?php esc_html_e( 'Automatic mode does not require a separate checkbox. A short notice explains cart storage. Previously stopped numbers remain stopped; every reminder includes an unsubscribe link.', 'anar-toolkit' ); ?></p>
-					<p><?php esc_html_e( 'Stage times are minutes after the last saved cart change. A value of 0 disables that stage. Payment, cancellation, expiry or opting out stops future reminders. Guest carts without a saved number cannot receive SMS.', 'anar-toolkit' ); ?></p>
+					<p><label for="anar-capture-mode"><strong><?php esc_html_e( 'How to capture carts', 'anar-toolkit' ); ?></strong></label><br><select id="anar-capture-mode" name="<?php echo esc_attr( Settings::OPTION ); ?>[capture_mode]"><option value="automatic" <?php selected( $value['capture_mode'], 'automatic' ); ?>><?php esc_html_e( 'Automatically from account and checkout', 'anar-toolkit' ); ?></option><option value="explicit" <?php selected( $value['capture_mode'], 'explicit' ); ?>><?php esc_html_e( 'With a separate reminder preference form', 'anar-toolkit' ); ?></option></select></p><?php \Anar\Login\Admin\Help::button( __( 'Automatic mode does not require a separate checkbox. A short notice explains cart storage. Previously stopped numbers remain stopped; every reminder includes an unsubscribe link.', 'anar-toolkit' ) ); ?>
+					<?php \Anar\Login\Admin\Help::button( __( 'Stage times are minutes after the last saved cart change. A value of 0 disables that stage. Payment, cancellation, expiry or opting out stops future reminders. Guest carts without a saved number cannot receive SMS.', 'anar-toolkit' ) ); ?>
 					<?php
 					$this->input( 'start_hour', __( 'Recovery sending starts at hour (0-23)', 'anar-toolkit' ), $value['start_hour'], 'number' );
 					$this->input( 'end_hour', __( 'Recovery sending stops at hour (1-24)', 'anar-toolkit' ), $value['end_hour'], 'number' );
@@ -181,11 +180,11 @@ final class Admin {
 					$this->input( 'coupon_stage', __( 'Offer from reminder stage (1-3)', 'anar-toolkit' ), $value['coupon_stage'], 'number' );
 					$this->input( 'coupon_hours', __( 'Discount validity in hours', 'anar-toolkit' ), $value['coupon_hours'], 'number' );
 					?>
-				<p class="description"><?php esc_html_e( 'One coupon per cart, one use, restricted to the recipient billing phone. Include {coupon_code} in the relevant reminder template. A valid coupon is applied after the customer verifies their recovery code.', 'anar-toolkit' ); ?></p></div>
+					<?php \Anar\Login\Admin\Help::button( __( 'One coupon per cart, one use, restricted to the recipient billing phone. Include {coupon_code} in the relevant reminder template. A valid coupon is applied after the customer verifies their recovery code.', 'anar-toolkit' ) ); ?></div>
 					<?php
 				endif; if ( $flags['orders'] ) :
 					?>
-					<div class="anar-commerce-card"><h2><?php esc_html_e( 'Order notifications', 'anar-toolkit' ); ?></h2><p><?php esc_html_e( 'Enter shipment details in the Anar box on the WooCommerce order. Standard WooCommerce Shipment Tracking metadata is also supported. For another shipping plugin, enter its tracking-number meta key.', 'anar-toolkit' ); ?></p><?php $this->input( 'tracking_meta_key', __( 'Additional tracking-number meta key', 'anar-toolkit' ), $value['tracking_meta_key'] ); ?><p class="description"><?php esc_html_e( 'Each status is sent once per order. Changed tracking numbers can create a new notification; superseded pending messages are cancelled before sending.', 'anar-toolkit' ); ?></p></div>
+					<div class="anar-commerce-card"><h2><?php esc_html_e( 'Order notifications', 'anar-toolkit' ); ?></h2><?php \Anar\Login\Admin\Help::button( __( 'Enter shipment details in the Anar box on the WooCommerce order. Standard WooCommerce Shipment Tracking metadata is also supported. For another shipping plugin, enter its tracking-number meta key.', 'anar-toolkit' ) ); ?><?php $this->input( 'tracking_meta_key', __( 'Additional tracking-number meta key', 'anar-toolkit' ), $value['tracking_meta_key'] ); ?><?php \Anar\Login\Admin\Help::button( __( 'Each status is sent once per order. Changed tracking numbers can create a new notification; superseded pending messages are cancelled before sending.', 'anar-toolkit' ) ); ?></div>
 				<?php endif; ?></div></section><div class="anar-suite-savebar"><?php submit_button(); ?></div>
 			</form><?php endif; ?>
 			<?php
@@ -193,7 +192,7 @@ final class Admin {
 				\Anar\Login\Admin\Help::section( 'privacy' );
 				?>
 				<section class="anar-suite-panel" data-suite-panel="privacy" id="privacy"><div class="anar-commerce-card"><h2><?php esc_html_e( 'Personal data', 'anar-toolkit' ); ?></h2>
-				<p><?php esc_html_e( 'WordPress export and erasure tools can locate reminders by the optional saved email. For a phone-only request, verify the requester first and remove that number here. This removes local reminder data and queue entries, not WooCommerce orders or records already held by the SMS provider.', 'anar-toolkit' ); ?></p>
+				<?php \Anar\Login\Admin\Help::button( __( 'WordPress export and erasure tools can locate reminders by the optional saved email. For a phone-only request, verify the requester first and remove that number here. This removes local reminder data and queue entries, not WooCommerce orders or records already held by the SMS provider.', 'anar-toolkit' ) ); ?>
 				<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 					<?php wp_nonce_field( 'anar_toolkit_forget' ); ?><input type="hidden" name="action" value="anar_toolkit_forget">
 					<label><?php esc_html_e( 'Mobile number', 'anar-toolkit' ); ?> <input name="phone" type="tel" dir="ltr" required></label>

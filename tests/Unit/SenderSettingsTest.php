@@ -50,18 +50,28 @@ final class SenderSettingsTest extends TestCase {
 		$this->assertSame( array( 'email', 'bale' ), $empty['login_methods'] );
 	}
 
-	public function test_shared_default_is_independent_from_login_store_and_message_overrides() {
+	public function test_all_messages_use_the_single_active_provider() {
 		$GLOBALS['anar_test_options'][ Settings::OPTION_KEY ] = array( 'login_methods' => array( 'sms' ), 'sms_provider' => 'panelchi', 'sms_provider_confirmed' => 1, 'login_provider' => 'maxsms' );
-		$this->assertSame( 'maxsms', MessageSettings::get( 'login_otp' )['provider'] );
+		$this->assertSame( 'panelchi', MessageSettings::get( 'login_otp' )['provider'] );
 		$this->assertSame( 'panelchi', ( new \Anar\Login\Commerce\Settings() )->provider() );
 		$this->assertSame( 'panelchi', MessageSettings::get( 'mkt_birthday' )['provider'] );
 		$GLOBALS['anar_test_options']['anar_toolkit_commerce'] = array( 'provider' => 'ippanel' );
 		$GLOBALS['anar_test_options'][ MessageSettings::OPTION . '_paid_customer' ] = array( 'provider' => 'smsir' );
 		$GLOBALS['anar_test_options'][ Settings::OPTION_KEY ]['sms_provider'] = 'kavenegar';
-		$this->assertSame( 'maxsms', MessageSettings::get( 'login_otp' )['provider'] );
-		$this->assertSame( 'ippanel', ( new \Anar\Login\Commerce\Settings() )->provider() );
-		$this->assertSame( 'smsir', MessageSettings::get( 'paid_customer' )['provider'] );
+		$this->assertSame( 'kavenegar', MessageSettings::get( 'login_otp' )['provider'] );
+		$this->assertSame( 'kavenegar', ( new \Anar\Login\Commerce\Settings() )->provider() );
+		$this->assertSame( 'kavenegar', MessageSettings::get( 'paid_customer' )['provider'] );
 		$this->assertSame( 'kavenegar', MessageSettings::get( 'mkt_birthday' )['provider'] );
+	}
+
+	public function test_retired_provider_override_is_rejected_before_http() {
+		$GLOBALS['anar_test_options'][ Settings::OPTION_KEY ] = array( 'sms_provider' => 'panelchi' );
+		$GLOBALS['anar_test_http_requests'] = array();
+		$sender = new \Anar\Login\Messaging\NotificationSender( new Settings(), new \Anar\Login\Messaging\HttpClient() );
+		$result = $sender->send( 'maxsms', '09123456789', array( 'message' => 'Test', 'mode' => 'text' ), array() );
+		$this->assertSame( 'anar_message_account_changed', $result->get_error_code() );
+		$this->assertSame( array(), $GLOBALS['anar_test_http_requests'] );
+		$this->assertSame( 'panelchi', MessageSettings::sanitize( array( 'provider' => 'maxsms' ) )['provider'] );
 	}
 
 	public function test_legacy_dedicated_sms_template_survives_the_new_choices() {
@@ -69,9 +79,9 @@ final class SenderSettingsTest extends TestCase {
 		$GLOBALS['anar_test_options'][ MessageSettings::OPTION . '_login_otp' ] = array( 'provider' => 'bale', 'template' => 'otp', 'params' => 'code={code}' );
 		$GLOBALS['anar_test_options'][ MessageSettings::OPTION . '_login_sms' ] = array( 'provider' => 'panelchi', 'template' => 'already-approved', 'params' => 'otp={code}', 'inherit' => false );
 		$value = MessageSettings::get( 'login_otp' );
-		$this->assertSame( 'panelchi', $value['provider'] );
+		$this->assertSame( 'melipayamak', $value['provider'] );
 		$this->assertSame( 'already-approved', $value['template'] );
-		$this->assertFalse( $value['account_changed'] );
+		$this->assertTrue( $value['account_changed'] );
 		$GLOBALS['anar_test_options'][ MessageSettings::OPTION . '_login_otp' ] = array( 'provider' => 'panelchi', 'template' => 'new-approved', 'sender_schema' => 2 );
 		$this->assertSame( 'new-approved', MessageSettings::get( 'login_otp' )['template'] );
 	}
