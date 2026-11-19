@@ -128,9 +128,8 @@ final class BalancePage {
 			}
 		}
 		?>
-		<div class="wrap anar-admin anar-balance" dir="<?php echo is_rtl() ? 'rtl' : 'ltr'; ?>">
-			<header class="anar-admin__header"><div class="anar-admin__title"><img src="<?php echo esc_url( ANAR_LOGIN_URL . 'assets/images/anar-logo.png?ver=' . ANAR_LOGIN_VERSION ); ?>" alt=""><div><div><h1><?php esc_html_e( 'SMS credit', 'anar-toolkit' ); ?></h1><span>v<?php echo esc_html( ANAR_LOGIN_VERSION ); ?></span></div><p><?php esc_html_e( 'Keep track of your messaging credit before it runs out.', 'anar-toolkit' ); ?></p></div></div></header><hr class="wp-header-end">
-			<?php self::result_notice(); ?>
+		<?php Workspace::start( __( 'SMS credit', 'anar-toolkit' ) ); ?><div class="anar-balance">
+		<?php self::result_notice(); ?>
 			<form id="anar-balance-settings" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 				<input type="hidden" name="action" value="anar_balance_save"><?php wp_nonce_field( 'anar_balance_save' ); ?>
 				<section class="anar-balance-intro"><div><h2><?php esc_html_e( 'Balance monitoring', 'anar-toolkit' ); ?> <?php Help::button( Help::text( 'balance' ) ); ?></h2><p><?php esc_html_e( 'Enable this feature, check an account, then set its alert threshold. Periodic checks contact only the accounts you select, about every 30 minutes.', 'anar-toolkit' ); ?></p></div><label class="anar-balance-switch"><input type="checkbox" name="balance[enabled]" value="1" <?php checked( $enabled ); ?>><?php esc_html_e( 'Enable SMS credit monitoring', 'anar-toolkit' ); ?></label></section>
@@ -161,7 +160,7 @@ else :
 			<?php foreach ( $accounts as $key => $account ) : ?>
 			<form id="anar-balance-refresh-<?php echo esc_attr( $key ); ?>" class="anar-balance-refresh" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>"><input type="hidden" name="action" value="anar_balance_refresh"><input type="hidden" name="provider" value="<?php echo esc_attr( $key ); ?>"><?php wp_nonce_field( 'anar_balance_refresh_' . $key ); ?></form>
 			<?php endforeach; ?>
-		</div>
+		</div><?php Workspace::end(); ?>
 		<?php
 	}
 

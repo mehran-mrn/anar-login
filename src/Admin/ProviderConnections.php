@@ -50,7 +50,10 @@ final class ProviderConnections {
 							<?php foreach ( $group as $key => $provider ) : ?>
 								<label class="anar-provider <?php echo $key === $view ? 'is-selected' : ''; ?>">
 									<input form="anar-connections-form" type="radio" name="<?php echo 'sms' === $category ? esc_attr( Settings::OPTION_KEY . '[sms_provider]' ) : 'anar_connection_view_messengers'; ?>" value="<?php echo esc_attr( $key ); ?>" <?php checked( $view, $key ); ?>>
-									<span class="anar-provider__mark" aria-hidden="true">✦</span>
+									<?php
+									if ( 'melipayamak' === $key ) :
+										?>
+										<span class="anar-provider-recommended"><?php esc_html_e( 'Recommended', 'anar-toolkit' ); ?></span><?php endif; ?><span class="anar-provider__mark" aria-hidden="true">✦</span>
 									<span><strong><?php echo esc_html( $provider->title() ); ?></strong>
 									<?php
 									if ( 'melipayamak' === $key ) :

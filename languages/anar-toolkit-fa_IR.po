@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: Anar Toolkit 1.11.0\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
+msgstr "Project-Id-Version: Anar Toolkit 1.12.0\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
 
 msgid "%1$d paid orders. A gift at every %2$d orders."
 msgstr "%1$d سفارش پرداخت‌شده؛ یک هدیه پس از هر %2$d سفارش."
@@ -2134,6 +2134,9 @@ msgstr "پیام نوبت بدون جایزه"
 msgid "Messages"
 msgstr "پیام‌ها"
 
+msgid "Messages and sending report"
+msgstr "پیام‌ها و گزارش ارسال"
+
 msgid "Messages and templates"
 msgstr "پیام‌ها و الگوها"
 
@@ -2887,6 +2890,9 @@ msgstr "گیرنده"
 msgid "Recipient format"
 msgstr "قالب شمارهٔ گیرنده"
 
+msgid "Recommended"
+msgstr "پیشنهادی"
+
 msgid "Recommended: sends through the shared service line, so the code is delivered even to numbers that block advertising."
 msgstr "توصیه‌شده: ارسال از خط خدماتی اشتراکی، تا کد حتی به شماره‌هایی که پیامک تبلیغاتی را مسدود کرده‌اند هم برسد."
 
@@ -3231,6 +3237,9 @@ msgstr "ذخیرهٔ تنظیمات اتصال"
 
 msgid "Save feature selection"
 msgstr "ذخیرهٔ انتخاب قابلیت‌ها"
+
+msgid "Save feature settings"
+msgstr "ذخیرهٔ تنظیمات این قابلیت"
 
 msgid "Save first. This sends sample values through this exact message configuration and may use SMS credit. No order, campaign or real discount is created."
 msgstr "ابتدا تنظیمات را ذخیره کنید. پیام آزمایشی با داده‌های نمونه و همین الگو و درگاه ارسال می‌شود و ممکن است از اعتبار پیامکی شما کم کند. سفارش، کمپین یا کد تخفیف واقعی ایجاد نمی‌شود."
@@ -3586,6 +3595,9 @@ msgstr "ورود و امنیت"
 msgid "Sign-in SMS provider"
 msgstr "سرویس‌دهنده پیامکی ورود"
 
+msgid "Sign-in and accounts"
+msgstr "ورود و حساب کاربری"
+
 msgid "Sign-in and recovery"
 msgstr "ورود و بازیابی رمز"
 
@@ -3720,6 +3732,9 @@ msgstr "متوقف‌شده"
 
 msgid "Store address"
 msgstr "نشانی فروشگاه"
+
+msgid "Store and marketing"
+msgstr "فروشگاه و بازاریابی"
 
 msgid "Store communication"
 msgstr "ارتباط با مشتریان"

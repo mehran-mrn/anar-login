@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.12.0 - 2026-11-19
+
+- Share administration framing and five navigation groups across settings and specialized workspaces.
+- Keep existing independent forms and routes; remove generic campaign reports from invoice settings.
+- Align store form spacing and contextual help; add a recommendation badge to Meli Payamak.
+
 ## 1.11.0 - 2026-11-19
 
 - Save individual feature switches immediately, preserving unrelated capability settings and handling stale state.

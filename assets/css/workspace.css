@@ -1,0 +1,38 @@
+.anar-admin{max-width:1500px}
+.anar-workspace-link{display:block;margin:2px 0;padding:10px 11px;border-radius:10px;color:#fff!important;text-decoration:none;font:600 13px/1.7 var(--anar-admin-font)}
+.anar-workspace-link:hover{background:var(--anar-admin-accent-dark)}
+.anar-workspace-link.is-active{background:#fff;color:var(--anar-admin-accent-dark)!important}
+.anar-workspace-content{min-width:0;padding:28px}
+.anar-workspace .anar-commerce{max-width:none;margin:0;font-family:var(--anar-admin-font)}
+.anar-workspace :is(h1,h2,h3,h4,input,select,textarea,button){font-family:inherit}
+.anar-workspace .anar-suite-toolbar h2{font-size:18px}
+.anar-workspace .anar-commerce-card{padding:22px;border-radius:14px}
+.anar-workspace .anar-store-settings{grid-template-columns:1fr;gap:20px}
+.anar-workspace .anar-commerce-field{display:inline-block;vertical-align:top;width:calc(50% - 16px);margin-inline-end:12px;line-height:1.8}
+.anar-workspace .anar-commerce-field input,.anar-workspace .anar-commerce-field textarea{width:100%;max-width:100%}
+.anar-workspace .anar-commerce-field>br{display:none}
+.anar-workspace .anar-commerce-field label{display:inline-block;margin-bottom:8px}
+.anar-workspace .anar-store-nav{position:sticky;top:32px;z-index:6;border:1px solid var(--anar-admin-line);gap:8px}
+.anar-workspace .anar-suite-savebar{position:static;margin-bottom:0}
+.anar-workspace .anar-suite-panel>details>summary{cursor:pointer;padding:8px 0;font-weight:700}
+.anar-workspace .anar-balance{font-family:inherit}
+.anar-provider:has(.anar-provider-recommended){overflow:visible;padding-top:22px}
+.anar-provider-recommended{position:absolute;top:-11px;inset-inline-start:16px;padding:2px 11px;border-radius:7px;background:#e8f5ed;border:1px solid #c9e3d3;color:#256548;font-size:11px;font-weight:700;line-height:1.8;z-index:1}
+@media(max-width:900px){.anar-workspace-content{padding:20px 16px}.anar-admin__nav .anar-workspace-link{flex:0 0 auto;white-space:nowrap}.anar-workspace .anar-commerce-field{width:100%;margin-inline:0}.anar-workspace .anar-store-nav{top:46px}}
+@media print{.anar-admin__nav,.anar-admin__header-actions{display:none!important}.anar-admin__layout{display:block}.anar-workspace-content{padding:0}}
+
+.anar-admin__nav .anar-workspace-link,.anar-admin__nav button{padding:7px 11px;font-size:12px;line-height:1.7}
+.anar-admin__nav .anar-admin__nav-label:not(:first-child){margin-top:16px}
+.anar-workspace .anar-commerce{--red:var(--anar-admin-accent);--ink:var(--anar-admin-ink);--muted:var(--anar-admin-muted);--line:var(--anar-admin-line)}
+.anar-invoice-field{display:inline-block;vertical-align:top;width:calc(50% - 16px);margin-inline-end:12px}
+.anar-invoice-field>label{display:flex;flex-direction:column;align-items:flex-start;gap:8px;font-weight:600}
+.anar-invoice-field input:not([type=color]),.anar-invoice-field select{width:100%}
+.anar-invoice-check{margin-block:16px}
+.anar-workspace .anar-commerce-field input{display:block;margin-top:0}
+.anar-workspace .anar-commerce-card h2{font-size:17px}
+.anar-workspace .anar-suite-toolbar{margin-top:0}
+.anar-workspace .anar-commerce-field:has(textarea){width:calc(100% - 16px)}
+@media(max-width:900px){.anar-invoice-field{width:100%;margin-inline:0}.anar-workspace .anar-commerce-field:has(textarea){width:100%}}
+
+.anar-admin__nav .anar-workspace-link{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.anar-workspace-link>span{font-size:12px;opacity:.7}

@@ -82,10 +82,7 @@ final class Admin {
 		<?php else : ?>
 			<input dir="<?php echo esc_attr( $direction ); ?>" id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( Settings::OPTION . '[' . $key . ']' ); ?>" type="<?php echo esc_attr( $type ); ?>" value="<?php echo esc_attr( $value ); ?>" class="regular-text" <?php echo 'number' === $type ? 'min="0" step="1"' : ''; ?>>
 		<?php endif; ?>
-		<?php
-		if ( $help ) :
-			?>
-			<br><span class="description"><?php echo esc_html( $help ); ?></span><?php endif; ?></div>
+		</div>
 		<?php
 	}
 
@@ -97,8 +94,14 @@ final class Admin {
 		$flags = \Anar\Login\Infrastructure\Features::all();
 		$tab = \Anar\Login\Infrastructure\Features::current_tab();
 		$labels = Dashboard::labels();
+		$module = \Anar\Login\Infrastructure\Features::current_module();
+		$title = $module ? ( \Anar\Login\Marketing\Settings::modules()[ $module ] ?? '' ) : ( \Anar\Login\Infrastructure\Features::workspace_tabs()[ $tab ] ?? __( 'Store settings', 'anar-toolkit' ) );
 		?>
-		<div class="wrap anar-commerce">
+		<?php \Anar\Login\Admin\Workspace::start( $title ); ?><div class="anar-commerce">
+			<?php
+			if ( in_array( $tab, array( 'campaigns', 'messages' ), true ) ) {
+				\Anar\Login\Admin\StatusPanel::credit(); }
+			?>
 			<?php ( new Dashboard( $this->repository ) )->render(); ?>
 			<?php
 			if ( 'campaigns' === $tab ) {
@@ -110,12 +113,15 @@ final class Admin {
 			<?php endif; ?>
 			<?php
 			if ( 'settings' === $tab ) :
-				\Anar\Login\Admin\Help::section( $flags['recovery'] ? 'recovery' : 'orders' );
 				?>
-				<form method="post" action="options.php" class="anar-settings-form"><input type="hidden" name="<?php echo esc_attr( Settings::OPTION ); ?>[_partial]" value="1"><section class="anar-suite-panel" id="settings" data-suite-panel="settings" <?php echo 'settings' === $tab ? '' : 'hidden'; ?>><div class="anar-suite-toolbar"><h2><?php esc_html_e( 'Store settings', 'anar-toolkit' ); ?></h2></div><div class="anar-settings-grid">
+				<form method="post" action="options.php" class="anar-settings-form"><input type="hidden" name="<?php echo esc_attr( Settings::OPTION ); ?>[_partial]" value="1"><section class="anar-suite-panel" id="settings" data-suite-panel="settings" <?php echo 'settings' === $tab ? '' : 'hidden'; ?>><div class="anar-suite-toolbar"><h2><?php esc_html_e( 'Store settings', 'anar-toolkit' ); ?><?php \Anar\Login\Admin\Help::button( \Anar\Login\Admin\Help::text( $flags['recovery'] ? 'recovery' : 'orders' ) ); ?></h2></div><div class="anar-settings-grid anar-store-settings">
 				<?php settings_fields( 'anar_toolkit_commerce' ); ?>
-<nav class="anar-store-nav" aria-label="<?php esc_attr_e( 'Store settings', 'anar-toolkit' ); ?>"><a href="#anar-store-connection"><?php esc_html_e( 'Connection and orders', 'anar-toolkit' ); ?></a><a href="#anar-store-recovery"><?php esc_html_e( 'Cart recovery', 'anar-toolkit' ); ?></a><a href="#anar-store-discounts"><?php esc_html_e( 'Recovery discounts', 'anar-toolkit' ); ?></a></nav>
-				<div class="anar-commerce-card" id="anar-store-connection"><h2><?php esc_html_e( 'Order messages and connection', 'anar-toolkit' ); ?></h2>
+<nav class="anar-store-nav" aria-label="<?php esc_attr_e( 'Store settings', 'anar-toolkit' ); ?>"><a href="#anar-store-connection"><?php esc_html_e( 'Connection and orders', 'anar-toolkit' ); ?></a>
+				<?php
+				if ( $flags['recovery'] ) :
+					?>
+	<a href="#anar-store-recovery"><?php esc_html_e( 'Cart recovery', 'anar-toolkit' ); ?></a><a href="#anar-store-discounts"><?php esc_html_e( 'Recovery discounts', 'anar-toolkit' ); ?></a><?php endif; ?></nav>
+				<div class="anar-commerce-card" id="anar-store-connection"><h2><?php esc_html_e( 'Order messages and connection', 'anar-toolkit' ); ?><?php \Anar\Login\Admin\Help::button( __( 'Payment messages are triggered by WooCommerce payment completion, not by viewing the thank-you page. Merely creating an order or choosing cash on delivery does not trigger them.', 'anar-toolkit' ) ); ?></h2>
 					<?php
 					foreach ( array( 'paid_customer' => $labels['paid_customer'], 'paid_admin' => $labels['paid_admin'], 'recovery' => __( 'Cart and unpaid-order reminders', 'anar-toolkit' ), 'new_admin' => $labels['new_admin'], 'failed_admin' => $labels['failed_admin'], 'shipment_customer' => $labels['shipment_customer'], 'status_processing' => $labels['status_processing'], 'status_completed' => $labels['status_completed'], 'status_on-hold' => $labels['status_on-hold'], 'status_cancelled' => $labels['status_cancelled'], 'status_refunded' => $labels['status_refunded'] ) as $key => $label ) :
 						if ( 'recovery' === $key ? ! $flags['recovery'] : ! $flags['orders'] ) {
@@ -128,7 +134,7 @@ final class Admin {
 							?>
 						</div>
 					<?php endforeach; ?>
-					<?php \Anar\Login\Admin\Help::button( __( 'Payment messages are triggered by WooCommerce payment completion, not by viewing the thank-you page. Merely creating an order or choosing cash on delivery does not trigger them.', 'anar-toolkit' ) ); ?>
+
 
 					<p><a href="<?php echo esc_url( admin_url( 'admin.php?page=anar-login-settings&section=sms' ) ); ?>"><?php esc_html_e( 'Configure provider credentials in SMS settings', 'anar-toolkit' ); ?></a></p>
 					<?php $this->input( 'admin_phones', __( 'Administrator mobile numbers (maximum 5, one per line)', 'anar-toolkit' ), $value['admin_phones'], 'textarea' ); ?>
@@ -136,15 +142,15 @@ final class Admin {
 				<?php
 				if ( $flags['recovery'] ) :
 					?>
-					<div class="anar-commerce-card" id="anar-store-recovery"><h2><?php esc_html_e( 'Cart recovery and sending limits', 'anar-toolkit' ); ?></h2>
-					<p><label for="anar-recovery-page"><strong><?php esc_html_e( 'Page for entering recovery codes', 'anar-toolkit' ); ?></strong></label><br>
+					<div class="anar-commerce-card" id="anar-store-recovery"><h2><?php esc_html_e( 'Cart recovery and sending limits', 'anar-toolkit' ); ?><?php \Anar\Login\Admin\Help::button( __( 'Stage times are minutes after the last saved cart change. A value of 0 disables that stage. Payment, cancellation, expiry or opting out stops future reminders. Guest carts without a saved number cannot receive SMS.', 'anar-toolkit' ) ); ?></h2>
+					<p><label for="anar-recovery-page"><strong><?php esc_html_e( 'Page for entering recovery codes', 'anar-toolkit' ); ?></strong></label><?php \Anar\Login\Admin\Help::button( __( 'Add [anar_recover_cart] to a custom page. SMS includes its URL and a separate recovery code. The URL itself contains no code or account-access token.', 'anar-toolkit' ) ); ?><br>
 					<?php
 					$dropdown = wp_dropdown_pages( array( 'name' => esc_attr( Settings::OPTION . '[recovery_page_id]' ), 'id' => 'anar-recovery-page', 'selected' => (int) $value['recovery_page_id'], 'show_option_none' => esc_html__( 'Default WooCommerce cart page', 'anar-toolkit' ), 'option_none_value' => 0, 'echo' => 0 ) );
 					echo wp_kses( $dropdown, array( 'select' => array( 'name' => true, 'id' => true ), 'option' => array( 'value' => true, 'selected' => true, 'class' => true ) ) );
 					?>
-					<br><span class="description"><?php esc_html_e( 'Add [anar_recover_cart] to a custom page. SMS includes its URL and a separate recovery code. The URL itself contains no code or account-access token.', 'anar-toolkit' ); ?></span></p>
-					<p><label for="anar-capture-mode"><strong><?php esc_html_e( 'How to capture carts', 'anar-toolkit' ); ?></strong></label><br><select id="anar-capture-mode" name="<?php echo esc_attr( Settings::OPTION ); ?>[capture_mode]"><option value="automatic" <?php selected( $value['capture_mode'], 'automatic' ); ?>><?php esc_html_e( 'Automatically from account and checkout', 'anar-toolkit' ); ?></option><option value="explicit" <?php selected( $value['capture_mode'], 'explicit' ); ?>><?php esc_html_e( 'With a separate reminder preference form', 'anar-toolkit' ); ?></option></select></p><?php \Anar\Login\Admin\Help::button( __( 'Automatic mode does not require a separate checkbox. A short notice explains cart storage. Previously stopped numbers remain stopped; every reminder includes an unsubscribe link.', 'anar-toolkit' ) ); ?>
-					<?php \Anar\Login\Admin\Help::button( __( 'Stage times are minutes after the last saved cart change. A value of 0 disables that stage. Payment, cancellation, expiry or opting out stops future reminders. Guest carts without a saved number cannot receive SMS.', 'anar-toolkit' ) ); ?>
+					</p>
+					<p><label for="anar-capture-mode"><strong><?php esc_html_e( 'How to capture carts', 'anar-toolkit' ); ?></strong></label><?php \Anar\Login\Admin\Help::button( __( 'Automatic mode does not require a separate checkbox. A short notice explains cart storage. Previously stopped numbers remain stopped; every reminder includes an unsubscribe link.', 'anar-toolkit' ) ); ?><br><select id="anar-capture-mode" name="<?php echo esc_attr( Settings::OPTION ); ?>[capture_mode]"><option value="automatic" <?php selected( $value['capture_mode'], 'automatic' ); ?>><?php esc_html_e( 'Automatically from account and checkout', 'anar-toolkit' ); ?></option><option value="explicit" <?php selected( $value['capture_mode'], 'explicit' ); ?>><?php esc_html_e( 'With a separate reminder preference form', 'anar-toolkit' ); ?></option></select></p>
+
 					<?php
 					$this->input( 'start_hour', __( 'Recovery sending starts at hour (0-23)', 'anar-toolkit' ), $value['start_hour'], 'number' );
 					$this->input( 'end_hour', __( 'Recovery sending stops at hour (1-24)', 'anar-toolkit' ), $value['end_hour'], 'number' );
@@ -164,10 +170,10 @@ final class Admin {
 					}
 						\Anar\Login\Admin\MessageCenter::summary( 'recovery_request', 'recovery' );
 					?>
-					<p><?php esc_html_e( 'Hours use the WordPress site timezone. Action Scheduler is used when available; WP-Cron is the fallback. Execution depends on the site scheduler and may be delayed. Retention cleanup runs daily.', 'anar-toolkit' ); ?> <code><?php echo esc_html( wp_timezone_string() ); ?></code></p>
+					<p><?php \Anar\Login\Admin\Help::button( __( 'Hours use the WordPress site timezone. Action Scheduler is used when available; WP-Cron is the fallback. Execution depends on the site scheduler and may be delayed. Retention cleanup runs daily.', 'anar-toolkit' ) ); ?> <code><?php echo esc_html( wp_timezone_string() ); ?></code></p>
 				</div>
 
-				<div class="anar-commerce-card" id="anar-store-discounts"><h2><?php esc_html_e( 'Recovery discounts', 'anar-toolkit' ); ?></h2>
+				<div class="anar-commerce-card" id="anar-store-discounts"><h2><?php esc_html_e( 'Recovery discounts', 'anar-toolkit' ); ?><?php \Anar\Login\Admin\Help::button( __( 'One coupon per cart, one use, restricted to the recipient billing phone. Include {coupon_code} in the relevant reminder template. A valid coupon is applied after the customer verifies their recovery code.', 'anar-toolkit' ) ); ?></h2>
 					<?php
 					foreach ( array( 'coupon_enabled' => __( 'Generate recovery discounts', 'anar-toolkit' ), 'coupon_individual' => __( 'Do not combine with other coupons', 'anar-toolkit' ), 'coupon_exclude_sale' => __( 'Exclude sale products', 'anar-toolkit' ) ) as $key => $label ) :
 						?>
@@ -180,7 +186,7 @@ final class Admin {
 					$this->input( 'coupon_stage', __( 'Offer from reminder stage (1-3)', 'anar-toolkit' ), $value['coupon_stage'], 'number' );
 					$this->input( 'coupon_hours', __( 'Discount validity in hours', 'anar-toolkit' ), $value['coupon_hours'], 'number' );
 					?>
-					<?php \Anar\Login\Admin\Help::button( __( 'One coupon per cart, one use, restricted to the recipient billing phone. Include {coupon_code} in the relevant reminder template. A valid coupon is applied after the customer verifies their recovery code.', 'anar-toolkit' ) ); ?></div>
+					</div>
 					<?php
 				endif; if ( $flags['orders'] ) :
 					?>
@@ -200,7 +206,7 @@ final class Admin {
 				</form>
 			</div>
 			</section><?php endif; ?>
-		</div>
+		</div><?php \Anar\Login\Admin\Workspace::end(); ?>
 		<?php
 	}
 }

@@ -1,6 +1,6 @@
 <?php
 return array(
-'project-id-version' => 'Anar Toolkit 1.11.0',
+'project-id-version' => 'Anar Toolkit 1.12.0',
 'language' => 'fa_IR',
 'plural-forms' => 'nplurals=2; plural=(n > 1);',
 'messages' => array(
@@ -715,6 +715,7 @@ return array(
 'Message when a coupon is issued' => 'پیام دریافت جایزه',
 'Message when no coupon is issued' => 'پیام نوبت بدون جایزه',
 'Messages' => 'پیام‌ها',
+'Messages and sending report' => 'پیام‌ها و گزارش ارسال',
 'Messages and templates' => 'پیام‌ها و الگوها',
 'Messengers' => 'پیام‌رسان‌ها',
 'Minimum cart amount' => 'حداقل مبلغ سبد',
@@ -966,6 +967,7 @@ return array(
 'Recent customer profiles' => 'پروفایل مشتریان اخیر',
 'Recipient' => 'گیرنده',
 'Recipient format' => 'قالب شمارهٔ گیرنده',
+'Recommended' => 'پیشنهادی',
 'Recommended: sends through the shared service line, so the code is delivered even to numbers that block advertising.' => 'توصیه‌شده: ارسال از خط خدماتی اشتراکی، تا کد حتی به شماره‌هایی که پیامک تبلیغاتی را مسدود کرده‌اند هم برسد.',
 'Recommends an in-stock product the customer has not bought recently and sends the offer by SMS, with an optional discount.' => 'از میان کالاهای موجود، محصولی را که مشتری به‌تازگی نخریده انتخاب و با پیامک پیشنهاد می‌کند. می‌توانید به پیشنهاد تخفیف اضافه کنید.',
 'Recorded SMS outcomes' => 'آمار پیامک‌های ثبت‌شده',
@@ -1081,6 +1083,7 @@ return array(
 'Save code settings' => 'ذخیرهٔ تنظیمات کد',
 'Save connection settings' => 'ذخیرهٔ تنظیمات اتصال',
 'Save feature selection' => 'ذخیرهٔ انتخاب قابلیت‌ها',
+'Save feature settings' => 'ذخیرهٔ تنظیمات این قابلیت',
 'Save first. This sends sample values through this exact message configuration and may use SMS credit. No order, campaign or real discount is created.' => 'ابتدا تنظیمات را ذخیره کنید. پیام آزمایشی با داده‌های نمونه و همین الگو و درگاه ارسال می‌شود و ممکن است از اعتبار پیامکی شما کم کند. سفارش، کمپین یا کد تخفیف واقعی ایجاد نمی‌شود.',
 'Save message' => 'ذخیرهٔ پیام',
 'Save name' => 'ذخیرهٔ نام',
@@ -1199,6 +1202,7 @@ return array(
 'Sign out all other devices' => 'خروج از همهٔ دستگاه‌های دیگر',
 'Sign-in & security' => 'ورود و امنیت',
 'Sign-in SMS provider' => 'سرویس‌دهنده پیامکی ورود',
+'Sign-in and accounts' => 'ورود و حساب کاربری',
 'Sign-in and recovery' => 'ورود و بازیابی رمز',
 'Sign-in and recovery messages' => 'پیام‌های ورود و بازیابی',
 'Sign-in and verification' => 'ورود و تأیید شماره',
@@ -1244,6 +1248,7 @@ return array(
 'Stop purchase reminders' => 'لغو یادآوری خرید',
 'Stopped' => 'متوقف‌شده',
 'Store address' => 'نشانی فروشگاه',
+'Store and marketing' => 'فروشگاه و بازاریابی',
 'Store communication' => 'ارتباط با مشتریان',
 'Store currency' => 'واحد پول فروشگاه',
 'Store discount' => 'تخفیف فروشگاه',

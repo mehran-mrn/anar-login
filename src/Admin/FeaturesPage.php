@@ -50,7 +50,7 @@ final class FeaturesPage {
 			add_submenu_page( null, __( 'Commerce toolkit', 'anar-toolkit' ), __( 'Commerce toolkit', 'anar-toolkit' ), 'manage_options', 'anar-toolkit-commerce', array( $commerce, 'render' ) ); }
 		foreach ( Features::marketing_keys() as $key ) {
 			if ( $flags[ $key ] && class_exists( 'WooCommerce' ) ) {
-				add_submenu_page( 'anar-login', self::labels()[ $key ], self::labels()[ $key ], 'manage_options', 'anar-toolkit-' . $key, array( $commerce, 'render' ) ); }
+				add_submenu_page( null, self::labels()[ $key ], self::labels()[ $key ], 'manage_options', 'anar-toolkit-' . $key, array( $commerce, 'render' ) ); }
 		}
 		$settings_hook = add_submenu_page( null, __( 'Settings', 'anar-toolkit' ), __( 'Settings', 'anar-toolkit' ), 'manage_options', 'anar-login-settings', array( new SettingsPage( new Settings(), \Anar\Login\Messaging\ProviderRegistry::shared() ), 'render' ) );
 		add_action(
@@ -67,6 +67,8 @@ final class FeaturesPage {
 
 	public function assets( $hook ) {
 		if ( false !== strpos( $hook, 'anar-' ) ) {
+			wp_enqueue_style( 'anar-login-admin', ANAR_LOGIN_URL . 'assets/css/admin.css', array(), ANAR_LOGIN_VERSION );
+			wp_enqueue_style( 'anar-workspace', ANAR_LOGIN_URL . 'assets/css/workspace.css', array( 'anar-login-admin', 'anar-features' ), ANAR_LOGIN_VERSION );
 			wp_enqueue_script( 'anar-features', ANAR_LOGIN_URL . 'assets/js/features.js', array(), ANAR_LOGIN_VERSION, true );
 			wp_localize_script( 'anar-features', 'AnarFeatures', array( 'url' => admin_url( 'admin-ajax.php' ), 'nonce' => wp_create_nonce( 'anar_features' ), 'configure' => __( 'Configure', 'anar-toolkit' ), 'saving' => __( 'Saving…', 'anar-toolkit' ), 'saved' => __( 'Feature updated.', 'anar-toolkit' ), 'failed' => __( 'The change could not be confirmed. Check the saved state before trying again.', 'anar-toolkit' ) ) );
 			wp_enqueue_script( 'anar-help', ANAR_LOGIN_URL . 'assets/js/help.js', array(), ANAR_LOGIN_VERSION, true );
@@ -106,6 +108,8 @@ final class FeaturesPage {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
+		if ( ! $embedded ) {
+			Workspace::start( __( 'Features', 'anar-toolkit' ) ); }
 		$flags = Features::all();
 		$labels = self::labels();
 		$cards = self::cards();
@@ -114,20 +118,7 @@ final class FeaturesPage {
 		$groups = $other_first ? array( false => __( 'Other features', 'anar-toolkit' ), true => __( 'Active features', 'anar-toolkit' ) ) : array( true => __( 'Active features', 'anar-toolkit' ), false => __( 'Other features', 'anar-toolkit' ) );
 		?>
 		<div class="<?php echo $embedded ? 'anar-features' : 'wrap anar-features'; ?>" dir="<?php echo is_rtl() ? 'rtl' : 'ltr'; ?>">
-			<header class="anar-features-banner">
-				<img src="<?php echo esc_url( ANAR_LOGIN_URL . 'assets/images/anar-logo.png?ver=' . ANAR_LOGIN_VERSION ); ?>" alt="" width="64" height="64">
-				<div>
-					<?php
-					if ( $embedded ) :
-						?>
-						<h2><?php esc_html_e( 'Features', 'anar-toolkit' ); ?></h2>
-						<?php
-else :
-	?>
-						<h1><?php esc_html_e( 'Features', 'anar-toolkit' ); ?></h1><?php endif; ?>
-					<p><?php esc_html_e( 'Enable the features your store needs.', 'anar-toolkit' ); ?></p>
-				</div>
-			</header>
+			<h2><?php esc_html_e( 'Features', 'anar-toolkit' ); ?></h2>
 			<!---->
 			<?php
 			if ( ! $embedded ) :
@@ -189,6 +180,8 @@ endif;
 			</form>
 		</div>
 		<?php
+		if ( ! $embedded ) {
+			Workspace::end(); }
 	}
 
 	public function save() {

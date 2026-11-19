@@ -166,22 +166,7 @@ final class SettingsPage {
 		$direction = is_rtl() ? 'rtl' : 'ltr';
 		?>
 		<div class="wrap anar-admin" dir="<?php echo esc_attr( $direction ); ?>">
-			<header class="anar-admin__header">
-				<div class="anar-admin__title">
-					<img src="<?php echo esc_url( ANAR_LOGIN_URL . 'assets/images/anar-logo.png?ver=' . ANAR_LOGIN_VERSION ); ?>" alt="">
-					<div>
-						<div><h1>Anar Toolkit</h1><span>v<?php echo esc_html( ANAR_LOGIN_VERSION ); ?></span></div>
-						<p><?php esc_html_e( 'SMS sign-in and customer communication tools', 'anar-toolkit' ); ?></p>
-						<p class="anar-admin__free"><?php esc_html_e( '100% free, forever — all features included.', 'anar-toolkit' ); ?></p>
-					</div>
-				</div>
-				<div class="anar-admin__header-actions">
-					<div class="anar-admin__health"><span aria-hidden="true"></span><?php esc_html_e( 'Core is active', 'anar-toolkit' ); ?></div>
-					<?php if ( \Anar\Login\Infrastructure\Features::enabled( 'login' ) ) : ?>
-						<button type="button" class="button" data-login-preview><?php esc_html_e( 'Preview saved form', 'anar-toolkit' ); ?></button>
-					<?php endif; ?>
-				</div>
-			</header>
+			<?php Workspace::header( __( 'Settings', 'anar-toolkit' ), true ); ?>
 			<?php // WordPress moves admin notices after this marker; without it they land inside the flex header next to the h1. ?>
 			<hr class="wp-header-end">
 
@@ -190,7 +175,7 @@ final class SettingsPage {
 			<?php StatusPanel::credit(); ?>
 
 			<div class="anar-admin__layout">
-				<aside class="anar-admin__nav"><?php $this->navigation( $value ); ?></aside>
+				<aside class="anar-admin__nav"><?php $this->navigation(); ?></aside>
 <div class="anar-admin__content">
 <form class="anar-connection-form" method="post" action="options.php">
 					<?php settings_fields( 'anar_login' ); ?>
@@ -477,38 +462,10 @@ final class SettingsPage {
 	/**
 	 * Order connection tabs by the enabled capabilities.
 	 *
-	 * @param array $value Saved connection settings.
 	 * @return void
 	 */
-	private function navigation( $value ) {
-		$flags = \Anar\Login\Infrastructure\Features::all();
-		$labels = array( 'general' => __( 'Sign-in settings', 'anar-toolkit' ), 'setup' => __( 'Sign-in setup guide', 'anar-toolkit' ), 'sms' => __( 'Service providers', 'anar-toolkit' ), 'google' => __( 'Google sign-in', 'anar-toolkit' ), 'security' => __( 'Security', 'anar-toolkit' ), 'woocommerce' => __( 'WooCommerce', 'anar-toolkit' ), 'install' => __( 'Add to pages', 'anar-toolkit' ) );
-		$primary = array( 'general' => $flags['login'], 'setup' => $flags['login'], 'sms' => ( $flags['login'] && 'email' !== $value['identity_mode'] ) || $flags['two_factor'] || $flags['reset'] || \Anar\Login\Infrastructure\Features::queue_needed(), 'google' => $flags['login'] && ! empty( $value['google_enabled'] ), 'security' => $flags['login'] || $flags['reset'] || $flags['two_factor'], 'woocommerce' => $flags['login'] && WooCommerce::active(), 'install' => $flags['login'] );
-		$first = true;
-		?>
-		<div class="anar-admin__nav-label" role="heading" aria-level="2"><?php esc_html_e( 'Shared settings', 'anar-toolkit' ); ?></div>
-		<button type="button" data-tab="features"><?php esc_html_e( 'Features', 'anar-toolkit' ); ?></button>
-
-		<button type="button" data-tab="messages"><?php esc_html_e( 'Messages and templates', 'anar-toolkit' ); ?></button>
-		<button type="button" data-tab="sending"><?php esc_html_e( 'Campaign sending rules', 'anar-toolkit' ); ?></button>
-		<?php
-		foreach ( array( true => __( 'Connection settings', 'anar-toolkit' ), false => __( 'Other features', 'anar-toolkit' ) ) as $enabled => $heading ) {
-			?>
-			<div class="anar-admin__nav-label" role="heading" aria-level="2"><?php echo esc_html( $heading ); ?></div>
-			<?php
-			foreach ( $labels as $key => $label ) {
-				if ( (bool) $primary[ $key ] !== (bool) $enabled || ( 'woocommerce' === $key && ! WooCommerce::active() ) || ( 'setup' === $key && ! $flags['login'] ) ) {
-					continue; }
-				?>
-				<button type="button" <?php echo $first ? 'class="is-active"' : ''; ?> data-tab="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $label ); ?></button>
-				<?php
-				$first = false;
-			}
-		}
-		?>
-		<a class="anar-store-settings-link" href="<?php echo esc_url( admin_url( 'admin.php?page=anar-toolkit-commerce&tab=settings' ) ); ?>"><span class="dashicons dashicons-admin-generic" aria-hidden="true"></span><?php esc_html_e( 'Store settings', 'anar-toolkit' ); ?><span aria-hidden="true">↗</span></a>
-		<?php
-	}
+	private function navigation() {
+		Workspace::navigation( true ); }
 
 	private function mrn_forms( array $value ) {
 		$connected = class_exists( \MRN\Form\Anar_Integration::class );
