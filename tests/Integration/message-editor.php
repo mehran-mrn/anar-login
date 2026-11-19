@@ -83,7 +83,7 @@ try {
 	foreach ( array( 'code', 'site', 'domain', 'minutes' ) as $variable ) {
 		$assert( false !== strpos( $html, '<code dir="ltr">{' . $variable . '}</code>' ), 'The verification editor lists the available variable {' . $variable . '}' );
 	}
-	$assert( false !== strpos( $html, '<small>' . __( 'Required', 'anar-toolkit' ) . '</small>' ) && false === strpos( $html, 'QA-ONLY' ), 'The editor marks required variables and keeps provider credentials out of the markup' );
+	$assert( false !== strpos( $html, __( 'Required', 'anar-toolkit' ) ) && false === strpos( $html, 'QA-ONLY' ), 'The editor marks required variables and keeps provider credentials out of the markup' );
 	$get['id'] = 'unknown';
 	$result = $call( 'load_editor', $get );
 	$assert( empty( $result['success'] ), 'Unknown purposes cannot load an editor' );

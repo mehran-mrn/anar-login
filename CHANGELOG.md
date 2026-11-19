@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.13.0
+
+- Add delivery-independent, confirmed recovery codes, first-login enrollment and a host-only per-account recovery command.
+- Keep recovery available on delivery failure and require prepared recovery for new MFA activation.
+- Queue feature changes without locking other controls and consolidate queue cancellation queries.
+- Place cart reminder timing, messages and discounts next to cart records; improve internal navigation and modernize provider cards and shared admin surfaces.
+
 ## 1.12.0 - 2026-11-19
 
 - Share administration framing and five navigation groups across settings and specialized workspaces.

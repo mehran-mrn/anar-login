@@ -74,7 +74,7 @@ final class Workspace {
 
 	private static function link( $url, $label, $active = false ) {
 		?>
-		<a class="anar-workspace-link <?php echo $active ? 'is-active' : ''; ?>" href="<?php echo esc_url( $url ); ?>" <?php echo $active ? 'aria-current="page"' : ''; ?>><?php echo esc_html( $label ); ?><span aria-hidden="true">↗</span></a>
+		<a class="anar-workspace-link <?php echo $active ? 'is-active' : ''; ?>" href="<?php echo esc_url( $url ); ?>" <?php echo $active ? 'aria-current="page"' : ''; ?>><?php echo esc_html( $label ); ?><span aria-hidden="true"><?php echo is_rtl() ? '‹' : '›'; ?></span></a>
 		<?php
 	}
 

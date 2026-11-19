@@ -43,3 +43,12 @@ Ten random 128-bit recovery codes are displayed only at enrollment and stored on
 
 
 The second-step implementation is shared: `AccountSecurity` owns pending verification, session interception, the form and completion for both delivered codes and authenticator/recovery codes. `TwoFactor` resolves only the legacy policy and contact; it no longer maintains separate transient state, cookie hooks or a second login form. Session creation remains in `UserService`. Hook registration is idempotent and lazy.
+
+
+## Delivery-independent recovery in 1.13.0
+
+`RecoveryCodes` adds account-specific 128-bit one-use codes without enrolling TOTP. Only hashes persist, outside autoload. Enrollment and rotation require fresh contact/existing-factor proof and confirmation with one saved code. The prior set remains active until confirmation; stale or concurrent confirmations cannot promote a replaced pending set. New MFA activation checks readiness in both settings and feature-save paths. Existing delivered-factor users enroll after a valid second-step proof before session creation.
+
+An unavailable transport retains the browser-bound verification flow. It never grants authentication. Standalone recovery checks the pinned record, shared factor budgets, password fingerprint, flow attempts and atomic consumption. TOTP enrollment remains independently enforced. Recovery cannot turn off a TOTP credential. The host-only `wp anar recovery-codes <user>` command replaces a single account's recovery set, revokes sessions and emits an email notification without codes; it exposes no public bypass. Existing active policies are preserved on upgrade.
+
+Threat model: a delivery outage must not become an authentication downgrade; a stolen session alone must not issue recovery credentials; database reads must not expose usable codes; parallel submissions must not replay codes or overwrite a newer confirmed set. Real delivery and production hosting recovery require site-specific operational testing.

@@ -1289,3 +1289,5 @@ body.anar-wp-login .anar-security-card form { margin: 0; padding: 0; border: 0; 
 .anar-modal .anar-auth {
  overscroll-behavior: contain;
 }
+
+.anar-recovery-alternative{margin-top:20px;padding:16px;border:1px solid #e5e7eb;border-radius:12px}.anar-recovery-alternative summary{cursor:pointer;font-weight:600}.anar-recovery-alternative p{line-height:1.9}.anar-recovery-codes{white-space:pre-wrap;overflow-wrap:anywhere;padding:16px;background:#f3f5f8;border-radius:10px;font:12px/2 monospace;text-align:left}

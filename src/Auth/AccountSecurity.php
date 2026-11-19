@@ -25,6 +25,7 @@ final class AccountSecurity {
 	private $policy;
 	private $credentials;
 	private $flows;
+	private $delivery_failed = false;
 
 	public function __construct( OtpService $otp, UserService $users ) {
 		$this->otp = $otp;
@@ -51,24 +52,20 @@ final class AccountSecurity {
 	}
 
 	private function begin( $user, $remember, $factor ) {
+		$this->delivery_failed = false;
 		if ( 'totp' === $factor && ! SecureTransport::available() ) {
 			return new WP_Error( 'anar_secure_connection', __( 'Open the secure HTTPS address of this site to manage or verify account security.', 'anar-toolkit' ) );
 		}
-		$token = $this->flows->issue( 'strong_login', array( 'user_id' => (int) $user->ID, 'remember' => (bool) $remember, 'factor' => $factor, 'password' => hash( 'sha256', $user->user_pass ), 'credential' => 'totp' === $factor ? hash( 'sha256', wp_json_encode( $this->credentials->record( $user->ID ) ) ) : '' ) );
+		$token = $this->flows->issue( 'strong_login', array( 'user_id' => (int) $user->ID, 'remember' => (bool) $remember, 'factor' => $factor, 'password' => hash( 'sha256', $user->user_pass ), 'credential' => 'totp' === $factor ? hash( 'sha256', wp_json_encode( $this->credentials->record( $user->ID ) ) ) : '', 'recovery' => hash( 'sha256', wp_json_encode( ( new RecoveryCodes() )->record( $user->ID ) ) ) ) );
 		if ( is_wp_error( $token ) ) {
 			return $token;
 		}
 		if ( 'otp' === $factor ) {
 			$identity = $this->policy->identity_for( $user );
-			if ( ! $identity ) {
-				return new WP_Error( 'anar_factor_contact', __( 'No phone number or email is linked to this account.', 'anar-toolkit' ) );
-			}
-			$sent = $this->otp->challenge( $identity, 'two_factor', 'password_second_' . hash( 'sha256', $token ) );
-			if ( is_wp_error( $sent ) ) {
-				return $sent;
-			}
+			$sent = $identity ? $this->otp->challenge( $identity, 'two_factor', 'password_second_' . hash( 'sha256', $token ) ) : new WP_Error( 'anar_factor_contact' );
+			$this->delivery_failed = is_wp_error( $sent );
 		}
-		return new WP_Error( 'anar_factor_required', __( 'Complete account verification to sign in.', 'anar-toolkit' ), array( 'status' => 401, 'redirect' => add_query_arg( array( 'action' => 'anar_authenticator', 'flow' => $token ), wp_login_url() ) ) );
+		return new WP_Error( 'anar_factor_required', __( 'Complete account verification to sign in.', 'anar-toolkit' ), array( 'status' => 401, 'redirect' => add_query_arg( array( 'action' => 'anar_authenticator', 'flow' => $token, 'delivery_failed' => $this->delivery_failed ? '1' : '0' ), wp_login_url() ) ) );
 	}
 
 	public function remember( $cookie, $expire, $expiration, $user_id, $scheme, $token ) {
@@ -118,28 +115,43 @@ final class AccountSecurity {
 		$token = isset( $_GET['flow'] ) && is_string( $_GET['flow'] ) ? sanitize_key( wp_unslash( $_GET['flow'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification -- Browser-bound capability; POST verifies nonce.
 		$flows = $this->flows;
 		$state = $flows->read( $token, 'strong_login' );
+		if ( ! $state ) {
+			$this->recovery_login( $token );
+		}
 		$user = $state ? get_userdata( $state['data']['user_id'] ) : false;
 		$is_totp = $state && 'totp' === $state['data']['factor'];
+		if ( $is_totp && ! SecureTransport::available() ) {
+			wp_die( esc_html__( 'Open the secure HTTPS address of this site to manage or verify account security.', 'anar-toolkit' ) );
+		}
 		$required = $user && ( $is_totp ? $this->required( $user ) : ( ! $this->required( $user ) && $this->policy->required_for( $user ) ) );
 		if ( ! $user || ! hash_equals( $state['data']['password'], hash( 'sha256', $user->user_pass ) ) || ! $required ) {
 			wp_die( esc_html__( 'This verification expired. Please sign in again.', 'anar-toolkit' ) );
 		}
 		$errors = new WP_Error();
+		// Read-only presentation flag; never authorizes a login or changes its proof.
+		$this->delivery_failed = ! empty( $_GET['delivery_failed'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( 'post' === sanitize_key( wp_unslash( $_SERVER['REQUEST_METHOD'] ?? '' ) ) ) {
 			check_admin_referer( 'anar_strong_' . $token );
 			if ( ! $is_totp && isset( $_POST['resend'] ) ) {
 				$identity = $this->policy->identity_for( $user );
 				$sent = $identity ? $this->otp->challenge( $identity, 'two_factor', 'password_second_' . hash( 'sha256', $token ) ) : false;
-				if ( is_wp_error( $sent ) ) {
-					$errors = $sent;
-				}
+				$this->delivery_failed = ! $sent || is_wp_error( $sent );
 				$this->render_factor( $token, $is_totp, $errors );
 				exit;
 			}
 			$attempt = $flows->attempt( $token, 'strong_login' );
 			$credential = hash( 'sha256', wp_json_encode( $this->credentials->record( $user->ID ) ) );
-			if ( $attempt && $this->verify_factor( $token, $attempt, $user, $this->value( 'code' ), $credential ) && $flows->consume( $token, 'strong_login', $attempt ) ) {
+			if ( $attempt && $this->verify_factor( $token, $attempt, $user, $this->value( 'code' ), $credential, 'recovery' === $this->value( 'method' ) ) && $flows->consume( $token, 'strong_login', $attempt ) ) {
 				$redirect = isset( $_GET['redirect_to'] ) && is_string( $_GET['redirect_to'] ) ? esc_url_raw( wp_unslash( $_GET['redirect_to'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification -- Destination is validated by UserService.
+				if ( ! $is_totp && SecureTransport::available() && ! RecoveryCodes::prepared( $user->ID ) ) {
+					$codes = ( new RecoveryCodes() )->issue( $user->ID );
+					$setup = $flows->issue( 'recovery_login', array( 'user_id' => (int) $user->ID, 'password' => hash( 'sha256', $user->user_pass ), 'remember' => ! empty( $attempt['data']['remember'] ), 'recovery' => hash( 'sha256', wp_json_encode( ( new RecoveryCodes() )->pending( $user->ID ) ) ), 'redirect' => wp_validate_redirect( $redirect, home_url( '/' ) ) ) );
+					if ( ! $codes || is_wp_error( $setup ) ) {
+						wp_die( esc_html__( 'Recovery codes could not be saved. Please try again.', 'anar-toolkit' ) );
+					}
+					$this->render_recovery_setup( $setup, $codes );
+					exit;
+				}
 				$result = $this->complete( $user, ! empty( $attempt['data']['remember'] ), $redirect );
 				if ( ! is_wp_error( $result ) ) {
 					do_action( 'anar_login_two_factor_passed', $user );
@@ -155,6 +167,51 @@ final class AccountSecurity {
 		exit;
 	}
 
+	/** A verified contact proof must be followed by proof that recovery was saved. */
+	private function recovery_login( $token ) {
+		if ( ! SecureTransport::available() ) {
+			return;
+		}
+		$state = $this->flows->read( $token, 'recovery_login' );
+		$user = $state ? get_userdata( $state['data']['user_id'] ) : false;
+		$codes = new RecoveryCodes();
+		if ( ! $user || ! $this->policy->required_for( $user ) || $this->required( $user ) || ! hash_equals( $state['data']['password'], hash( 'sha256', $user->user_pass ) ) || ! hash_equals( $state['data']['recovery'], hash( 'sha256', wp_json_encode( $codes->pending( $user->ID ) ) ) ) ) {
+			return;
+		}
+		$errors = new WP_Error();
+		if ( 'post' === sanitize_key( wp_unslash( $_SERVER['REQUEST_METHOD'] ?? '' ) ) ) {
+			check_admin_referer( 'anar_recovery_setup_' . $token );
+			$attempt = $this->flows->attempt( $token, 'recovery_login' );
+			if ( $attempt && $codes->verify( $user->ID, $this->value( 'code' ), true ) && $this->flows->consume( $token, 'recovery_login', $attempt ) ) {
+				$result = $this->complete( $user, $attempt['data']['remember'], $attempt['data']['redirect'] );
+				if ( ! is_wp_error( $result ) ) {
+					wp_safe_redirect( $result['redirect'] );
+					exit;
+				}
+				$errors = $result;
+			} else {
+				$errors->add( 'anar_recovery_invalid', __( 'The recovery code is invalid or this setup expired. Sign in again if needed.', 'anar-toolkit' ) );
+			}
+		}
+		$this->render_recovery_setup( $token, array(), $errors );
+		exit;
+	}
+
+	private function render_recovery_setup( $token, $codes, $errors = null ) {
+		FormView::prepare_wordpress();
+		login_header( __( 'Save your recovery codes', 'anar-toolkit' ), '', $errors ?: new WP_Error() );
+		echo FormView::open( new Settings(), 'anar-security-card', '', __( 'Save your recovery codes', 'anar-toolkit' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Shared frame escapes values.
+		echo '<p>' . esc_html__( 'Save your recovery codes, then enter one below to confirm. That code will be used; keep the other nine.', 'anar-toolkit' ) . '</p>';
+		if ( $codes ) {
+			echo '<pre class="anar-recovery-codes" dir="ltr">' . esc_html( implode( "\n", $codes ) ) . '</pre>';
+		}
+		echo '<form method="post" class="anar-form" action="' . esc_url( add_query_arg( array( 'action' => 'anar_authenticator', 'flow' => $token ), wp_login_url() ) ) . '"><label for="anar-setup-code">' . esc_html__( 'Recovery code', 'anar-toolkit' ) . '</label><input class="input" id="anar-setup-code" name="code" type="text" autocomplete="off" dir="ltr" required>';
+		wp_nonce_field( 'anar_recovery_setup_' . $token );
+		echo '<button class="anar-btn anar-btn--primary" type="submit">' . esc_html__( 'Confirm saved recovery codes', 'anar-toolkit' ) . '</button></form>';
+		echo FormView::close( __( 'Each recovery code works once. Keep them somewhere safe.', 'anar-toolkit' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Shared frame escapes values.
+		login_footer();
+	}
+
 	/** Called only after the server consumed a valid second-factor or passkey proof. */
 	public function complete( $user, $remember, $redirect = '' ) {
 		self::$approved = (int) $user->ID;
@@ -162,7 +219,17 @@ final class AccountSecurity {
 		return is_wp_error( $result ) ? $result : array( 'redirect' => $this->users->redirect_url( $user, $redirect ) );
 	}
 
-	private function verify_factor( $token, $state, $user, $code, $credential ) {
+	private function verify_factor( $token, $state, $user, $code, $credential, $recovery = false ) {
+		if ( $recovery ) {
+			if ( ! SecureTransport::available() ) {
+				return false;
+			}
+			$codes = new RecoveryCodes();
+			if ( $codes->ready( $user->ID ) && isset( $state['data']['recovery'] ) && hash_equals( $state['data']['recovery'], hash( 'sha256', wp_json_encode( $codes->record( $user->ID ) ) ) ) && $codes->verify( $user->ID, $code ) ) {
+				return true;
+			}
+			return 'totp' === $state['data']['factor'] && preg_match( '/^[a-f0-9]{32}$/iD', trim( $code ) ) && hash_equals( $state['data']['credential'], $credential ) && $this->credentials->verify( $user->ID, $code );
+		}
 		if ( 'totp' === $state['data']['factor'] ) {
 			return hash_equals( $state['data']['credential'], $credential ) && $this->credentials->verify( $user->ID, $code );
 		}
@@ -174,6 +241,9 @@ final class AccountSecurity {
 		FormView::prepare_wordpress();
 		login_header( __( 'Account verification', 'anar-toolkit' ), '', $errors );
 		echo FormView::open( new Settings(), 'anar-security-card', '', __( 'Account verification', 'anar-toolkit' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Shared frame escapes values.
+		if ( $this->delivery_failed ) {
+			echo '<p class="message">' . esc_html__( 'The verification code could not be sent. Use a saved recovery code, or try sending again later.', 'anar-toolkit' ) . '</p>';
+		}
 		echo '<form method="post" class="anar-form"><p>' . esc_html( $is_totp ? __( 'Enter your authenticator code or a recovery code.', 'anar-toolkit' ) : __( 'Enter the verification code sent to your linked contact.', 'anar-toolkit' ) ) . '</p><p><label for="anar-factor-code">' . esc_html__( 'Verification code', 'anar-toolkit' ) . '</label><input type="text" class="input" id="anar-factor-code" name="code" autocomplete="one-time-code" dir="ltr" required autofocus></p>';
 		wp_nonce_field( 'anar_strong_' . $token );
 		echo '<button class="anar-btn anar-btn--primary" type="submit">' . esc_html__( 'Verify and sign in', 'anar-toolkit' ) . '</button></form>';
@@ -181,6 +251,13 @@ final class AccountSecurity {
 			echo '<form method="post" class="anar-form">';
 			wp_nonce_field( 'anar_strong_' . $token );
 			echo '<button class="anar-auth__back" name="resend" value="1">' . esc_html__( 'Resend code', 'anar-toolkit' ) . '</button></form>';
+		}
+		if ( SecureTransport::available() ) {
+			echo '<details class="anar-recovery-alternative"><summary>' . esc_html__( 'Cannot access your code?', 'anar-toolkit' ) . '</summary><p>' . esc_html__( 'Enter one of the recovery codes you saved for this account. If none is available, contact your site administrator. Site owners can use the documented hosting recovery command.', 'anar-toolkit' ) . '</p><form method="post" class="anar-form"><input type="hidden" name="method" value="recovery"><label for="anar-backup-code">' . esc_html__( 'Recovery code', 'anar-toolkit' ) . '</label><input class="input" id="anar-backup-code" name="code" type="text" autocomplete="off" dir="ltr" required>';
+			wp_nonce_field( 'anar_strong_' . $token );
+			echo '<button class="anar-btn anar-btn--soft" type="submit">' . esc_html__( 'Use recovery code', 'anar-toolkit' ) . '</button></form></details>';
+		} else {
+			echo '<p>' . esc_html__( 'Open the secure HTTPS address of this site to manage or verify account security.', 'anar-toolkit' ) . '</p>';
 		}
 		echo FormView::close( __( 'Changes to account security require verification.', 'anar-toolkit' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Shared frame escapes values.
 		login_footer();
@@ -246,6 +323,13 @@ final class AccountSecurity {
 					$errors->add( 'anar_factor_invalid', __( 'The code is invalid. Start setup again.', 'anar-toolkit' ) );
 				}
 				$enabled = $credentials->enabled( $user->ID );
+			} elseif ( 'backup_confirm' === $operation && ( new RecoveryCodes() )->verify( $user->ID, $this->value( 'backup_code' ), true ) ) {
+				$notice = __( 'Recovery is ready. Keep the remaining codes offline; each code works once.', 'anar-toolkit' );
+			} elseif ( 'backup_issue' === $operation && $this->authorize_management( $user, $this->value( 'proof' ) ) ) {
+				$codes = ( new RecoveryCodes() )->issue( $user->ID );
+				if ( ! $codes ) {
+					$errors->add( 'anar_backup_storage', __( 'Recovery codes could not be saved. Please try again.', 'anar-toolkit' ) );
+				}
 			} elseif ( in_array( $operation, array( 'remove', 'recovery', 'passkey_start', 'passkey_remove', 'passkey_rename' ), true ) && $this->authorize_management( $user, $this->value( 'proof' ) ) ) {
 				if ( 'remove' === $operation && $enabled ) {
 					$credentials->remove( $user->ID );
@@ -330,6 +414,12 @@ final class AccountSecurity {
 		if ( $codes ) {
 			echo '<div class="message"><strong>' . esc_html__( 'Save these recovery codes now. Each code works once.', 'anar-toolkit' ) . '</strong><pre dir="ltr">' . esc_html( implode( "\n", $codes ) ) . '</pre></div>';
 		}
+		$backup = ( new RecoveryCodes() )->pending( $user->ID );
+		if ( is_array( $backup ) && empty( $backup['confirmed'] ) ) {
+			echo '<form method="post" class="anar-form"><p>' . esc_html__( 'Save your recovery codes, then enter one below to confirm. That code will be used; keep the other nine.', 'anar-toolkit' ) . '</p><label for="anar-backup-confirm">' . esc_html__( 'Recovery code', 'anar-toolkit' ) . '</label><input class="input" id="anar-backup-confirm" type="text" name="backup_code" autocomplete="off" dir="ltr" required>';
+			wp_nonce_field( 'anar_security_manage' );
+			echo '<button class="anar-btn anar-btn--primary" name="operation" value="backup_confirm">' . esc_html__( 'Confirm saved recovery codes', 'anar-toolkit' ) . '</button></form>';
+		}
 		echo '<form method="post" class="anar-form">';
 		wp_nonce_field( 'anar_security_manage' );
 		if ( $phone_flow ) {
@@ -349,6 +439,7 @@ final class AccountSecurity {
 				echo '<p>' . esc_html__( 'First verify your linked phone number or email to change account security.', 'anar-toolkit' ) . '</p><button class="anar-btn anar-btn--soft" name="operation" value="send" formnovalidate>' . esc_html__( 'Send verification code', 'anar-toolkit' ) . '</button><p><label for="anar-proof">' . esc_html__( 'Verification code', 'anar-toolkit' ) . '</label><input type="text" class="input" id="anar-proof" name="proof" autocomplete="one-time-code" inputmode="numeric" dir="ltr" required></p><button class="anar-btn anar-btn--primary" name="operation" value="start">' . esc_html__( 'Set up authenticator', 'anar-toolkit' ) . '</button>';
 		}
 		if ( ! $secret && ! $passkey_flow && ! $phone_flow ) {
+			echo '<h3>' . esc_html__( 'Recovery without SMS', 'anar-toolkit' ) . '</h3><p>' . esc_html__( 'Generate recovery codes after verifying your current contact or authenticator. Store them offline. New codes replace the previous set.', 'anar-toolkit' ) . '</p><button class="anar-btn anar-btn--soft" name="operation" value="backup_issue">' . esc_html__( 'Generate recovery codes without SMS dependency', 'anar-toolkit' ) . '</button>';
 			$current = (string) get_user_meta( $user->ID, PhoneDirectory::META_KEY, true );
 			/* translators: %s: linked mobile number. */
 			echo '<h3>' . esc_html__( 'Mobile number', 'anar-toolkit' ) . '</h3><p>' . esc_html( $current ? sprintf( __( 'Linked number: %s', 'anar-toolkit' ), Identity::local_phone( $current ) ) : __( 'No mobile number is linked to this account.', 'anar-toolkit' ) ) . '</p>';
@@ -378,6 +469,9 @@ final class AccountSecurity {
 	}
 
 	private function authorize_management( $user, $proof ) {
+		if ( strlen( trim( $proof ) ) === 32 && ( new RecoveryCodes() )->verify( $user->ID, $proof ) ) {
+			return true;
+		}
 		if ( $this->credentials->enabled( $user->ID ) ) {
 			return $this->credentials->verify( $user->ID, $proof );
 		}

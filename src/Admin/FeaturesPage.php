@@ -17,6 +17,7 @@ final class FeaturesPage {
 		add_action( 'admin_menu', array( $this, 'menu' ), 20 );
 		add_action( 'admin_post_anar_features', array( $this, 'save' ) );
 		add_action( 'wp_ajax_anar_feature_toggle', array( $this, 'toggle' ) );
+		add_action( 'wp_ajax_anar_feature_state', array( $this, 'state' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'assets' ) );
 	}
 
@@ -29,7 +30,10 @@ final class FeaturesPage {
 			return admin_url( 'admin.php?page=anar-login-settings' . ( 'two_factor' === $key ? '&section=security' : '' ) ); }
 		if ( 'login_log' === $key ) {
 			return admin_url( 'admin.php?page=anar-toolkit-commerce&tab=messages' ); }
-		if ( 'recovery' === $key || 'orders' === $key ) {
+		if ( 'recovery' === $key ) {
+			return admin_url( 'admin.php?page=anar-toolkit-commerce&tab=carts&view=schedule' );
+		}
+		if ( 'orders' === $key ) {
 			return admin_url( 'admin.php?page=anar-toolkit-commerce&tab=settings' ); }
 		return admin_url( 'admin.php?page=anar-toolkit-' . $key );
 	}
@@ -69,8 +73,9 @@ final class FeaturesPage {
 		if ( false !== strpos( $hook, 'anar-' ) ) {
 			wp_enqueue_style( 'anar-login-admin', ANAR_LOGIN_URL . 'assets/css/admin.css', array(), ANAR_LOGIN_VERSION );
 			wp_enqueue_style( 'anar-workspace', ANAR_LOGIN_URL . 'assets/css/workspace.css', array( 'anar-login-admin', 'anar-features' ), ANAR_LOGIN_VERSION );
+			wp_enqueue_script( 'anar-navigation', ANAR_LOGIN_URL . 'assets/js/navigation.js', array(), ANAR_LOGIN_VERSION, true );
 			wp_enqueue_script( 'anar-features', ANAR_LOGIN_URL . 'assets/js/features.js', array(), ANAR_LOGIN_VERSION, true );
-			wp_localize_script( 'anar-features', 'AnarFeatures', array( 'url' => admin_url( 'admin-ajax.php' ), 'nonce' => wp_create_nonce( 'anar_features' ), 'configure' => __( 'Configure', 'anar-toolkit' ), 'saving' => __( 'Saving…', 'anar-toolkit' ), 'saved' => __( 'Feature updated.', 'anar-toolkit' ), 'failed' => __( 'The change could not be confirmed. Check the saved state before trying again.', 'anar-toolkit' ) ) );
+			wp_localize_script( 'anar-features', 'AnarFeatures', array( 'url' => admin_url( 'admin-ajax.php' ), 'nonce' => wp_create_nonce( 'anar_features' ), 'configure' => __( 'Configure', 'anar-toolkit' ), 'saving' => __( 'Saving…', 'anar-toolkit' ), 'queued' => __( 'Queued to save…', 'anar-toolkit' ), 'enabling' => __( 'Enabling…', 'anar-toolkit' ), 'disabling' => __( 'Disabling…', 'anar-toolkit' ), 'enabled' => __( 'Enabled successfully.', 'anar-toolkit' ), 'disabled' => __( 'Disabled successfully.', 'anar-toolkit' ), 'setup' => __( 'Set up my recovery access', 'anar-toolkit' ), 'saved' => __( 'Feature updated.', 'anar-toolkit' ), 'failed' => __( 'The change could not be confirmed. Check the saved state before trying again.', 'anar-toolkit' ) ) );
 			wp_enqueue_script( 'anar-help', ANAR_LOGIN_URL . 'assets/js/help.js', array(), ANAR_LOGIN_VERSION, true );
 			wp_enqueue_style( 'anar-features', ANAR_LOGIN_URL . 'assets/css/features.css', array( 'dashicons' ), ANAR_LOGIN_VERSION ); }
 	}
@@ -190,6 +195,9 @@ endif;
 		check_admin_referer( 'anar_features' );
 		// Values are converted to booleans against this fixed allowlist; no submitted text is stored.
 		$selected = isset( $_POST['features'] ) && is_array( $_POST['features'] ) ? array_map( 'absint', wp_unslash( $_POST['features'] ) ) : array();
+		if ( ! empty( $selected['two_factor'] ) && ! Features::enabled( 'two_factor' ) && ! \Anar\Login\Auth\RecoveryCodes::prepared( get_current_user_id() ) ) {
+			wp_die( esc_html__( 'Before enabling two-step verification, open account security and confirm your saved recovery codes.', 'anar-toolkit' ) );
+		}
 		$core = array();
 		foreach ( array( 'login', 'reset', 'two_factor', 'login_log', 'orders' ) as $key ) {
 			$core[ $key ] = empty( $selected[ $key ] ) ? 0 : 1; }
@@ -217,6 +225,9 @@ endif;
 
 	/** Update one capability without submitting a stale copy of the entire catalog. */
 	public static function set_feature( $key, $enabled ) {
+		if ( 'two_factor' === $key && $enabled && ! Features::enabled( $key ) && ! \Anar\Login\Auth\RecoveryCodes::prepared( get_current_user_id() ) ) {
+			return new \WP_Error( 'anar_recovery_required', __( 'Before enabling two-step verification, open account security and confirm your saved recovery codes.', 'anar-toolkit' ) );
+		}
 		if ( ! array_key_exists( $key, self::labels() ) ) {
 			return new \WP_Error( 'anar_feature_unknown', __( 'Unknown feature.', 'anar-toolkit' ) );
 		}
@@ -225,7 +236,7 @@ endif;
 			$saved = (array) get_option( Features::OPTION, array() );
 			$core = $saved['switches'] ?? $saved;
 			$core[ $key ] = $enabled;
-			Features::refresh( $core );
+			update_option( Features::OPTION, array( 'switches' => $core ), true );
 			if ( 'reset' === $key || ( 'two_factor' === $key && $enabled ) ) {
 				$login = (array) get_option( Settings::OPTION_KEY, array() );
 				if ( 'reset' === $key ) {
@@ -256,6 +267,18 @@ endif;
 		return Features::enabled( $key ) === (bool) $enabled;
 	}
 
+	public function state() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'text' => __( 'You cannot manage these settings.', 'anar-toolkit' ) ), 403 );
+		}
+		check_ajax_referer( 'anar_features', 'nonce' );
+		$key = isset( $_POST['key'] ) ? sanitize_key( wp_unslash( $_POST['key'] ) ) : '';
+		if ( ! array_key_exists( $key, self::labels() ) ) {
+			wp_send_json_error( array( 'text' => __( 'Unknown feature.', 'anar-toolkit' ) ), 422 );
+		}
+		wp_send_json_success( array( 'enabled' => Features::enabled( $key ), 'url' => self::url( $key ) ) );
+	}
+
 	public function toggle() {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( array( 'text' => __( 'You cannot manage these settings.', 'anar-toolkit' ) ), 403 );
@@ -265,13 +288,35 @@ endif;
 		if ( ! array_key_exists( $key, self::labels() ) || ! isset( $_POST['enabled'], $_POST['expected'] ) || ! in_array( $_POST['enabled'], array( '0', '1' ), true ) || ! in_array( $_POST['expected'], array( '0', '1' ), true ) ) {
 			wp_send_json_error( array( 'text' => __( 'Unknown feature.', 'anar-toolkit' ) ), 422 );
 		}
-		if ( Features::enabled( $key ) !== (bool) $_POST['expected'] ) {
+		$lease = array( 'expires' => time() + 30, 'token' => wp_generate_uuid4() );
+		$lock_key = 'anar_feature_update_lock';
+		$previous_lock = get_option( $lock_key );
+		if ( is_array( $previous_lock ) && ( $previous_lock['expires'] ?? 0 ) < time() ) {
+			\Anar\Login\Infrastructure\AtomicOptions::remove( $lock_key, $previous_lock );
+		}
+		if ( ! add_option( $lock_key, $lease, '', false ) ) {
+			wp_send_json_error( array( 'text' => __( 'Another feature is being updated. Please try again in a moment.', 'anar-toolkit' ), 'retry' => true ), 409 );
+		}
+		// A request may have booted before another tab committed its change.
+		wp_cache_delete( 'alloptions', 'options' );
+		foreach ( array( Features::OPTION, Settings::OPTION_KEY, 'anar_toolkit_commerce', 'anar_toolkit_marketing', 'anar_toolkit_sms_balance' ) as $option ) {
+			wp_cache_delete( $option, 'options' );
+		}
+		$conflict = Features::enabled( $key ) !== (bool) $_POST['expected'];
+		try {
+			$result = $conflict ? false : self::set_feature( $key, '1' === $_POST['enabled'] );
+		} finally {
+			\Anar\Login\Infrastructure\AtomicOptions::remove( $lock_key, $lease );
+		}
+		if ( $conflict ) {
 			wp_send_json_error( array( 'text' => __( 'This feature was changed elsewhere. Reload to see its current state.', 'anar-toolkit' ), 'enabled' => Features::enabled( $key ) ), 409 );
 		}
-		$result = self::set_feature( $key, '1' === $_POST['enabled'] );
 		if ( true !== $result ) {
-			wp_send_json_error( array( 'text' => __( 'The change could not be confirmed. Check the saved state before trying again.', 'anar-toolkit' ), 'enabled' => Features::enabled( $key ) ), 422 );
+			wp_send_json_error( array( 'text' => is_wp_error( $result ) ? $result->get_error_message() : __( 'The change could not be confirmed. Check the saved state before trying again.', 'anar-toolkit' ), 'enabled' => Features::enabled( $key ), 'setup' => 'two_factor' === $key ? add_query_arg( 'action', 'anar_security', wp_login_url() ) : '' ), 422 );
 		}
-		wp_send_json_success( array( 'enabled' => Features::enabled( $key ), 'url' => self::url( $key ) ) );
+		ob_start();
+		Workspace::navigation( isset( $_POST['workspace'] ) && 'settings' === $_POST['workspace'] );
+		$navigation = ob_get_clean();
+		wp_send_json_success( array( 'enabled' => Features::enabled( $key ), 'url' => self::url( $key ), 'navigation' => $navigation ) );
 	}
 }

@@ -98,7 +98,13 @@ final class SettingsPage {
 				$input[ $key ] = $current[ $key ];
 			}
 		}
-		return $this->settings->sanitize( $input, $this->providers->all() );
+		$clean = $this->settings->sanitize( $input, $this->providers->all() );
+		$previous = $current['two_factor'];
+		if ( 'off' !== $clean['two_factor'] && $previous !== $clean['two_factor'] && ! \Anar\Login\Auth\RecoveryCodes::prepared( get_current_user_id() ) ) {
+			$clean['two_factor'] = $previous;
+			add_settings_error( Settings::OPTION_KEY, 'anar_recovery_required', __( 'Before enabling two-step verification, open account security and confirm your saved recovery codes.', 'anar-toolkit' ) );
+		}
+		return $clean;
 	}
 
 	/**
@@ -330,6 +336,7 @@ final class SettingsPage {
 					</section>
 
 					<section class="anar-tab" data-panel="security" hidden>
+						<div class="anar-recovery-callout"><span class="dashicons dashicons-shield-alt" aria-hidden="true"></span><div><h2><?php esc_html_e( 'Keep access when SMS is unavailable', 'anar-toolkit' ); ?></h2><p><?php esc_html_e( 'Set up an offline authenticator and save recovery codes before requiring two-step verification. Recovery codes also work with SMS verification.', 'anar-toolkit' ); ?></p><a class="button" href="<?php echo esc_url( add_query_arg( 'action', 'anar_security', wp_login_url() ) ); ?>"><?php esc_html_e( 'Set up my recovery access', 'anar-toolkit' ); ?></a></div></div>
 						<?php $this->section_header( __( 'Security and rate limits', 'anar-toolkit' ), __( 'Configure code lifetime and request limits for your site.', 'anar-toolkit' ), '⌾' ); ?>
 						<div class="anar-card">
 							<?php if ( ! is_multisite() ) : ?>

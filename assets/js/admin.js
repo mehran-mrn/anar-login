@@ -32,11 +32,11 @@
 		window.history.replaceState(window.history.state, '', address);
 	};
 
-	root.querySelectorAll('[data-tab]').forEach((button) => {
-		button.addEventListener('click', () => {
-			navigateTab(button.dataset.tab);
-		});
+	root.addEventListener('click', event => {
+		const button = event.target.closest('[data-tab]');
+		if (button && root.contains(button)) navigateTab(button.dataset.tab);
 	});
+	document.addEventListener('anar:navigation-updated', () => showTab(new URL(window.location.href).searchParams.get('section') || 'features'));
 
 	let savedTab = '';
 	try {

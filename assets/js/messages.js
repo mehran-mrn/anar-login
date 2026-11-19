@@ -8,7 +8,7 @@
 	const feedback = dialog.querySelector('[data-message-feedback]');
 	const providerDraft = dialog.querySelector('[data-message-provider-draft]');
 	const closeButton = dialog.querySelector('[data-message-close]');
-	const unsaved = dialog.querySelector('[data-message-unsaved]');
+	const unsaved = document.querySelector('[data-message-unsaved]');
 	const reloadButton = dialog.querySelector('[data-message-reload]');
 	let selection = null;
 	let pendingLeave = null;
@@ -21,8 +21,8 @@
 
 	function snapshot(form) {
 		return JSON.stringify(Array.from(form.elements).filter(function (field) {
-			return field.name && !['_wpnonce', '_wp_http_referer', 'revision', 'test_phone', 'operation', 'submit'].includes(field.name) && !['submit', 'button'].includes(field.type) && (!['checkbox', 'radio'].includes(field.type) || field.checked);
-		}).map(function (field) { return [field.name, field.value]; }));
+			return !field.disabled && !field.name.startsWith('anar_connection_view_') && field.name && !['_wpnonce', '_wp_http_referer', 'revision', 'test_phone', 'operation', 'submit'].includes(field.name) && !['submit', 'button'].includes(field.type) && (!['checkbox', 'radio'].includes(field.type) || field.checked);
+		}).map(function (field) { return [field.name, field.value]; }).sort(function (a, b) { return JSON.stringify(a).localeCompare(JSON.stringify(b)); }));
 	}
 	function report(text, success, target) {
 		const element = target || feedback;
@@ -339,6 +339,16 @@
 		if (id) open(id, address.searchParams.get('variant'), { history: false, skipConfirm: true });
 		else if (dialog.open) close();
 	});
+
+	document.addEventListener('anar:navigate', function (event) {
+        const action = event.detail.proceed;
+        if (busy || editor && editor.dirty() || [...parents].some(entry => snapshot(entry[0]) !== entry[1])) {
+            event.preventDefault();
+            if (busy || unsaved.open) return;
+            pendingLeave = function () { parents.clear(); editor = null; action(); };
+            unsaved.showModal(); unsaved.querySelector('[data-message-keep]').focus();
+        }
+    });
 	window.addEventListener('beforeunload', function (event) {
 		if (busy || editor && editor.dirty() || Array.from(parents).some(function (entry) { return snapshot(entry[0]) !== entry[1]; })) { event.preventDefault(); event.returnValue = ''; }
 	});
@@ -358,12 +368,12 @@
 		filter.addEventListener('submit', function (event) { event.preventDefault(); filterRows(); });
 		filter.addEventListener('input', filterRows); filter.addEventListener('change', filterRows); filterRows();
 	}
-	document.querySelectorAll('.anar-connection-form, [data-scoped-settings], [data-message-shared], .anar-commerce form[action$="options.php"], .anar-features form').forEach(function (form) {
+	document.querySelectorAll('.anar-connection-form, [data-scoped-settings], [data-message-shared], .anar-commerce form[action$="options.php"]').forEach(function (form) {
 		parents.set(form, snapshot(form));
 		form.addEventListener('submit', function () { if (!form.matches('[data-message-shared], [data-scoped-settings]')) parents.delete(form); });
 	});
 	['anar:scoped-saved', 'anar:feature-saved'].forEach(function (name) {
-		document.addEventListener(name, function (event) { parents.set(event.detail.form, snapshot(event.detail.form)); });
+		document.addEventListener(name, function (event) { if (parents.has(event.detail.form)) parents.set(event.detail.form, snapshot(event.detail.form)); });
 	});
 	const shared = document.querySelector('[data-message-shared]');
 	if (shared) shared.addEventListener('submit', async function (event) {

@@ -176,16 +176,16 @@ final class MessageCenter {
 			<div class="anar-message-feedback" data-message-feedback role="status" aria-live="polite" hidden></div>
 			<button type="button" class="button anar-message-reload" data-message-reload hidden><?php esc_html_e( 'Reload saved message', 'anar-toolkit' ); ?></button>
 			<div class="anar-message-dialog__body" data-message-body></div>
+		</dialog>
 			<dialog class="anar-admin anar-message-unsaved" data-message-unsaved role="alertdialog" aria-labelledby="anar-message-unsaved-title" aria-describedby="anar-message-unsaved-text">
 				<span class="anar-message-unsaved__mark" aria-hidden="true">!</span>
-				<h3 id="anar-message-unsaved-title"><?php esc_html_e( 'Unsaved message changes', 'anar-toolkit' ); ?></h3>
-				<p id="anar-message-unsaved-text"><?php esc_html_e( 'If you leave now, the changes you made to this message will be lost.', 'anar-toolkit' ); ?></p>
+				<h3 id="anar-message-unsaved-title"><?php esc_html_e( 'Unsaved changes', 'anar-toolkit' ); ?></h3>
+				<p id="anar-message-unsaved-text"><?php esc_html_e( 'You have unsaved changes. Continue editing to save them, or discard them to open the next page.', 'anar-toolkit' ); ?></p>
 				<div class="anar-message-unsaved__actions">
 					<button type="button" class="button button-primary" data-message-keep autofocus><?php esc_html_e( 'Continue editing', 'anar-toolkit' ); ?></button>
 					<button type="button" class="button" data-message-discard><?php esc_html_e( 'Discard changes', 'anar-toolkit' ); ?></button>
 				</div>
 			</dialog>
-		</dialog>
 		<?php
 	}
 
