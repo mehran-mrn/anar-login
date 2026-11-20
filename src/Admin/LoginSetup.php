@@ -45,7 +45,8 @@ final class LoginSetup {
 			</div>
 			<div class="anar-card" data-setup-step="2" hidden>
 				<h3 tabindex="-1"><?php esc_html_e( 'Check delivery and complete a test sign-in', 'anar-toolkit' ); ?></h3>
-				<p><?php esc_html_e( 'Send a test from the message editor, then sign in from a private browser window using your own contact. Test sending uses your provider credit.', 'anar-toolkit' ); ?></p>
+				<p><?php esc_html_e( 'Check the saved configuration in Test and troubleshoot, then send a test to your own phone. Finish by signing in from a private browser window.', 'anar-toolkit' ); ?></p>
+				<button type="button" class="button button-primary" data-setup-target="test"><?php esc_html_e( 'Open test center', 'anar-toolkit' ); ?></button>
 				<?php if ( 'email' !== $value['identity_mode'] ) : ?>
 					<?php
 					if ( in_array( 'sms', $value['login_methods'], true ) ) {

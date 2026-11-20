@@ -54,6 +54,21 @@ final class AdminController {
 	public function routes() {
 		register_rest_route(
 			AuthController::NAMESPACE,
+			'/admin/delivery-check',
+			array(
+				'methods'             => 'GET',
+				'callback'            => static function () {
+					$report = \Anar\Login\Admin\DeliveryCheck::report();
+					$report['support'] = \Anar\Login\Admin\DeliveryCheck::support_text( $report );
+					return $report;
+				},
+				'permission_callback' => static function () {
+					return current_user_can( 'manage_options' );
+				},
+			)
+		);
+		register_rest_route(
+			AuthController::NAMESPACE,
 			'/admin/test-sms',
 			array(
 				'methods'             => 'POST',
@@ -80,7 +95,18 @@ final class AdminController {
 	 * @return array<string,string>|\WP_Error
 	 */
 	public function test_sms( WP_REST_Request $request ) {
-		$draft  = $request->get_param( Settings::OPTION_KEY );
+		$revision = $request->get_param( 'revision' );
+		if ( null !== $revision ) {
+			$report = \Anar\Login\Admin\DeliveryCheck::report();
+			if ( ! is_string( $revision ) || ! hash_equals( $report['revision'], $revision ) ) {
+				return new \WP_Error( 'anar_test_changed', __( 'Saved settings changed. Check the configuration again before sending.', 'anar-toolkit' ), array( 'status' => 409 ) );
+			}
+			if ( ! $report['ready'] ) {
+				return new \WP_Error( 'anar_test_incomplete', __( 'Complete the connection and sign-in message before sending a test.', 'anar-toolkit' ), array( 'status' => 400 ) );
+			}
+		}
+		// Revision-bound tests always use the saved configuration shown to the admin.
+		$draft  = null !== $revision ? null : $request->get_param( Settings::OPTION_KEY );
 		$filter = null;
 
 		if ( is_array( $draft ) ) {
@@ -91,10 +117,12 @@ final class AdminController {
 			add_filter( 'pre_option_' . Settings::OPTION_KEY, $filter );
 		}
 
-		$result = $this->otp->send_test( (string) $request->get_param( 'phone' ) );
-
-		if ( $filter ) {
-			remove_filter( 'pre_option_' . Settings::OPTION_KEY, $filter );
+		try {
+			$result = $this->otp->send_test( (string) $request->get_param( 'phone' ), null !== $revision );
+		} finally {
+			if ( $filter ) {
+				remove_filter( 'pre_option_' . Settings::OPTION_KEY, $filter );
+			}
 		}
 
 		return $result;

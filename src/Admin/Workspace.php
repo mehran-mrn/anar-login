@@ -31,7 +31,7 @@ final class Workspace {
 			__( 'Sign-in and accounts', 'anar-toolkit' ) => array( 'general' => __( 'Sign-in settings', 'anar-toolkit' ), 'security' => __( 'Security', 'anar-toolkit' ), 'google' => __( 'Google sign-in', 'anar-toolkit' ), 'setup' => __( 'Sign-in setup guide', 'anar-toolkit' ), 'install' => __( 'Add to pages', 'anar-toolkit' ) ),
 			__( 'Store and marketing', 'anar-toolkit' ) => array(),
 			__( 'Messages and sending report', 'anar-toolkit' ) => array( 'messages' => __( 'Messages and templates', 'anar-toolkit' ) ),
-			__( 'Shared settings', 'anar-toolkit' ) => array( 'sms' => __( 'Service providers', 'anar-toolkit' ), 'sending' => __( 'Campaign sending rules', 'anar-toolkit' ), 'woocommerce' => __( 'WooCommerce', 'anar-toolkit' ) ),
+			__( 'Shared settings', 'anar-toolkit' ) => array( 'test' => __( 'Test and troubleshoot', 'anar-toolkit' ), 'sms' => __( 'Service providers', 'anar-toolkit' ), 'sending' => __( 'Campaign sending rules', 'anar-toolkit' ), 'woocommerce' => __( 'WooCommerce', 'anar-toolkit' ) ),
 		);
 		foreach ( $groups as $heading => $items ) {
 			if ( __( 'Store and marketing', 'anar-toolkit' ) === $heading && ! class_exists( 'WooCommerce' ) ) {

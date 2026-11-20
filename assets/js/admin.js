@@ -5,9 +5,21 @@
 	const root = document.querySelector('.anar-admin');
 	if (!root) return;
 
+	const revealActiveTab = () => {
+		const nav = root.querySelector('.anar-admin__nav');
+		const activeButton = nav?.querySelector('[data-tab].is-active');
+		if (nav && activeButton && nav.scrollWidth > nav.clientWidth) {
+			const bounds = nav.getBoundingClientRect();
+			const item = activeButton.getBoundingClientRect();
+			if (item.left < bounds.left) nav.scrollBy({ left: item.left - bounds.left - 8 });
+			else if (item.right > bounds.right) nav.scrollBy({ left: item.right - bounds.right + 8 });
+		}
+	};
+	window.addEventListener('resize', revealActiveTab);
+
 	const showTab = (name) => {
 		const connection = root.querySelector('.anar-connection-form');
-		if (connection) connection.hidden = name === 'messages' || name === 'sending' || name === 'features';
+		if (connection) connection.hidden = ['messages', 'sending', 'features', 'test'].includes(name);
 		const save = root.querySelector('.anar-admin__save');
 		if (save) save.hidden = name === 'setup' || name === 'sms';
 		root.querySelectorAll('[data-tab]').forEach((button) => {
@@ -19,6 +31,8 @@
 			panel.hidden = !active;
 			panel.classList.toggle('is-active', active);
 		});
+		revealActiveTab();
+		root.dispatchEvent(new CustomEvent('anar:tab-change', { detail: { name } }));
 		try {
 			window.sessionStorage.setItem('anarAdminTab', name);
 		} catch (error) {
@@ -112,55 +126,6 @@
 		}
 	}
 
-	const tester = root.querySelector('.anar-sms-test');
-	if (tester) {
-		const phone = tester.querySelector('input');
-		const send = tester.querySelector('button');
-		const result = tester.querySelector('.anar-sms-test__result');
-		const report = (text, type) => {
-			result.textContent = text;
-			result.className = 'anar-sms-test__result is-' + type;
-			result.hidden = false;
-		};
-
-		send.addEventListener('click', async () => {
-			const label = send.textContent;
-			send.disabled = true;
-			send.textContent = config.sending || label;
-			try {
-				// Send the form's current, unsaved values so the selected provider is the one tested.
-				const body = new URLSearchParams();
-				body.append('phone', phone.value);
-				const form = tester.closest('form');
-				if (form) {
-					new FormData(form).forEach((value, name) => {
-						if (name.indexOf('anar_login_settings[') === 0 && typeof value === 'string') body.append(name, value);
-					});
-				}
-				const response = await fetch(config.restUrl + 'admin/test-sms', {
-					method: 'POST',
-					credentials: 'same-origin',
-					headers: { 'X-WP-Nonce': config.nonce || '' },
-					body
-				});
-				const data = await response.json().catch(() => ({}));
-				report(data.message || config.network, response.ok ? 'success' : 'error');
-			} catch (error) {
-				report(config.network, 'error');
-			} finally {
-				send.disabled = false;
-				send.textContent = label;
-			}
-		});
-
-		// Enter in the test field must not submit the settings form.
-		phone.addEventListener('keydown', (event) => {
-			if (event.key === 'Enter') {
-				event.preventDefault();
-				send.click();
-			}
-		});
-	}
 
 	const methods = root.querySelector('[data-login-methods]');
 	const syncMethods = () => {

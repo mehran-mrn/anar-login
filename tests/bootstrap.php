@@ -159,6 +159,10 @@ function get_bloginfo( $key ) {
 	return 'name' === $key ? 'Test site' : '';
 }
 
+function is_ssl() {
+	return true;
+}
+
 function home_url() {
 	return 'https://example.test';
 }

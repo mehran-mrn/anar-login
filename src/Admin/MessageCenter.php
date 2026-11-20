@@ -37,6 +37,7 @@ final class MessageCenter {
 			wp_enqueue_style( 'anar-login-admin', ANAR_LOGIN_URL . 'assets/css/admin.css', array(), ANAR_LOGIN_VERSION );
 			wp_enqueue_style( 'anar-admin-controls', ANAR_LOGIN_URL . 'assets/css/admin-controls.css', array( 'anar-login-admin' ), ANAR_LOGIN_VERSION );
 			wp_enqueue_style( 'anar-messages', ANAR_LOGIN_URL . 'assets/css/messages.css', array( 'anar-admin-controls' ), ANAR_LOGIN_VERSION );
+			wp_enqueue_style( 'anar-admin-workspace', ANAR_LOGIN_URL . 'assets/css/admin-workspace.css', array( 'anar-workspace', 'anar-admin-controls', 'anar-features', 'anar-messages' ), ANAR_LOGIN_VERSION );
 			wp_enqueue_script( 'anar-messages', ANAR_LOGIN_URL . 'assets/js/messages.js', array(), ANAR_LOGIN_VERSION, true );
 			wp_localize_script(
 				'anar-messages',

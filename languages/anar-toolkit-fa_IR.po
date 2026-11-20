@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: Anar Toolkit 1.13.1\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
+msgstr "Project-Id-Version: Anar Toolkit 1.14.0\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
 
 msgid "%1$d paid orders. A gift at every %2$d orders."
 msgstr "%1$d سفارش پرداخت‌شده؛ یک هدیه پس از هر %2$d سفارش."
@@ -673,17 +673,29 @@ msgstr "تغییر تنظیمات امنیت حساب به تأیید هویت �
 msgid "Check balance"
 msgstr "دریافت موجودی"
 
+msgid "Check configuration"
+msgstr "بررسی تنظیمات"
+
 msgid "Check connection"
 msgstr "بررسی اتصال حساب"
 
 msgid "Check delivery and complete a test sign-in"
 msgstr "دریافت پیام و ورود را آزمایش کنید"
 
+msgid "Check saved settings"
+msgstr "بررسی تنظیمات ذخیره‌شده"
+
+msgid "Check settings, then test delivery"
+msgstr "بررسی تنظیمات و آزمایش ارسال"
+
 msgid "Check the highlighted field before saving."
 msgstr "پیش از ذخیره، مقدار فیلد مشخص‌شده را اصلاح کنید."
 
 msgid "Check the registration fields and try again."
 msgstr "اطلاعات فرم ثبت‌نام را بررسی و اصلاح کنید."
+
+msgid "Check the saved configuration in Test and troubleshoot, then send a test to your own phone. Finish by signing in from a private browser window."
+msgstr "در بخش تست و عیب‌یابی، تنظیمات ذخیره‌شده را بررسی و به شمارهٔ خودتان پیام آزمایشی ارسال کنید. در پایان، ورود را در پنجرهٔ خصوصی مرورگر هم امتحان کنید."
 
 msgid "Check this account periodically"
 msgstr "موجودی این حساب به‌صورت دوره‌ای بررسی شود"
@@ -699,6 +711,9 @@ msgstr "در حال دریافت موجودی…"
 
 msgid "Checking connection…"
 msgstr "در حال بررسی اتصال…"
+
+msgid "Checking saved settings…"
+msgstr "در حال بررسی تنظیمات ذخیره‌شده…"
 
 msgid "Checking your connection. Please try again."
 msgstr "در حال بررسی اتصال؛ لطفاً دوباره تلاش کنید."
@@ -735,6 +750,9 @@ msgstr "یک نقطه از نقشهٔ گنج را انتخاب کنید"
 
 msgid "Choose an SMS provider for the mobile sign-in SMS message."
 msgstr "برای پیامک کد ورود موبایل، یک پنل پیامکی انتخاب کنید."
+
+msgid "Choose an SMS provider in connection settings."
+msgstr "در تنظیمات اتصال، یک پنل پیامکی انتخاب کنید."
 
 msgid "Choose an available SMS provider."
 msgstr "یک سرویس‌دهندهٔ پیامکی موجود انتخاب کنید."
@@ -826,6 +844,9 @@ msgstr "طول کد"
 msgid "Code lifetime"
 msgstr "اعتبار کد"
 
+msgid "Code lifetime and request limits"
+msgstr "اعتبار کد و محدودیت درخواست‌ها"
+
 msgid "Code parameter name"
 msgstr "نام پارامتر کد"
 
@@ -867,6 +888,9 @@ msgstr "اطلاعات اتصال سرویس پیامک را در تنظیمات
 
 msgid "Complete the configured purchase milestone before claiming this gift."
 msgstr "برای دریافت این هدیه، تعداد خرید تعیین‌شده را تکمیل کنید."
+
+msgid "Complete the connection and sign-in message before sending a test."
+msgstr "پیش از ارسال آزمایشی، اطلاعات اتصال و پیام ورود را کامل کنید."
 
 msgid "Complete the form and verify your mobile number to register."
 msgstr "برای ثبت‌نام، فرم را تکمیل و شمارهٔ همراه خود را تأیید کنید."
@@ -948,6 +972,9 @@ msgstr "تأیید موفق کد بازیابی:"
 
 msgid "Confirmed recovery visits:"
 msgstr "بازدید تأییدشده بازیابی:"
+
+msgid "Connect and save your provider"
+msgstr "اتصال پنل و ذخیرهٔ تنظیمات"
 
 msgid "Connect the selected service"
 msgstr "سرویس انتخاب‌شده را متصل کنید"
@@ -1045,6 +1072,9 @@ msgstr "کپی کد تخفیف"
 msgid "Copy failed"
 msgstr "ناموفق"
 
+msgid "Copy support report"
+msgstr "کپی گزارش پشتیبانی"
+
 msgid "Copy the Anar discount code to use when topping up your Meli Payamak account."
 msgstr "کد تخفیف کاربران انار را برای شارژ پنل ملی‌پیامک کپی کنید."
 
@@ -1128,6 +1158,9 @@ msgstr "ایجاد حساب کاربری"
 
 msgid "Creating your invoice…"
 msgstr "در حال دریافت فاکتور…"
+
+msgid "Credentials and message"
+msgstr "اطلاعات اتصال و پیام"
 
 msgid "Currency"
 msgstr "واحد پول"
@@ -1225,6 +1258,9 @@ msgstr "عنوان پیش‌فرض برای جایزهٔ ثابت است. جای
 msgid "Delivery method"
 msgstr "روش ارسال"
 
+msgid "Delivery service"
+msgstr "سرویس ارسال"
+
 msgid "Designed by Mehran Marandi"
 msgstr "طراحی و توسعه توسط مهران مرندی"
 
@@ -1308,6 +1344,9 @@ msgstr "ویرایش پیام"
 
 msgid "Edit sign-in message"
 msgstr "ویرایش پیامک کد ورود"
+
+msgid "Edit the sign-in message"
+msgstr "ویرایش پیام ورود"
 
 msgid "Eligible contacts: %1$d · Invalid rows: %2$d"
 msgstr "مخاطبان واجد شرایط: %1$d · سطرهای نامعتبر: %2$d"
@@ -1654,6 +1693,9 @@ msgstr "لوگوی فرم"
 msgid "Free game attempts per customer / day"
 msgstr "تعداد بازی رایگان هر مشتری در روز"
 
+msgid "Free local check. No message is sent and no credit is used."
+msgstr "بررسی رایگان تنظیمات؛ بدون ارسال پیام و بدون مصرف اعتبار پنل."
+
 msgid "Free to play. Coupons are personal and have no cash value."
 msgstr "شرکت در بازی رایگان است. کد تخفیف اختصاصی شماست و ارزش نقدی ندارد."
 
@@ -1818,6 +1860,9 @@ msgstr "اگر ارسال در دسترس باشد، کد تأیید به‌زو
 
 msgid "If email sending fails"
 msgstr "اگر ارسال ایمیل ناموفق بود"
+
+msgid "If no code arrives, check your provider credit, approved template and its variables, then inspect the provider delivery log."
+msgstr "اگر کد نرسید، اعتبار پنل، تأیید پترن و متغیرهای آن را بررسی کنید؛ سپس گزارش تحویل در پنل پیامکی را ببینید."
 
 msgid "If sign-in is available, a code has been sent to your email."
 msgstr "اگر امکان ورود وجود داشته باشد، کد به ایمیل شما ارسال شد."
@@ -2064,6 +2109,9 @@ msgstr "حریم خصوصی MRNWP"
 
 msgid "Make it work your way."
 msgstr "فروشگاه را به شیوهٔ خودتان اداره کنید."
+
+msgid "Manage messages"
+msgstr "مدیریت پیام‌ها"
 
 msgid "Manage messages, carts and enabled customer campaigns."
 msgstr "پیام‌ها، سبدها و کمپین‌های فعال را مدیریت کنید."
@@ -2320,6 +2368,9 @@ msgstr "هدیهٔ خرید بعدی"
 msgid "Next-purchase prediction"
 msgstr "پیش‌بینی خرید بعدی"
 
+msgid "No"
+msgstr "خیر"
+
 msgid "No SMS provider selected"
 msgstr "سرویس‌دهندهٔ پیامک انتخاب نشده"
 
@@ -2371,6 +2422,9 @@ msgstr "رکوردی با این بازه و فیلتر وجود ندارد. ب�
 msgid "Not checked yet"
 msgstr "هنوز بررسی نشده"
 
+msgid "Not configured"
+msgstr "تنظیم نشده"
+
 msgid "Not connected to this account"
 msgstr "به این حساب متصل نیست"
 
@@ -2412,6 +2466,9 @@ msgstr "ارائهٔ تخفیف از مرحلهٔ یادآوری (۱ تا ۳)"
 
 msgid "One coupon per cart, one use, restricted to the recipient billing phone. Include {coupon_code} in the relevant reminder template. A valid coupon is applied after the customer verifies their recovery code."
 msgstr "برای هر سبد یک کوپن یک‌بارمصرف، محدود به شمارهٔ صورتحساب گیرنده ایجاد می‌شود. {coupon_code} را در الگوی یادآوری مربوط قرار دهید. کوپن معتبر پس از تأیید کد بازیابی مشتری اعمال می‌شود."
+
+msgid "One editor for every message"
+msgstr "ویرایش همهٔ پیام‌ها در یک جا"
 
 msgid "One form signs customers in and registers new ones. A “sign in with a password” link stays available."
 msgstr "یک فرم واحد، مشتریان فعلی را وارد و مشتریان جدید را ثبت‌نام می‌کند. گزینهٔ «ورود با رمز عبور» همچنان در دسترس است."
@@ -2484,6 +2541,9 @@ msgstr "تنظیمات ایمیل"
 
 msgid "Open sign-in settings"
 msgstr "تنظیمات ورود"
+
+msgid "Open test center"
+msgstr "رفتن به بخش تست"
 
 msgid "Open the MRN Forms builder"
 msgstr "باز کردن فرم‌ساز MRN Forms"
@@ -2851,6 +2911,9 @@ msgstr "بازی‌های فروشگاهی"
 msgid "Provider / result"
 msgstr "سرویس‌دهنده / نتیجه"
 
+msgid "Provider acceptance does not confirm handset delivery. Check your phone after sending."
+msgstr "پذیرش درخواست توسط پنل به معنی تحویل به گوشی نیست. پس از ارسال، دریافت پیام را در گوشی بررسی کنید."
+
 msgid "Provider acceptance, not delivery"
 msgstr "پذیرش سرویس‌دهنده، نه تحویل به گوشی"
 
@@ -2922,6 +2985,9 @@ msgstr "مسیر بازگشت به خرید"
 
 msgid "Raw OTPs are never stored in the database."
 msgstr "OTP خام هرگز در دیتابیس ذخیره نمی‌شود."
+
+msgid "Ready to test"
+msgstr "آمادهٔ تست"
 
 msgid "Receive today’s gift"
 msgstr "دریافت هدیهٔ امروز"
@@ -3178,6 +3244,9 @@ msgstr "سورپرایزتان را ببینید"
 msgid "Review invoice and pay on Meli Payamak"
 msgstr "بررسی فاکتور و پرداخت در ملی‌پیامک"
 
+msgid "Review security"
+msgstr "بررسی امنیت"
+
 msgid "Reward issued"
 msgstr "هدیه صادر شد"
 
@@ -3195,6 +3264,9 @@ msgstr "پیامک و بله همان کد را به شماره موبایل و�
 
 msgid "SMS codes per hour"
 msgstr "کد پیامکی در ساعت"
+
+msgid "SMS connection"
+msgstr "اتصال پیامک"
 
 msgid "SMS credit"
 msgstr "اعتبار پیامک"
@@ -3352,6 +3424,15 @@ msgstr "سبدهای ذخیره‌شده"
 msgid "Saved carts and returning purchases"
 msgstr "سبدهای ذخیره‌شده و خریدهای بازگشتی"
 
+msgid "Saved configuration is complete. A real send is still needed to check the service."
+msgstr "تنظیمات ذخیره‌شده کامل است. برای بررسی سرویس، یک ارسال واقعی هم انجام دهید."
+
+msgid "Saved settings changed. Check the configuration again before sending."
+msgstr "تنظیمات ذخیره‌شده تغییر کرده است. پیش از ارسال، دوباره تنظیمات را بررسی کنید."
+
+msgid "Saved settings checked. No message was sent."
+msgstr "تنظیمات ذخیره‌شده بررسی شد. هیچ پیامی ارسال نشده است."
+
 msgid "Saved — enter a new value to change it"
 msgstr "ذخیره شده — برای تغییر، مقدار جدید را بنویسید"
 
@@ -3448,6 +3529,9 @@ msgstr "از تنظیمات پیامک انتخاب شده است."
 msgid "Send a new recovery code"
 msgstr "ارسال کد بازیابی جدید"
 
+msgid "Send a real test"
+msgstr "ارسال آزمایشی واقعی"
+
 msgid "Send a test SMS"
 msgstr "ارسال پیامک آزمایشی"
 
@@ -3468,6 +3552,9 @@ msgstr "ارسال کد بازنشانی رمز"
 
 msgid "Send test"
 msgstr "ارسال آزمایشی"
+
+msgid "Send test code"
+msgstr "ارسال کد آزمایشی"
 
 msgid "Send to linked email and mobile together"
 msgstr "ارسال هم‌زمان به ایمیل و موبایل متصل به حساب"
@@ -3703,6 +3790,9 @@ msgstr "روش ورود"
 msgid "Sign-in methods"
 msgstr "روش‌های ورود"
 
+msgid "Sign-in protection"
+msgstr "امنیت ورود"
+
 msgid "Sign-in settings"
 msgstr "تنظیمات ورود"
 
@@ -3853,6 +3943,9 @@ msgstr "ثبت بازخورد"
 msgid "Success text in the response"
 msgstr "متن موفقیت در پاسخ"
 
+msgid "Support report"
+msgstr "گزارش پشتیبانی"
+
 msgid "Sync your customer history"
 msgstr "همگام‌سازی تاریخچهٔ مشتریان"
 
@@ -3879,6 +3972,9 @@ msgstr "درگاه‌های الگویی فقط از مقدار {code} استف�
 
 msgid "Test accepted by the provider. Check the recipient phone."
 msgstr "پنل، ارسال آزمایشی را پذیرفت. دریافت پیام را روی گوشی بررسی کنید."
+
+msgid "Test and troubleshoot"
+msgstr "تست و عیب‌یابی"
 
 msgid "Test sign-in"
 msgstr "آزمون ورود"
@@ -4063,6 +4159,9 @@ msgstr "تخفیف بازیابی با شمارهٔ همراه صورتحساب 
 msgid "The registration form is currently unavailable."
 msgstr "فرم ثبت‌نام در حال حاضر در دسترس نیست."
 
+msgid "The report includes software versions and configuration status. It excludes credentials, phone numbers, template values and site addresses."
+msgstr "این گزارش فقط نسخهٔ نرم‌افزارها و وضعیت تنظیمات را نشان می‌دهد؛ اطلاعات ورود به پنل، شماره‌ها، مقادیر پترن و نشانی سایت در آن نیست."
+
 msgid "The request form appears on out-of-stock product pages. The customer verifies their mobile number and selects a product or variation. One notification is queued when that item becomes available."
 msgstr "فرم درخواست در صفحهٔ کالای ناموجود نمایش داده می‌شود. مشتری شمارهٔ همراه خود را تأیید و کالا یا متغیر مورد نظر را انتخاب می‌کند. پس از تأمین موجودی، یک اعلان در صف قرار می‌گیرد."
 
@@ -4092,6 +4191,9 @@ msgstr "مسابقهٔ فروشگاه هنوز تنظیم نشده است."
 
 msgid "The store quiz will be available soon."
 msgstr "مسابقهٔ فروشگاه به‌زودی آماده می‌شود."
+
+msgid "The test result could not be confirmed. Check the provider log before sending again."
+msgstr "نتیجهٔ تست مشخص نشد. پیش از ارسال دوباره، گزارش پنل پیامکی را بررسی کنید."
 
 msgid "The verification code could not be created. Please try again."
 msgstr "ایجاد کد تأیید انجام نشد. لطفاً دوباره تلاش کنید."
@@ -4294,6 +4396,9 @@ msgstr "منابع بازدید"
 msgid "Treasure hunt"
 msgstr "جست‌وجوی گنج"
 
+msgid "Troubleshooting and support report"
+msgstr "راهنمای عیب‌یابی و گزارش پشتیبانی"
+
 msgid "Turn a lucky card"
 msgstr "کارت شانس"
 
@@ -4302,6 +4407,9 @@ msgstr "با غیرفعال‌سازی، تنظیمات و سوابق حفظ م�
 
 msgid "Turning monitoring off stops scheduled checks and warnings. Sending SMS and saved connection settings are preserved."
 msgstr "با خاموش‌کردن این قابلیت، بررسی دوره‌ای و هشدارها متوقف می‌شوند. ارسال پیامک و اطلاعات اتصال تغییری نمی‌کنند."
+
+msgid "Two clear steps: check the saved settings, then send to your own phone."
+msgstr "دو گام ساده: تنظیمات ذخیره‌شده را بررسی کنید، سپس به شمارهٔ خودتان پیام آزمایشی بفرستید."
 
 msgid "Two lightweight shortcodes compatible with the Classic and Block editors."
 msgstr "دو شورت‌کد سبک، سازگار با ویرایشگر کلاسیک و بلوکی."
@@ -4392,6 +4500,9 @@ msgstr "این عدد فقط در حالت سهمیهٔ مشترک استفاد�
 
 msgid "Username"
 msgstr "نام کاربری"
+
+msgid "Uses the saved sign-in message and provider credit. No account or usable sign-in code is created."
+msgstr "با پیام ورود ذخیره‌شده ارسال می‌شود و از اعتبار پنل استفاده می‌کند. حساب کاربری یا کد قابل‌استفاده برای ورود ساخته نمی‌شود."
 
 msgid "Uses the sign-in template"
 msgstr "از الگوی ورود استفاده می‌کند"
@@ -4525,8 +4636,14 @@ msgstr "ووکامرس"
 msgid "WordPress export and erasure tools can locate reminders by the optional saved email. For a phone-only request, verify the requester first and remove that number here. This removes local reminder data and queue entries, not WooCommerce orders or records already held by the SMS provider."
 msgstr "ابزارهای برون‌بری و حذف اطلاعات وردپرس با ایمیل اختیاری ثبت‌شده، یادآوری‌ها را پیدا می‌کنند. برای درخواست مبتنی بر شماره، ابتدا هویت درخواست‌کننده را بررسی و سپس شماره را اینجا حذف کنید. داده‌های محلی یادآوری و صف حذف می‌شوند؛ سفارش‌های ووکامرس و سوابق ذخیره‌شده در پنل پیامکی باقی می‌مانند."
 
+msgid "Workspace shortcuts"
+msgstr "دسترسی سریع به بخش‌های انار"
+
 msgid "Write the message or configure its approved template for each active feature. Choose a message below to edit it or send a test."
 msgstr "متن پیامک و الگوی خدماتی هر قابلیت فعال را از این بخش تنظیم کنید. با انتخاب هر پیام، می‌توانید آن را ویرایش کنید یا برای اطمینان از تنظیمات، پیامک آزمایشی بفرستید."
+
+msgid "Yes"
+msgstr "بله"
 
 msgid "You are signed in"
 msgstr "شما وارد شده‌اید"
@@ -4551,6 +4668,9 @@ msgstr "با موفقیت وارد شدید."
 
 msgid "You have unsaved changes. Continue editing to save them, or discard them to open the next page."
 msgstr "تغییرات ذخیره‌نشده دارید. برای ذخیره، به ویرایش ادامه دهید یا تغییرات را کنار بگذارید و صفحه بعد را باز کنید."
+
+msgid "You have unsaved settings. Save them before testing so the test matches your live configuration."
+msgstr "تغییرات ذخیره‌نشده دارید. ابتدا آن‌ها را ذخیره کنید تا تست با تنظیمات واقعی سایت انجام شود."
 
 msgid "Your account could not be created. Request a new code and try again."
 msgstr "ایجاد حساب انجام نشد. کد جدید بگیرید و دوباره تلاش کنید."
@@ -4674,6 +4794,9 @@ msgstr "کد تأیید درخواست اطلاع موجودی شما %s است.
 
 msgid "Your surprise awaits"
 msgstr "جایزهٔ شما چه خواهد بود؟"
+
+msgid "Your test mobile number"
+msgstr "شمارهٔ موبایل خودتان برای تست"
 
 msgid "Your thank-you coupon:"
 msgstr "کوپن تشکر شما:"

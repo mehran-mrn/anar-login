@@ -51,6 +51,8 @@ English product page: https://mrnwp.ir/anar/en/
 
 ## SMS providers
 
+Open **Anar → Settings → Test and troubleshoot** to inspect the saved SMS configuration without sending a message or using provider credit. Save connection and code-setting changes first, then send a test to your own phone. The test uses the displayed SMS provider without also sending through Bale. Provider acceptance still needs confirmation on the phone. The expandable support report excludes credentials, recipient numbers, template values and site addresses.
+
 | Provider | API mode | Required settings |
 | --- | --- | --- |
 | Kavenegar | Verify Lookup | API key, template name |

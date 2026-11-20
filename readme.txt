@@ -4,7 +4,7 @@ Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.13.1
+Stable tag: 1.14.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -231,6 +231,10 @@ Yes. Set a budget per pool and a maximum money discount for each prize. Amounts 
 
 == Changelog ==
 
+= 1.14.0 =
+* Add a dedicated SMS test workspace, free saved-configuration checks and a support report without credentials.
+* Refresh the admin light header, colored shortcuts and mobile navigation. Preserve independent saves and existing account recovery.
+
 = 1.13.1 =
 * Refresh active navigation, enabled switches, provider cards and admin buttons with the shared rose palette.
 
@@ -428,6 +432,9 @@ Yes. Set a budget per pool and a maximum money discount for each prize. Amounts 
 Full history: https://github.com/mehran-mrn/anar-login/blob/main/CHANGELOG.md
 
 == Upgrade Notice ==
+
+= 1.14.0 =
+Existing settings are retained. Open Test and troubleshoot to check the saved SMS configuration before sending a test.
 
 = 1.10.0 =
 All SMS now uses the selected provider in Service providers. Retired per-feature choices no longer route messages. Review and save templates belonging to another provider before sending.

@@ -221,9 +221,10 @@ final class OtpService {
 	 * returned so configuration problems can be fixed from the settings page.
 	 *
 	 * @param string $raw_phone Recipient mobile number.
+	 * @param bool   $single    Test only the displayed SMS provider, without Bale delivery.
 	 * @return array<string,string>|WP_Error
 	 */
-	public function send_test( $raw_phone ) {
+	public function send_test( $raw_phone, $single = false ) {
 		$identity = Identity::normalize( $raw_phone );
 		if ( is_wp_error( $identity ) ) {
 			return $identity;
@@ -233,7 +234,8 @@ final class OtpService {
 		}
 
 		$code = CodeChallenge::generate( absint( $this->settings->get( 'otp_length', 5 ) ) );
-		$sent = $this->providers->send( $identity['identity'], $code, $this->message( 'sms', $code, absint( $this->settings->get( 'otp_ttl', 120 ) ) ) );
+		$method = $single ? 'send_single' : 'send';
+		$sent = $this->providers->$method( $identity['identity'], $code, $this->message( 'sms', $code, absint( $this->settings->get( 'otp_ttl', 120 ) ) ) );
 		if ( is_wp_error( $sent ) ) {
 			$detail = $this->error_detail( $sent );
 

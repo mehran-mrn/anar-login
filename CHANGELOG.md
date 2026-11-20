@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.14.0 — 2026-11-20
+
+- Add a dedicated SMS test and troubleshooting workspace with a free local configuration check, revision-bound saved-message test and a credential-free support report.
+- Keep independent connection and code-setting saves compatible with test readiness; prevent sending with unsaved or stale configuration. SMS tests target the displayed provider without sending through Bale.
+- Refresh shared administration with a light header, pomegranate actions, blue/teal/violet/amber shortcuts and responsive navigation; retain current recovery, delivery and store workflows.
+
 ## 1.13.1
 
 - Refresh the admin rose palette: borderless pink active navigation, red enabled switches and consistent selected cards and buttons.

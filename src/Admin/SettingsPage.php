@@ -123,6 +123,7 @@ final class SettingsPage {
 		wp_enqueue_style( 'anar-login-admin', ANAR_LOGIN_URL . 'assets/css/admin.css', array(), ANAR_LOGIN_VERSION );
 		wp_enqueue_style( 'anar-meli-signup', ANAR_LOGIN_URL . 'assets/css/meli-signup.css', array( 'anar-login-admin' ), ANAR_LOGIN_VERSION );
 		wp_enqueue_script( 'anar-login-admin', ANAR_LOGIN_URL . 'assets/js/admin.js', array(), ANAR_LOGIN_VERSION, true );
+		wp_enqueue_script( 'anar-delivery-check', ANAR_LOGIN_URL . 'assets/js/delivery-check.js', array( 'anar-login-admin', 'anar-settings-save' ), ANAR_LOGIN_VERSION, true );
 		wp_enqueue_script( 'anar-settings-save', ANAR_LOGIN_URL . 'assets/js/settings-save.js', array( 'anar-login-admin' ), ANAR_LOGIN_VERSION, true );
 		wp_enqueue_script( 'anar-meli-signup', ANAR_LOGIN_URL . 'assets/js/meli-signup.js', array( 'anar-login-admin' ), ANAR_LOGIN_VERSION, true );
 		wp_localize_script(
@@ -141,6 +142,10 @@ final class SettingsPage {
 				'nonce'   => wp_create_nonce( 'wp_rest' ),
 				'sending' => __( 'Sending…', 'anar-toolkit' ),
 				'network' => __( 'Could not connect. Please try again.', 'anar-toolkit' ),
+				'checkingSaved' => __( 'Checking saved settings…', 'anar-toolkit' ),
+				'checked' => __( 'Saved settings checked. No message was sent.', 'anar-toolkit' ),
+				'accepted' => __( 'Test accepted by the provider. Check the recipient phone.', 'anar-toolkit' ),
+				'uncertain' => __( 'The test result could not be confirmed. Check the provider log before sending again.', 'anar-toolkit' ),
 				'meli'    => array(
 					'loading' => __( 'Checking available registration plans…', 'anar-toolkit' ),
 					'posting' => __( 'Creating your invoice…', 'anar-toolkit' ),
@@ -165,6 +170,7 @@ final class SettingsPage {
 		}
 
 		$value     = $this->settings->all();
+		$delivery  = DeliveryCheck::report();
 		$providers = $this->providers->all();
 		if ( isset( $providers['melipayamak'] ) ) {
 			$providers = array( 'melipayamak' => $providers['melipayamak'] ) + $providers;
@@ -179,6 +185,7 @@ final class SettingsPage {
 			<?php settings_errors(); ?>
 			<?php MessageCenter::notice(); ?>
 			<?php StatusPanel::credit(); ?>
+			<?php DeliveryCheck::overview( $delivery ); ?>
 
 			<div class="anar-admin__layout">
 				<aside class="anar-admin__nav"><?php $this->navigation(); ?></aside>
@@ -312,6 +319,11 @@ final class SettingsPage {
 					</section>
 
 					<section class="anar-tab" data-panel="sms" hidden>
+						<ol class="anar-connect-flow">
+							<li><span aria-hidden="true">1</span><?php esc_html_e( 'Connect and save your provider', 'anar-toolkit' ); ?></li>
+							<li><span aria-hidden="true">2</span><a data-message-open href="<?php echo esc_url( MessageCenter::url( 'login_otp', 'sms' ) ); ?>"><?php esc_html_e( 'Edit the sign-in message', 'anar-toolkit' ); ?></a></li>
+							<li><span aria-hidden="true">3</span><button type="button" data-setup-target="test"><?php esc_html_e( 'Open test center', 'anar-toolkit' ); ?></button></li>
+						</ol>
 						<?php ProviderConnections::render( $value, $providers ); ?>
 					</section>
 
@@ -445,6 +457,7 @@ final class SettingsPage {
 						<?php submit_button( __( 'Save settings', 'anar-toolkit' ), 'primary', 'submit', false ); ?><span role="status" data-settings-validation hidden></span>
 					</footer>
 				</form><?php ScopedSettings::forms(); ?>
+				<section class="anar-tab" data-panel="test" hidden><?php DeliveryCheck::render( $delivery ); ?></section>
 				<section class="anar-tab" data-panel="features" hidden><?php FeaturesPage::render( true ); ?></section>
 				<section class="anar-tab" data-panel="messages" hidden>
 					<?php $this->section_header( __( 'Messages and templates', 'anar-toolkit' ), __( 'Find a message and edit it here. The same editor is available in each feature.', 'anar-toolkit' ), '✉' ); ?>
