@@ -4,7 +4,7 @@ Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.14.0
+Stable tag: 1.14.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,8 @@ SMS login, password reset, cart recovery, order alerts and customer campaigns fo
 == Description ==
 
 Anar Toolkit adds modular sign-in, purchase recovery and customer communication tools to WordPress and WooCommerce. Enable only the capabilities your store needs.
+
+**Questions, problems, or suggestions?** Visit the [Anar homepage and support discussion](https://mrnwp.ir/anar/#respond). I will do my best to help you and resolve your issue as quickly as possible. Email and phone are optional and are not displayed publicly. You can ask a question without leaving a rating.
 
 = Sign-in and accounts =
 * Iranian SMS codes, email codes, Google sign-in and optional Bale OTP.
@@ -37,6 +39,8 @@ Persian RTL translations are bundled; English LTR is supported. Anar is 100% fre
 
 انار جعبه‌ابزار ورود و ثبت‌نام پیامکی، بازیابی سبد خرید رهاشده، بازاریابی پیامکی و بازی‌های آنلاین فروشگاهی برای وردپرس و ووکامرس است. پنل تنظیمات و فرم‌ها به فارسی راست‌چین و انگلیسی چپ‌چین در دسترس‌اند. هر قابلیت را می‌توان جداگانه فعال کرد.
 
+سؤال، مشکل یا پیشنهاد خود را از [بخش پرسش‌وپاسخ صفحه اصلی انار](https://mrnwp.ir/anar/#respond) ارسال کنید. تمام تلاشم را می‌کنم تا در سریع‌ترین زمان ممکن به شما کمک کنم و مشکلتان را برطرف کنم. ایمیل و شماره تماس اختیاری و خصوصی‌اند؛ برای پرسیدن سؤال نیازی به ثبت امتیاز ندارید.
+
 == Installation ==
 
 1. Install and activate Anar Toolkit. If replacing a pre-release copy in an anar-login folder, deactivate that copy first.
@@ -51,6 +55,10 @@ Persian RTL translations are bundled; English LTR is supported. Anar is 100% fre
 [Read the Persian setup guide](https://github.com/mehran-mrn/anar-login/blob/main/guide-fa.txt).
 
 == Frequently Asked Questions ==
+
+= Where can I ask a question or share a suggestion? =
+
+Open Anar Toolkit > Support and suggestions, or visit the [discussion section on the Anar homepage](https://mrnwp.ir/anar/#respond). Describe the problem and the plugin version you use. Replies appear under your question. Email and phone are optional and private; your name and message become public after approval.
 
 = Is Persian supported without a separate download? =
 
@@ -230,6 +238,10 @@ Uninstall preserves data unless deletion was explicitly enabled beforehand. It d
 Yes. Set a budget per pool and a maximum money discount for each prize. Amounts use the current store currency and include the tax reduction. The maximum cost is reserved at issuance; a paid order consumes its actual saving and releases the remainder. Unused expired gifts release their reservation. Saved unpaid orders retain it to cover late payments. Refunds do not reactivate consumed gifts or replenish spent money. Earlier uncapped coupons remain unchanged and outside this budget. Capped calculations require WooCommerce 8.8 or later.
 
 == Changelog ==
+
+= 1.14.1 =
+* Add a dedicated support page and direct links to questions and suggestions on the Anar homepage.
+* Explain optional private contact details and rating-free questions; include Persian support translations and a homepage link in the installed-plugin description.
 
 = 1.14.0 =
 * Add a dedicated SMS test workspace, free saved-configuration checks and a support report without credentials.
@@ -432,6 +444,9 @@ Yes. Set a budget per pool and a maximum money discount for each prize. Amounts 
 Full history: https://github.com/mehran-mrn/anar-login/blob/main/CHANGELOG.md
 
 == Upgrade Notice ==
+
+= 1.14.1 =
+Adds the Anar support page, homepage discussion links and Persian guidance for questions and suggestions.
 
 = 1.14.0 =
 Existing settings are retained. Open Test and troubleshoot to check the saved SMS configuration before sending a test.

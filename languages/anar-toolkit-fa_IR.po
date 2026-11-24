@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: Anar Toolkit 1.14.0\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
+msgstr "Project-Id-Version: Anar Toolkit 1.14.1\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
 
 msgid "%1$d paid orders. A gift at every %2$d orders."
 msgstr "%1$d سفارش پرداخت‌شده؛ یک هدیه پس از هر %2$d سفارش."
@@ -364,6 +364,9 @@ msgstr "دکمهٔ ورود انار"
 msgid "Anar sign-in form"
 msgstr "فرم ورود انار"
 
+msgid "Anar support"
+msgstr "پشتیبانی انار"
+
 msgid "Anar user discount"
 msgstr "تخفیف کاربران انار"
 
@@ -402,6 +405,9 @@ msgstr "شناسه / نامک الگوی تأییدشده"
 
 msgid "Approved template ID or name"
 msgstr "شناسه یا نام الگوی تأییدشده"
+
+msgid "Ask a question or share a suggestion"
+msgstr "ارسال پرسش یا پیشنهاد"
 
 msgid "Ask new customers for their first and last name right after the code is verified, never before. Existing customers are not asked."
 msgstr "نام و نام خانوادگی مشتری تازه، بلافاصله پس از تأیید کد پرسیده می‌شود، نه پیش از آن. از مشتریان قبلی پرسیده نمی‌شود."
@@ -1261,6 +1267,9 @@ msgstr "روش ارسال"
 msgid "Delivery service"
 msgstr "سرویس ارسال"
 
+msgid "Describe what you were trying to do, what happened, and the Anar version you use. Replies appear under your question so other users can benefit from the solution too."
+msgstr "توضیح دهید قصد انجام چه کاری را داشتید، چه اتفاقی افتاد و از کدام نسخه انار استفاده می‌کنید. پاسخ‌ها زیر سؤال شما قرار می‌گیرند تا کاربران دیگر هم بتوانند از راه‌حل استفاده کنند."
+
 msgid "Designed by Mehran Marandi"
 msgstr "طراحی و توسعه توسط مهران مرندی"
 
@@ -1359,6 +1368,9 @@ msgstr "ایمیل"
 
 msgid "Email (optional, for privacy requests)"
 msgstr "ایمیل (اختیاری، برای درخواست‌های حریم خصوصی)"
+
+msgid "Email and phone are optional and are not displayed publicly. Your name and message become public after approval. You can ask a question without leaving a rating."
+msgstr "ایمیل و شماره تماس اختیاری‌اند و برای عموم نمایش داده نمی‌شوند. نام و متن پیام شما پس از تأیید عمومی می‌شود. برای پرسیدن سؤال نیازی به ثبت امتیاز ندارید."
 
 msgid "Email is sent with the standard wp_mail function and is compatible with SMTP plugins."
 msgstr "ارسال با تابع استاندارد wp_mail انجام می‌شود و با افزونه‌های SMTP سازگار است."
@@ -1812,6 +1824,9 @@ msgstr "زادروز شما مبارک. هدیهٔ فروشگاه برای شم�
 
 msgid "Hashed code storage"
 msgstr "ذخیره هش کد"
+
+msgid "Have a question or suggestion about Anar? Send it through the discussion section on the plugin homepage. I will do my best to resolve your issue as quickly as possible."
+msgstr "درباره انار سؤال یا پیشنهادی دارید؟ از بخش پرسش‌وپاسخ صفحه اصلی افزونه برایم بنویسید. تمام تلاشم را می‌کنم تا در سریع‌ترین زمان ممکن مشکلتان را برطرف کنم."
 
 msgid "Hello %s 👋"
 msgstr "سلام %s 👋"
@@ -2959,6 +2974,9 @@ msgstr "متغیر کد الگوی خود را بعد از علامت # قرار
 msgid "Quantity"
 msgstr "تعداد"
 
+msgid "Questions, problems, and suggestions"
+msgstr "پرسش‌ها، مشکلات و پیشنهادها"
+
 msgid "Queue survey product reviews for moderation. Gifts never depend on a positive rating."
 msgstr "دیدگاه‌های کالای ثبت‌شده در نظرسنجی برای تأیید مدیر در صف قرار گیرند. هدیه هرگز به امتیاز مثبت وابسته نیست."
 
@@ -3315,6 +3333,9 @@ msgstr "واحد پیامکی"
 
 msgid "SMS, email and Google login, SMS password reset, cart recovery and customer communication tools for WooCommerce."
 msgstr "ورود با پیامک، ایمیل و گوگل، بازیابی رمز پیامکی، بازیابی سبد و ابزارهای ارتباط با مشتری ووکامرس."
+
+msgid "SMS, email and Google login, SMS password reset, cart recovery and customer communication tools for WooCommerce. <a href=\"https://mrnwp.ir/anar/\">Plugin homepage and support</a>."
+msgstr "ورود با پیامک، ایمیل و گوگل، بازیابی رمز عبور با پیامک، بازیابی سبد خرید و ابزارهای ارتباط با مشتریان ووکامرس. <a href=\"https://mrnwp.ir/anar/\">صفحه اصلی انار و پشتیبانی</a>."
 
 msgid "Safir API access key (v3)"
 msgstr "کلید دسترسی API سفیر (نسخهٔ ۳)"
@@ -3942,6 +3963,9 @@ msgstr "ثبت بازخورد"
 
 msgid "Success text in the response"
 msgstr "متن موفقیت در پاسخ"
+
+msgid "Support and suggestions"
+msgstr "پشتیبانی و پیشنهادها"
 
 msgid "Support report"
 msgstr "گزارش پشتیبانی"
@@ -4653,6 +4677,9 @@ msgstr "شما وارد حساب خود شده‌اید. برای شرکت در 
 
 msgid "You can display several games at once, on the same page or on different pages. Each game has its own shortcode below. The daily limit and coupon settings are shared by all games."
 msgstr "می‌توانید چند بازی را هم‌زمان در یک صفحه یا صفحه‌های جداگانه نمایش دهید. شورت‌کد هر بازی در بخش مربوط به آن آمده است. سقف دفعات بازی در روز و مشخصات کد تخفیف بین همهٔ بازی‌ها مشترک است."
+
+msgid "You can send questions, report problems, or share suggestions about Anar through the discussion section on the plugin homepage at mrnwp.ir/anar/. I will do my best to help you and resolve your issue as quickly as possible."
+msgstr "می‌توانید سؤال، مشکل یا پیشنهاد خود درباره انار را از بخش پرسش‌وپاسخ صفحه اصلی افزونه به نشانی mrnwp.ir/anar/ ارسال کنید. تمام تلاشم را می‌کنم تا در سریع‌ترین زمان ممکن به شما کمک کنم و مشکلتان را برطرف کنم."
 
 msgid "You cannot manage these campaigns."
 msgstr "اجازهٔ مدیریت این کمپین‌ها را ندارید."
