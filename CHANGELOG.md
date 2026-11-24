@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.14.1 — 2026-11-24
+
+- Add an administrator support page and visible links to the Anar homepage discussion for questions, problems and suggestions.
+- Explain optional private contact details and questions without ratings, with bundled Persian translations.
+- Link the installed-plugin description and WordPress.org introduction/FAQ directly to the product and support pages.
+
 ## 1.14.0 — 2026-11-20
 
 - Add a dedicated SMS test and troubleshooting workspace with a free local configuration check, revision-bound saved-message test and a credential-free support report.

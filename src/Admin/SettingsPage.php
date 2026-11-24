@@ -39,6 +39,7 @@ final class SettingsPage {
 	 * @return void
 	 */
 	public function register() {
+		( new Support() )->register();
 		ScopedSettings::register();
 		add_action( 'admin_menu', array( $this, 'menu' ) );
 		add_action( 'admin_init', array( $this, 'setting' ) );
@@ -181,6 +182,7 @@ final class SettingsPage {
 			<?php Workspace::header( __( 'Settings', 'anar-toolkit' ), true ); ?>
 			<?php // WordPress moves admin notices after this marker; without it they land inside the flex header next to the h1. ?>
 			<hr class="wp-header-end">
+			<?php Support::notice(); ?>
 
 			<?php settings_errors(); ?>
 			<?php MessageCenter::notice(); ?>

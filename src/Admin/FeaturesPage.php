@@ -130,6 +130,7 @@ final class FeaturesPage {
 				?>
 				<hr class="wp-header-end">
 				<?php
+				Support::notice();
 				StatusPanel::credit();
 endif;
 			?>

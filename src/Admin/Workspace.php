@@ -66,6 +66,7 @@ final class Workspace {
 			}
 			if ( __( 'Shared settings', 'anar-toolkit' ) === $heading ) {
 				self::link( BalancePage::url(), __( 'SMS credit', 'anar-toolkit' ), 'anar-toolkit-balance' === $page );
+				self::link( admin_url( 'admin.php?page=anar-toolkit-support' ), __( 'Support and suggestions', 'anar-toolkit' ), 'anar-toolkit-support' === $page );
 				if ( class_exists( 'WooCommerce' ) ) {
 					self::link( admin_url( 'admin.php?page=anar-toolkit-commerce&tab=privacy' ), __( 'Personal data', 'anar-toolkit' ), $commerce && 'privacy' === Features::current_tab() ); }
 			}
