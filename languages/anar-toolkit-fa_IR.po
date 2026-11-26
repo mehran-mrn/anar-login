@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: Anar Toolkit 1.15.2\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
+msgstr "Project-Id-Version: Anar Toolkit 1.15.3\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
 
 msgid "%1$d paid orders. A gift at every %2$d orders."
 msgstr "%1$d سفارش پرداخت‌شده؛ یک هدیه پس از هر %2$d سفارش."
@@ -2569,6 +2569,9 @@ msgstr "بدون خرید در ۳۰ روز گذشته"
 msgid "No records"
 msgstr "رکوردی وجود ندارد"
 
+msgid "No records found for this mobile number."
+msgstr "برای این شمارهٔ موبایل سابقه‌ای یافت نشد."
+
 msgid "No records match this period and filter. Real activity will appear here as your automations run."
 msgstr "رکوردی با این بازه و فیلتر وجود ندارد. با اجرای فرایندهای خودکار، فعالیت واقعی اینجا نمایش داده می‌شود."
 
@@ -2607,6 +2610,9 @@ msgstr "آبی و شنی"
 
 msgid "Off"
 msgstr "خاموش"
+
+msgid "Off by default. When enabled, Anar styles the WordPress login, password sign-in and recovery screens. Password sign-in remains available if code delivery fails."
+msgstr "به‌صورت پیش‌فرض خاموش است. با فعال‌کردن، صفحهٔ ورود وردپرس، ورود با رمز و بازیابی رمز همگی ظاهر انار می‌گیرند. اگر ارسال کد انجام نشود، ورود با رمز همچنان در دسترس است."
 
 msgid "Off by default. When on, the WordPress login page shows the passwordless form with a “Sign in with a password” link, so staff can always use their password."
 msgstr "به‌طور پیش‌فرض خاموش است. در صورت فعال‌سازی، صفحهٔ ورود وردپرس فرم ورود بدون رمز را همراه با لینک «ورود با رمز عبور» نمایش می‌دهد تا مدیران همیشه بتوانند با رمز وارد شوند."
@@ -3799,6 +3805,9 @@ msgstr "سرویس‌دهنده‌ها"
 msgid "Service template delivery"
 msgstr "ارسال الگوی خدماتی"
 
+msgid "Set a new password"
+msgstr "انتخاب رمز عبور جدید"
+
 msgid "Set new password"
 msgstr "ثبت رمز عبور جدید"
 
@@ -3930,6 +3939,9 @@ msgstr "ورود با کد یکبارمصرف"
 
 msgid "Sign in with a passkey"
 msgstr "ورود با کلید عبور"
+
+msgid "Sign in with a password"
+msgstr "ورود با رمز عبور"
 
 msgid "Sign in with a password instead"
 msgstr "ورود با رمز عبور"

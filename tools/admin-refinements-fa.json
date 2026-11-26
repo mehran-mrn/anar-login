@@ -1,4 +1,5 @@
 {
+  "No records found for this mobile number.": "برای این شمارهٔ موبایل سابقه‌ای یافت نشد.",
   "This tool covers local reminder and marketing records. It does not delete WordPress accounts, login mobile numbers, WooCommerce orders or records held by the SMS provider.": "این ابزار برای سوابق محلی یادآوری و بازاریابی است. حساب وردپرس، شمارهٔ ورود، سفارش‌های ووکامرس و سوابق شرکت پیامکی را حذف نمی‌کند.",
   "Action: runs after Anar creates an account. Arguments: user ID, sign-in channel and identity or Google profile data. Use it for a custom registration follow-up.": "اکشن: پس از ساخت حساب توسط انار اجرا می‌شود. ورودی‌ها: شناسهٔ کاربر، روش ورود و اطلاعات هویت یا پروفایل گوگل. برای اجرای کد سفارشی پس از ثبت‌نام استفاده می‌شود.",
   "Action: runs after Anar signs a user in. Arguments: the WP_User object and remember-me flag. Use it for a custom post-login action; it does not change the redirect URL.": "اکشن: پس از ورود کاربر توسط انار اجرا می‌شود. ورودی‌ها: شیء کاربر وردپرس (WP_User) و وضعیت «مرا به خاطر بسپار». برای اجرای کد پس از ورود است و آدرس انتقال را تغییر نمی‌دهد.",

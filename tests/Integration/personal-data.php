@@ -86,6 +86,7 @@ try {
 	$assert( 'error' === $result['type'], 'Invalid numbers need visible feedback.' );
 	$result = $request( array( 'anar_privacy_action' => 'search', 'phone' => '+989000088873' ) );
 	$assert( 'info' === $result['type'] && ! isset( $result['preview'] ), 'An absent number must not offer deletion.' );
+	$assert( 'empty' === $result['state'] && '+989000088873' === $result['phone'] && ! empty( $result['message'] ), 'An absent number must have an explicit result state, searched number and message.' );
 	$result = $request( array( 'anar_privacy_action' => 'search', 'phone' => '۰۹۰۰۰۰۸۸۸۷۱' ) );
 	$assert( isset( $result['preview'] ) && $phone === $result['preview']['phone'], 'Persian phone normalization or search failed.' );
 	$assert( $before === $privacy->phone_summary( $phone ), 'Searching changed local data.' );

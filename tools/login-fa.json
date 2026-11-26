@@ -1,4 +1,7 @@
 {
+  "Sign in with a password": "ورود با رمز عبور",
+  "Set a new password": "انتخاب رمز عبور جدید",
+  "Off by default. When enabled, Anar styles the WordPress login, password sign-in and recovery screens. Password sign-in remains available if code delivery fails.": "به‌صورت پیش‌فرض خاموش است. با فعال‌کردن، صفحهٔ ورود وردپرس، ورود با رمز و بازیابی رمز همگی ظاهر انار می‌گیرند. اگر ارسال کد انجام نشود، ورود با رمز همچنان در دسترس است.",
   "Name after sign-up": "نام پس از ثبت‌نام",
   "Ask new customers for their first and last name right after the code is verified, never before. Existing customers are not asked.": "نام و نام خانوادگی مشتری تازه، بلافاصله پس از تأیید کد پرسیده می‌شود، نه پیش از آن. از مشتریان قبلی پرسیده نمی‌شود.",
   "Do not ask": "پرسیده نشود",

@@ -1,6 +1,6 @@
 <?php
 return array(
-'project-id-version' => 'Anar Toolkit 1.15.2',
+'project-id-version' => 'Anar Toolkit 1.15.3',
 'language' => 'fa_IR',
 'plural-forms' => 'nplurals=2; plural=(n > 1);',
 'messages' => array(
@@ -860,6 +860,7 @@ return array(
 'No phone number or email is linked to this account.' => 'هیچ شماره موبایل یا ایمیلی به این حساب متصل نیست.',
 'No purchase in 30 days' => 'بدون خرید در ۳۰ روز گذشته',
 'No records' => 'رکوردی وجود ندارد',
+'No records found for this mobile number.' => 'برای این شمارهٔ موبایل سابقه‌ای یافت نشد.',
 'No records match this period and filter. Real activity will appear here as your automations run.' => 'رکوردی با این بازه و فیلتر وجود ندارد. با اجرای فرایندهای خودکار، فعالیت واقعی اینجا نمایش داده می‌شود.',
 'Not checked yet' => 'هنوز بررسی نشده',
 'Not configured' => 'تنظیم نشده',
@@ -873,6 +874,7 @@ return array(
 'OUTGOING ACTIVITY' => 'فعالیت ارسال',
 'Ocean and sand' => 'آبی و شنی',
 'Off' => 'خاموش',
+'Off by default. When enabled, Anar styles the WordPress login, password sign-in and recovery screens. Password sign-in remains available if code delivery fails.' => 'به‌صورت پیش‌فرض خاموش است. با فعال‌کردن، صفحهٔ ورود وردپرس، ورود با رمز و بازیابی رمز همگی ظاهر انار می‌گیرند. اگر ارسال کد انجام نشود، ورود با رمز همچنان در دسترس است.',
 'Off by default. When on, the WordPress login page shows the passwordless form with a “Sign in with a password” link, so staff can always use their password.' => 'به‌طور پیش‌فرض خاموش است. در صورت فعال‌سازی، صفحهٔ ورود وردپرس فرم ورود بدون رمز را همراه با لینک «ورود با رمز عبور» نمایش می‌دهد تا مدیران همیشه بتوانند با رمز وارد شوند.',
 'Offer from reminder stage (1-3)' => 'ارائهٔ تخفیف از مرحلهٔ یادآوری (۱ تا ۳)',
 'Offer from reminder stage (1–3)' => 'ارائهٔ تخفیف از مرحلهٔ یادآوری (۱ تا ۳)',
@@ -1270,6 +1272,7 @@ return array(
 'Sends automated messages after a first purchase, after a period without purchases, or when a customer reaches the VIP spending threshold.' => 'پس از اولین خرید، پس از مدتی بدون خرید یا وقتی مجموع خرید مشتری به حد تعیین‌شده برای مشتری ویژه برسد، خودکار پیامک می‌فرستد.',
 'Service providers' => 'سرویس‌دهنده‌ها',
 'Service template delivery' => 'ارسال الگوی خدماتی',
+'Set a new password' => 'انتخاب رمز عبور جدید',
 'Set new password' => 'ثبت رمز عبور جدید',
 'Set shared limits and customer filters for marketing campaigns. Verification codes and order notifications keep their own rules.' => 'محدودیت ارسال و شرایط مشترک مخاطبان پیام‌های بازاریابی را تنظیم کنید. پیام‌های تأیید و اطلاع‌رسانی سفارش، قواعد جداگانهٔ خود را دارند.',
 'Set the delay after order completion and configure a template containing {action_url}. Each paid order accepts one response. Optional product reviews require moderation; the gift is independent of the rating.' => 'فاصلهٔ زمانی پس از تکمیل سفارش را تعیین و الگویی دارای {action_url} تنظیم کنید. هر سفارش پرداخت‌شده یک پاسخ می‌پذیرد. دیدگاه اختیاری کالا به تأیید مدیر نیاز دارد و هدیه به امتیاز وابسته نیست.',
@@ -1314,6 +1317,7 @@ return array(
 'Sign in to play' => 'ورود برای بازی',
 'Sign in with a one-time code' => 'ورود با کد یکبارمصرف',
 'Sign in with a passkey' => 'ورود با کلید عبور',
+'Sign in with a password' => 'ورود با رمز عبور',
 'Sign in with a password instead' => 'ورود با رمز عبور',
 'Sign in with a verified mobile number to use customer referrals.' => 'برای معرفی دوستان، با شمارهٔ همراه تأییدشده وارد شوید.',
 'Sign in with your verified mobile number to play and receive a personal gift.' => 'برای بازی و دریافت هدیهٔ اختصاصی با شمارهٔ همراه تأییدشده وارد شوید.',

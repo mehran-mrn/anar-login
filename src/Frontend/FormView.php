@@ -12,6 +12,12 @@ use Anar\Login\Infrastructure\Settings;
 defined( 'ABSPATH' ) || exit;
 
 final class FormView {
+	private static $wordpress_custom = false;
+
+	public static function wordpress_custom() {
+		return self::$wordpress_custom;
+	}
+
 	public static function open( Settings $settings, $class, $redirect, $title, $intro = '' ) {
 		$direction = is_rtl() ? 'rtl' : 'ltr';
 		ob_start();
@@ -61,7 +67,8 @@ final class FormView {
 		return ob_get_clean();
 	}
 
-	public static function prepare_wordpress() {
+	public static function prepare_wordpress( $custom = true ) {
+		self::$wordpress_custom = self::$wordpress_custom || $custom;
 		static $prepared = false;
 		if ( $prepared ) {
 			return; }
