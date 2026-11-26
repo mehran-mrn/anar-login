@@ -4,7 +4,7 @@ Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.2
 Requires PHP: 7.4
-Stable tag: 1.15.3
+Stable tag: 1.15.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -239,6 +239,9 @@ Yes. Set a budget per pool and a maximum money discount for each prize. Amounts 
 
 == Changelog ==
 
+= 1.15.4 =
+* Remove the extra WordPress form box and clipping inside the optional Anar login theme, preserving the Anar card and responsive spacing.
+
 = 1.15.3 =
 * Keep personal-data search feedback visible in a dedicated panel, including the searched number and a clear no-records result.
 * Preserve search and erasure feedback after redirects and reloads without repeating the operation.
@@ -464,6 +467,9 @@ Yes. Set a budget per pool and a maximum money discount for each prize. Amounts 
 Full history: https://github.com/mehran-mrn/anar-login/blob/main/CHANGELOG.md
 
 == Upgrade Notice ==
+
+= 1.15.4 =
+Fixes the extra WordPress form box inside the Anar login design when login-page replacement is enabled.
 
 = 1.15.3 =
 Personal-data search results now survive reloads and clearly show when no records exist. When WordPress login replacement is enabled, password sign-in and recovery pages also use the Anar design. Core password authentication and reset validation are preserved.
