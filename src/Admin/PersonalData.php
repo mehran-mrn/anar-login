@@ -17,6 +17,25 @@ final class PersonalData {
 		return 'anar_privacy_' . get_current_user_id() . '_' . hash( 'sha256', $token );
 	}
 
+	private static function result_key( $token ) {
+		return 'anar_privacy_result_' . get_current_user_id() . '_' . hash( 'sha256', $token );
+	}
+
+	/** Redirect to a private result so normal admin reloads do not discard form feedback. */
+	public static function submit() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( esc_html__( 'You cannot manage these settings.', 'anar-toolkit' ), '', array( 'response' => 403 ) );
+		}
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- process() validates the nonce, action, token and phone before any operation.
+		$result = self::process( wp_unslash( $_POST ), new Privacy( new \Anar\Login\Commerce\Repository(), new \Anar\Login\Commerce\Settings() ) );
+		$token = wp_generate_password( 24, false, false );
+		if ( ! set_transient( self::result_key( $token ), $result, 10 * MINUTE_IN_SECONDS ) ) {
+			wp_die( esc_html__( 'The search result could not be saved. Please search again.', 'anar-toolkit' ) );
+		}
+		wp_safe_redirect( add_query_arg( 'privacy_result', $token, admin_url( 'admin.php?page=anar-toolkit-commerce&tab=privacy' ) ) . '#anar-privacy-result', 303 );
+		exit;
+	}
+
 	/** Accept only authenticated form posts; deletion uses the server-stored phone. */
 	public static function process( $input, Privacy $privacy ) {
 		$error = static function ( $text ) {
@@ -36,7 +55,7 @@ final class PersonalData {
 				return $error( __( 'Local data could not be checked. Please try again.', 'anar-toolkit' ) );
 			}
 			if ( ! $summary['found'] ) {
-				return array( 'type' => 'info', 'message' => __( 'No local Anar records were found for this number. Nothing was deleted.', 'anar-toolkit' ) );
+				return array( 'type' => 'info', 'state' => 'empty', 'phone' => $phone['identity'], 'message' => __( 'No local Anar records were found for this number. Nothing was deleted.', 'anar-toolkit' ) );
 			}
 			$token = wp_generate_password( 24, false, false );
 			$preview = array( 'phone' => $phone['identity'], 'summary' => $summary );
@@ -86,20 +105,37 @@ final class PersonalData {
 		if ( isset( $_POST['anar_privacy_action'] ) ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Strict action, token and normalized phone validation is centralized in process().
 			$result = self::process( wp_unslash( $_POST ), $privacy );
+		} elseif ( isset( $_GET['privacy_result'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only, opaque result key is scoped to the current administrator.
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- No operation is performed by opening a result.
+			$token = is_string( $_GET['privacy_result'] ) ? sanitize_text_field( wp_unslash( $_GET['privacy_result'] ) ) : '';
+			$result = preg_match( '/^[a-zA-Z0-9]{24}$/D', $token ) ? get_transient( self::result_key( $token ) ) : false;
+			if ( ! is_array( $result ) ) {
+				$result = array( 'type' => 'error', 'message' => __( 'This search result expired or was already used. Search again before erasing.', 'anar-toolkit' ) );
+			}
 		}
 		$url = admin_url( 'admin.php?page=anar-toolkit-commerce&tab=privacy' );
+		$action_url = admin_url( 'admin-post.php' );
+		$phone_value = isset( $result['phone'] ) ? Identity::local_phone( $result['phone'] ) : ( isset( $result['preview']['phone'] ) ? Identity::local_phone( $result['preview']['phone'] ) : '' );
 		?>
 		<div class="anar-personal-data">
 			<p><?php esc_html_e( 'Search a mobile number to see which local Anar records exist. Searching does not delete or change those records.', 'anar-toolkit' ); ?></p>
 			<p class="description"><?php esc_html_e( 'This tool covers local reminder and marketing records. It does not delete WordPress accounts, login mobile numbers, WooCommerce orders or records held by the SMS provider.', 'anar-toolkit' ); ?></p>
 			<?php if ( $result ) : ?>
-				<div id="anar-privacy-result" class="notice notice-<?php echo esc_attr( $result['type'] ); ?> inline" role="<?php echo 'error' === $result['type'] ? 'alert' : 'status'; ?>"><p><?php echo esc_html( $result['message'] ); ?></p></div>
+				<section id="anar-privacy-result" class="anar-privacy-result anar-privacy-result--<?php echo esc_attr( $result['type'] ); ?>" data-state="<?php echo esc_attr( $result['state'] ?? $result['type'] ); ?>" role="<?php echo 'error' === $result['type'] ? 'alert' : 'status'; ?>" tabindex="-1">
+					<span class="dashicons dashicons-<?php echo 'error' === $result['type'] ? 'warning' : ( 'success' === $result['type'] ? 'yes-alt' : 'search' ); ?>" aria-hidden="true"></span>
+					<div><h3><?php echo esc_html( 'empty' === ( $result['state'] ?? '' ) ? __( 'No records found for this mobile number.', 'anar-toolkit' ) : __( 'Check result', 'anar-toolkit' ) ); ?></h3>
+					<?php if ( $phone_value ) : ?>
+						<p><bdi dir="ltr"><?php echo esc_html( $phone_value ); ?></bdi></p>
+					<?php endif; ?>
+					<p><?php echo esc_html( $result['message'] ); ?></p></div>
+				</section>
 			<?php endif; ?>
-			<form method="post" action="<?php echo esc_url( $url . '#anar-privacy-result' ); ?>" class="anar-privacy-search">
+			<form method="post" action="<?php echo esc_url( $action_url ); ?>" class="anar-privacy-search">
 				<?php wp_nonce_field( 'anar_personal_data' ); ?>
+				<input type="hidden" name="action" value="anar_personal_data">
 				<input type="hidden" name="anar_privacy_action" value="search">
 				<label for="anar-privacy-phone"><?php esc_html_e( 'Mobile number', 'anar-toolkit' ); ?></label>
-				<input id="anar-privacy-phone" name="phone" type="tel" dir="ltr" autocomplete="off" required>
+				<input id="anar-privacy-phone" name="phone" type="tel" dir="ltr" autocomplete="off" value="<?php echo esc_attr( $phone_value ); ?>" required>
 				<button type="submit" class="button button-primary"><?php esc_html_e( 'Search local data', 'anar-toolkit' ); ?></button>
 			</form>
 			<?php
@@ -112,8 +148,9 @@ final class PersonalData {
 					<div><dt><?php echo esc_html( $label ); ?></dt><dd><?php echo esc_html( (string) $preview['summary']['counts'][ $key ] ); ?></dd></div>
 				<?php endforeach; ?></dl>
 				<p><?php esc_html_e( 'This removes local Anar reminder and marketing records and revokes personal gift coupons. The WordPress account, login mobile number, WooCommerce orders and SMS provider records remain. Minimal suppression identifiers and anonymous campaign budget totals are retained.', 'anar-toolkit' ); ?></p>
-				<form method="post" action="<?php echo esc_url( $url . '#anar-privacy-result' ); ?>">
+				<form method="post" action="<?php echo esc_url( $action_url ); ?>">
 					<?php wp_nonce_field( 'anar_personal_data' ); ?>
+					<input type="hidden" name="action" value="anar_personal_data">
 					<input type="hidden" name="anar_privacy_action" value="erase"><input type="hidden" name="token" value="<?php echo esc_attr( $preview['token'] ); ?>">
 					<label class="anar-privacy-confirm"><input type="checkbox" name="confirmed" value="1" required> <?php esc_html_e( 'I verified the requester and confirm erasure of the displayed records.', 'anar-toolkit' ); ?></label>
 					<div class="anar-privacy-actions"><button type="submit" class="button"><?php esc_html_e( 'Confirm erasure', 'anar-toolkit' ); ?></button> <a class="button" href="<?php echo esc_url( $url ); ?>"><?php esc_html_e( 'Cancel', 'anar-toolkit' ); ?></a></div>

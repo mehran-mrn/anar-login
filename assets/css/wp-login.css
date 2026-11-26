@@ -1,0 +1,92 @@
+/* Loaded only when Anar's wp-login.php replacement is enabled. */
+body.anar-wp-login-themed {
+	--anar-accent: #d81b3f;
+	--anar-accent-dark: #a80f2f;
+	--anar-ink: #20151a;
+	--anar-muted: #776b70;
+	--anar-line: #eee7e9;
+	--anar-soft: #fff6f7;
+	--anar-font: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+	min-height: 100vh;
+	margin: 0;
+	padding: 28px 0;
+	box-sizing: border-box;
+	background: radial-gradient(ellipse at 15% 0, #fce9ef 0, transparent 48%), radial-gradient(ellipse at 90% 90%, #f0eaf8 0, transparent 50%), #faf7f9;
+	color: var(--anar-ink);
+	font-family: var(--anar-font);
+}
+html[dir="rtl"] body.anar-wp-login-themed { --anar-font: Vazirmatn, IRANSansX, Dana, Tahoma, Arial, sans-serif; }
+@supports (color: color-mix(in srgb, red, blue)) {
+	body.anar-wp-login-themed { --anar-accent-dark: color-mix(in srgb, var(--anar-accent) 78%, #000); --anar-soft: color-mix(in srgb, var(--anar-accent) 7%, #fff); }
+}
+body.anar-wp-login-themed #login { width: min(490px, calc(100% - 32px)); padding: 0; margin: 3vh auto 20px; }
+body.anar-wp-login-native #login { overflow: hidden; border: 1px solid rgba(77,22,37,.09); border-radius: 28px; background: #fff; box-shadow: 0 28px 80px rgba(91,27,45,.14), 0 3px 12px rgba(80,25,40,.06); }
+body.anar-wp-login-native #login *, body.anar-wp-login-themed .language-switcher * { box-sizing: border-box; }
+.anar-wp-login-brand { background: radial-gradient(ellipse at 0 0, var(--anar-soft), transparent 75%); }
+.anar-wp-login-brand .anar-auth__brand { color: var(--anar-ink); text-decoration: none; }
+.anar-wp-login-brand .anar-auth__brand strong { font-size: 16px; }
+.anar-wp-login-intro { padding: 24px 30px 0; }
+.anar-wp-login-intro h2 { margin: 0; font: 800 24px/1.5 var(--anar-font); color: var(--anar-ink); }
+body.anar-wp-login-native #login form { margin: 0; padding: 24px 30px; border: 0; background: transparent; box-shadow: none; color: var(--anar-ink); font-family: inherit; }
+body.anar-wp-login-native #login form p { margin: 0 0 18px; line-height: 1.8; }
+body.anar-wp-login-native #login label { color: var(--anar-ink); font: 600 13px/1.9 var(--anar-font); }
+body.anar-wp-login-native #login input:is([type="text"],[type="password"],[type="email"],[type="url"],[type="tel"],[type="number"]),
+body.anar-wp-login-themed .language-switcher select {
+	width: 100%; min-height: 52px; margin: 8px 0 0; padding: 10px 14px;
+	border: 1px solid #ded6d9; border-radius: 13px; outline: 0; background-color: #fff;
+	color: var(--anar-ink); box-shadow: none; font: 500 16px/1.5 var(--anar-font);
+}
+body.anar-wp-login-native #login input:focus, body.anar-wp-login-themed .language-switcher select:focus { border-color: var(--anar-accent); box-shadow: 0 0 0 4px var(--anar-soft); }
+body.anar-wp-login-native #login .wp-pwd { position: relative; }
+body.anar-wp-login-native #login .wp-pwd input { padding-inline-end: 54px; margin-top: 0; }
+body.anar-wp-login-native #login .wp-pwd .wp-hide-pw {
+	position: absolute; top: 8px; inset-inline-end: 8px; inset-inline-start: auto;
+	display: grid; place-items: center; width: 36px; min-height: 36px; height: 36px;
+	padding: 0; border: 0; border-radius: 10px; background: var(--anar-soft); color: var(--anar-accent); box-shadow: none;
+}
+body.anar-wp-login-native #login .wp-hide-pw .dashicons { width: 20px; height: 20px; font-size: 20px; line-height: 1; }
+body.anar-wp-login-native #login .forgetmenot { float: none; margin-block: 2px 20px; }
+body.anar-wp-login-native #login input[type="checkbox"] { appearance: none; width: 18px; height: 18px; margin: 0 5px 0 0; border: 1px solid #d7cbd0; border-radius: 5px; background: #fff; vertical-align: middle; accent-color: var(--anar-accent); }
+html[dir="rtl"] body.anar-wp-login-native #login input[type="checkbox"] { margin: 0 0 0 5px; }
+body.anar-wp-login-native #login input[type="checkbox"]:checked { background: var(--anar-accent); border-color: var(--anar-accent); }
+body.anar-wp-login-native #login input[type="checkbox"]:checked::before { content: ""; display: block; width: 10px; height: 6px; margin: 3px 2px; border-inline-start: 2px solid #fff; border-bottom: 2px solid #fff; transform: rotate(-45deg); }
+html[dir="rtl"] body.anar-wp-login-native #login input[type="checkbox"]:checked::before { border-inline-start: 0; border-left: 2px solid #fff; }
+body.anar-wp-login-native #login .submit { float: none; clear: both; margin: 0; padding: 0; }
+body.anar-wp-login-native #login .button, body.anar-wp-login-themed .language-switcher .button {
+	min-height: 42px; padding: 8px 16px; border: 1px solid var(--anar-line); border-radius: 12px;
+	background: var(--anar-soft); color: var(--anar-accent); box-shadow: none; text-shadow: none; font: 600 13px/1.7 var(--anar-font); cursor: pointer;
+}
+body.anar-wp-login-native #login .button-primary {
+	float: none; width: 100%; min-height: 50px; padding: 12px 20px; border: 0;
+	background: var(--anar-accent); color: #fff; box-shadow: 0 8px 20px color-mix(in srgb, var(--anar-accent) 20%, transparent);
+}
+body.anar-wp-login-native #login .button-primary:hover { background: var(--anar-accent-dark); }
+body.anar-wp-login-themed :is(a, button, input, select):focus-visible { outline: 2px solid var(--anar-accent); outline-offset: 3px; }
+body.anar-wp-login-themed #login > :is(.message, .notice, #login_error, .success) { margin: 18px 22px; padding: 14px 16px; border: 1px solid #dce6ed; border-inline-start: 3px solid var(--anar-accent); border-radius: 12px; background: #f4f8fb; color: #38516a; box-shadow: none; font: 400 13px/1.9 var(--anar-font); overflow-wrap: anywhere; }
+body.anar-wp-login-themed #login > :is(#login_error, .notice-error) { background: #fff0f2; border-color: #f0c8d0; color: #922d42; }
+body.anar-wp-login-themed #login > :is(.message, .notice, #login_error, .success) a { color: var(--anar-accent); text-underline-offset: 3px; }
+body.anar-wp-login-native #login .forgetmenot :is(.dashicons, button) { color: var(--anar-accent); }
+body.anar-wp-login-themed #login :is(#nav, #backtoblog, .privacy-policy-page-link) { margin: 0; padding: 14px 30px; text-align: center; font: 400 12px/1.9 var(--anar-font); }
+body.anar-wp-login-native #login #nav { border-top: 1px solid var(--anar-line); background: #fffcfd; }
+body.anar-wp-login-themed #login :is(#nav, #backtoblog, .privacy-policy-page-link) a { color: var(--anar-muted); text-decoration: none; }
+body.anar-wp-login-themed #login :is(#nav, #backtoblog, .privacy-policy-page-link) a:hover { color: var(--anar-accent); text-decoration: underline; text-underline-offset: 3px; }
+body.anar-wp-login-themed .language-switcher { width: min(490px, calc(100% - 32px)); margin: 18px auto; color: var(--anar-muted); font-family: var(--anar-font); }
+body.anar-wp-login-themed .language-switcher form { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; padding: 12px; border: 1px solid var(--anar-line); border-radius: 16px; background: #ffffffc9; }
+body.anar-wp-login-themed .language-switcher select { width: auto; max-width: 100%; min-height: 40px; margin: 0; padding-block: 6px; padding-inline: 12px 30px; font-size: 13px; }
+body.anar-wp-login-themed .language-switcher .dashicons { color: var(--anar-accent); }
+body.anar-wp-login-native #pass-strength-result { margin: 12px 0; padding: 10px; border-radius: 10px; font: 600 12px/1.8 var(--anar-font); }
+body.anar-wp-login-native #login .description { color: var(--anar-muted); font: 400 12px/1.9 var(--anar-font); }
+body.anar-wp-login-native #login .wp-generate-pw { margin-bottom: 12px; }
+body.anar-wp-login--minimal.anar-wp-login-native #login { border: 0; box-shadow: none; }
+body.anar-wp-login--bold.anar-wp-login-native #login { border-top: 5px solid var(--anar-accent); }
+@media (max-width: 520px) {
+	body.anar-wp-login-themed { padding-block: 16px; }
+	body.anar-wp-login-themed #login { margin-top: 12px; }
+	.anar-wp-login-intro { padding: 20px 22px 0; }
+	.anar-wp-login-intro h2 { font-size: 21px; }
+	body.anar-wp-login-native #login form { padding: 22px; }
+	body.anar-wp-login-themed #login :is(#nav, #backtoblog, .privacy-policy-page-link) { padding-inline: 22px; }
+	.anar-wp-login-brand { gap: 12px; padding-inline: 22px; }
+	.anar-wp-login-brand .anar-auth__secure { font-size: 10px; }
+}
+@media (prefers-reduced-motion: reduce) { body.anar-wp-login-themed * { transition: none !important; animation: none !important; } }

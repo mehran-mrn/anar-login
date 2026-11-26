@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.15.3 - 2026-11-27
+
+- Extend the opt-in WordPress login theme to core password sign-in, recovery/reset forms, notices, navigation and the language chooser. Preserve WordPress form handling and configured Anar branding.
+- Display personal-data search results in a dedicated inline panel, with an explicit no-records heading and the searched number. Keep the number in the search field and avoid reliance on generic WordPress notice styling.
+- Redirect submitted searches and erasures to private, expiring result pages so feedback survives normal admin navigation and reloads without resubmitting the operation.
+
 ## 1.15.2 - 2026-11-27
 
 - Show user tools in both admin menus only while unmatched Digits source records need review or migration. Hide irrelevant Digits guidance and remove both links when migration finishes.

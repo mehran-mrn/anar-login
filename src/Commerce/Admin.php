@@ -27,6 +27,7 @@ final class Admin {
 		add_action( 'admin_init', array( $this, 'setting' ) );
 		add_action( 'admin_post_anar_toolkit_retry', array( $this, 'retry' ) );
 		add_action( 'admin_post_anar_toolkit_forget', array( $this, 'forget' ) );
+		add_action( 'admin_post_anar_personal_data', array( \Anar\Login\Admin\PersonalData::class, 'submit' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'assets' ) );
 	}
 

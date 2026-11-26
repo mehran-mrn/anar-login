@@ -110,7 +110,7 @@ Choose **SMS verification before submission** in MRN Forms for a form that verif
 - Theme login links for signed-out visitors (header account icon, mobile toolbar, side panels) open the login popup and return to the page that was asked for
 - WoodMart's own header dropdown and side-panel password forms are removed
 
-**Also replace wp-login.php** is off by default. When on, the WordPress login page shows the passwordless form with a "Sign in with a password" link, so staff always keep password access.
+**Also replace wp-login.php** is off by default. When on, the WordPress login page shows the passwordless form with a "Sign in with a password" link, so staff always keep password access. The password form, recovery and reset screens, messages, navigation and language chooser use the same Anar branding and selected form style. Core WordPress authentication, reset-key validation and special login modes keep their original handlers. Disabling the option restores the standard WordPress page.
 
 Login targets are excluded from WordPress speculative loading, and a successful sign-in sends `Clear-Site-Data: "prefetchCache"`, so a page prefetched while signed out is never shown after signing in.
 
