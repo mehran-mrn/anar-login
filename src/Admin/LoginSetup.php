@@ -15,45 +15,46 @@ defined( 'ABSPATH' ) || exit;
 final class LoginSetup {
 	public static function render( array $value ) {
 		$steps = array( __( 'Sign-in method', 'anar-toolkit' ), __( 'Connection and message', 'anar-toolkit' ), __( 'Test sign-in', 'anar-toolkit' ), __( 'Display on the site', 'anar-toolkit' ) );
+		$icons = array( 'admin-users', 'admin-links', 'shield-alt', 'layout' );
+		$methods = $value['login_methods'];
 		?>
 		<div data-login-setup>
 			<header class="anar-section-head"><div><h2><?php esc_html_e( 'Sign-in setup guide', 'anar-toolkit' ); ?></h2><p><?php esc_html_e( 'Use the existing settings in four steps. This guide does not change your live sign-in form.', 'anar-toolkit' ); ?></p></div><?php Help::button( __( 'Your saved values remain in their usual sections. Return to this guide at any time. Test the new form before replacing your current sign-in page.', 'anar-toolkit' ) ); ?></header>
 			<ol class="anar-setup-steps" aria-label="<?php esc_attr_e( 'Setup steps', 'anar-toolkit' ); ?>">
 			<?php foreach ( $steps as $index => $label ) : ?>
-				<li><button type="button" class="button" data-setup-go="<?php echo (int) $index; ?>" <?php echo 0 === $index ? 'aria-current="step"' : ''; ?>><?php echo esc_html( ( $index + 1 ) . '. ' . $label ); ?></button></li>
+				<li><button type="button" class="button" data-setup-go="<?php echo (int) $index; ?>" <?php echo 0 === $index ? 'aria-current="step"' : ''; ?>><span class="anar-setup-icon" aria-hidden="true"><span class="dashicons dashicons-<?php echo esc_attr( $icons[ $index ] ); ?>"></span></span><span class="anar-setup-number" aria-hidden="true"><?php echo (int) $index + 1; ?></span><strong><?php echo esc_html( $label ); ?></strong></button></li>
 			<?php endforeach; ?>
 			</ol>
 			<div class="anar-card" data-setup-step="0">
 				<h3 tabindex="-1"><?php esc_html_e( 'Choose how customers sign in', 'anar-toolkit' ); ?></h3>
-				<p><?php esc_html_e( 'Enable SMS, Email or Bale in General. Customers enter a mobile number for SMS or Bale, or an email address for Email. Enable both mobile senders to send the same code through SMS and Bale.', 'anar-toolkit' ); ?></p>
+				<p><?php esc_html_e( 'In Sign-in settings, choose SMS, Email and/or Bale under Sign-in methods, then use Save settings. SMS and Bale use the entered mobile number; Email uses the entered email address. Google sign-in has its own settings section.', 'anar-toolkit' ); ?></p>
 				<button type="button" class="button" data-setup-target="general"><?php esc_html_e( 'Open sign-in settings', 'anar-toolkit' ); ?></button>
+				<button type="button" class="button" data-setup-target="google"><?php esc_html_e( 'Google sign-in', 'anar-toolkit' ); ?></button>
 			</div>
 			<div class="anar-card" data-setup-step="1" hidden>
 				<h3 tabindex="-1"><?php esc_html_e( 'Connect the selected service', 'anar-toolkit' ); ?></h3>
-				<?php if ( 'email' !== $value['identity_mode'] ) : ?>
-					<button type="button" class="button" data-setup-target="sms"><?php esc_html_e( 'Open SMS connection', 'anar-toolkit' ); ?></button>
-					<?php
-					if ( in_array( 'sms', $value['login_methods'], true ) ) {
-						MessageCenter::summary( 'login_otp', 'login' ); }
-					?>
-					<p><?php esc_html_e( 'Choose and configure one SMS provider in Service providers, then save the sign-in code message. All SMS features use this provider. Bale needs only its OTP connection; email uses the site mail service.', 'anar-toolkit' ); ?></p>
+				<?php if ( in_array( 'sms', $methods, true ) ) : ?>
+					<p><?php esc_html_e( 'Open Service providers → SMS providers, choose one panel, enter its credentials and use Save connection settings. Check connection checks the account without sending a message. All Anar SMS features use this saved provider.', 'anar-toolkit' ); ?></p>
+					<button type="button" class="button" data-setup-target="sms" data-setup-category="sms"><?php esc_html_e( 'Open SMS connection', 'anar-toolkit' ); ?></button>
 				<?php endif; ?>
-				<?php if ( 'phone' !== $value['identity_mode'] ) : ?>
+				<?php if ( in_array( 'bale', $methods, true ) ) : ?>
+					<p><?php esc_html_e( 'For Bale, open the Messengers category in Service providers, complete the Bale connection and save. Bale sends verification codes without an SMS message template.', 'anar-toolkit' ); ?></p>
+					<button type="button" class="button" data-setup-target="sms" data-setup-category="messengers"><?php esc_html_e( 'Messengers', 'anar-toolkit' ); ?></button>
+				<?php endif; ?>
+				<?php if ( in_array( 'email', $methods, true ) ) : ?>
+					<p><?php esc_html_e( 'Email uses the site mail service (wp_mail or your SMTP plugin). Edit the email subject and message in Sign-in settings, then save the settings.', 'anar-toolkit' ); ?></p>
 					<button type="button" class="button" data-setup-target="general"><?php esc_html_e( 'Open email settings', 'anar-toolkit' ); ?></button>
 				<?php endif; ?>
-				<?php Help::button( __( 'Configure the service and save it. SMS templates open in the same message editor used throughout Anar; there is no separate template in this guide.', 'anar-toolkit' ) ); ?>
+				<p><?php esc_html_e( 'In Sign-in settings, save code length and limits with Save code settings. Edit the sign-in message in Sign-in and recovery messages and save it in its editor. Connection, code and message settings have separate save buttons.', 'anar-toolkit' ); ?></p>
+				<button type="button" class="button" data-setup-target="general"><?php esc_html_e( 'Open sign-in settings', 'anar-toolkit' ); ?></button>
 			</div>
 			<div class="anar-card" data-setup-step="2" hidden>
 				<h3 tabindex="-1"><?php esc_html_e( 'Check delivery and complete a test sign-in', 'anar-toolkit' ); ?></h3>
-				<p><?php esc_html_e( 'Check the saved configuration in Test and troubleshoot, then send a test to your own phone. Finish by signing in from a private browser window.', 'anar-toolkit' ); ?></p>
-				<button type="button" class="button button-primary" data-setup-target="test"><?php esc_html_e( 'Open test center', 'anar-toolkit' ); ?></button>
-				<?php if ( 'email' !== $value['identity_mode'] ) : ?>
-					<?php
-					if ( in_array( 'sms', $value['login_methods'], true ) ) {
-						MessageCenter::summary( 'login_otp', 'login', true ); }
-					?>
-					<p><?php esc_html_e( 'After saving, test sign-in with your own mobile number. If SMS and Bale are both enabled, check that both receive the same code and that it works only once. Test an email address separately if Email is enabled.', 'anar-toolkit' ); ?></p>
+				<?php if ( in_array( 'sms', $methods, true ) ) : ?>
+					<p><?php esc_html_e( 'Open Test and troubleshoot. Check the saved configuration first, then explicitly send an SMS test to your own number. Unsaved provider or message changes must be saved before testing. This test sends SMS only; it does not test Bale or email.', 'anar-toolkit' ); ?></p>
+					<button type="button" class="button button-primary" data-setup-target="test"><?php esc_html_e( 'Open test center', 'anar-toolkit' ); ?></button>
 				<?php endif; ?>
+				<p><?php esc_html_e( 'Complete a real sign-in from a private browser window using each enabled method. For SMS and Bale together, check both receive the same code and that it works only once. Test email separately, and test Google if you enabled it.', 'anar-toolkit' ); ?></p>
 				<p><?php esc_html_e( 'A provider acceptance response does not confirm receipt on the phone. Check the received code before enabling the form for customers.', 'anar-toolkit' ); ?></p>
 			</div>
 			<div class="anar-card" data-setup-step="3" hidden>
@@ -61,6 +62,10 @@ final class LoginSetup {
 				<p><?php esc_html_e( 'The preview shows the saved form without sending codes or signing anyone in.', 'anar-toolkit' ); ?></p>
 				<button type="button" class="button" data-login-preview><?php esc_html_e( 'Preview saved form', 'anar-toolkit' ); ?></button>
 				<button type="button" class="button" data-setup-target="install"><?php esc_html_e( 'Open display options', 'anar-toolkit' ); ?></button>
+				<?php if ( \Anar\Login\Integrations\WooCommerce::active() ) : ?>
+					<button type="button" class="button" data-setup-target="woocommerce"><?php esc_html_e( 'WooCommerce', 'anar-toolkit' ); ?></button>
+				<?php endif; ?>
+				<p><?php esc_html_e( 'Use Add to pages to copy a shortcode into a page or block. For store account and checkout forms, use the WooCommerce section. Save appearance and display changes with Save settings before opening the preview.', 'anar-toolkit' ); ?></p>
 				<?php Help::button( __( 'Use the existing shortcode, popup or WooCommerce integration. Changing where the form appears does not change its verification rules. Save appearance changes before previewing.', 'anar-toolkit' ) ); ?>
 			</div>
 			<div class="anar-setup-actions"><button type="button" class="button" data-setup-prev disabled><?php esc_html_e( 'Previous step', 'anar-toolkit' ); ?></button><button type="button" class="button button-primary" data-setup-next><?php esc_html_e( 'Next step', 'anar-toolkit' ); ?></button></div>

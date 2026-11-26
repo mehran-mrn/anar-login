@@ -17,6 +17,7 @@ if ( ! defined( 'WP_CLI' ) || ! WP_CLI || 'local' !== wp_get_environment_type() 
 	throw new RuntimeException( 'Disposable local WordPress required.' );
 }
 require_once ABSPATH . 'wp-admin/includes/user.php';
+require_once ABSPATH . 'wp-admin/includes/plugin.php';
 wp_set_current_user( 1 );
 $original = get_option( UserMigration::COMPLETE, null );
 $original_detection = get_option( DigitsNotice::DETECTED, null );
@@ -70,6 +71,19 @@ try {
 	$notice->render();
 	ob_end_clean();
 	$assert( $queries === $wpdb->num_queries, 'A cached negative reminder check queried account data again.' );
+	$tools->menu();
+	$assert( ! in_array( 'anar-login-user-tools', array_column( $GLOBALS['submenu']['anar-login'] ?? array(), 2 ), true ), 'WordPress showed user tools without Digits source records.' );
+	ob_start();
+	\Anar\Login\Admin\Workspace::navigation();
+	$assert( strpos( ob_get_clean(), 'page=anar-login-user-tools' ) === false, 'Anar showed user tools without Digits source records.' );
+	ob_start();
+	$tools->render();
+	$assert( strpos( ob_get_clean(), esc_html__( 'Anar and Digits phone records are checked automatically. Billing numbers are not used to identify an account.', 'anar-toolkit' ) ) === false, 'A manual audit mentioned Digits without source records.' );
+	$linked_source = $create( array( 'digits_phone' => '+989000088881' ) );
+	$assert( DigitsNotice::needed(), 'A newly added source did not enable the tools.' );
+	update_user_meta( $linked_source, '_anar_phone', '+989000088881' );
+	$assert( ! DigitsNotice::needed(), 'Linking the last source did not hide the tools.' );
+	wp_delete_user( $linked_source );
 	$users = array();
 	for ( $i = 0; $i < 201; ++$i ) {
 		$phone = '+989' . str_pad( (string) $i, 9, '0', STR_PAD_LEFT );
@@ -86,6 +100,11 @@ try {
 	$before = array( $account->user_login, $account->user_pass, $account->roles );
 	$assert( UserMigration::available(), 'Digits records were not detected.' );
 	$assert( null === get_option( DigitsNotice::DETECTED, null ), 'Source metadata writes did not invalidate the cached negative detection.' );
+	$tools->menu();
+	$assert( in_array( 'anar-login-user-tools', array_column( $GLOBALS['submenu']['anar-login'] ?? array(), 2 ), true ), 'WordPress did not show tools for unmatched source records.' );
+	ob_start();
+	\Anar\Login\Admin\Workspace::navigation();
+	$assert( strpos( ob_get_clean(), 'page=anar-login-user-tools' ) !== false, 'Anar did not show tools for unmatched source records.' );
 	$notice->activated( 'digits/digit.php' );
 	ob_start();
 	$notice->render();
@@ -130,6 +149,7 @@ try {
 	$single = $create( array( 'digits_phone' => '+989000000999' ) );
 	$job = UserMigration::apply( $scan() );
 	$assert( $job['applied'] && get_option( UserMigration::COMPLETE, false ), 'A complete migration did not save its receipt.' );
+	$assert( ! DigitsNotice::needed(), 'Completed migration left the tools visible.' );
 	$queries = $wpdb->num_queries;
 	$assert( ! UserMigration::available() && $queries === $wpdb->num_queries, 'Completed detection should return without any source query.' );
 	$extra = $create( array( 'digits_phone' => '+989000000998' ) );

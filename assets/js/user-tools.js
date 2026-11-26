@@ -41,6 +41,14 @@
 		if ( result.rows.length === 0 ) { const tr = document.createElement( 'tr' ); const td = document.createElement( 'td' ); td.colSpan = 4; td.textContent = text.empty; tr.appendChild( td ); table.appendChild( tr ); }
 		root.querySelector( '[data-user-page]' ).textContent = text.progress + ' ' + result.page + ' / ' + result.pages;
 		if ( migrate && ! result.migration ) { root.querySelector( '[data-digits-migration]' ).hidden = true; }
+		if ( result.tools === false ) {
+			document.querySelectorAll( '.anar-admin__nav a[href], #toplevel_page_anar-login .wp-submenu a[href]' ).forEach( function ( link ) {
+				if ( new URL( link.href, window.location.href ).searchParams.get( 'page' ) === 'anar-login-user-tools' ) {
+					if ( link.closest( '.wp-submenu' ) ) { link.closest( 'li' ).remove(); }
+					else { link.remove(); }
+				}
+			} );
+		}
 	};
 	const run = async function ( work ) {
 		if ( busy ) { return; }

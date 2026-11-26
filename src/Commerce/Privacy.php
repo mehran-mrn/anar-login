@@ -118,6 +118,48 @@ final class Privacy {
 		$wpdb->delete( $this->repository->table( 'messages' ), array( 'recipient' => $phone ) );
 	}
 
+	/** Read only the local records covered by phone erasure, including inactive modules. */
+	public function phone_summary( $phone ) {
+		global $wpdb;
+		$contact = $this->repository->contact_by_phone( $phone );
+		if ( $wpdb->last_error ) {
+			return new \WP_Error( 'anar_privacy_read' );
+		}
+		$marketing = new \Anar\Login\Marketing\Repository();
+		$profile = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM %i WHERE phone_hash = %s', $marketing->table( 'profiles' ), Repository::phone_hash( $phone ) ) );
+		if ( $wpdb->last_error ) {
+			return new \WP_Error( 'anar_privacy_read' );
+		}
+		$counts = array( 'contact' => 0, 'carts' => 0, 'messages' => 0, 'profile' => $profile ? 1 : 0, 'campaigns' => 0 );
+		if ( $contact && ( $contact->phone || $contact->email || $contact->consent_text || $contact->capture_source || $contact->consented_at || $contact->captured_at ) ) {
+			$counts['contact'] = 1;
+		}
+		$queries = array(
+			'messages' => $wpdb->prepare( 'SELECT COUNT(*) AS total, MAX(id) AS last_id, MAX(updated_at) AS modified FROM %i WHERE recipient = %s', $this->repository->table( 'messages' ), $phone ),
+		);
+		if ( $contact ) {
+			$queries['carts'] = $wpdb->prepare( 'SELECT COUNT(*) AS total, MAX(id) AS last_id, MAX(updated_at) AS modified FROM %i WHERE contact_id = %d', $this->repository->table( 'carts' ), $contact->id );
+		}
+		if ( $profile ) {
+			foreach ( array( 'stock', 'feedback', 'plays', 'jobs', 'orders', 'purchases', 'game_awards' ) as $table ) {
+				$id = 'orders' === $table ? 'order_id' : ( 'game_awards' === $table ? 'play_id' : 'id' );
+				$queries[ $table ] = $wpdb->prepare( 'SELECT COUNT(*) AS total, MAX(%i) AS last_id FROM %i WHERE profile_id = %d', $id, $marketing->table( $table ), $profile->id );
+			}
+			$queries['referrals'] = $wpdb->prepare( 'SELECT COUNT(*) AS total, MAX(id) AS last_id FROM %i WHERE referrer = %d OR referred = %d', $marketing->table( 'referrals' ), $profile->id, $profile->id );
+		}
+		$state = array( 'contact' => $contact, 'profile' => $profile );
+		foreach ( $queries as $key => $query ) {
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- Every query is prepared above against fixed tables and columns.
+			$row = $wpdb->get_row( $query );
+			if ( $wpdb->last_error || ! $row ) {
+				return new \WP_Error( 'anar_privacy_read' );
+			}
+			$state[ $key ] = $row;
+			$counts[ in_array( $key, array( 'carts', 'messages' ), true ) ? $key : 'campaigns' ] += (int) $row->total;
+		}
+		return array( 'counts' => $counts, 'found' => array_sum( $counts ) > 0, 'fingerprint' => hash( 'sha256', wp_json_encode( $state ) ) );
+	}
+
 	private function erase_contact( $contact ) {
 		global $wpdb;
 		$this->repository->suppress( $contact->id );

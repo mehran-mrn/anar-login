@@ -36,18 +36,18 @@ final class Support {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
+		Workspace::start( __( 'Anar support', 'anar-toolkit' ) );
 		?>
-		<div class="wrap" dir="<?php echo is_rtl() ? 'rtl' : 'ltr'; ?>">
-			<h1><?php esc_html_e( 'Anar support', 'anar-toolkit' ); ?></h1>
-			<hr class="wp-header-end">
-			<div class="card">
+		<div class="anar-support">
+			<section class="anar-card">
 				<h2><?php esc_html_e( 'Questions, problems, and suggestions', 'anar-toolkit' ); ?></h2>
 				<p><?php esc_html_e( 'You can send questions, report problems, or share suggestions about Anar through the discussion section on the plugin homepage at mrnwp.ir/anar/. I will do my best to help you and resolve your issue as quickly as possible.', 'anar-toolkit' ); ?></p>
 				<p><?php esc_html_e( 'Describe what you were trying to do, what happened, and the Anar version you use. Replies appear under your question so other users can benefit from the solution too.', 'anar-toolkit' ); ?></p>
 				<p><?php esc_html_e( 'Email and phone are optional and are not displayed publicly. Your name and message become public after approval. You can ask a question without leaving a rating.', 'anar-toolkit' ); ?></p>
 				<p><a class="button button-primary" href="<?php echo esc_url( self::URL ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Ask a question or share a suggestion', 'anar-toolkit' ); ?></a></p>
-			</div>
+			</section>
 		</div>
 		<?php
+		Workspace::end();
 	}
 }

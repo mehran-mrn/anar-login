@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.15.2 - 2026-11-27
+
+- Show user tools in both admin menus only while unmatched Digits source records need review or migration. Hide irrelevant Digits guidance and remove both links when migration finishes.
+- Search local personal records before explicit erasure, show category counts and clear success/error results, and reject expired, reused or changed previews while preserving accounts and orders.
+- Render support inside the shared Anar workspace and add contextual developer guidance for each extension hook.
+- Update the sign-in guide for the current connection, code, message and SMS test workflows, with illustrated step navigation and direct sender-category links.
+
 ## 1.15.1 - 2026-11-27
 
 - Hide dedicated settings links for disabled capabilities in the shared admin workspace; keep settings needed by other active capabilities available.

@@ -76,6 +76,7 @@
 	root.querySelectorAll('[data-setup-target]').forEach((button) => {
 		button.addEventListener('click', () => {
 			navigateTab(button.dataset.setupTarget);
+			if (button.dataset.setupCategory) showCategory(button.dataset.setupCategory);
 			const title = root.querySelector(`[data-panel="${button.dataset.setupTarget}"] h2`);
 			if (title) { title.tabIndex = -1; title.focus(); }
 		});

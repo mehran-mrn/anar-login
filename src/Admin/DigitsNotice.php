@@ -22,6 +22,25 @@ final class DigitsNotice {
 		add_action( 'activated_plugin', array( $this, 'activated' ) );
 	}
 
+	public static function invalidate() {
+		if ( ! get_option( UserMigration::COMPLETE, false ) ) {
+			delete_option( self::DETECTED );
+		}
+	}
+
+	/** Share one cached source check between the menus and the one-time reminder. */
+	public static function needed() {
+		if ( get_option( UserMigration::COMPLETE, false ) ) {
+			return false;
+		}
+		$detected = get_option( self::DETECTED, null );
+		if ( null === $detected ) {
+			$detected = UserMigration::available() ? 'yes' : 'no';
+			update_option( self::DETECTED, $detected, true );
+		}
+		return 'yes' === $detected;
+	}
+
 	public function activated( $plugin ) {
 		if ( 'digit.php' === basename( $plugin ) ) {
 			// A newly activated Digits installation may have source data to check.
@@ -33,12 +52,7 @@ final class DigitsNotice {
 		if ( ! current_user_can( 'manage_options' ) || ! current_user_can( 'list_users' ) || ! current_user_can( 'edit_users' ) || get_option( UserMigration::COMPLETE, false ) || get_user_meta( get_current_user_id(), self::SEEN, true ) ) {
 			return;
 		}
-		$detected = get_option( self::DETECTED, null );
-		if ( null === $detected ) {
-			$detected = UserMigration::available() ? 'yes' : 'no';
-			update_option( self::DETECTED, $detected, true );
-		}
-		if ( 'yes' !== $detected ) {
+		if ( ! self::needed() ) {
 			return;
 		}
 		// Option names are unique: simultaneous admin tabs must not show two reminders.
