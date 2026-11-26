@@ -22,7 +22,7 @@ final class UserTools {
 	}
 
 	public function menu() {
-		add_submenu_page( 'anar-login', __( 'User tools', 'anar-toolkit' ), __( 'User tools', 'anar-toolkit' ), 'manage_options', 'anar-login-user-tools', array( $this, 'render' ) );
+		add_submenu_page( DigitsNotice::needed() ? 'anar-login' : null, __( 'User tools', 'anar-toolkit' ), __( 'User tools', 'anar-toolkit' ), 'manage_options', 'anar-login-user-tools', array( $this, 'render' ) );
 	}
 
 	public function assets( $hook ) {
@@ -61,10 +61,9 @@ final class UserTools {
 		if ( ! self::allowed() ) {
 			return;
 		}
-		$migrate = current_user_can( 'edit_users' ) && UserMigration::available();
-		if ( $migrate ) {
-			update_option( DigitsNotice::DETECTED, 'yes', true );
-		}
+		$available = UserMigration::available();
+		$migrate = current_user_can( 'edit_users' ) && $available;
+		update_option( DigitsNotice::DETECTED, $available ? 'yes' : 'no', true );
 		$summary = array( 'review' => __( 'Need review', 'anar-toolkit' ), 'linked' => __( 'Already linked to Anar', 'anar-toolkit' ) );
 		if ( $migrate ) {
 			$summary = array( 'review' => __( 'Need review', 'anar-toolkit' ), 'ready' => __( 'Ready to transfer', 'anar-toolkit' ), 'linked' => __( 'Already linked to Anar', 'anar-toolkit' ), 'imported' => __( 'Transferred', 'anar-toolkit' ) );
@@ -75,7 +74,9 @@ final class UserTools {
 			<section class="anar-card">
 				<h2><?php esc_html_e( 'Check account mobile numbers', 'anar-toolkit' ); ?></h2>
 				<p><?php esc_html_e( 'Find shared mobile numbers, inconsistent account records and numbers that need attention. Checking does not change any user data.', 'anar-toolkit' ); ?></p>
+				<?php if ( $migrate ) : ?>
 				<p class="description"><?php esc_html_e( 'Anar and Digits phone records are checked automatically. Billing numbers are not used to identify an account.', 'anar-toolkit' ); ?></p>
+				<?php endif; ?>
 				<button type="button" class="button button-primary" data-user-scan><?php esc_html_e( 'Check mobile numbers', 'anar-toolkit' ); ?></button>
 			</section>
 			<?php if ( $migrate ) : ?>
@@ -201,6 +202,7 @@ final class UserTools {
 			);
 		}
 		return array(
+			'tools' => DigitsNotice::needed(),
 			'token' => $token,
 			'done' => $job['done'],
 			'scanned' => $job['scanned'],

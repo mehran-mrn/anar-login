@@ -4,7 +4,7 @@ Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.2
 Requires PHP: 7.4
-Stable tag: 1.15.1
+Stable tag: 1.15.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -239,6 +239,11 @@ Yes. Set a budget per pool and a maximum money discount for each prize. Amounts 
 
 == Changelog ==
 
+= 1.15.2 =
+* Show User tools in both menus only while unmatched Digits phone records need review or migration, and hide irrelevant Digits guidance.
+* Search and preview local personal data before explicit erasure, with clear results and protection against changed or expired previews.
+* Keep support in the Anar workspace, explain extension hooks, and update the sign-in setup guide and step icons for the current settings.
+
 = 1.15.1 =
 * Hide disabled capabilities' dedicated settings links while keeping settings shared by active capabilities available.
 * Update the Anar workspace and WordPress submenus immediately after feature changes, including recovery from a lost save response.
@@ -454,6 +459,9 @@ Yes. Set a budget per pool and a maximum money discount for each prize. Amounts 
 Full history: https://github.com/mehran-mrn/anar-login/blob/main/CHANGELOG.md
 
 == Upgrade Notice ==
+
+= 1.15.2 =
+User tools now stays hidden without unmatched Digits records. Personal-data erasure requires a search and explicit confirmation; accounts and orders are preserved. The support page and sign-in guide follow the current Anar interface.
 
 = 1.15.1 =
 Disabled capabilities now hide their dedicated settings links immediately. Saved settings are retained, and shared settings remain available to active capabilities.

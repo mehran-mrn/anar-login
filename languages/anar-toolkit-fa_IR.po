@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: Anar Toolkit 1.15.0\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
+msgstr "Project-Id-Version: Anar Toolkit 1.15.2\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
 
 msgid "%1$d paid orders. A gift at every %2$d orders."
 msgstr "%1$d سفارش پرداخت‌شده؛ یک هدیه پس از هر %2$d سفارش."
@@ -186,6 +186,12 @@ msgstr "عملیات"
 
 msgid "Action URL"
 msgstr "پیوند اقدام مشتری"
+
+msgid "Action: runs after Anar creates an account. Arguments: user ID, sign-in channel and identity or Google profile data. Use it for a custom registration follow-up."
+msgstr "اکشن: پس از ساخت حساب توسط انار اجرا می‌شود. ورودی‌ها: شناسهٔ کاربر، روش ورود و اطلاعات هویت یا پروفایل گوگل. برای اجرای کد سفارشی پس از ثبت‌نام استفاده می‌شود."
+
+msgid "Action: runs after Anar signs a user in. Arguments: the WP_User object and remember-me flag. Use it for a custom post-login action; it does not change the redirect URL."
+msgstr "اکشن: پس از ورود کاربر توسط انار اجرا می‌شود. ورودی‌ها: شیء کاربر وردپرس (WP_User) و وضعیت «مرا به خاطر بسپار». برای اجرای کد پس از ورود است و آدرس انتقال را تغییر نمی‌دهد."
 
 msgid "Actions"
 msgstr "عملیات"
@@ -628,8 +634,14 @@ msgstr "تاریخ شروع"
 msgid "Campaign title"
 msgstr "عنوان کمپین"
 
+msgid "Campaign, referral and game records"
+msgstr "سوابق کمپین، معرفی و بازی"
+
 msgid "Campaigns & CRM"
 msgstr "کمپین‌ها و مشتریان"
+
+msgid "Cancel"
+msgstr "انصراف"
 
 msgid "Cancel remaining messages"
 msgstr "لغو پیام‌های باقی‌مانده"
@@ -913,6 +925,9 @@ msgstr "ابزارهای فروشگاه"
 msgid "Compatible MRN Forms required"
 msgstr "نیاز به نسخهٔ سازگار MRN Forms"
 
+msgid "Complete a real sign-in from a private browser window using each enabled method. For SMS and Bale together, check both receive the same code and that it works only once. Test email separately, and test Google if you enabled it."
+msgstr "در پنجرهٔ خصوصی مرورگر، با هر روش فعال یک ورود واقعی انجام دهید. اگر پیامک و بله هم‌زمان فعال‌اند، دریافت کد یکسان در هر دو و یک‌بارمصرف‌بودن آن را بررسی کنید. ایمیل و در صورت فعال‌بودن، ورود گوگل را جداگانه امتحان کنید."
+
 msgid "Complete account details"
 msgstr "تکمیل اطلاعات حساب"
 
@@ -999,6 +1014,9 @@ msgstr "اتصال سرویس را تنظیم و ذخیره کنید. الگوی
 
 msgid "Confirm and queue this campaign"
 msgstr "تأیید و افزودن این کمپین به صف"
+
+msgid "Confirm erasure"
+msgstr "تأیید حذف داده‌ها"
 
 msgid "Confirm new number"
 msgstr "تأیید شمارهٔ جدید"
@@ -1444,6 +1462,9 @@ msgstr "پیام ایمیل ورود"
 msgid "Email subject"
 msgstr "موضوع ایمیل"
 
+msgid "Email uses the site mail service (wp_mail or your SMTP plugin). Edit the email subject and message in Sign-in settings, then save the settings."
+msgstr "ایمیل از سرویس ایمیل سایت (wp_mail یا افزونهٔ SMTP شما) استفاده می‌کند. موضوع و متن ایمیل را در «تنظیمات ورود» ویرایش و تنظیمات را ذخیره کنید."
+
 msgid "Enable Google sign-in"
 msgstr "فعال‌سازی ورود گوگل"
 
@@ -1515,6 +1536,9 @@ msgstr "کد الگو (bodyId) را وارد کنید، یا برای ارسال
 
 msgid "Enter a title and message, and choose a non-empty audience."
 msgstr "عنوان و متن پیام را وارد و گروهی با دست‌کم یک مخاطب انتخاب کنید."
+
+msgid "Enter a valid mobile number to search."
+msgstr "برای جست‌وجو، یک شمارهٔ موبایل معتبر وارد کنید."
 
 msgid "Enter a valid number within the range shown for each code setting."
 msgstr "برای هر تنظیم، عددی در محدودهٔ مشخص‌شده وارد کنید."
@@ -1603,6 +1627,9 @@ msgstr "مقابله با شناسایی حساب‌ها"
 msgid "Erase local reminder data for this number"
 msgstr "حذف داده‌های محلی یادآوری این شماره"
 
+msgid "Erasure could not be completed. Some local records may remain; search again to review them."
+msgstr "حذف کامل نشد. ممکن است بخشی از سوابق محلی باقی مانده باشد؛ دوباره جست‌وجو کنید تا آن‌ها را بررسی کنید."
+
 msgid "Error code"
 msgstr "کد خطا"
 
@@ -1678,6 +1705,18 @@ msgstr "پرکردن تلفن صورتحساب"
 msgid "Filter"
 msgstr "فیلتر"
 
+msgid "Filter: allow or reject a code request before sending. Arguments: the current decision and normalized identity. Return true to allow, false to reject, or WP_Error to explain the rejection."
+msgstr "فیلتر: درخواست کد را پیش از ارسال مجاز یا رد می‌کند. ورودی‌ها: تصمیم فعلی و هویت استانداردشده. برای اجازه true، برای رد false و برای توضیح خطا WP_Error برگردانید."
+
+msgid "Filter: change the destination after sign-in. Arguments: destination URL and user ID. Return the desired URL; Anar then validates the redirect."
+msgstr "فیلتر: مقصد پس از ورود را تغییر می‌دهد. ورودی‌ها: آدرس مقصد و شناسهٔ کاربر. آدرس دلخواه را برگردانید؛ انار مجازبودن آدرس انتقال را بررسی می‌کند."
+
+msgid "Filter: change the sign-in SMS text. Arguments: message text, verification code and lifetime. Return the final message; do not log or expose the code."
+msgstr "فیلتر: متن پیامک ورود را تغییر می‌دهد. ورودی‌ها: متن پیام، کد تأیید و مدت اعتبار. متن نهایی را برگردانید؛ کد را در گزارش ثبت یا عمومی نکنید."
+
+msgid "Filter: customize the provider registry. Arguments: the providers array and the Settings object. Return the updated providers array."
+msgstr "فیلتر: فهرست سرویس‌دهنده‌ها را سفارشی می‌کند. ورودی‌ها: آرایهٔ سرویس‌دهنده‌ها و شیء تنظیمات (Settings). آرایهٔ به‌روزشده را برگردانید."
+
 msgid "Find a message and edit it here. The same editor is available in each feature."
 msgstr "پیام موردنظر را پیدا و ویرایش کنید. همین پنجره از تنظیمات هر قابلیت نیز در دسترس است."
 
@@ -1716,6 +1755,9 @@ msgstr "مبلغ ثابت سبد"
 
 msgid "Follow each cart back to purchase."
 msgstr "مسیر هر سبد را تا خرید دنبال کنید."
+
+msgid "For Bale, open the Messengers category in Service providers, complete the Bale connection and save. Bale sends verification codes without an SMS message template."
+msgstr "برای بله، در «سرویس‌دهنده‌ها» دستهٔ «پیام‌رسان‌ها» را باز کنید و اطلاعات اتصال بله را تکمیل و ذخیره کنید. بله کد تأیید را بدون الگوی پیامکی ارسال می‌کند."
 
 msgid "For a login page or theme modal."
 msgstr "برای صفحه ورود یا مودال قالب."
@@ -1921,6 +1963,9 @@ msgstr "خرید شما چطور بود؟"
 msgid "How was your purchase? Share your honest feedback."
 msgstr "خریدتان چطور بود؟ بازخورد خود را با ما به اشتراک بگذارید."
 
+msgid "I verified the requester and confirm erasure of the displayed records."
+msgstr "هویت درخواست‌کننده را بررسی کرده‌ام و حذف سوابق نمایش‌داده‌شده را تأیید می‌کنم."
+
 msgid "If a consented unfinished purchase exists, a new code will be sent shortly. Please wait before trying again."
 msgstr "اگر خرید ناتمام همراه با رضایت ثبت‌شده وجود داشته باشد، کد جدید به‌زودی پیامک می‌شود. پیش از تلاش دوباره کمی صبر کنید."
 
@@ -1986,6 +2031,12 @@ msgstr "سفارش‌های پرداخت‌شدهٔ ووکامرس در دسته
 
 msgid "Import up to 1,000 phone numbers at a time."
 msgstr "هر بار حداکثر ۱۰۰۰ شمارهٔ همراه درون‌ریزی کنید."
+
+msgid "In Sign-in settings, choose SMS, Email and/or Bale under Sign-in methods, then use Save settings. SMS and Bale use the entered mobile number; Email uses the entered email address. Google sign-in has its own settings section."
+msgstr "در «تنظیمات ورود»، از بخش «روش‌های ورود» پیامک، ایمیل یا بله را انتخاب کنید و «ذخیرهٔ تنظیمات» را بزنید. پیامک و بله از شمارهٔ موبایل و ایمیل از نشانی ایمیل واردشده استفاده می‌کنند. ورود با گوگل تنظیمات جداگانه دارد."
+
+msgid "In Sign-in settings, save code length and limits with Save code settings. Edit the sign-in message in Sign-in and recovery messages and save it in its editor. Connection, code and message settings have separate save buttons."
+msgstr "در «تنظیمات ورود»، طول کد و محدودیت‌ها را با «ذخیرهٔ تنظیمات کد» ذخیره کنید. پیام ورود را در «پیام‌های ورود و بازیابی» ویرایش و در همان ویرایشگر ذخیره کنید. اتصال، کد و پیام هرکدام دکمهٔ ذخیرهٔ جداگانه دارند."
 
 msgid "In template mode this is a reference only. Editing it does not change the approved text in your SMS panel."
 msgstr "در ارسال الگویی، این متن فقط مرجع پیش‌نمایش است. ویرایش آن، متن الگوی تأییدشده در پنل پیامکی را تغییر نمی‌دهد."
@@ -2146,6 +2197,15 @@ msgstr "در حال دریافت پیام…"
 msgid "Loading the sign-in form…"
 msgstr "در حال بارگذاری فرم ورود…"
 
+msgid "Local Anar records for this number were erased. The WordPress account and WooCommerce orders were kept."
+msgstr "سوابق محلی انار برای این شماره حذف شد. حساب وردپرس و سفارش‌های ووکامرس حفظ شدند."
+
+msgid "Local Anar records were found. Review the summary before confirming erasure."
+msgstr "برای این شماره سوابق محلی انار پیدا شد. پیش از تأیید حذف، خلاصهٔ سوابق را بررسی کنید."
+
+msgid "Local data could not be checked. Please try again."
+msgstr "بررسی داده‌های محلی انجام نشد. دوباره تلاش کنید."
+
 msgid "Local data retention, days (7-90)"
 msgstr "مدت نگهداری داده‌های محلی، به روز (۷ تا ۹۰)"
 
@@ -2199,6 +2259,9 @@ msgstr "پیام‌های بازاریابی و یادآوری خرید متوق
 
 msgid "Marketing messages"
 msgstr "پیامک‌های بازاریابی"
+
+msgid "Marketing profile"
+msgstr "پروفایل بازاریابی"
 
 msgid "Marketing retention in days"
 msgstr "مدت نگهداری دادهٔ بازاریابی به روز"
@@ -2301,6 +2364,9 @@ msgstr "پیام نوبت بدون جایزه"
 
 msgid "Messages"
 msgstr "پیام‌ها"
+
+msgid "Messages and queue entries"
+msgstr "پیام‌ها و صف ارسال"
 
 msgid "Messages and sending report"
 msgstr "پیام‌ها و گزارش ارسال"
@@ -2479,6 +2545,9 @@ msgstr "در حال حاضر هیچ قابلیتی این اتصال را انت
 msgid "No history import is running."
 msgstr "درون‌ریزی تاریخچه در حال اجرا نیست."
 
+msgid "No local Anar records were found for this number. Nothing was deleted."
+msgstr "برای این شماره هیچ سابقهٔ محلی در انار پیدا نشد. چیزی حذف نشد."
+
 msgid "No logo"
 msgstr "بدون لوگو"
 
@@ -2610,6 +2679,12 @@ msgstr "تنظیمات اتصال پیامک"
 
 msgid "Open SMS panel"
 msgstr "ورود به سامانهٔ پیامکی"
+
+msgid "Open Service providers → SMS providers, choose one panel, enter its credentials and use Save connection settings. Check connection checks the account without sending a message. All Anar SMS features use this saved provider."
+msgstr "در «سرویس‌دهنده‌ها»، دستهٔ «پنل‌های پیامکی» را باز کنید؛ یک پنل انتخاب کنید، اطلاعات آن را وارد کنید و «ذخیرهٔ تنظیمات اتصال» را بزنید. «بررسی اتصال» بدون ارسال پیام حساب را بررسی می‌کند. همهٔ قابلیت‌های پیامکی انار از همین پنل استفاده می‌کنند."
+
+msgid "Open Test and troubleshoot. Check the saved configuration first, then explicitly send an SMS test to your own number. Unsaved provider or message changes must be saved before testing. This test sends SMS only; it does not test Bale or email."
+msgstr "بخش «تست و عیب‌یابی» را باز کنید. ابتدا تنظیمات ذخیره‌شده را بررسی کنید، سپس با انتخاب خودتان یک پیامک آزمایشی به شمارهٔ خود ارسال کنید. تغییرات ذخیره‌نشدهٔ پنل یا پیام باید پیش از تست ذخیره شوند. این تست فقط پیامک می‌فرستد و بله یا ایمیل را آزمایش نمی‌کند."
 
 msgid "Open a game to edit its text and copy its shortcode into a page or shortcode block. These panels do not switch games on or off. Leave a text field empty to use its default wording."
 msgstr "بخش هر بازی را باز کنید، متن‌های آن را تنظیم کنید و شورت‌کدش را در برگه یا بلوک شورت‌کد قرار دهید. باز و بسته کردن این بخش‌ها، بازی را فعال یا غیرفعال نمی‌کند. اگر کادر متنی را خالی بگذارید، متن پیش‌فرض نمایش داده می‌شود."
@@ -3115,6 +3190,9 @@ msgstr "سفارش‌های ثبت‌شده و درون‌ریزی‌شده"
 msgid "Recorded net sales · 30 days"
 msgstr "فروش خالص ثبت‌شده · ۳۰ روز"
 
+msgid "Records found for this number"
+msgstr "سوابق پیدا‌شده برای شمارهٔ"
+
 msgid "Records the outcome, provider and time of login/reset SMS requests. It does not store the code or full message. View results under Messages."
 msgstr "نتیجه، سرویس‌دهنده و زمان درخواست‌های پیامک ورود و بازیابی رمز ثبت می‌شود. کد و متن کامل پیام ذخیره نمی‌شود. نتیجه‌ها را در بخش «پیام‌ها» ببینید."
 
@@ -3237,6 +3315,9 @@ msgstr "ثبت‌نام به دلیل نبود نقش امن برای کاربر
 
 msgid "Reload saved message"
 msgstr "دریافت آخرین نسخهٔ ذخیره‌شده"
+
+msgid "Reminder contact details"
+msgstr "اطلاعات مخاطب یادآوری"
 
 msgid "Reminder schedule and messages"
 msgstr "زمان‌بندی و پیام‌های یادآوری"
@@ -3576,6 +3657,15 @@ msgstr "پوشش نقره‌ای کارت را بخراشید"
 
 msgid "Scratch with your finger or mouse, or use the reveal button below."
 msgstr "با انگشت یا ماوس بخراشید، یا دکمهٔ نمایش نتیجه را بزنید."
+
+msgid "Search a mobile number to see which local Anar records exist. Searching does not delete or change those records."
+msgstr "شمارهٔ موبایل را جست‌وجو کنید تا سوابق محلی انار نمایش داده شوند. جست‌وجو هیچ‌یک از این سوابق را تغییر نمی‌دهد یا حذف نمی‌کند."
+
+msgid "Search for a number first, then confirm the displayed erasure."
+msgstr "ابتدا شماره را جست‌وجو کنید و سپس حذف سوابق نمایش‌داده‌شده را تأیید کنید."
+
+msgid "Search local data"
+msgstr "جست‌وجوی داده‌ها"
 
 msgid "Search messages"
 msgstr "جست‌وجوی پیام"
@@ -4294,6 +4384,9 @@ msgstr "بازیابی سبد انجام نشد. سبد قبلی شما حفظ �
 msgid "The saved cart is empty."
 msgstr "سبد ذخیره‌شده خالی است."
 
+msgid "The search result could not be saved. Please search again."
+msgstr "نتیجهٔ جست‌وجو ذخیره نشد. دوباره جست‌وجو کنید."
+
 msgid "The selected SMS provider is unavailable."
 msgstr "درگاه پیامک انتخاب‌شده در دسترس نیست."
 
@@ -4332,6 +4425,12 @@ msgstr "مهلت مرحلهٔ تأیید تمام شد. لطفاً دوباره 
 
 msgid "The wheel shows possible prizes. Segment size does not indicate the chance of winning."
 msgstr "بخش‌های گردونه، نتیجه‌های ممکن را نشان می‌دهند. اندازهٔ هر بخش بیانگر احتمال برد آن نیست."
+
+msgid "These are WordPress hooks for developers, not shortcodes or settings. Use add_filter() to change a value and return the result, or add_action() to run custom code when an event occurs. Put this code in a custom plugin or child theme; do not edit Anar files."
+msgstr "این‌ها هوک‌های وردپرس برای توسعه‌دهنده هستند؛ شورت‌کد یا تنظیم قابل‌فعال‌سازی نیستند. با add_filter() یک مقدار را تغییر دهید و نتیجه را برگردانید، یا با add_action() هنگام رخ‌دادن یک رویداد کد سفارشی اجرا کنید. کد را در افزونهٔ سفارشی یا قالب فرزند بنویسید و فایل‌های انار را ویرایش نکنید."
+
+msgid "These records changed after your search. Search again and review the updated summary."
+msgstr "این سوابق پس از جست‌وجوی شما تغییر کرده‌اند. دوباره جست‌وجو کنید و خلاصهٔ تازه را بررسی کنید."
 
 msgid "These settings affect all customer campaigns, including birthday and repeat-purchase messages."
 msgstr "این تنظیمات برای همهٔ پیام‌های بازاریابی، از جمله تبریک تولد و یادآوری خرید مجدد، اعمال می‌شوند."
@@ -4444,8 +4543,14 @@ msgstr "این تخفیف فقط برای شمارهٔ همراه دریافت�
 msgid "This reminder link is invalid or has expired."
 msgstr "لینک یادآوری نامعتبر یا منقضی شده است."
 
+msgid "This removes local Anar reminder and marketing records and revokes personal gift coupons. The WordPress account, login mobile number, WooCommerce orders and SMS provider records remain. Minimal suppression identifiers and anonymous campaign budget totals are retained."
+msgstr "سوابق محلی یادآوری و بازاریابی انار حذف و کوپن‌های هدیهٔ شخصی لغو می‌شوند. حساب وردپرس، شمارهٔ ورود، سفارش‌های ووکامرس و سوابق شرکت پیامکی باقی می‌مانند. شناسهٔ حداقلی توقف پیام‌ها و جمع ناشناس بودجهٔ کمپین هم حفظ می‌شوند."
+
 msgid "This reserved gift has expired. Start again when another attempt is available."
 msgstr "اعتبار جایزهٔ رزروشده به پایان رسیده است. پس از در دسترس بودن نوبت بعدی، دوباره شرکت کنید."
+
+msgid "This search result expired or was already used. Search again before erasing."
+msgstr "این نتیجهٔ جست‌وجو منقضی شده یا قبلاً استفاده شده است. پیش از حذف، دوباره جست‌وجو کنید."
 
 msgid "This step has expired. You can add your name from your account page."
 msgstr "مهلت این مرحله تمام شده است. می‌توانید نام خود را از صفحهٔ حساب کاربری اضافه کنید."
@@ -4458,6 +4563,9 @@ msgstr "ثبت این درخواست در دسترس نیست."
 
 msgid "This survey is no longer available."
 msgstr "این نظرسنجی دیگر در دسترس نیست."
+
+msgid "This tool covers local reminder and marketing records. It does not delete WordPress accounts, login mobile numbers, WooCommerce orders or records held by the SMS provider."
+msgstr "این ابزار برای سوابق محلی یادآوری و بازاریابی است. حساب وردپرس، شمارهٔ ورود، سفارش‌های ووکامرس و سوابق شرکت پیامکی را حذف نمی‌کند."
 
 msgid "This verification expired. Please sign in again."
 msgstr "مهلت تأیید تمام شده است. لطفاً دوباره وارد شوید."
@@ -4575,6 +4683,9 @@ msgstr "پیوند لغو دریافت"
 
 msgid "Use %s from SMS settings"
 msgstr "استفاده از %s، پیش‌فرض تنظیمات پیامک"
+
+msgid "Use Add to pages to copy a shortcode into a page or block. For store account and checkout forms, use the WooCommerce section. Save appearance and display changes with Save settings before opening the preview."
+msgstr "در «نصب در صفحات»، شورت‌کد دلخواه را کپی و در صفحه یا بلوک قرار دهید. برای فرم‌های حساب و تسویه‌حساب فروشگاه، از بخش «ووکامرس» استفاده کنید. تغییرات ظاهر و نمایش را پیش از پیش‌نمایش با «ذخیرهٔ تنظیمات» ذخیره کنید."
 
 msgid "Use a generic verification template approved for these purposes. Changing the shared sign-in template affects the messages that use it."
 msgstr "از الگوی عمومی تأیید کد که برای این کاربردها در پنل تأیید شده است استفاده کنید. تغییر الگوی مشترک ورود روی پیام‌هایی که از آن استفاده می‌کنند نیز اثر دارد."
@@ -4935,6 +5046,9 @@ msgstr "کدهای بازیابی حساب شما از طریق دسترسی ه�
 
 msgid "Your reminder preference has been saved."
 msgstr "ترجیح دریافت یادآوری ذخیره شد."
+
+msgid "Your request could not be verified. Reload this page and search again."
+msgstr "اعتبار درخواست تأیید نشد. صفحه را تازه کنید و دوباره جست‌وجو کنید."
 
 msgid "Your review"
 msgstr "دیدگاه شما"

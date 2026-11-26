@@ -26,6 +26,7 @@ entries.update(json.loads((ROOT / 'tools/resilience-fa.json').read_text(encoding
 entries.update(json.loads((ROOT / 'tools/workspace-fa.json').read_text(encoding='utf-8')))
 entries.update(json.loads((ROOT / 'tools/support-fa.json').read_text(encoding='utf-8')))
 entries.update(json.loads((ROOT / 'tools/user-tools-fa.json').read_text(encoding='utf-8')))
+entries.update(json.loads((ROOT / 'tools/admin-refinements-fa.json').read_text(encoding='utf-8')))
 entries[''] = f'Project-Id-Version: Anar Toolkit {VERSION}\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n'
 ordered = sorted(entries.items())
 (LANG / 'anar-toolkit-fa_IR.po').write_text('\n\n'.join('msgid ' + json.dumps(k, ensure_ascii=False) + '\nmsgstr ' + json.dumps(v, ensure_ascii=False) for k, v in ordered) + '\n', encoding='utf-8')

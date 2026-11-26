@@ -445,13 +445,19 @@ final class SettingsPage {
 							</article>
 						</div>
 						<div class="anar-hooks">
-							<h3><?php esc_html_e( 'Key extension points', 'anar-toolkit' ); ?></h3>
-							<code>anar_login_sms_providers</code>
-							<code>anar_login_allow_otp_request</code>
-							<code>anar_login_otp_message</code>
-							<code>anar_login_redirect_url</code>
-							<code>anar_login_user_registered</code>
-							<code>anar_login_authenticated</code>
+							<h3><?php esc_html_e( 'Key extension points', 'anar-toolkit' ); ?><?php Help::button( __( 'These are WordPress hooks for developers, not shortcodes or settings. Use add_filter() to change a value and return the result, or add_action() to run custom code when an event occurs. Put this code in a custom plugin or child theme; do not edit Anar files.', 'anar-toolkit' ) ); ?></h3>
+							<?php
+							foreach ( array(
+								'anar_login_sms_providers' => __( 'Filter: customize the provider registry. Arguments: the providers array and the Settings object. Return the updated providers array.', 'anar-toolkit' ),
+								'anar_login_allow_otp_request' => __( 'Filter: allow or reject a code request before sending. Arguments: the current decision and normalized identity. Return true to allow, false to reject, or WP_Error to explain the rejection.', 'anar-toolkit' ),
+								'anar_login_otp_message' => __( 'Filter: change the sign-in SMS text. Arguments: message text, verification code and lifetime. Return the final message; do not log or expose the code.', 'anar-toolkit' ),
+								'anar_login_redirect_url' => __( 'Filter: change the destination after sign-in. Arguments: destination URL and user ID. Return the desired URL; Anar then validates the redirect.', 'anar-toolkit' ),
+								'anar_login_user_registered' => __( 'Action: runs after Anar creates an account. Arguments: user ID, sign-in channel and identity or Google profile data. Use it for a custom registration follow-up.', 'anar-toolkit' ),
+								'anar_login_authenticated' => __( 'Action: runs after Anar signs a user in. Arguments: the WP_User object and remember-me flag. Use it for a custom post-login action; it does not change the redirect URL.', 'anar-toolkit' ),
+							) as $hook => $description ) :
+								?>
+								<span class="anar-hook"><code><?php echo esc_html( $hook ); ?></code><?php Help::button( $description ); ?></span>
+							<?php endforeach; ?>
 						</div>
 					</section>
 

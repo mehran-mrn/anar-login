@@ -8,7 +8,6 @@
 namespace Anar\Login\Commerce;
 
 use Anar\Login\Messaging\ProviderRegistry;
-use Anar\Login\Support\Identity;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -63,11 +62,7 @@ final class Admin {
 	public function forget() {
 		$this->guard();
 		check_admin_referer( 'anar_toolkit_forget' );
-		$raw   = isset( $_POST['phone'] ) && is_string( $_POST['phone'] ) ? sanitize_text_field( wp_unslash( $_POST['phone'] ) ) : '';
-		$phone = Identity::normalize( $raw );
-		if ( ! is_wp_error( $phone ) && 'sms' === $phone['channel'] ) {
-			( new Privacy( $this->repository, $this->settings ) )->erase_phone( $phone['identity'] );
-		}
+		// Old forms must return to the search step instead of bypassing the preview.
 		wp_safe_redirect( admin_url( 'admin.php?page=anar-toolkit-commerce&tab=privacy' ) );
 		exit;
 	}
@@ -210,11 +205,7 @@ final class Admin {
 				?>
 				<section class="anar-suite-panel" data-suite-panel="privacy" id="privacy"><div class="anar-commerce-card"><h2><?php esc_html_e( 'Personal data', 'anar-toolkit' ); ?></h2>
 				<?php \Anar\Login\Admin\Help::button( __( 'WordPress export and erasure tools can locate reminders by the optional saved email. For a phone-only request, verify the requester first and remove that number here. This removes local reminder data and queue entries, not WooCommerce orders or records already held by the SMS provider.', 'anar-toolkit' ) ); ?>
-				<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
-					<?php wp_nonce_field( 'anar_toolkit_forget' ); ?><input type="hidden" name="action" value="anar_toolkit_forget">
-					<label><?php esc_html_e( 'Mobile number', 'anar-toolkit' ); ?> <input name="phone" type="tel" dir="ltr" required></label>
-					<button type="submit" class="button"><?php esc_html_e( 'Erase local reminder data for this number', 'anar-toolkit' ); ?></button>
-				</form>
+				<?php \Anar\Login\Admin\PersonalData::render( new Privacy( $this->repository, $this->settings ) ); ?>
 			</div>
 			</section><?php endif; ?>
 		</div><?php \Anar\Login\Admin\Workspace::end(); ?>

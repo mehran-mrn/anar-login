@@ -64,6 +64,9 @@ final class Plugin {
 		foreach ( array( 'added_user_meta', 'updated_user_meta', 'deleted_user_meta' ) as $hook ) {
 			add_action( $hook, array( self::class, 'digits_source_changed' ), 10, 3 );
 		}
+		foreach ( array( 'deleted_user', 'add_user_to_blog', 'remove_user_from_blog' ) as $hook ) {
+			add_action( $hook, array( \Anar\Login\Admin\DigitsNotice::class, 'invalidate' ) );
+		}
 		add_action( 'updated_option', array( \Anar\Login\Infrastructure\Features::class, 'changed' ), 10, 3 );
 		add_action(
 			'added_option',
@@ -117,9 +120,9 @@ final class Plugin {
 		}
 	}
 
-	/** Invalidate the cached hint on actual Digits writes; never scan on a page view. */
+	/** Invalidate the source hint when an account phone is linked or changed. */
 	public static function digits_source_changed( $meta_id, $user_id, $key ) {
-		if ( in_array( $key, array( 'digits_phone', 'digits_phone_no' ), true ) && ! get_option( 'anar_digits_migration_complete', false ) ) {
+		if ( in_array( $key, array( '_anar_phone', 'digits_phone', 'digits_phone_no' ), true ) && ! get_option( 'anar_digits_migration_complete', false ) ) {
 			delete_option( 'anar_digits_migration_detected' );
 		}
 	}

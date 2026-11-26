@@ -17,7 +17,7 @@ final class NavigationTest extends TestCase {
 
 	protected function setUp(): void {
 		$this->original = $GLOBALS['anar_test_options'] ?? array();
-		$GLOBALS['anar_test_options'] = array( Features::OPTION => array( '_snapshot' => 1, 'enabled' => array() ) );
+		$GLOBALS['anar_test_options'] = array( Features::OPTION => array( '_snapshot' => 1, 'enabled' => array() ), 'anar_digits_migration_detected' => 'no' );
 	}
 
 	protected function tearDown(): void {
@@ -47,6 +47,14 @@ final class NavigationTest extends TestCase {
 			$GLOBALS['anar_test_options'][ Features::OPTION ]['enabled']['balance'] = $enabled;
 			$this->assertSame( $enabled, strpos( $this->navigation(), 'page=anar-toolkit-balance' ) !== false );
 		}
+	}
+
+	public function test_user_tools_require_unmatched_source_data_and_hide_after_completion() {
+		$this->assertStringNotContainsString( 'page=anar-login-user-tools', $this->navigation() );
+		$GLOBALS['anar_test_options']['anar_digits_migration_detected'] = 'yes';
+		$this->assertStringContainsString( 'page=anar-login-user-tools', $this->navigation() );
+		$GLOBALS['anar_test_options']['anar_digits_migration_complete'] = array( 'at' => 123 );
+		$this->assertStringNotContainsString( 'page=anar-login-user-tools', $this->navigation() );
 	}
 
 	public function test_sign_in_settings_restore_and_shared_security_survives_password_recovery() {

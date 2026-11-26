@@ -27,6 +27,7 @@ final class Workspace {
 		$commerce = 'anar-toolkit-commerce' === $page || (bool) Features::current_module();
 		$tabs = Features::workspace_tabs();
 		$settings_tabs = array_flip( Features::settings_tabs() );
+		$user_tools = DigitsNotice::needed();
 		$groups = array(
 			__( 'Features', 'anar-toolkit' ) => array( 'features' => __( 'Features', 'anar-toolkit' ) ),
 			__( 'Sign-in and accounts', 'anar-toolkit' ) => array( 'general' => __( 'Sign-in settings', 'anar-toolkit' ), 'security' => __( 'Security', 'anar-toolkit' ), 'google' => __( 'Google sign-in', 'anar-toolkit' ), 'setup' => __( 'Sign-in setup guide', 'anar-toolkit' ), 'install' => __( 'Add to pages', 'anar-toolkit' ) ),
@@ -36,6 +37,9 @@ final class Workspace {
 		);
 		foreach ( $groups as $heading => $items ) {
 			$items = array_intersect_key( $items, $settings_tabs );
+			if ( __( 'Sign-in and accounts', 'anar-toolkit' ) === $heading && ! $items && ! $user_tools ) {
+				continue;
+			}
 			if ( __( 'Store and marketing', 'anar-toolkit' ) === $heading && ! class_exists( 'WooCommerce' ) ) {
 				continue; }
 			?>
@@ -52,7 +56,7 @@ final class Workspace {
 					self::link( admin_url( 'admin.php?page=anar-login-settings&section=' . $key ), $label, 'features' === $key && 'anar-features-other' === $page );
 				}
 			}
-			if ( __( 'Sign-in and accounts', 'anar-toolkit' ) === $heading ) {
+			if ( __( 'Sign-in and accounts', 'anar-toolkit' ) === $heading && $user_tools ) {
 				self::link( admin_url( 'admin.php?page=anar-login-user-tools' ), __( 'User tools', 'anar-toolkit' ), 'anar-login-user-tools' === $page );
 			}
 			if ( __( 'Store and marketing', 'anar-toolkit' ) === $heading ) {
