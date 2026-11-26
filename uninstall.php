@@ -38,6 +38,8 @@ foreach ( array( 'melipayamak', 'kavenegar', 'ippanel', 'panelchi', 'maxsms', 's
 }
 delete_option( 'anar_marketing_import_lock' );
 delete_option( 'anar_game_pool_migrated' );
+delete_option( 'anar_digits_migration_complete' );
+delete_option( 'anar_digits_migration_detected' );
 delete_option( 'anar_game_budget_scan' );
 delete_option( 'anar_game_budget_cursor' );
 delete_option( 'anar_game_money_schema' );
@@ -50,7 +52,7 @@ foreach ( array( 'profiles', 'orders', 'purchases', 'jobs', 'stock', 'feedback',
 }
 foreach ( array( 'anar_toolkit_marketing', 'anar_marketing_profile_cursor', 'anar_marketing_import_active', 'anar_marketing_import_page' ) as $anar_marketing_option ) {
 	delete_option( $anar_marketing_option ); }
-foreach ( array( 'anar_passkey_', 'anar_auth_flow_', '_anar_authenticator_', '_anar_recovery_codes_', 'anar_toolkit_messages_', 'anar_reward_', 'anar_bulk_launch_', '_transient_anar_bulk_preview_', '_transient_timeout_anar_bulk_preview_' ) as $anar_marketing_prefix ) {
+foreach ( array( 'anar_passkey_', 'anar_auth_flow_', '_anar_authenticator_', '_anar_recovery_codes_', 'anar_toolkit_messages_', 'anar_reward_', 'anar_bulk_launch_', 'anar_digits_notice_seen_', '_transient_anar_bulk_preview_', '_transient_timeout_anar_bulk_preview_', '_transient_anar_user_tools_', '_transient_timeout_anar_user_tools_' ) as $anar_marketing_prefix ) {
 	$wpdb->query( $wpdb->prepare( 'DELETE FROM %i WHERE option_name LIKE %s', $wpdb->options, $wpdb->esc_like( $anar_marketing_prefix ) . '%' ) );
 }
 // Preserve WooCommerce financial records, expire personal gifts and remove targeting metadata.
@@ -65,6 +67,7 @@ $wpdb->delete( $wpdb->usermeta, array( 'meta_key' => '_anar_referral_code' ), ar
 $wpdb->delete( $wpdb->usermeta, array( 'meta_key' => '_anar_passkey_id' ), array( '%s' ) );
 $wpdb->delete( $wpdb->usermeta, array( 'meta_key' => '_anar_recovery_reset' ), array( '%s' ) );
 $wpdb->delete( $wpdb->usermeta, array( 'meta_key' => '_anar_phone' ), array( '%s' ) );
+$wpdb->delete( $wpdb->usermeta, array( 'meta_key' => '_anar_digits_migration_notice_seen' ), array( '%s' ) );
 $wpdb->delete( $wpdb->usermeta, array( 'meta_key' => '_anar_google_sub' ), array( '%s' ) );
 $wpdb->delete( $wpdb->usermeta, array( 'meta_key' => '_anar_google_avatar' ), array( '%s' ) );
 delete_option( 'anar_login_settings' );

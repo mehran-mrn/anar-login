@@ -61,6 +61,9 @@ final class Plugin {
 		( new \Anar\Login\Integrations\Elementor() )->register();
 		add_action( 'init', array( $this, 'init' ), 0 );
 		add_action( 'init', array( $this, 'runtime' ), 1 );
+		foreach ( array( 'added_user_meta', 'updated_user_meta', 'deleted_user_meta' ) as $hook ) {
+			add_action( $hook, array( self::class, 'digits_source_changed' ), 10, 3 );
+		}
 		add_action( 'updated_option', array( \Anar\Login\Infrastructure\Features::class, 'changed' ), 10, 3 );
 		add_action(
 			'added_option',
@@ -111,6 +114,13 @@ final class Plugin {
 		}
 		if ( is_admin() || wp_doing_cron() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 			( new \Anar\Login\Balance\Monitor() )->register();
+		}
+	}
+
+	/** Invalidate the cached hint on actual Digits writes; never scan on a page view. */
+	public static function digits_source_changed( $meta_id, $user_id, $key ) {
+		if ( in_array( $key, array( 'digits_phone', 'digits_phone_no' ), true ) && ! get_option( 'anar_digits_migration_complete', false ) ) {
+			delete_option( 'anar_digits_migration_detected' );
 		}
 	}
 

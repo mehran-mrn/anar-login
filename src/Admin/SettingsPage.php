@@ -40,6 +40,7 @@ final class SettingsPage {
 	 */
 	public function register() {
 		( new Support() )->register();
+		( new UserTools() )->register();
 		ScopedSettings::register();
 		add_action( 'admin_menu', array( $this, 'menu' ) );
 		add_action( 'admin_init', array( $this, 'setting' ) );

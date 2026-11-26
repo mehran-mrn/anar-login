@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.15.0 - 2026-11-26
+
+- Add an on-demand account phone audit and a previewed, additive migration of existing Digits users to Anar.
+- Detect duplicate, inconsistent, unsupported and unverified source numbers. Preserve accounts, credentials, roles, orders and Digits metadata; recheck changed records before linking.
+- Show migration only when unmatched Digits source records exist and no completed migration receipt is present. Batched audit and migration run only on the administrator's user-tools screen, without frontend scans, scheduled jobs or tools assets on other admin pages.
+- Show one reminder per eligible administrator, using a one-time cached existence check rather than repeated source queries. Completed migration suppresses the reminder.
+
 ## 1.14.1 — 2026-11-24
 
 - Add an administrator support page and visible links to the Anar homepage discussion for questions, problems and suggestions.
