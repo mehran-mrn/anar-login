@@ -1,0 +1,69 @@
+name: Update tested WordPress version
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wordpress-org-release
+  cancel-in-progress: false
+
+jobs:
+  compatibility:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      PLUGIN_SLUG: anar-toolkit
+    steps:
+      - name: Check out compatibility metadata
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+        with:
+          persist-credentials: false
+      - name: Update only the tested version in published readmes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import os, re, subprocess
+          source = Path('readme.txt').read_text(encoding='utf-8')
+          def field(text, name):
+              match = re.search(r'^' + re.escape(name) + r':\s*(\S+)\s*$', text, re.M)
+              if not match:
+                  raise SystemExit('Missing readme field: ' + name)
+              return match.group(1)
+          stable = field(source, 'Stable tag')
+          tested = field(source, 'Tested up to')
+          if not re.fullmatch(r'\d+(?:\.\d+)+', stable) or not re.fullmatch(r'\d+\.\d+', tested):
+              raise SystemExit('Invalid stable or tested version')
+          dest = Path(os.environ['RUNNER_TEMP']) / 'wporg-compatibility'
+          subprocess.run(['svn', 'checkout', '--quiet', '--depth', 'empty', 'https://plugins.svn.wordpress.org/' + os.environ['PLUGIN_SLUG'], str(dest)], check=True)
+          targets = [dest / 'trunk/readme.txt', dest / 'tags' / stable / 'readme.txt']
+          subprocess.run(['svn', 'update', '--quiet', '--parents', *map(str, targets)], check=True)
+          for target in targets:
+              original = target.read_bytes().decode('utf-8')
+              if field(original, 'Stable tag') != stable:
+                  raise SystemExit('Published stable version changed; refusing metadata update')
+              updated, count = re.subn(r'(?m)^(Tested up to:[ \t]*)[^\r\n]+', lambda m: m[1] + tested, original)
+              if count != 1:
+                  raise SystemExit('Expected exactly one tested version header')
+              target.write_bytes(updated.encode('utf-8'))
+          subprocess.run(['svn', 'diff', str(dest)], check=True)
+          with open(os.environ['GITHUB_ENV'], 'a') as output:
+              output.write('COMPAT_SVN_PATH=' + str(dest) + '\n')
+              output.write('COMPAT_TESTED=' + tested + '\n')
+          PY
+      - name: Publish compatibility metadata
+        shell: bash
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+        run: |
+          set -euo pipefail
+          test "$SVN_USERNAME" = mrnwp
+          test -n "$SVN_PASSWORD"
+          svn commit "$COMPAT_SVN_PATH" --non-interactive --no-auth-cache \
+            --username "$SVN_USERNAME" --password "$SVN_PASSWORD" \
+            --message "Confirm compatibility with WordPress $COMPAT_TESTED after RC testing"

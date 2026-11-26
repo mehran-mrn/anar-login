@@ -8,7 +8,6 @@
 
 use Anar\Login\Auth\UserService;
 use Anar\Login\Infrastructure\Settings;
-use Anar\Login\Messaging\SmsProviderInterface;
 use Anar\Login\Support\Identity;
 use MRN\Form\Entry_Repository;
 use MRN\Form\Form_Repository;
@@ -17,11 +16,14 @@ if ( ! defined( 'WP_CLI' ) || ! WP_CLI || 'local' !== wp_get_environment_type() 
 	throw new RuntimeException( 'Use a disposable local installation with MRN Forms active.' );
 }
 
-$provider = new class() implements SmsProviderInterface {
+$provider = new class( new Settings(), new \Anar\Login\Messaging\HttpClient() ) extends \Anar\Login\Messaging\AbstractProvider {
 	public $code = '';
 	public $message = '';
+	public function text_credentials() {
+		return array();
+	}
 	public function key() {
-		return 'mrn_test';
+		return 'custom';
 	}
 	public function title() {
 		return 'MRN Forms test provider';
@@ -86,7 +88,7 @@ try {
 	$ordinary = $save( 'off' );
 	update_option(
 		Settings::OPTION_KEY,
-		array_replace( $settings->defaults(), array( 'sms_provider' => $provider->key(), 'sms_message' => 'Form fixture {code}', 'bot_challenge' => 'off', 'mrn_registration_form' => $signup ) )
+		array_replace( $settings->defaults(), array( 'sms_provider' => $provider->key(), 'sms_message' => 'Form fixture {code}', 'provider_custom' => array( 'url' => 'https://example.test/sms', 'params' => 'code={code}&message={message}' ), 'bot_challenge' => 'off', 'mrn_registration_form' => $signup ) )
 	);
 
 	$users = new UserService( $settings );
