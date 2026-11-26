@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Project-Id-Version: Anar Toolkit 1.14.1\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
+msgstr "Project-Id-Version: Anar Toolkit 1.15.0\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: anar-toolkit\n"
 
 msgid "%1$d paid orders. A gift at every %2$d orders."
 msgstr "%1$d سفارش پرداخت‌شده؛ یک هدیه پس از هر %2$d سفارش."
@@ -36,6 +36,9 @@ msgstr "لحظه‌ای کوچک و دل‌نشین"
 
 msgid "A balance check is already in progress."
 msgstr "بررسی موجودی این حساب در حال انجام است."
+
+msgid "A check is already running. Please wait."
+msgstr "یک بررسی در حال اجراست. لطفاً صبر کنید."
 
 msgid "A clear view of your store."
 msgstr "تصویری روشن از فروشگاه شما."
@@ -136,6 +139,9 @@ msgstr "وضعیت accepted یعنی درخواست توسط پنل پذیرفت
 msgid "Account activation, web service credentials and approved SMS patterns are completed separately. Payment is not confirmed inside Anar."
 msgstr "فعال‌سازی حساب، اطلاعات وب‌سرویس و تأیید الگوهای پیامکی جداگانه تکمیل می‌شوند. انار پرداخت را تأیید نمی‌کند."
 
+msgid "Account changed after preview — check again"
+msgstr "اطلاعات پس از پیش‌نمایش تغییر کرده است؛ دوباره بررسی کنید"
+
 msgid "Account dashboard"
 msgstr "پنل کاربری"
 
@@ -171,6 +177,9 @@ msgstr "کد تخفیف شارژ پنل"
 
 msgid "Account verification"
 msgstr "تأیید امنیت حساب"
+
+msgid "Accounts checked:"
+msgstr "حساب‌های بررسی‌شده:"
 
 msgid "Action"
 msgstr "عملیات"
@@ -292,6 +301,9 @@ msgstr "اجازهٔ ثبت‌نام حساب جدید"
 msgid "Already have an account? Sign in"
 msgstr "حساب دارید؟ وارد شوید"
 
+msgid "Already linked to Anar"
+msgstr "از قبل متصل به انار"
+
 msgid "Also replace wp-login.php"
 msgstr "جایگزینی صفحهٔ wp-login.php هم انجام شود"
 
@@ -327,6 +339,12 @@ msgstr "جعبه‌ابزار انار — پیامک ووکامرس"
 
 msgid "Anar account button"
 msgstr "دکمه ورود و حساب کاربری انار"
+
+msgid "Anar and Digits numbers differ — kept unchanged"
+msgstr "شماره انار و دیجیتس متفاوت است؛ بدون تغییر"
+
+msgid "Anar and Digits phone records are checked automatically. Billing numbers are not used to identify an account."
+msgstr "شماره‌های ثبت‌شده در انار و دیجیتس خودکار بررسی می‌شوند. شماره صورتحساب برای تشخیص مالک حساب استفاده نمی‌شود."
 
 msgid "Anar and MRN Forms"
 msgstr "انار و MRN Forms"
@@ -676,8 +694,17 @@ msgstr "تغییر سرویس‌دهندهٔ این پیام"
 msgid "Changes to account security require verification."
 msgstr "تغییر تنظیمات امنیت حساب به تأیید هویت نیاز دارد."
 
+msgid "Check account mobile numbers"
+msgstr "بررسی شماره‌های کاربران"
+
+msgid "Check and migrate users"
+msgstr "بررسی و مهاجرت کاربران"
+
 msgid "Check balance"
 msgstr "دریافت موجودی"
+
+msgid "Check complete. Review the result below."
+msgstr "بررسی تمام شد. نتیجه را در پایین ببینید."
 
 msgid "Check configuration"
 msgstr "بررسی تنظیمات"
@@ -687,6 +714,12 @@ msgstr "بررسی اتصال حساب"
 
 msgid "Check delivery and complete a test sign-in"
 msgstr "دریافت پیام و ورود را آزمایش کنید"
+
+msgid "Check mobile numbers"
+msgstr "بررسی شماره‌ها"
+
+msgid "Check result"
+msgstr "نتیجه بررسی"
 
 msgid "Check saved settings"
 msgstr "بررسی تنظیمات ذخیره‌شده"
@@ -708,6 +741,9 @@ msgstr "موجودی این حساب به‌صورت دوره‌ای بررسی 
 
 msgid "Check this account to see its balance and unit."
 msgstr "برای مشاهدهٔ موجودی و واحد آن، حساب را بررسی کنید."
+
+msgid "Checking accounts…"
+msgstr "در حال بررسی حساب‌ها…"
 
 msgid "Checking available registration plans…"
 msgstr "در حال بررسی طرح‌های ثبت‌نام…"
@@ -978,6 +1014,9 @@ msgstr "تأیید موفق کد بازیابی:"
 
 msgid "Confirmed recovery visits:"
 msgstr "بازدید تأییدشده بازیابی:"
+
+msgid "Conflicts and changed records are held for review. Anar never merges accounts or chooses an owner for a shared number."
+msgstr "شماره‌های دارای تداخل یا اطلاعات تغییرکرده برای بررسی کنار گذاشته می‌شوند. انار حساب‌ها را ادغام نمی‌کند و برای شماره مشترک، مالک انتخاب نمی‌کند."
 
 msgid "Connect and save your provider"
 msgstr "اتصال پنل و ذخیرهٔ تنظیمات"
@@ -1261,6 +1300,9 @@ msgstr "صفحه پیش‌فرض سبد خرید ووکامرس"
 msgid "Default label for a single reward. Named prizes use the display name in their pool row."
 msgstr "عنوان پیش‌فرض برای جایزهٔ ثابت است. جایزه‌های مخزن با نام همان ردیف نمایش داده می‌شوند."
 
+msgid "Deleted account"
+msgstr "حساب حذف‌شده"
+
 msgid "Delivery method"
 msgstr "روش ارسال"
 
@@ -1275,6 +1317,18 @@ msgstr "طراحی و توسعه توسط مهران مرندی"
 
 msgid "Detected on this request: %s"
 msgstr "شناسایی‌شده در همین درخواست: %s"
+
+msgid "Digits mobile numbers were found."
+msgstr "اطلاعات دیجیتس شناسایی شد."
+
+msgid "Digits mobile numbers were found. Check the accounts first, then transfer only the numbers with no conflicts."
+msgstr "شماره‌هایی از دیجیتس پیدا شد. ابتدا حساب‌ها را بررسی کنید؛ سپس فقط شماره‌های بدون تداخل را منتقل کنید."
+
+msgid "Digits record — kept unchanged"
+msgstr "اطلاعات دیجیتس؛ بدون تغییر"
+
+msgid "Digits verification was skipped — not transferred"
+msgstr "تأیید شماره در دیجیتس رد شده است؛ منتقل نمی‌شود"
 
 msgid "Direct / unknown"
 msgstr "مستقیم / نامشخص"
@@ -1630,6 +1684,9 @@ msgstr "پیام موردنظر را پیدا و ویرایش کنید. همین
 msgid "Find four pairs in 24 moves"
 msgstr "چهار جفت را در ۲۴ حرکت پیدا کنید"
 
+msgid "Find shared mobile numbers, inconsistent account records and numbers that need attention. Checking does not change any user data."
+msgstr "شماره‌های مشترک بین چند حساب و اطلاعات نیازمند بررسی را پیدا کنید. این بررسی هیچ اطلاعاتی را تغییر نمی‌دهد."
+
 msgid "First and last names must not contain digits."
 msgstr "نام و نام خانوادگی نباید عدد داشته باشند."
 
@@ -1953,6 +2010,9 @@ msgstr "شناسهٔ کالاهای مشمول (خالی یعنی همه)"
 
 msgid "Install and activate WooCommerce to run these modules. Login features work independently."
 msgstr "برای اجرای این ماژول‌ها، ووکامرس را نصب و فعال کنید. قابلیت‌های ورود مستقل کار می‌کنند."
+
+msgid "Invalid, unsupported or inconsistent mobile number"
+msgstr "شماره نامعتبر، پشتیبانی‌نشده یا اطلاعات ناسازگار"
 
 msgid "Invisible bot check"
 msgstr "بررسی نامرئی ربات"
@@ -2323,6 +2383,9 @@ msgstr "ارتباطی فراتر از یک خرید."
 msgid "Move down"
 msgstr "انتقال به پایین"
 
+msgid "Move from Digits to Anar"
+msgstr "مهاجرت از دیجیتس به انار"
+
 msgid "Move up"
 msgstr "انتقال به بالا"
 
@@ -2343,6 +2406,9 @@ msgstr "نام پس از ثبت‌نام"
 
 msgid "Need a Meli Payamak account?"
 msgstr "پنل ملی‌پیامک ندارید؟"
+
+msgid "Need review"
+msgstr "نیازمند بررسی"
 
 msgid "Needs configuration"
 msgstr "نیازمند تنظیم"
@@ -2388,6 +2454,9 @@ msgstr "خیر"
 
 msgid "No SMS provider selected"
 msgstr "سرویس‌دهندهٔ پیامک انتخاب نشده"
+
+msgid "No account phone records were found."
+msgstr "شماره‌ای برای حساب‌ها پیدا نشد."
 
 msgid "No account was found for these details and registration is disabled."
 msgstr "برای این مشخصات حسابی پیدا نشد و ثبت‌نام غیرفعال است."
@@ -2649,6 +2718,9 @@ msgstr "بازخورد کلی سفارش"
 
 msgid "Overview"
 msgstr "نمای کلی"
+
+msgid "Page"
+msgstr "صفحه"
 
 msgid "Page for entering recovery codes"
 msgstr "صفحه ورود کد بازیابی"
@@ -3007,6 +3079,9 @@ msgstr "OTP خام هرگز در دیتابیس ذخیره نمی‌شود."
 msgid "Ready to test"
 msgstr "آمادهٔ تست"
 
+msgid "Ready to transfer"
+msgstr "آماده انتقال"
+
 msgid "Receive today’s gift"
 msgstr "دریافت هدیهٔ امروز"
 
@@ -3229,6 +3304,9 @@ msgstr "فاصله ارسال مجدد"
 msgid "Reserved and spent from this pool: %1$s %2$s."
 msgstr "مجموع تعهد و مصرف این مخزن: %1$s %2$s."
 
+msgid "Result"
+msgstr "نتیجه"
+
 msgid "Results and outgoing queue"
 msgstr "نتایج و صف ارسال"
 
@@ -3259,11 +3337,17 @@ msgstr "نمایش نتیجه بدون خراشیدن"
 msgid "Reveal your surprise"
 msgstr "سورپرایزتان را ببینید"
 
+msgid "Review"
+msgstr "بررسی"
+
 msgid "Review invoice and pay on Meli Payamak"
 msgstr "بررسی فاکتور و پرداخت در ملی‌پیامک"
 
 msgid "Review security"
 msgstr "بررسی امنیت"
+
+msgid "Review user"
+msgstr "بررسی کاربر"
 
 msgid "Reward issued"
 msgstr "هدیه صادر شد"
@@ -3667,6 +3751,9 @@ msgstr "مراحل راه‌اندازی"
 msgid "Share your link. An eligible first purchase can earn a personal coupon after completion and the store refund waiting period. Self-referrals and refunded orders do not qualify."
 msgstr "پیوندتان را به اشتراک بگذارید. اولین خرید واجد شرایط می‌تواند پس از تکمیل و پایان مهلت بازگشت وجه، برای شما کوپن اختصاصی داشته باشد. معرفی خود و سفارش مستردشده مشمول نیستند."
 
+msgid "Shared by multiple accounts — review required"
+msgstr "شماره مشترک چند حساب؛ نیازمند بررسی"
+
 msgid "Shared campaign settings"
 msgstr "تنظیمات مشترک بازاریابی"
 
@@ -4057,6 +4144,9 @@ msgstr "موجودی حساب به‌روز شد."
 msgid "The account settings changed. Check the balance again."
 msgstr "اطلاعات حساب تغییر کرده است. موجودی را دوباره دریافت کنید."
 
+msgid "The accounts changed or this transfer is no longer available. Check again."
+msgstr "اطلاعات حساب‌ها تغییر کرده یا این انتقال دیگر در دسترس نیست. دوباره بررسی کنید."
+
 msgid "The change could not be confirmed. Check the saved state before trying again."
 msgstr "نتیجهٔ تغییر مشخص نشد. پیش از تلاش دوباره، صفحه را تازه کنید و وضعیت ذخیره‌شده را بررسی کنید."
 
@@ -4186,6 +4276,9 @@ msgstr "فرم ثبت‌نام در حال حاضر در دسترس نیست."
 msgid "The report includes software versions and configuration status. It excludes credentials, phone numbers, template values and site addresses."
 msgstr "این گزارش فقط نسخهٔ نرم‌افزارها و وضعیت تنظیمات را نشان می‌دهد؛ اطلاعات ورود به پنل، شماره‌ها، مقادیر پترن و نشانی سایت در آن نیست."
 
+msgid "The request did not finish. Check the accounts again before retrying a transfer."
+msgstr "درخواست کامل نشد. پیش از تلاش دوباره برای انتقال، حساب‌ها را بررسی کنید."
+
 msgid "The request form appears on out-of-stock product pages. The customer verifies their mobile number and selects a product or variation. One notification is queued when that item becomes available."
 msgstr "فرم درخواست در صفحهٔ کالای ناموجود نمایش داده می‌شود. مشتری شمارهٔ همراه خود را تأیید و کالا یا متغیر مورد نظر را انتخاب می‌کند. پس از تأمین موجودی، یک اعلان در صف قرار می‌گیرد."
 
@@ -4258,6 +4351,9 @@ msgstr "امکان ورود با این حساب وجود ندارد."
 msgid "This account uses two-step verification, so XML-RPC sign-in is disabled."
 msgstr "این حساب از ورود دومرحله‌ای استفاده می‌کند، بنابراین ورود از طریق XML-RPC غیرفعال است."
 
+msgid "This action is not available."
+msgstr "این اقدام در دسترس نیست."
+
 msgid "This campaign has already been queued."
 msgstr "این کمپین قبلاً در صف قرار گرفته است."
 
@@ -4317,6 +4413,9 @@ msgstr "این شماره دریافت پیام را متوقف کرده است.
 
 msgid "This play has already been reserved. Reload before starting another."
 msgstr "این نوبت بازی قبلاً رزرو شده است. پیش از شروع نوبت دیگر، صفحه را تازه کنید."
+
+msgid "This preview expired. Check the accounts again."
+msgstr "این پیش‌نمایش منقضی شده است. حساب‌ها را دوباره بررسی کنید."
 
 msgid "This preview supports up to 10,000 contacts. Narrow the audience before launching a larger campaign."
 msgstr "این پیش‌نمایش حداکثر ۱۰٬۰۰۰ مخاطب را پشتیبانی می‌کند. برای کمپین بزرگ‌تر، گروه مخاطبان را محدودتر کنید."
@@ -4416,6 +4515,21 @@ msgstr "آمار بازدید و فروش"
 
 msgid "Traffic sources"
 msgstr "منابع بازدید"
+
+msgid "Transfer eligible numbers"
+msgstr "انتقال شماره‌های آماده"
+
+msgid "Transfer finished. Existing accounts and Digits data were preserved."
+msgstr "انتقال تمام شد. حساب‌های قبلی و اطلاعات دیجیتس حفظ شدند."
+
+msgid "Transfer only the eligible mobile numbers shown in this preview? Accounts, passwords, roles and orders will stay unchanged."
+msgstr "فقط شماره‌های آماده در این پیش‌نمایش منتقل شوند؟ حساب‌ها، رمزها، نقش‌ها و سفارش‌ها تغییری نمی‌کنند."
+
+msgid "Transferred"
+msgstr "منتقل‌شده"
+
+msgid "Transferring eligible mobile numbers…"
+msgstr "در حال انتقال شماره‌های آماده…"
 
 msgid "Treasure hunt"
 msgstr "جست‌وجوی گنج"
@@ -4522,8 +4636,17 @@ msgstr "پس از مشخص شدن برد، جایزه با این وزن‌ها 
 msgid "Used only in shared mode. Separate limits are set inside each game below."
 msgstr "این عدد فقط در حالت سهمیهٔ مشترک استفاده می‌شود. سهمیهٔ مستقل را در بخش هر بازی تنظیم کنید."
 
+msgid "User"
+msgstr "کاربر"
+
+msgid "User tools"
+msgstr "ابزارهای کاربران"
+
 msgid "Username"
 msgstr "نام کاربری"
+
+msgid "Users keep the same accounts, passwords and orders. Digits data is retained. Keep a database backup before transferring."
+msgstr "کاربران با همان حساب، رمز و سفارش‌های قبلی ادامه می‌دهند. اطلاعات دیجیتس حفظ می‌شود. پیش از انتقال از پایگاه داده نسخه پشتیبان بگیرید."
 
 msgid "Uses the saved sign-in message and provider credit. No account or usable sign-in code is created."
 msgstr "با پیام ورود ذخیره‌شده ارسال می‌شود و از اعتبار پنل استفاده می‌کند. حساب کاربری یا کد قابل‌استفاده برای ورود ساخته نمی‌شود."
@@ -4678,8 +4801,14 @@ msgstr "شما وارد حساب خود شده‌اید. برای شرکت در 
 msgid "You can display several games at once, on the same page or on different pages. Each game has its own shortcode below. The daily limit and coupon settings are shared by all games."
 msgstr "می‌توانید چند بازی را هم‌زمان در یک صفحه یا صفحه‌های جداگانه نمایش دهید. شورت‌کد هر بازی در بخش مربوط به آن آمده است. سقف دفعات بازی در روز و مشخصات کد تخفیف بین همهٔ بازی‌ها مشترک است."
 
+msgid "You can move existing users to Anar. Check the preview before transferring; accounts, passwords and orders are preserved. This reminder appears only once."
+msgstr "می‌توانید کاربران قبلی را به انار منتقل کنید. پیش از انتقال، نتیجه بررسی را ببینید؛ حساب‌ها، رمزها و سفارش‌ها حفظ می‌شوند. این یادآوری فقط یک‌بار نمایش داده می‌شود."
+
 msgid "You can send questions, report problems, or share suggestions about Anar through the discussion section on the plugin homepage at mrnwp.ir/anar/. I will do my best to help you and resolve your issue as quickly as possible."
 msgstr "می‌توانید سؤال، مشکل یا پیشنهاد خود درباره انار را از بخش پرسش‌وپاسخ صفحه اصلی افزونه به نشانی mrnwp.ir/anar/ ارسال کنید. تمام تلاشم را می‌کنم تا در سریع‌ترین زمان ممکن به شما کمک کنم و مشکلتان را برطرف کنم."
+
+msgid "You cannot manage account mobile numbers."
+msgstr "اجازه مدیریت شماره‌های کاربران را ندارید."
 
 msgid "You cannot manage these campaigns."
 msgstr "اجازهٔ مدیریت این کمپین‌ها را ندارید."

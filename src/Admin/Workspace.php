@@ -50,6 +50,9 @@ final class Workspace {
 					self::link( admin_url( 'admin.php?page=anar-login-settings&section=' . $key ), $label, 'features' === $key && 'anar-features-other' === $page );
 				}
 			}
+			if ( __( 'Sign-in and accounts', 'anar-toolkit' ) === $heading ) {
+				self::link( admin_url( 'admin.php?page=anar-login-user-tools' ), __( 'User tools', 'anar-toolkit' ), 'anar-login-user-tools' === $page );
+			}
 			if ( __( 'Store and marketing', 'anar-toolkit' ) === $heading ) {
 				foreach ( Features::workspace_tabs() as $key => $label ) {
 					if ( in_array( $key, array( 'messages', 'privacy', 'campaigns' ), true ) ) {

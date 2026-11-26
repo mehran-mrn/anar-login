@@ -30,6 +30,7 @@ English product page: https://mrnwp.ir/anar/en/
 - Account-enumeration-resistant OTP responses
 - Automatic user creation restricted to Subscriber or Customer with basic read capabilities; roles are revalidated after filters at registration time
 - Existing-account lookup through linked phone metadata and configured legacy keys
+- On-demand phone conflict checks and a previewed Digits migration, shown only while unmatched source records remain and migration has not been completed; see [user tools](docs/user-tools.md)
 - Responsive login, account, and admin interfaces in both LTR and RTL
 - Email delivery through `wp_mail`, compatible with SMTP plugins
 - Optional data cleanup on uninstall

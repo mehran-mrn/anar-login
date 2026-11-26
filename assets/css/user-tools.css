@@ -1,0 +1,21 @@
+.anar-user-tools .anar-card { margin-block-end: 20px; }
+.anar-user-tools__summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-block: 20px; }
+.anar-user-tools__summary > div { padding: 16px; border-radius: 12px; background: #f8fafc; }
+.anar-user-tools__summary dt { color: #475569; font-size: 13px; }
+.anar-user-tools__summary dd { margin: 8px 0 0; font-size: 26px; font-weight: 700; color: #1e293b; }
+.anar-user-tools__table { overflow-x: auto; }
+.anar-user-tools__table table { min-width: 580px; }
+.anar-user-tools__table td { padding-block: 12px; vertical-align: middle; }
+.anar-user-tools__pages { display: flex; justify-content: center; align-items: center; gap: 16px; margin-block-start: 16px; }
+.anar-user-tools__status { min-height: 24px; }
+.anar-user-tools__status.is-error { color: #b91c1c; }
+.anar-user-tools [hidden] { display: none !important; }
+@media (max-width: 600px) {
+	.anar-user-tools__summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+	.anar-user-tools__table table { min-width: 0; border: 0; background: transparent; }
+	.anar-user-tools__table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+	.anar-user-tools__table tbody, .anar-user-tools__table tr { display: block; }
+	.anar-user-tools__table tr { margin-block-end: 12px; border: 1px solid #e2e7ee; border-radius: 12px; padding: 8px 12px; background: #fff; }
+	.anar-user-tools__table td { display: flex; justify-content: space-between; gap: 16px; padding: 8px 0; overflow-wrap: anywhere; }
+	.anar-user-tools__table td::before { content: attr(data-label); flex-shrink: 0; font-weight: 600; color: #475569; }
+}
