@@ -44,6 +44,26 @@ function __( $text ) {
 	return $text;
 }
 
+function esc_html( $value ) {
+	return htmlspecialchars( (string) $value, ENT_QUOTES, 'UTF-8' );
+}
+
+function esc_attr( $value ) {
+	return esc_html( $value );
+}
+
+function esc_url( $value ) {
+	return esc_attr( $value );
+}
+
+function is_rtl() {
+	return false;
+}
+
+function admin_url( $path = '' ) {
+	return 'https://example.test/wp-admin/' . $path;
+}
+
 function sanitize_email( $email ) {
 	return filter_var( $email, FILTER_SANITIZE_EMAIL );
 }

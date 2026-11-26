@@ -23,6 +23,37 @@ final class FeaturesTest extends TestCase {
 		$this->assertFalse( Features::facts_needed() );
 	}
 
+	public function test_disabled_sign_in_hides_its_settings_but_keeps_shared_connections() {
+		$tabs = Features::settings_tabs();
+		foreach ( array( 'general', 'security', 'google', 'setup', 'install', 'woocommerce', 'sending' ) as $tab ) {
+			$this->assertNotContains( $tab, $tabs );
+		}
+		foreach ( array( 'features', 'messages', 'sms', 'test' ) as $tab ) {
+			$this->assertContains( $tab, $tabs );
+		}
+	}
+
+	public function test_recovery_and_two_factor_keep_their_shared_settings_without_sign_in() {
+		foreach ( array( 'reset', 'two_factor' ) as $feature ) {
+			$GLOBALS['anar_test_options']['anar_login_settings'] = array( 'two_factor' => 'privileged' );
+			$GLOBALS['anar_test_options'][ Features::OPTION ] = array( 'login' => 0, 'reset' => 0, 'two_factor' => 0, 'orders' => 0 );
+			$GLOBALS['anar_test_options'][ Features::OPTION ][ $feature ] = 1;
+			$tabs = Features::settings_tabs();
+			$this->assertContains( 'general', $tabs );
+			$this->assertContains( 'security', $tabs );
+			foreach ( array( 'google', 'setup', 'install', 'woocommerce' ) as $tab ) {
+				$this->assertNotContains( $tab, $tabs );
+			}
+		}
+	}
+
+	public function test_enabling_sign_in_restores_its_settings() {
+		$GLOBALS['anar_test_options'][ Features::OPTION ]['login'] = 1;
+		foreach ( array( 'general', 'security', 'google', 'setup', 'install' ) as $tab ) {
+			$this->assertContains( $tab, Features::settings_tabs() );
+		}
+	}
+
 	public function test_print_only_invoices_need_no_worker() {
 		$GLOBALS['anar_test_options'][ Settings::OPTION ] = array( 'modules' => array( 'invoice' => 1 ) );
 		$this->assertTrue( Features::enabled( 'invoice' ) );

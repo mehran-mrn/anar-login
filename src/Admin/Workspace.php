@@ -26,6 +26,7 @@ final class Workspace {
 		$page = $GLOBALS['plugin_page'] ?? '';
 		$commerce = 'anar-toolkit-commerce' === $page || (bool) Features::current_module();
 		$tabs = Features::workspace_tabs();
+		$settings_tabs = array_flip( Features::settings_tabs() );
 		$groups = array(
 			__( 'Features', 'anar-toolkit' ) => array( 'features' => __( 'Features', 'anar-toolkit' ) ),
 			__( 'Sign-in and accounts', 'anar-toolkit' ) => array( 'general' => __( 'Sign-in settings', 'anar-toolkit' ), 'security' => __( 'Security', 'anar-toolkit' ), 'google' => __( 'Google sign-in', 'anar-toolkit' ), 'setup' => __( 'Sign-in setup guide', 'anar-toolkit' ), 'install' => __( 'Add to pages', 'anar-toolkit' ) ),
@@ -34,6 +35,7 @@ final class Workspace {
 			__( 'Shared settings', 'anar-toolkit' ) => array( 'test' => __( 'Test and troubleshoot', 'anar-toolkit' ), 'sms' => __( 'Service providers', 'anar-toolkit' ), 'sending' => __( 'Campaign sending rules', 'anar-toolkit' ), 'woocommerce' => __( 'WooCommerce', 'anar-toolkit' ) ),
 		);
 		foreach ( $groups as $heading => $items ) {
+			$items = array_intersect_key( $items, $settings_tabs );
 			if ( __( 'Store and marketing', 'anar-toolkit' ) === $heading && ! class_exists( 'WooCommerce' ) ) {
 				continue; }
 			?>
@@ -68,7 +70,9 @@ final class Workspace {
 				self::link( admin_url( 'admin.php?page=anar-toolkit-commerce&tab=messages' ), __( 'Sending report', 'anar-toolkit' ), $commerce && 'messages' === Features::current_tab() );
 			}
 			if ( __( 'Shared settings', 'anar-toolkit' ) === $heading ) {
-				self::link( BalancePage::url(), __( 'SMS credit', 'anar-toolkit' ), 'anar-toolkit-balance' === $page );
+				if ( Features::enabled( 'balance' ) ) {
+					self::link( BalancePage::url(), __( 'SMS credit', 'anar-toolkit' ), 'anar-toolkit-balance' === $page );
+				}
 				self::link( admin_url( 'admin.php?page=anar-toolkit-support' ), __( 'Support and suggestions', 'anar-toolkit' ), 'anar-toolkit-support' === $page );
 				if ( class_exists( 'WooCommerce' ) ) {
 					self::link( admin_url( 'admin.php?page=anar-toolkit-commerce&tab=privacy' ), __( 'Personal data', 'anar-toolkit' ), $commerce && 'privacy' === Features::current_tab() ); }

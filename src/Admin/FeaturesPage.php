@@ -277,7 +277,23 @@ endif;
 		if ( ! array_key_exists( $key, self::labels() ) ) {
 			wp_send_json_error( array( 'text' => __( 'Unknown feature.', 'anar-toolkit' ) ), 422 );
 		}
-		wp_send_json_success( array( 'enabled' => Features::enabled( $key ), 'url' => self::url( $key ) ) );
+		wp_send_json_success( self::feature_state( $key, isset( $_POST['workspace'] ) && 'settings' === $_POST['workspace'] ) );
+	}
+
+	/** Return both navigation surfaces from the confirmed saved switches. */
+	private static function feature_state( $key, $settings ) {
+		ob_start();
+		Workspace::navigation( $settings );
+		$navigation = ob_get_clean();
+		return array(
+			'enabled' => Features::enabled( $key ),
+			'url' => self::url( $key ),
+			'navigation' => $navigation,
+			'menu' => array(
+				array( 'page' => 'anar-toolkit-commerce', 'label' => __( 'Commerce toolkit', 'anar-toolkit' ), 'url' => admin_url( 'admin.php?page=anar-toolkit-commerce' ), 'visible' => Features::enabled( 'recovery' ) || Features::enabled( 'orders' ) || Features::enabled( 'login_log' ) || Features::queue_needed() ),
+				array( 'page' => 'anar-toolkit-balance', 'label' => __( 'SMS credit', 'anar-toolkit' ), 'url' => BalancePage::url(), 'visible' => Features::enabled( 'balance' ) ),
+			),
+		);
 	}
 
 	public function toggle() {
@@ -315,9 +331,6 @@ endif;
 		if ( true !== $result ) {
 			wp_send_json_error( array( 'text' => is_wp_error( $result ) ? $result->get_error_message() : __( 'The change could not be confirmed. Check the saved state before trying again.', 'anar-toolkit' ), 'enabled' => Features::enabled( $key ), 'setup' => 'two_factor' === $key ? add_query_arg( 'action', 'anar_security', wp_login_url() ) : '' ), 422 );
 		}
-		ob_start();
-		Workspace::navigation( isset( $_POST['workspace'] ) && 'settings' === $_POST['workspace'] );
-		$navigation = ob_get_clean();
-		wp_send_json_success( array( 'enabled' => Features::enabled( $key ), 'url' => self::url( $key ), 'navigation' => $navigation ) );
+		wp_send_json_success( self::feature_state( $key, isset( $_POST['workspace'] ) && 'settings' === $_POST['workspace'] ) );
 	}
 }

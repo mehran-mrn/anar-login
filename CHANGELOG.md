@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.15.1 - 2026-11-27
+
+- Hide dedicated settings links for disabled capabilities in the shared admin workspace; keep settings needed by other active capabilities available.
+- Synchronize the workspace navigation and WordPress commerce/credit submenus immediately after a feature switch, including state reconciliation after a lost save response.
+- Fall back to the feature catalog when a disabled section is requested or remembered, and restore enabled settings and the sign-in setup guide without a manual reload.
+- Preserve capability settings and stored data. Add rendered-navigation tests and disposable WordPress checks for each capability.
+
 ## 1.15.0 - 2026-11-26
 
 - Add an on-demand account phone audit and a previewed, additive migration of existing Digits users to Anar.
