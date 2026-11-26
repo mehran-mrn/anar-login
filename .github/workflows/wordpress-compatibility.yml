@@ -21,6 +21,10 @@ jobs:
         uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           persist-credentials: false
+      - name: Install Subversion
+        run: |
+          sudo apt-get update --quiet
+          sudo apt-get install --yes subversion
       - name: Update only the tested version in published readmes
         shell: bash
         run: |
