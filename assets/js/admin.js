@@ -18,6 +18,8 @@
 	window.addEventListener('resize', revealActiveTab);
 
 	const showTab = (name) => {
+		const available = [...root.querySelectorAll('.anar-admin__nav [data-tab]')];
+		if (!available.some(button => button.dataset.tab === name)) name = 'features';
 		const connection = root.querySelector('.anar-connection-form');
 		if (connection) connection.hidden = ['messages', 'sending', 'features', 'test'].includes(name);
 		const save = root.querySelector('.anar-admin__save');
@@ -38,9 +40,17 @@
 		} catch (error) {
 			// Storage can be blocked; the tab simply is not remembered.
 		}
+		return name;
 	};
 	const navigateTab = (name) => {
-		showTab(name);
+		const button = [...root.querySelectorAll('.anar-admin__nav [data-tab]')].find(item => item.dataset.tab === name);
+		if (button && ![...root.querySelectorAll('[data-panel]')].some(panel => panel.dataset.panel === name)) {
+			const address = new URL(window.location.href);
+			address.searchParams.set('section', name);
+			window.location.assign(address.href);
+			return;
+		}
+		name = showTab(name);
 		const address = new URL(window.location.href);
 		address.searchParams.set('section', name);
 		window.history.replaceState(window.history.state, '', address);
@@ -50,7 +60,7 @@
 		const button = event.target.closest('[data-tab]');
 		if (button && root.contains(button)) navigateTab(button.dataset.tab);
 	});
-	document.addEventListener('anar:navigation-updated', () => showTab(new URL(window.location.href).searchParams.get('section') || 'features'));
+	document.addEventListener('anar:navigation-updated', () => navigateTab(new URL(window.location.href).searchParams.get('section') || 'features'));
 
 	let savedTab = '';
 	try {

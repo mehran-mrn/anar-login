@@ -4,7 +4,7 @@ Tags: sms, woocommerce, abandoned-cart, otp, notifications
 Requires at least: 6.2
 Tested up to: 7.2
 Requires PHP: 7.4
-Stable tag: 1.15.0
+Stable tag: 1.15.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -239,6 +239,11 @@ Yes. Set a budget per pool and a maximum money discount for each prize. Amounts 
 
 == Changelog ==
 
+= 1.15.1 =
+* Hide disabled capabilities' dedicated settings links while keeping settings shared by active capabilities available.
+* Update the Anar workspace and WordPress submenus immediately after feature changes, including recovery from a lost save response.
+* Keep bookmarked or remembered disabled settings sections from reopening; preserve saved settings and restore navigation when re-enabled.
+
 = 1.15.0 =
 * Add on-demand account mobile-number checks and previewed Digits migration.
 * Keep existing accounts and source data; hold conflicts and changed records for review.
@@ -449,6 +454,9 @@ Yes. Set a budget per pool and a maximum money discount for each prize. Amounts 
 Full history: https://github.com/mehran-mrn/anar-login/blob/main/CHANGELOG.md
 
 == Upgrade Notice ==
+
+= 1.15.1 =
+Disabled capabilities now hide their dedicated settings links immediately. Saved settings are retained, and shared settings remain available to active capabilities.
 
 = 1.15.0 =
 Open User tools to check mobile numbers. Digits migration appears only while unmatched source records remain and no completed migration receipt exists. Check the preview before transferring; accounts and source data are preserved.

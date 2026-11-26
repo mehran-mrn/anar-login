@@ -110,6 +110,26 @@ final class Features {
 		return $tabs;
 	}
 
+	/** Settings shared by active capabilities remain available until their last user is disabled. */
+	public static function settings_tabs() {
+		$flags = self::all();
+		$tabs = array( 'features', 'messages', 'test', 'sms' );
+		if ( $flags['login'] || $flags['reset'] || $flags['two_factor'] ) {
+			$tabs[] = 'general';
+			$tabs[] = 'security';
+		}
+		if ( $flags['login'] ) {
+			$tabs = array_merge( $tabs, array( 'google', 'setup', 'install' ) );
+			if ( class_exists( 'WooCommerce' ) ) {
+				$tabs[] = 'woocommerce';
+			}
+		}
+		if ( self::queue_needed() && class_exists( 'WooCommerce' ) ) {
+			$tabs[] = 'sending';
+		}
+		return $tabs;
+	}
+
 	public static function current_tab() {
 		if ( self::current_module() ) {
 			return 'campaigns'; }

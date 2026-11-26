@@ -34,6 +34,22 @@
             }
             if (link) { link.href = url; link.hidden = !input.checked; }
         }
+		function updateNavigation(data) {
+			if (data.navigation) {
+				const sidebar = document.querySelector('.wrap.anar-admin .anar-admin__nav');
+				if (sidebar) { sidebar.innerHTML = data.navigation; document.dispatchEvent(new CustomEvent('anar:navigation-updated')); }
+			}
+			const submenu = document.querySelector('#toplevel_page_anar-login .wp-submenu');
+			if (!submenu || !Array.isArray(data.menu)) return;
+			data.menu.forEach(item => {
+				const links = [...submenu.querySelectorAll('a[href]')].filter(link => new URL(link.href, window.location.href).searchParams.get('page') === item.page);
+				if (!item.visible) { links.forEach(link => link.closest('li').remove()); return; }
+				if (links.length) return;
+				const entry = document.createElement('li');
+				const link = document.createElement('a'); link.href = item.url; link.textContent = item.label;
+				entry.append(link); submenu.append(entry);
+			});
+		}
         async function flush() {
             if (running) return;
             running = true;
@@ -64,10 +80,7 @@
 					confirmedUrl = body.data.url;
                     updateLink(input, body.data.url);
                     feedback(input, confirmed ? config.enabled : config.disabled);
-					if (body.data.navigation) {
-						const sidebar = document.querySelector('.wrap.anar-admin .anar-admin__nav');
-						if (sidebar) { sidebar.innerHTML = body.data.navigation; document.dispatchEvent(new CustomEvent('anar:navigation-updated')); }
-					}
+					updateNavigation(body.data);
                     document.dispatchEvent(new CustomEvent('anar:feature-saved', {detail:{form, input, enabled:confirmed}}));
                     // Keep cards in place while the user is changing several features.
                 } catch (error) {
@@ -75,9 +88,9 @@
 					// A lost response may still have committed. Read, never replay, that mutation.
 					if (!error.definite) {
 						try {
-							const check = new URLSearchParams({action:'anar_feature_state', nonce:config.nonce, key:input.name.slice(9,-1)});
+							const check = new URLSearchParams({action:'anar_feature_state', nonce:config.nonce, key:input.name.slice(9,-1), workspace:data.get('workspace')});
 							const {body} = await request(check, 10000);
-							if (body?.success && typeof body.data.enabled === 'boolean') { confirmed = body.data.enabled; confirmedUrl = body.data.url; reconciled = true; }
+							if (body?.success && typeof body.data.enabled === 'boolean') { confirmed = body.data.enabled; confirmedUrl = body.data.url; reconciled = true; updateNavigation(body.data); }
 						} catch (_) { /* Keep the last confirmed state and show the uncertainty. */ }
 					}
                     if (!queue.has(input)) input.checked = confirmed;
