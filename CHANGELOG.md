@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.15.4 - 2026-11-27
+
+- Remove the default WordPress form background, border, shadow and overflow clipping inside the opt-in Anar login theme. Keep the Anar card and native form spacing, and remove inherited core spacing from custom Anar forms.
+
 ## 1.15.3 - 2026-11-27
 
 - Extend the opt-in WordPress login theme to core password sign-in, recovery/reset forms, notices, navigation and the language chooser. Preserve WordPress form handling and configured Anar branding.
